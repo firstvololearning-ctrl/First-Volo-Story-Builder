@@ -1,20 +1,5 @@
 "use strict";
 
-/*
-  IMPORTANT:
-  This code expects your feeling files to be named:
-
-  feeling-01.png
-  feeling-02.png
-  ...
-  feeling-22.png
-
-  If your files are still named emotion-01.png, change:
-  prefix: "feeling"
-  to:
-  prefix: "emotion"
-*/
-
 const categories = {
   character: {
     title: "Character",
@@ -26,28 +11,10 @@ const categories = {
     prefix: "character",
     starterImage: "assets/categories/category-01.png",
     labels: [
-      "Explorer",
-      "Boy",
-      "Bear",
-      "Dragon",
-      "Robot",
-      "Princess",
-      "Monster",
-      "Goat",
-      "Firefighter",
-      "Dinosaur",
-      "Scientist",
-      "Girl",
-      "Adventurer",
-      "Cat",
-      "Dog",
-      "Superhero",
-      "Wolf",
-      "Wizard",
-      "Astronaut",
-      "Frog",
-      "Prince",
-      "Alien"
+      "Explorer", "Boy", "Bear", "Dragon", "Robot", "Princess", "Monster",
+      "Goat", "Firefighter", "Dinosaur", "Scientist", "Girl", "Adventurer",
+      "Cat", "Dog", "Superhero", "Wolf", "Wizard", "Astronaut", "Frog",
+      "Prince", "Alien"
     ]
   },
 
@@ -61,28 +28,10 @@ const categories = {
     prefix: "setting",
     starterImage: "assets/categories/category-02.png",
     labels: [
-      "Stadium",
-      "School",
-      "House",
-      "Tropical Island",
-      "Playground",
-      "Cave",
-      "Underwater Reef",
-      "Castle",
-      "Outer Space",
-      "Farm",
-      "Road",
-      "Campsite",
-      "Beach",
-      "Mountains",
-      "Snowy Cabin",
-      "Desert",
-      "Tree House",
-      "Airport",
-      "Waterfall",
-      "Ancient Ruins",
-      "City",
-      "Pyramid"
+      "Stadium", "School", "House", "Tropical Island", "Playground", "Cave",
+      "Underwater Reef", "Castle", "Outer Space", "Farm", "Road", "Campsite",
+      "Beach", "Mountains", "Snowy Cabin", "Desert", "Tree House", "Airport",
+      "Waterfall", "Ancient Ruins", "City", "Pyramid"
     ]
   },
 
@@ -95,96 +44,29 @@ const categories = {
     folder: "assets/problems",
     prefix: "problem",
     starterImage: "assets/categories/category-03.png",
-
     entries: [
-      {
-        label: "Alien Abduction",
-        phrase: "was abducted by aliens"
-      },
-      {
-        label: "Pirate Attack",
-        phrase: "was attacked by pirates"
-      },
-      {
-        label: "Message in a Bottle",
-        phrase: "found a mysterious message in a bottle"
-      },
-      {
-        label: "Volcanic Eruption",
-        phrase: "was caught near an erupting volcano"
-      },
-      {
-        label: "Pit",
-        phrase: "discovered a deep pit"
-      },
-      {
-        label: "Robber",
-        phrase: "encountered a robber"
-      },
-      {
-        label: "Broken Bridge",
-        phrase: "found a broken bridge blocking the way"
-      },
-      {
-        label: "Monster Attack",
-        phrase: "was attacked by a monster"
-      },
-      {
-        label: "Buried Treasure",
-        phrase: "discovered buried treasure"
-      },
-      {
-        label: "Storm",
-        phrase: "was caught in a powerful storm"
-      },
-      {
-        label: "Slip and Fall",
-        phrase: "slipped and fell"
-      },
-      {
-        label: "Broken Vase",
-        phrase: "found a broken vase"
-      },
-      {
-        label: "Curse",
-        phrase: "was placed under a mysterious curse"
-      },
-      {
-        label: "Stuck",
-        phrase: "became stuck"
-      },
-      {
-        label: "Lost Item",
-        phrase: "realized that an important item was missing"
-      },
-      {
-        label: "Trapped",
-        phrase: "became trapped in a closed space"
-      },
-      {
-        label: "Blizzard",
-        phrase: "was caught in a blizzard"
-      },
-      {
-        label: "Giant Wave",
-        phrase: "saw a giant wave approaching"
-      },
-      {
-        label: "Hungry",
-        phrase: "became very hungry"
-      },
-      {
-        label: "Explosion",
-        phrase: "heard a sudden explosion"
-      },
-      {
-        label: "Locked Door",
-        phrase: "found a locked door"
-      },
-      {
-        label: "Swapped Bodies",
-        phrase: "suddenly swapped bodies with someone"
-      }
+      { label: "Alien Abduction", phrase: "was abducted by aliens" },
+      { label: "Pirate Attack", phrase: "was attacked by pirates" },
+      { label: "Message in a Bottle", phrase: "found a mysterious message in a bottle" },
+      { label: "Volcanic Eruption", phrase: "was caught near an erupting volcano" },
+      { label: "Pit", phrase: "discovered a deep pit" },
+      { label: "Robber", phrase: "encountered a robber" },
+      { label: "Broken Bridge", phrase: "found a broken bridge blocking the way" },
+      { label: "Monster Attack", phrase: "was attacked by a monster" },
+      { label: "Buried Treasure", phrase: "discovered buried treasure" },
+      { label: "Storm", phrase: "was caught in a powerful storm" },
+      { label: "Slip and Fall", phrase: "slipped and fell" },
+      { label: "Broken Vase", phrase: "found a broken vase" },
+      { label: "Curse", phrase: "was placed under a mysterious curse" },
+      { label: "Stuck", phrase: "became stuck" },
+      { label: "Lost Item", phrase: "realized that an important item was missing" },
+      { label: "Trapped", phrase: "became trapped in a closed space" },
+      { label: "Blizzard", phrase: "was caught in a blizzard" },
+      { label: "Giant Wave", phrase: "saw a giant wave approaching" },
+      { label: "Hungry", phrase: "became very hungry" },
+      { label: "Explosion", phrase: "heard a sudden explosion" },
+      { label: "Locked Door", phrase: "found a locked door" },
+      { label: "Swapped Bodies", phrase: "suddenly swapped bodies with someone" }
     ]
   },
 
@@ -198,28 +80,10 @@ const categories = {
     prefix: "feeling",
     starterImage: "assets/categories/category-04.png",
     labels: [
-      "Angry",
-      "Sleepy",
-      "Surprised",
-      "Amazed",
-      "Excited",
-      "Loving",
-      "Annoyed",
-      "Sick",
-      "Embarrassed",
-      "Happy",
-      "Confused",
-      "Disgusted",
-      "Scared",
-      "Suspicious",
-      "Confident",
-      "Sad",
-      "Brave",
-      "Determined",
-      "Proud",
-      "Hopeful",
-      "Lonely",
-      "Relieved"
+      "Angry", "Sleepy", "Surprised", "Amazed", "Excited", "Loving",
+      "Annoyed", "Sick", "Embarrassed", "Happy", "Confused", "Disgusted",
+      "Scared", "Suspicious", "Confident", "Sad", "Brave", "Determined",
+      "Proud", "Hopeful", "Lonely", "Relieved"
     ]
   },
 
@@ -233,28 +97,10 @@ const categories = {
     prefix: "plan",
     starterImage: "assets/categories/category-05.png",
     labels: [
-      "Break Out",
-      "Build",
-      "Climb",
-      "Play Music",
-      "Run",
-      "Help",
-      "Fly",
-      "Read",
-      "Use Magic",
-      "Row a Boat",
-      "Read Map",
-      "Swim",
-      "Share Gift",
-      "Make a Phone Call",
-      "Fix",
-      "Hike",
-      "Hide",
-      "Experiment",
-      "Plant",
-      "Dig",
-      "Search",
-      "Wear a Disguise"
+      "Break Out", "Build", "Climb", "Play Music", "Run", "Help", "Fly",
+      "Read", "Use Magic", "Row a Boat", "Read Map", "Swim", "Share Gift",
+      "Make a Phone Call", "Fix", "Hike", "Hide", "Experiment", "Plant",
+      "Dig", "Search", "Wear a Disguise"
     ]
   },
 
@@ -268,28 +114,11 @@ const categories = {
     prefix: "item",
     starterImage: "assets/categories/category-06.png",
     labels: [
-      "Shield",
-      "Present",
-      "Crown",
-      "Camera",
-      "Rope",
-      "Umbrella",
-      "Key",
-      "Telescope",
-      "Flashlight",
-      "Book",
-      "Walkie-Talkie",
-      "Toolbox",
-      "Backpack",
-      "Binoculars",
-      "Duct Tape",
-      "Musical Instruments",
-      "Magic Wand",
-      "Compass",
-      "Magic Potion",
-      "Treasure Map",
-      "Magnifying Glass",
-      "Disguise"
+      "Shield", "Present", "Crown", "Camera", "Rope", "Umbrella", "Key",
+      "Telescope", "Flashlight", "Book", "Walkie-Talkie", "Toolbox",
+      "Backpack", "Binoculars", "Duct Tape", "Musical Instruments",
+      "Magic Wand", "Compass", "Magic Potion", "Treasure Map",
+      "Magnifying Glass", "Disguise"
     ]
   }
 };
@@ -303,109 +132,213 @@ const currentSelections = {
   item: null
 };
 
-function getCategoryLength(category) {
-  if (category.entries) {
-    return category.entries.length;
-  }
+const rollingCategories = new Set();
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  return category.labels.length;
+function getCategoryLength(category) {
+  return category.entries ? category.entries.length : category.labels.length;
 }
 
 function getEntry(category, index) {
-  if (category.entries) {
-    return category.entries[index];
-  }
-
-  return {
-    label: category.labels[index]
-  };
+  return category.entries
+    ? category.entries[index]
+    : { label: category.labels[index] };
 }
 
-function getRandomIndex(length) {
-  return Math.floor(Math.random() * length);
+function getRandomIndex(length, previousIndex = null) {
+  if (length <= 1) return 0;
+
+  let nextIndex = Math.floor(Math.random() * length);
+
+  while (nextIndex === previousIndex) {
+    nextIndex = Math.floor(Math.random() * length);
+  }
+
+  return nextIndex;
 }
 
 function makeImagePath(category, index) {
-  const imageNumber = index + 1;
-  const paddedNumber = String(imageNumber).padStart(2, "0");
-
+  const paddedNumber = String(index + 1).padStart(2, "0");
   return `${category.folder}/${category.prefix}-${paddedNumber}.png`;
 }
 
-function changeImage(image, newPath) {
-  image.classList.add("changing");
+function preloadImage(path) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
 
-  const testImage = new Image();
-
-  testImage.onload = () => {
-    window.setTimeout(() => {
-      image.src = newPath;
-      image.classList.remove("changing");
-    }, 180);
-  };
-
-  testImage.onerror = () => {
-    image.classList.remove("changing");
-    console.error(`Image not found: ${newPath}`);
-  };
-
-  testImage.src = newPath;
+    image.onload = () => resolve(path);
+    image.onerror = () => reject(new Error(`Image not found: ${path}`));
+    image.src = path;
+  });
 }
 
-function rollCategory(categoryName) {
+function sleep(milliseconds) {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, milliseconds);
+  });
+}
+
+function setStatus(message = "") {
+  const status = document.getElementById("rollStatus");
+
+  if (status) {
+    status.textContent = message;
+  }
+}
+
+function setRollingState(categoryName, isRolling) {
   const category = categories[categoryName];
+  const card = document.getElementById(category.cardId);
+  const button = card?.querySelector("button");
 
-  if (!category) {
-    console.error(`Unknown category: ${categoryName}`);
-    return;
+  card?.classList.toggle("is-rolling", isRolling);
+
+  if (button) {
+    button.disabled = isRolling;
+    button.setAttribute("aria-busy", String(isRolling));
   }
 
-  const image = document.getElementById(category.imageId);
-  const labelElement = document.getElementById(category.labelId);
-
-  if (!image || !labelElement) {
-    console.error(
-      `Missing image or label element for ${categoryName}.`
-    );
-    return;
+  if (isRolling) {
+    rollingCategories.add(categoryName);
+  } else {
+    rollingCategories.delete(categoryName);
   }
 
-  const randomIndex = getRandomIndex(
-    getCategoryLength(category)
-  );
-
-  const entry = getEntry(category, randomIndex);
-  const newPath = makeImagePath(category, randomIndex);
-
-  currentSelections[categoryName] = {
-    index: randomIndex,
-    label: entry.label,
-    phrase: entry.phrase || null,
-    imagePath: newPath
-  };
-
-  labelElement.textContent = entry.label;
-  changeImage(image, newPath);
-
-  updateAllSupports();
+  document.getElementById("rollAll").disabled = rollingCategories.size > 0;
+  document.getElementById("resetAll").disabled = rollingCategories.size > 0;
 }
 
 function isCategoryVisible(categoryName) {
   const category = categories[categoryName];
   const card = document.getElementById(category.cardId);
 
-  return Boolean(
-    card &&
-    !card.classList.contains("hidden-category")
+  return Boolean(card && !card.classList.contains("hidden-category"));
+}
+
+function applySelection(categoryName, index) {
+  const category = categories[categoryName];
+  const image = document.getElementById(category.imageId);
+  const labelElement = document.getElementById(category.labelId);
+  const entry = getEntry(category, index);
+  const imagePath = makeImagePath(category, index);
+
+  currentSelections[categoryName] = {
+    index,
+    label: entry.label,
+    phrase: entry.phrase || null,
+    imagePath
+  };
+
+  labelElement.textContent = entry.label;
+  image.src = imagePath;
+  image.alt = `${category.title}: ${entry.label}`;
+}
+
+async function animateCategory(categoryName, duration = 620) {
+  const category = categories[categoryName];
+  const image = document.getElementById(category.imageId);
+  const labelElement = document.getElementById(category.labelId);
+
+  const previousIndex = currentSelections[categoryName]?.index ?? null;
+  const finalIndex = getRandomIndex(
+    getCategoryLength(category),
+    previousIndex
+  );
+
+  const finalPath = makeImagePath(category, finalIndex);
+
+  setRollingState(categoryName, true);
+  image.classList.add("changing");
+
+  const frameDelay = reducedMotion ? duration : 62;
+  const startTime = performance.now();
+
+  try {
+    await preloadImage(finalPath);
+
+    while (performance.now() - startTime < duration) {
+      const previewIndex = getRandomIndex(getCategoryLength(category));
+      const previewEntry = getEntry(category, previewIndex);
+
+      image.src = makeImagePath(category, previewIndex);
+      image.alt = `Rolling ${category.title.toLowerCase()}`;
+      labelElement.textContent = previewEntry.label;
+
+      await sleep(frameDelay);
+    }
+
+    applySelection(categoryName, finalIndex);
+    updateAllSupports();
+  } catch (error) {
+    console.error(error);
+    setStatus(
+      `Could not load one of the ${category.title.toLowerCase()} images.`
+    );
+  } finally {
+    image.classList.remove("changing");
+    setRollingState(categoryName, false);
+  }
+}
+
+async function rollCategory(categoryName) {
+  if (
+    !categories[categoryName] ||
+    rollingCategories.has(categoryName)
+  ) {
+    return;
+  }
+
+  await animateCategory(
+    categoryName,
+    reducedMotion ? 80 : 650
   );
 }
 
-function rollAllCategories() {
-  Object.keys(categories).forEach((categoryName) => {
-    if (isCategoryVisible(categoryName)) {
-      rollCategory(categoryName);
+async function rollAllCategories() {
+  const visibleCategories = Object.keys(categories).filter(
+    isCategoryVisible
+  );
+
+  if (!visibleCategories.length) {
+    setStatus("Choose at least one story element first.");
+    return;
+  }
+
+  const rollAllButton = document.getElementById("rollAll");
+
+  rollAllButton.disabled = true;
+  setStatus("Rolling your story...");
+
+  for (let index = 0; index < visibleCategories.length; index += 1) {
+    const categoryName = visibleCategories[index];
+    const category = categories[categoryName];
+
+    setStatus(`Rolling ${category.title.toLowerCase()}...`);
+
+    await animateCategory(
+      categoryName,
+      reducedMotion ? 80 : 420 + index * 25
+    );
+
+    if (!reducedMotion) {
+      await sleep(55);
     }
-  });
+  }
+
+  setStatus("✨ Your story is ready!");
+
+  if (!reducedMotion) {
+    await sleep(550);
+
+    document.getElementById("writingPanel").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  window.setTimeout(() => {
+    setStatus("");
+  }, 2400);
 }
 
 function resetAllCategories() {
@@ -417,7 +350,9 @@ function resetAllCategories() {
       currentSelections[categoryName] = null;
 
       if (image) {
-        changeImage(image, category.starterImage);
+        image.src = category.starterImage;
+        image.alt = `Roll to choose a ${category.title.toLowerCase()}`;
+        image.classList.remove("changing");
       }
 
       if (label) {
@@ -429,6 +364,7 @@ function resetAllCategories() {
   document.getElementById("storyTitle").value = "";
   document.getElementById("storyWriting").value = "";
 
+  setStatus("");
   updateAllSupports();
 }
 
@@ -551,6 +487,7 @@ function makeArticlePhrase(word) {
 
   const lowercaseWord = word.toLowerCase();
   const firstLetter = lowercaseWord.charAt(0);
+
   const article = "aeiou".includes(firstLetter)
     ? "an"
     : "a";
@@ -693,19 +630,12 @@ function updateSentenceSupportPanel() {
 
   panel.classList.remove("hidden-support");
 
-  let supports = [];
-
-  if (mode === "open") {
-    supports = getOpenPrompts();
-  }
-
-  if (mode === "basic") {
-    supports = getBasicStarters();
-  }
-
-  if (mode === "generated") {
-    supports = getGeneratedStarters();
-  }
+  const supports =
+    mode === "open"
+      ? getOpenPrompts()
+      : mode === "basic"
+        ? getBasicStarters()
+        : getGeneratedStarters();
 
   content.innerHTML = `
     <ul class="sentence-support-list">
@@ -732,20 +662,12 @@ function updateTeacherMode() {
     return;
   }
 
-  const labelsToggle =
-    document.getElementById("toggleLabels");
+  document.getElementById("toggleLabels").checked = true;
+  document.getElementById("toggleVocabulary").checked = true;
 
-  const vocabularyToggle =
-    document.getElementById("toggleVocabulary");
-
-  const generatedRadio =
-    document.querySelector(
-      'input[name="sentenceSupport"][value="generated"]'
-    );
-
-  labelsToggle.checked = true;
-  vocabularyToggle.checked = true;
-  generatedRadio.checked = true;
+  document.querySelector(
+    'input[name="sentenceSupport"][value="generated"]'
+  ).checked = true;
 
   updateAllSupports();
 }
@@ -760,10 +682,9 @@ function buildPrintPlanner() {
   const title =
     document.getElementById("storyTitle").value.trim();
 
-  const printTitle =
-    document.getElementById("printStoryTitle");
-
-  printTitle.textContent =
+  document.getElementById(
+    "printStoryTitle"
+  ).textContent =
     title || "________________________________________";
 
   const printImageGrid =
@@ -792,7 +713,8 @@ function buildPrintPlanner() {
       const labelMarkup = showLabels
         ? `
           <div class="print-image-label">
-            ${category.title}: ${selection.label}
+            <strong>${selection.label}</strong>
+            <span>${category.title}</span>
           </div>
         `
         : "";
@@ -841,6 +763,7 @@ function buildPrintPlanner() {
 
     printVocabulary.innerHTML = `
       <h2>Story Vocabulary</h2>
+
       <div class="print-vocabulary-grid">
         ${vocabularyEntries.join("")}
       </div>
@@ -854,45 +777,60 @@ function buildPrintPlanner() {
 
   const mode = getSentenceSupportMode();
 
-  let printSupports = [];
+  const printSupports =
+    mode === "open"
+      ? getOpenPrompts()
+      : mode === "basic"
+        ? getBasicStarters()
+        : mode === "generated"
+          ? getGeneratedStarters()
+          : [];
 
-  if (mode === "open") {
-    printSupports = getOpenPrompts();
-  }
+  printSentenceSupport.innerHTML =
+    mode === "off"
+      ? ""
+      : `
+        <h2>Sentence Support</h2>
 
-  if (mode === "basic") {
-    printSupports = getBasicStarters();
-  }
-
-  if (mode === "generated") {
-    printSupports = getGeneratedStarters();
-  }
-
-  if (mode === "off") {
-    printSentenceSupport.innerHTML = "";
-  } else {
-    printSentenceSupport.innerHTML = `
-      <h2>Sentence Support</h2>
-      ${printSupports
-        .map(
-          (support) =>
-            `<div class="print-support-line">${support}</div>`
-        )
-        .join("")}
-    `;
-  }
-
-  const writtenStory =
-    document.getElementById("storyWriting").value.trim();
+        ${printSupports
+          .map(
+            (support) =>
+              `<div class="print-support-line">${support}</div>`
+          )
+          .join("")}
+      `;
 
   document.getElementById(
     "typedStoryPrint"
-  ).textContent = writtenStory;
+  ).textContent =
+    document.getElementById("storyWriting").value.trim();
+
+  const supportsPage =
+    document.getElementById("printSupportsPage");
+
+  const hasVocabulary =
+    Boolean(printVocabulary.textContent.trim());
+
+  const hasSentenceSupport =
+    Boolean(printSentenceSupport.textContent.trim());
+
+  supportsPage.classList.toggle(
+    "has-content",
+    hasVocabulary || hasSentenceSupport
+  );
 }
 
 function printPlanner() {
   buildPrintPlanner();
   window.print();
+}
+
+function preloadStarterAssets() {
+  Object.values(categories).forEach((category) => {
+    preloadImage(
+      makeImagePath(category, 0)
+    ).catch(() => {});
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -941,5 +879,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("savePdf")
     .addEventListener("click", printPlanner);
 
+  preloadStarterAssets();
   updateAllSupports();
 });

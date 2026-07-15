@@ -2,11 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>First Volo Story Builder</title>
 
@@ -20,401 +16,360 @@
 </head>
 
 <body>
+  <div class="page-shell">
+    <div class="app-content">
 
-  <div class="app-content">
+      <header class="page-header">
+        <img
+          src="assets/logo/logo.png"
+          alt="First Volo Learning"
+          class="site-logo"
+        >
 
-    <header class="page-header">
+        <p class="eyebrow">First Volo Learning</p>
+        <h1>Story Builder</h1>
 
-      <img
-        src="assets/logo/logo.png"
-        alt="First Volo Learning"
-        class="site-logo"
-      >
+        <p class="tagline">
+          Roll the story elements, make connections, and bring a new story to life.
+        </p>
 
-      <h1>First Volo Story Builder</h1>
+        <a
+          class="website-link"
+          href="https://firstvololearning.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          firstvololearning.com
+        </a>
 
-      <p class="tagline">
-        Generate endless story ideas and bring them to life.
-      </p>
+        <section class="controls-panel" aria-label="Story builder controls">
 
-      <a
-        class="website-link"
-        href="https://firstvololearning.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        firstvololearning.com
-      </a>
+          <div class="primary-actions">
+            <button
+              class="create-story-button"
+              id="rollAll"
+              type="button"
+            >
+              <span class="main">🎲 Create a Story</span>
+              <span class="sub">Roll All Cards</span>
+            </button>
 
-      <section class="controls-panel">
+            <button
+              class="reset-button"
+              id="resetAll"
+              type="button"
+            >
+              <span aria-hidden="true">↺</span>
+              Reset
+            </button>
 
-        <div class="title-control">
-          <label for="storyTitle">Story Title</label>
+            <button
+              class="print-button"
+              id="printPlanner"
+              type="button"
+            >
+              <span aria-hidden="true">🖨</span>
+              Print Planner
+            </button>
 
-          <input
-            type="text"
-            id="storyTitle"
-            placeholder="Type your story title..."
-            maxlength="100"
-          >
-        </div>
-
-        <div class="control-section">
-          <h3>Display Options</h3>
-
-          <div class="option-row">
-            <label class="toggle-option">
-              <input type="checkbox" id="toggleLabels">
-              Show image labels
-            </label>
-
-            <label class="toggle-option">
-              <input type="checkbox" id="toggleVocabulary">
-              Show vocabulary support
-            </label>
-
-            <label class="toggle-option teacher-toggle">
-              <input type="checkbox" id="teacherMode">
-              Teacher Mode
-            </label>
+            <button
+              class="pdf-button"
+              id="savePdf"
+              type="button"
+            >
+              <span aria-hidden="true">📄</span>
+              Save as PDF
+            </button>
           </div>
-        </div>
 
-        <div class="control-section">
-          <h3>Sentence Support</h3>
+          <div class="title-control">
+            <label for="storyTitle">Story Title</label>
 
-          <div class="radio-options">
-            <label>
-              <input
-                type="radio"
-                name="sentenceSupport"
-                value="off"
-                checked
-              >
-              Off
-            </label>
-
-            <label>
-              <input
-                type="radio"
-                name="sentenceSupport"
-                value="open"
-              >
-              Open Prompts
-            </label>
-
-            <label>
-              <input
-                type="radio"
-                name="sentenceSupport"
-                value="basic"
-              >
-              Sentence Starters
-            </label>
-
-            <label>
-              <input
-                type="radio"
-                name="sentenceSupport"
-                value="generated"
-              >
-              Generated Starters
-            </label>
+            <input
+              type="text"
+              id="storyTitle"
+              placeholder="Type your story title..."
+              maxlength="100"
+            >
           </div>
-        </div>
 
-        <div class="control-section">
-          <h3>Story Elements</h3>
+          <div class="settings-grid">
+            <details>
+              <summary>Display Options</summary>
 
-          <div class="category-options">
-            <label>
-              <input type="checkbox" id="showCharacter" checked>
-              Character
-            </label>
+              <div class="settings-content">
+                <label class="setting-option">
+                  <input type="checkbox" id="toggleLabels">
+                  <span>Show image labels</span>
+                </label>
 
-            <label>
-              <input type="checkbox" id="showSetting" checked>
-              Setting
-            </label>
+                <label class="setting-option">
+                  <input type="checkbox" id="toggleVocabulary">
+                  <span>Show vocabulary support</span>
+                </label>
 
-            <label>
-              <input type="checkbox" id="showProblem" checked>
-              Problem
-            </label>
+                <label class="setting-option teacher-toggle">
+                  <input type="checkbox" id="teacherMode">
+                  <span>Teacher Mode</span>
+                </label>
+              </div>
+            </details>
 
-            <label>
-              <input type="checkbox" id="showFeeling" checked>
-              Feeling
-            </label>
+            <details>
+              <summary>Sentence Support</summary>
 
-            <label>
-              <input type="checkbox" id="showPlan" checked>
-              Plan
-            </label>
+              <div class="settings-content">
+                <label class="setting-option">
+                  <input
+                    type="radio"
+                    name="sentenceSupport"
+                    value="off"
+                    checked
+                  >
+                  <span>Off</span>
+                </label>
 
-            <label>
-              <input type="checkbox" id="showItem" checked>
-              Item
-            </label>
+                <label class="setting-option">
+                  <input
+                    type="radio"
+                    name="sentenceSupport"
+                    value="open"
+                  >
+                  <span>Open Prompts</span>
+                </label>
 
-            <label>
-              <input type="checkbox" id="showResolution" checked>
-              Resolution
-            </label>
+                <label class="setting-option">
+                  <input
+                    type="radio"
+                    name="sentenceSupport"
+                    value="basic"
+                  >
+                  <span>Sentence Starters</span>
+                </label>
+
+                <label class="setting-option">
+                  <input
+                    type="radio"
+                    name="sentenceSupport"
+                    value="generated"
+                  >
+                  <span>Generated Starters</span>
+                </label>
+              </div>
+            </details>
+
+            <details>
+              <summary>Story Elements</summary>
+
+              <div class="settings-content">
+                <label class="setting-option"><input type="checkbox" id="showCharacter" checked><span>Character</span></label>
+                <label class="setting-option"><input type="checkbox" id="showSetting" checked><span>Setting</span></label>
+                <label class="setting-option"><input type="checkbox" id="showProblem" checked><span>Problem</span></label>
+                <label class="setting-option"><input type="checkbox" id="showFeeling" checked><span>Feeling</span></label>
+                <label class="setting-option"><input type="checkbox" id="showPlan" checked><span>Plan</span></label>
+                <label class="setting-option"><input type="checkbox" id="showItem" checked><span>Item</span></label>
+                <label class="setting-option"><input type="checkbox" id="showResolution" checked><span>Resolution</span></label>
+              </div>
+            </details>
           </div>
-        </div>
 
-        <div class="top-buttons">
-          <button
-            class="roll-all-button"
-            id="rollAll"
-            type="button"
-          >
-            🎲 Roll All
+          <p
+            class="roll-status"
+            id="rollStatus"
+            role="status"
+            aria-live="polite"
+          ></p>
+        </section>
+      </header>
+
+      <main class="story-grid" id="storyGrid">
+
+        <article class="card" id="characterCard">
+          <div class="card-heading">
+            <span class="step-number">1</span>
+            <h2>Character</h2>
+          </div>
+
+          <div class="image-frame">
+            <img
+              id="characterImage"
+              src="assets/categories/category-01.png"
+              alt="Roll to choose a character"
+            >
+            <div class="loading-indicator" aria-hidden="true"></div>
+          </div>
+
+          <div class="image-label" id="characterLabel"></div>
+
+          <button type="button" onclick="rollCategory('character')">
+            ↻ Roll
           </button>
+        </article>
 
-          <button
-            class="reset-button"
-            id="resetAll"
-            type="button"
-          >
-            ↺ Reset
+        <article class="card" id="settingCard">
+          <div class="card-heading">
+            <span class="step-number">2</span>
+            <h2>Setting</h2>
+          </div>
+
+          <div class="image-frame">
+            <img
+              id="settingImage"
+              src="assets/categories/category-02.png"
+              alt="Roll to choose a setting"
+            >
+            <div class="loading-indicator" aria-hidden="true"></div>
+          </div>
+
+          <div class="image-label" id="settingLabel"></div>
+
+          <button type="button" onclick="rollCategory('setting')">
+            ↻ Roll
           </button>
+        </article>
 
-          <button
-            class="print-button"
-            id="printPlanner"
-            type="button"
-          >
-            🖨 Print Story Planner
+        <article class="card" id="problemCard">
+          <div class="card-heading">
+            <span class="step-number">3</span>
+            <h2>Problem</h2>
+          </div>
+
+          <div class="image-frame">
+            <img
+              id="problemImage"
+              src="assets/categories/category-03.png"
+              alt="Roll to choose a problem"
+            >
+            <div class="loading-indicator" aria-hidden="true"></div>
+          </div>
+
+          <div class="image-label" id="problemLabel"></div>
+
+          <button type="button" onclick="rollCategory('problem')">
+            ↻ Roll
           </button>
+        </article>
 
-          <button
-            class="pdf-button"
-            id="savePdf"
-            type="button"
-          >
-            📄 Save as PDF
+        <article class="card" id="feelingCard">
+          <div class="card-heading">
+            <span class="step-number">4</span>
+            <h2>Feeling</h2>
+          </div>
+
+          <div class="image-frame">
+            <img
+              id="feelingImage"
+              src="assets/categories/category-04.png"
+              alt="Roll to choose a feeling"
+            >
+            <div class="loading-indicator" aria-hidden="true"></div>
+          </div>
+
+          <div class="image-label" id="feelingLabel"></div>
+
+          <button type="button" onclick="rollCategory('feeling')">
+            ↻ Roll
           </button>
-        </div>
+        </article>
 
+        <article class="card" id="planCard">
+          <div class="card-heading">
+            <span class="step-number">5</span>
+            <h2>Plan</h2>
+          </div>
+
+          <div class="image-frame">
+            <img
+              id="planImage"
+              src="assets/categories/category-05.png"
+              alt="Roll to choose a plan"
+            >
+            <div class="loading-indicator" aria-hidden="true"></div>
+          </div>
+
+          <div class="image-label" id="planLabel"></div>
+
+          <button type="button" onclick="rollCategory('plan')">
+            ↻ Roll
+          </button>
+        </article>
+
+        <article class="card" id="itemCard">
+          <div class="card-heading">
+            <span class="step-number">6</span>
+            <h2>Item</h2>
+          </div>
+
+          <div class="image-frame">
+            <img
+              id="itemImage"
+              src="assets/categories/category-06.png"
+              alt="Roll to choose an item"
+            >
+            <div class="loading-indicator" aria-hidden="true"></div>
+          </div>
+
+          <div class="image-label" id="itemLabel"></div>
+
+          <button type="button" onclick="rollCategory('item')">
+            ↻ Roll
+          </button>
+        </article>
+
+        <article class="card resolution-card" id="resolutionCard">
+          <div class="card-heading">
+            <span class="step-number">7</span>
+            <h2>Resolution</h2>
+          </div>
+
+          <div class="image-frame resolution-frame">
+            <img
+              id="resolutionImage"
+              src="assets/categories/category-07.png"
+              alt="Resolution"
+            >
+          </div>
+
+          <p class="resolution-prompt">
+            How will your story end?
+          </p>
+        </article>
+
+      </main>
+
+      <section class="writing-panel" id="writingPanel">
+        <h2>Story Writing Area</h2>
+
+        <textarea
+          id="storyWriting"
+          placeholder="Write your story here..."
+        ></textarea>
       </section>
-    </header>
 
-    <main class="story-grid">
+      <section class="support-panel hidden-support" id="sentenceSupportPanel">
+        <h2>Sentence Support</h2>
+        <div id="sentenceSupportContent"></div>
+      </section>
 
-      <article class="card" id="characterCard">
-        <h2>Character</h2>
+      <section class="support-panel hidden-support" id="vocabularyPanel">
+        <h2>Story Vocabulary</h2>
+        <div class="vocabulary-grid" id="vocabularyList"></div>
+      </section>
 
-        <div class="image-frame">
-          <img
-            id="characterImage"
-            src="assets/categories/category-01.png"
-            alt="Roll to choose a character"
-          >
-        </div>
+      <section class="support-panel hidden-support teacher-prompts" id="teacherPromptPanel">
+        <h2>Instructional Prompts</h2>
 
-        <div
-          class="image-label"
-          id="characterLabel"
-        ></div>
+        <ul>
+          <li>What details in the pictures helped you create your story?</li>
+          <li>Why might the character feel this way?</li>
+          <li>How does the plan address the problem?</li>
+          <li>How could the item help the character?</li>
+          <li>What might happen if the plan does not work?</li>
+          <li>How will the character’s actions lead to the resolution?</li>
+        </ul>
+      </section>
 
-        <button
-          type="button"
-          onclick="rollCategory('character')"
-        >
-          🎲 Roll Character
-        </button>
-      </article>
-
-      <article class="card" id="settingCard">
-        <h2>Setting</h2>
-
-        <div class="image-frame">
-          <img
-            id="settingImage"
-            src="assets/categories/category-02.png"
-            alt="Roll to choose a setting"
-          >
-        </div>
-
-        <div
-          class="image-label"
-          id="settingLabel"
-        ></div>
-
-        <button
-          type="button"
-          onclick="rollCategory('setting')"
-        >
-          🎲 Roll Setting
-        </button>
-      </article>
-
-      <article class="card" id="problemCard">
-        <h2>Problem</h2>
-
-        <div class="image-frame">
-          <img
-            id="problemImage"
-            src="assets/categories/category-03.png"
-            alt="Roll to choose a problem"
-          >
-        </div>
-
-        <div
-          class="image-label"
-          id="problemLabel"
-        ></div>
-
-        <button
-          type="button"
-          onclick="rollCategory('problem')"
-        >
-          🎲 Roll Problem
-        </button>
-      </article>
-
-      <article class="card" id="feelingCard">
-        <h2>Feeling</h2>
-
-        <div class="image-frame">
-          <img
-            id="feelingImage"
-            src="assets/categories/category-04.png"
-            alt="Roll to choose a feeling"
-          >
-        </div>
-
-        <div
-          class="image-label"
-          id="feelingLabel"
-        ></div>
-
-        <button
-          type="button"
-          onclick="rollCategory('feeling')"
-        >
-          🎲 Roll Feeling
-        </button>
-      </article>
-
-      <article class="card" id="planCard">
-        <h2>Plan</h2>
-
-        <div class="image-frame">
-          <img
-            id="planImage"
-            src="assets/categories/category-05.png"
-            alt="Roll to choose a plan"
-          >
-        </div>
-
-        <div
-          class="image-label"
-          id="planLabel"
-        ></div>
-
-        <button
-          type="button"
-          onclick="rollCategory('plan')"
-        >
-          🎲 Roll Plan
-        </button>
-      </article>
-
-      <article class="card" id="itemCard">
-        <h2>Item</h2>
-
-        <div class="image-frame">
-          <img
-            id="itemImage"
-            src="assets/categories/category-06.png"
-            alt="Roll to choose an item"
-          >
-        </div>
-
-        <div
-          class="image-label"
-          id="itemLabel"
-        ></div>
-
-        <button
-          type="button"
-          onclick="rollCategory('item')"
-        >
-          🎲 Roll Item
-        </button>
-      </article>
-
-      <article
-        class="card resolution-card"
-        id="resolutionCard"
-      >
-        <h2>Resolution</h2>
-
-        <div class="image-frame">
-          <img
-            id="resolutionImage"
-            src="assets/categories/category-07.png"
-            alt="Resolution"
-          >
-        </div>
-
-        <div class="resolution-message">
-          <strong>It’s up to you!</strong>
-          <span>How does the story end?</span>
-        </div>
-      </article>
-
-    </main>
-
-    <section
-      class="support-panel hidden-support"
-      id="vocabularyPanel"
-    >
-      <h2>Story Vocabulary</h2>
-
-      <div
-        class="vocabulary-grid"
-        id="vocabularyList"
-      ></div>
-    </section>
-
-    <section
-      class="support-panel hidden-support"
-      id="sentenceSupportPanel"
-    >
-      <h2>Sentence Support</h2>
-
-      <div id="sentenceSupportContent"></div>
-    </section>
-
-    <section
-      class="support-panel hidden-support teacher-prompts"
-      id="teacherPromptPanel"
-    >
-      <h2>Instructional Prompts</h2>
-
-      <ul>
-        <li>What details in the pictures helped you create your story?</li>
-        <li>Why might the character feel this way?</li>
-        <li>How does the plan address the problem?</li>
-        <li>How could the item help the character?</li>
-        <li>What might happen if the plan does not work?</li>
-        <li>How will the character’s actions lead to the resolution?</li>
-      </ul>
-    </section>
-
-    <section class="writing-panel">
-      <h2>Story Writing Area</h2>
-
-      <textarea
-        id="storyWriting"
-        placeholder="Write your story here..."
-      ></textarea>
-    </section>
-
+    </div>
   </div>
 
   <section
@@ -423,7 +378,8 @@
     aria-hidden="true"
   >
     <header class="print-header">
-      <h1>First Volo Story Builder</h1>
+      <h1>Story Map</h1>
+      <p class="print-brand">First Volo Story Builder</p>
 
       <div class="print-title">
         <strong>Story Title:</strong>
@@ -436,45 +392,83 @@
       id="printImageGrid"
     ></div>
 
-    <div
-      class="print-vocabulary"
-      id="printVocabulary"
-    ></div>
+    <section class="graphic-organizer">
+      <div class="organizer-row">
+        <div class="organizer-prompt">
+          <h2>Character</h2>
+          <p>Who is the main character?</p>
+          <div class="organizer-lines"></div>
+        </div>
 
-    <div
-      class="print-sentence-support"
-      id="printSentenceSupport"
-    ></div>
+        <div class="organizer-prompt">
+          <h2>Setting</h2>
+          <p>Where does the story take place?</p>
+          <div class="organizer-lines"></div>
+        </div>
+      </div>
 
-    <div class="planner-section">
-      <h2>Beginning</h2>
-      <div class="writing-lines"></div>
-    </div>
+      <div class="organizer-row">
+        <div class="organizer-prompt">
+          <h2>Problem</h2>
+          <p>What problem does the character face?</p>
+          <div class="organizer-lines"></div>
+        </div>
 
-    <div class="planner-section">
-      <h2>Problem</h2>
-      <div class="writing-lines"></div>
-    </div>
+        <div class="organizer-prompt">
+          <h2>Feeling</h2>
+          <p>How does the character feel?</p>
+          <div class="organizer-lines"></div>
+        </div>
+      </div>
 
-    <div class="planner-section">
-      <h2>Feeling</h2>
-      <div class="writing-lines"></div>
-    </div>
+      <div class="organizer-row">
+        <div class="organizer-prompt">
+          <h2>Plan</h2>
+          <p>What will the character do?</p>
+          <div class="organizer-lines"></div>
+        </div>
 
-    <div class="planner-section">
-      <h2>Plan</h2>
-      <div class="writing-lines"></div>
-    </div>
+        <div class="organizer-prompt">
+          <h2>Item</h2>
+          <p>How could this item help?</p>
+          <div class="organizer-lines"></div>
+        </div>
+      </div>
 
-    <div class="planner-section">
-      <h2>Resolution</h2>
-      <div class="writing-lines"></div>
-    </div>
+      <div class="organizer-prompt organizer-ending organizer-resolution">
+        <h2>Resolution</h2>
+        <p>How does the story end?</p>
+        <div class="organizer-lines organizer-lines-large"></div>
+      </div>
+    </section>
+
+    <section class="print-supports-page" id="printSupportsPage">
+      <h1>Story Supports</h1>
+
+      <section
+        class="print-vocabulary"
+        id="printVocabulary"
+      ></section>
+
+      <section
+        class="print-sentence-support"
+        id="printSentenceSupport"
+      ></section>
+
+      <section class="print-writing-paper">
+        <h2>Notes or Draft</h2>
+        <div class="print-writing-lines"></div>
+      </section>
+    </section>
 
     <div
       class="typed-story-print"
       id="typedStoryPrint"
     ></div>
+
+    <footer class="print-footer">
+      First Volo Learning • firstvololearning.com
+    </footer>
   </section>
 
   <script src="script.js"></script>
