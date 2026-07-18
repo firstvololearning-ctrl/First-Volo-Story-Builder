@@ -646,19 +646,19 @@ function updateSentenceSupportPanel() {
   `;
 }
 
-function updateTeacherMode() {
-  const isTeacherMode =
-    document.getElementById("teacherMode").checked;
+function updateEducatorMode() {
+  const isEducatorMode =
+    document.getElementById("educatorMode").checked;
 
-  const teacherPanel =
-    document.getElementById("teacherPromptPanel");
+  const educatorPanel =
+    document.getElementById("educatorPromptPanel");
 
-  teacherPanel.classList.toggle(
+  educatorPanel.classList.toggle(
     "hidden-support",
-    !isTeacherMode
+    !isEducatorMode
   );
 
-  if (!isTeacherMode) {
+  if (!isEducatorMode) {
     return;
   }
 
@@ -851,8 +851,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("change", updateVocabularyPanel);
 
   document
-    .getElementById("teacherMode")
-    .addEventListener("change", updateTeacherMode);
+    .getElementById("educatorMode")
+    .addEventListener("change", updateEducatorMode);
 
   document
     .querySelectorAll(
@@ -1067,13 +1067,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (mode === "choice" && selectedChallenges.length !== 1) {
       challengeError.textContent =
-        "Teacher Choice requires exactly one checked challenge.";
+        "Educator Choice requires exactly one checked challenge.";
       return;
     }
 
     if (tierTwoWordIsMissing(selectedChallenges)) {
       challengeError.textContent =
-        "Please type the teacher-assigned Tier 2 word.";
+        "Please type the educator-assigned Tier 2 word.";
       return;
     }
 

@@ -250,7 +250,7 @@ button:disabled {
   cursor: pointer;
 }
 
-.teacher-toggle {
+.educator-toggle {
   color: #714900;
   background: #fff9ed;
   border-color: #efd7a8;
@@ -420,8 +420,8 @@ input[type="radio"] {
 .card > button {
   align-self: center;
   margin-top: auto;
-  min-height: 38px;
-  padding: 8px 15px;
+  min-height: 34px;
+  padding: 6px 12px;
 }
 
 .resolution-card {
@@ -503,13 +503,13 @@ input[type="radio"] {
   text-align: left;
 }
 
-.teacher-prompts ul {
+.educator-prompts ul {
   margin: 0;
   padding-left: 24px;
   text-align: left;
 }
 
-.teacher-prompts li {
+.educator-prompts li {
   margin: 10px 0;
   line-height: 1.45;
 }
