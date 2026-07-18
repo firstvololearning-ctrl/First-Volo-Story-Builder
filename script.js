@@ -882,3 +882,269 @@ document.addEventListener("DOMContentLoaded", () => {
   preloadStarterAssets();
   updateAllSupports();
 });
+/* =========================================================
+   STORY CHALLENGE
+   Replace the previous Story Challenge JavaScript with this.
+   Paste this entire section at the BOTTOM of script.js.
+========================================================= */
+
+(function () {
+  const challengeModeInputs = document.querySelectorAll(
+    'input[name="challengeMode"]'
+  );
+  const challengeOptions = document.getElementById("challengeOptions");
+  const mysteryChallengeSection = document.getElementById(
+    "mysteryChallengeSection"
+  );
+  const revealChallengeButton = document.getElementById(
+    "revealChallengeButton"
+  );
+  const challengeError = document.getElementById("challengeError");
+  const challengeCardScene = document.getElementById("challengeCardScene");
+  const challengeCard = document.getElementById("challengeCard");
+  const challengeConfetti = document.getElementById("challengeConfetti");
+  const revealedCategory = document.getElementById("revealedCategory");
+  const revealedChallengeText = document.getElementById(
+    "revealedChallengeText"
+  );
+  const tierTwoWordInput = document.getElementById("tierTwoWord");
+  const rollAllButton = document.getElementById("rollAll");
+  const resetAllButton = document.getElementById("resetAll");
+
+  if (
+    challengeModeInputs.length === 0 ||
+    !challengeOptions ||
+    !mysteryChallengeSection ||
+    !revealChallengeButton ||
+    !challengeError ||
+    !challengeCardScene ||
+    !challengeCard ||
+    !revealedCategory ||
+    !revealedChallengeText
+  ) {
+    console.warn(
+      "Story Challenge could not start because some HTML elements are missing."
+    );
+    return;
+  }
+
+  function getChallengeMode() {
+    const selectedMode = document.querySelector(
+      'input[name="challengeMode"]:checked'
+    );
+    return selectedMode ? selectedMode.value : "none";
+  }
+
+  function clearConfetti() {
+    if (challengeConfetti) {
+      challengeConfetti.replaceChildren();
+    }
+  }
+
+  function resetChallengeReveal() {
+    challengeCard.classList.remove("is-flipped");
+    challengeCardScene.hidden = true;
+    challengeError.textContent = "";
+    revealedCategory.textContent = "Mystery Challenge";
+    revealedChallengeText.textContent = "";
+    clearConfetti();
+  }
+
+  function updateChallengeDisplay() {
+    const mode = getChallengeMode();
+    resetChallengeReveal();
+
+    const challengeIsOn = mode !== "none";
+    challengeOptions.hidden = !challengeIsOn;
+    mysteryChallengeSection.hidden = !challengeIsOn;
+
+    if (mode === "choice") {
+      challengeError.textContent =
+        "Choose one challenge for every student.";
+    } else if (mode === "pool") {
+      challengeError.textContent =
+        "Choose one or more challenges for the random pool.";
+    }
+  }
+
+  function getSelectedChallenges() {
+    const checkedBoxes = document.querySelectorAll(
+      ".challenge-checkbox:checked"
+    );
+
+    return Array.from(checkedBoxes).map(function (checkbox) {
+      let challengeText = checkbox.dataset.text || "";
+      const category =
+        checkbox.dataset.category || "Mystery Challenge";
+
+      if (checkbox.id === "tierTwoCheckbox") {
+        const word = tierTwoWordInput
+          ? tierTwoWordInput.value.trim()
+          : "";
+
+        if (word) {
+          challengeText = 'Use the word "' + word + '" in your story.';
+        }
+      }
+
+      return {
+        category: category,
+        text: challengeText,
+        id: checkbox.id
+      };
+    });
+  }
+
+  function tierTwoWordIsMissing(challenges) {
+    const tierTwoSelected = challenges.some(function (challenge) {
+      return challenge.id === "tierTwoCheckbox";
+    });
+
+    const word = tierTwoWordInput
+      ? tierTwoWordInput.value.trim()
+      : "";
+
+    return tierTwoSelected && !word;
+  }
+
+  function chooseRandomChallenge(challenges) {
+    const index = Math.floor(Math.random() * challenges.length);
+    return challenges[index];
+  }
+
+  function launchConfetti() {
+    if (!challengeConfetti) {
+      return;
+    }
+
+    clearConfetti();
+
+    const pieceCount = 34;
+
+    for (let index = 0; index < pieceCount; index += 1) {
+      const piece = document.createElement("span");
+      piece.className = "confetti-piece";
+
+      const horizontalStart = 42 + Math.random() * 16;
+      const horizontalTravel = -150 + Math.random() * 300;
+      const verticalTravel = 120 + Math.random() * 150;
+      const rotation = 360 + Math.random() * 720;
+      const delay = Math.random() * 0.14;
+      const duration = 0.85 + Math.random() * 0.55;
+
+      piece.style.setProperty("--confetti-left", horizontalStart + "%");
+      piece.style.setProperty("--confetti-x", horizontalTravel + "px");
+      piece.style.setProperty("--confetti-y", verticalTravel + "px");
+      piece.style.setProperty("--confetti-rotation", rotation + "deg");
+      piece.style.setProperty("--confetti-delay", delay + "s");
+      piece.style.setProperty("--confetti-duration", duration + "s");
+      piece.style.setProperty(
+        "--confetti-hue",
+        String(Math.floor(Math.random() * 360))
+      );
+
+      challengeConfetti.appendChild(piece);
+    }
+
+    window.setTimeout(clearConfetti, 1800);
+  }
+
+  function revealChallenge() {
+    const mode = getChallengeMode();
+    const selectedChallenges = getSelectedChallenges();
+
+    resetChallengeReveal();
+
+    if (mode === "none") {
+      return;
+    }
+
+    if (selectedChallenges.length === 0) {
+      challengeError.textContent =
+        "Please choose at least one challenge.";
+      return;
+    }
+
+    if (mode === "choice" && selectedChallenges.length !== 1) {
+      challengeError.textContent =
+        "Teacher Choice requires exactly one checked challenge.";
+      return;
+    }
+
+    if (tierTwoWordIsMissing(selectedChallenges)) {
+      challengeError.textContent =
+        "Please type the teacher-assigned Tier 2 word.";
+      return;
+    }
+
+    const chosenChallenge =
+      mode === "choice"
+        ? selectedChallenges[0]
+        : chooseRandomChallenge(selectedChallenges);
+
+    revealedCategory.textContent = chosenChallenge.category;
+    revealedChallengeText.textContent = chosenChallenge.text;
+    challengeError.textContent = "";
+    challengeCardScene.hidden = false;
+
+    window.setTimeout(function () {
+      challengeCard.classList.add("is-flipped");
+    }, 150);
+
+    window.setTimeout(launchConfetti, 760);
+  }
+
+  challengeModeInputs.forEach(function (input) {
+    input.addEventListener("change", updateChallengeDisplay);
+  });
+
+  document
+    .querySelectorAll(".challenge-checkbox")
+    .forEach(function (checkbox) {
+      checkbox.addEventListener("change", function () {
+        if (getChallengeMode() !== "choice" || !checkbox.checked) {
+          return;
+        }
+
+        document
+          .querySelectorAll(".challenge-checkbox")
+          .forEach(function (otherCheckbox) {
+            if (otherCheckbox !== checkbox) {
+              otherCheckbox.checked = false;
+            }
+          });
+      });
+    });
+
+  revealChallengeButton.addEventListener("click", revealChallenge);
+
+  if (rollAllButton) {
+    rollAllButton.addEventListener("click", resetChallengeReveal);
+  }
+
+  if (resetAllButton) {
+    resetAllButton.addEventListener("click", function () {
+      const offInput = document.querySelector(
+        'input[name="challengeMode"][value="none"]'
+      );
+
+      if (offInput) {
+        offInput.checked = true;
+      }
+
+      document
+        .querySelectorAll(".challenge-checkbox")
+        .forEach(function (checkbox) {
+          checkbox.checked = false;
+        });
+
+      if (tierTwoWordInput) {
+        tierTwoWordInput.value = "";
+      }
+
+      updateChallengeDisplay();
+    });
+  }
+
+  updateChallengeDisplay();
+})();

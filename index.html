@@ -171,6 +171,305 @@
                 <label class="setting-option"><input type="checkbox" id="showResolution" checked><span>Resolution</span></label>
               </div>
             </details>
+
+            <details>
+              <summary>Story Challenge</summary>
+
+              <div class="settings-content challenge-settings-content">
+                <fieldset class="challenge-mode">
+                  <legend>Challenge Mode</legend>
+
+                  <label class="setting-option challenge-mode-option">
+                    <input
+                      type="radio"
+                      name="challengeMode"
+                      value="none"
+                      checked
+                    >
+                    <span>
+                      <strong>Off</strong>
+                      <small>No challenge.</small>
+                    </span>
+                  </label>
+
+                  <label class="setting-option challenge-mode-option">
+                    <input
+                      type="radio"
+                      name="challengeMode"
+                      value="pool"
+                    >
+                    <span>
+                      <strong>Teacher Challenge Pool</strong>
+                      <small>
+                        Check any number of challenges. The app randomly picks
+                        one from those checked.
+                      </small>
+                    </span>
+                  </label>
+
+                  <label class="setting-option challenge-mode-option">
+                    <input
+                      type="radio"
+                      name="challengeMode"
+                      value="choice"
+                    >
+                    <span>
+                      <strong>Teacher Choice</strong>
+                      <small>
+                        Check one challenge. Every student receives that exact
+                        challenge.
+                      </small>
+                    </span>
+                  </label>
+                </fieldset>
+
+                <div id="challengeOptions" hidden>
+                  <h4>🧠 Complex Sentences</h4>
+
+                  <p class="challenge-subheading">
+                    Subordinating Conjunctions
+                  </p>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Complex Sentence"
+                      data-text="Tell your story using because."
+                    >
+                    <span>because</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Complex Sentence"
+                      data-text="Tell your story using although."
+                    >
+                    <span>although</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Complex Sentence"
+                      data-text="Tell your story using if."
+                    >
+                    <span>if</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Complex Sentence"
+                      data-text="Tell your story using before."
+                    >
+                    <span>before</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Complex Sentence"
+                      data-text="Tell your story using after."
+                    >
+                    <span>after</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Complex Sentence"
+                      data-text="Tell your story using until."
+                    >
+                    <span>until</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Complex Sentence"
+                      data-text="Tell your story using unless."
+                    >
+                    <span>unless</span>
+                  </label>
+
+                  <p class="challenge-subheading">
+                    Coordinating Conjunctions
+                  </p>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Compound Sentence"
+                      data-text="Tell your story using and to join two complete ideas."
+                    >
+                    <span>and</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Compound Sentence"
+                      data-text="Tell your story using but to join two complete ideas."
+                    >
+                    <span>but</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Compound Sentence"
+                      data-text="Tell your story using or to join two complete ideas."
+                    >
+                    <span>or</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Compound Sentence"
+                      data-text="Tell your story using nor to join two complete ideas."
+                    >
+                    <span>nor</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🧠 Compound Sentence"
+                      data-text="Tell your story using so to join two complete ideas."
+                    >
+                    <span>so</span>
+                  </label>
+
+                  <h4>📚 Vocabulary</h4>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="📚 Vocabulary"
+                      data-text="Use at least 3 describing words in your story."
+                    >
+                    <span>Use at least 3 describing words</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      id="tierTwoCheckbox"
+                      data-category="📚 Vocabulary"
+                      data-text="Use the teacher-assigned Tier 2 word in your story."
+                    >
+                    <span>Include a teacher-assigned Tier 2 word</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    id="tierTwoWord"
+                    class="tier-two-input"
+                    placeholder="Type the Tier 2 word"
+                  >
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="📚 Vocabulary"
+                      data-text="Use one simile or metaphor in your story."
+                    >
+                    <span>Use one simile or metaphor</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="📚 Vocabulary"
+                      data-text="Use sensory language in your story."
+                    >
+                    <span>Use sensory language</span>
+                  </label>
+
+                  <h4>😊 Social Thinking</h4>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="😊 Social Thinking"
+                      data-text="Explain how a character feels and why."
+                    >
+                    <span>Explain how a character feels and why</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="😊 Social Thinking"
+                      data-text="Tell the story from another character's perspective."
+                    >
+                    <span>Tell the story from another character's perspective</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="😊 Social Thinking"
+                      data-text="Think of three possible solutions before choosing one."
+                    >
+                    <span>Think of three possible solutions before choosing one</span>
+                  </label>
+
+                  <h4>🗣 Narrative</h4>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🗣 Narrative"
+                      data-text="Include dialogue in your story."
+                    >
+                    <span>Include dialogue</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🗣 Narrative"
+                      data-text="Include a flashback in your story."
+                    >
+                    <span>Include a flashback</span>
+                  </label>
+
+                  <label class="setting-option">
+                    <input
+                      type="checkbox"
+                      class="challenge-checkbox"
+                      data-category="🗣 Narrative"
+                      data-text="Include a plot twist in your story."
+                    >
+                    <span>Include a plot twist</span>
+                  </label>
+                </div>
+              </div>
+            </details>
           </div>
 
           <p
@@ -179,6 +478,60 @@
             role="status"
             aria-live="polite"
           ></p>
+        </section>
+
+        <section
+          class="mystery-challenge-section"
+          id="mysteryChallengeSection"
+          hidden
+        >
+          <button
+            id="revealChallengeButton"
+            class="reveal-challenge-button"
+            type="button"
+          >
+            🎁 Reveal Mystery Challenge
+          </button>
+
+          <p
+            class="challenge-error"
+            id="challengeError"
+            role="status"
+            aria-live="polite"
+          ></p>
+
+          <div
+            class="challenge-card-scene"
+            id="challengeCardScene"
+            hidden
+          >
+            <div
+              class="challenge-confetti"
+              id="challengeConfetti"
+              aria-hidden="true"
+            ></div>
+
+            <div class="challenge-card" id="challengeCard">
+              <div class="challenge-card-face challenge-card-front">
+                <span class="gift-icon" aria-hidden="true">🎁</span>
+                <h2>Mystery Challenge</h2>
+                <p>Click the button to reveal your challenge!</p>
+              </div>
+
+              <div class="challenge-card-face challenge-card-back">
+                <p
+                  class="revealed-category"
+                  id="revealedCategory"
+                >
+                  Mystery Challenge
+                </p>
+
+                <h2 id="revealedChallengeText">
+                  Tell your story using although.
+                </h2>
+              </div>
+            </div>
+          </div>
         </section>
       </header>
 
