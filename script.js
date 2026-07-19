@@ -8,13 +8,13 @@ const categories = {
     cardId: "characterCard",
     toggleId: "showCharacter",
     folder: "assets/characters",
-    prefix: "character",
     starterImage: "assets/categories/category-01.png",
-    labels: [
-      "Explorer", "Boy", "Bear", "Dragon", "Robot", "Princess", "Monster",
-      "Goat", "Firefighter", "Dinosaur", "Scientist", "Girl", "Adventurer",
-      "Cat", "Dog", "Superhero", "Wolf", "Wizard", "Astronaut", "Frog",
-      "Prince", "Alien"
+    entries: [
+      { label: "Dragon", file: "character-04.png" },
+      { label: "Adventurer", file: "character-13.png" },
+      { label: "Dog", file: "character-15.png" },
+      { label: "Superhero", file: "character-16.png" },
+      { label: "Astronaut", file: "character-19.png" }
     ]
   },
 
@@ -25,13 +25,13 @@ const categories = {
     cardId: "settingCard",
     toggleId: "showSetting",
     folder: "assets/settings",
-    prefix: "setting",
     starterImage: "assets/categories/category-02.png",
-    labels: [
-      "Stadium", "School", "House", "Tropical Island", "Playground", "Cave",
-      "Underwater Reef", "Castle", "Outer Space", "Farm", "Road", "Campsite",
-      "Beach", "Mountains", "Snowy Cabin", "Desert", "Tree House", "Airport",
-      "Waterfall", "Ancient Ruins", "City", "Pyramid"
+    entries: [
+      { label: "School", file: "setting-02.png" },
+      { label: "Outer Space", file: "setting-09.png" },
+      { label: "Campsite", file: "setting-12.png" },
+      { label: "Beach", file: "setting-13.png" },
+      { label: "City", file: "setting-21.png" }
     ]
   },
 
@@ -42,31 +42,33 @@ const categories = {
     cardId: "problemCard",
     toggleId: "showProblem",
     folder: "assets/problems",
-    prefix: "problem",
     starterImage: "assets/categories/category-03.png",
     entries: [
-      { label: "Alien Abduction", phrase: "was abducted by aliens" },
-      { label: "Pirate Attack", phrase: "was attacked by pirates" },
-      { label: "Message in a Bottle", phrase: "found a mysterious message in a bottle" },
-      { label: "Volcanic Eruption", phrase: "was caught near an erupting volcano" },
-      { label: "Pit", phrase: "discovered a deep pit" },
-      { label: "Robber", phrase: "encountered a robber" },
-      { label: "Broken Bridge", phrase: "found a broken bridge blocking the way" },
-      { label: "Monster Attack", phrase: "was attacked by a monster" },
-      { label: "Buried Treasure", phrase: "discovered buried treasure" },
-      { label: "Storm", phrase: "was caught in a powerful storm" },
-      { label: "Slip and Fall", phrase: "slipped and fell" },
-      { label: "Broken Vase", phrase: "found a broken vase" },
-      { label: "Curse", phrase: "was placed under a mysterious curse" },
-      { label: "Stuck", phrase: "became stuck" },
-      { label: "Lost Item", phrase: "realized that an important item was missing" },
-      { label: "Trapped", phrase: "became trapped in a closed space" },
-      { label: "Blizzard", phrase: "was caught in a blizzard" },
-      { label: "Giant Wave", phrase: "saw a giant wave approaching" },
-      { label: "Hungry", phrase: "became very hungry" },
-      { label: "Explosion", phrase: "heard a sudden explosion" },
-      { label: "Locked Door", phrase: "found a locked door" },
-      { label: "Swapped Bodies", phrase: "suddenly swapped bodies with someone" }
+      {
+        label: "Robber",
+        phrase: "encountered a robber",
+        file: "problem-06.png"
+      },
+      {
+        label: "Broken Bridge",
+        phrase: "found a broken bridge blocking the way",
+        file: "problem-07.png"
+      },
+      {
+        label: "Monster Attack",
+        phrase: "was attacked by a monster",
+        file: "problem-08.png"
+      },
+      {
+        label: "Trapped",
+        phrase: "became trapped in a closed space",
+        file: "problem-16.png"
+      },
+      {
+        label: "Swapped Bodies",
+        phrase: "suddenly swapped bodies with someone",
+        file: "problem-22.png"
+      }
     ]
   },
 
@@ -77,13 +79,13 @@ const categories = {
     cardId: "feelingCard",
     toggleId: "showFeeling",
     folder: "assets/feelings",
-    prefix: "feeling",
     starterImage: "assets/categories/category-04.png",
-    labels: [
-      "Angry", "Sleepy", "Surprised", "Amazed", "Excited", "Loving",
-      "Annoyed", "Sick", "Embarrassed", "Happy", "Confused", "Disgusted",
-      "Scared", "Suspicious", "Confident", "Sad", "Brave", "Determined",
-      "Proud", "Hopeful", "Lonely", "Relieved"
+    entries: [
+      { label: "Angry", file: "feeling-01.png" },
+      { label: "Surprised", file: "feeling-03.png" },
+      { label: "Confused", file: "feeling-11.png" },
+      { label: "Scared", file: "feeling-13.png" },
+      { label: "Relieved", file: "feeling-20.png" }
     ]
   },
 
@@ -94,13 +96,13 @@ const categories = {
     cardId: "planCard",
     toggleId: "showPlan",
     folder: "assets/plans",
-    prefix: "plan",
     starterImage: "assets/categories/category-05.png",
-    labels: [
-      "Break Out", "Build", "Climb", "Play Music", "Run", "Help", "Fly",
-      "Read", "Use Magic", "Row a Boat", "Read Map", "Swim", "Share Gift",
-      "Make a Phone Call", "Fix", "Hike", "Hide", "Experiment", "Plant",
-      "Dig", "Search", "Wear a Disguise"
+    entries: [
+      { label: "Build", file: "plan-02.png" },
+      { label: "Use Magic", file: "plan-09.png" },
+      { label: "Hide", file: "plan-17.png" },
+      { label: "Experiment", file: "plan-18.png" },
+      { label: "Wear a Disguise", file: "plan-22.png" }
     ]
   },
 
@@ -111,14 +113,13 @@ const categories = {
     cardId: "itemCard",
     toggleId: "showItem",
     folder: "assets/items",
-    prefix: "item",
     starterImage: "assets/categories/category-06.png",
-    labels: [
-      "Shield", "Present", "Crown", "Camera", "Rope", "Umbrella", "Key",
-      "Telescope", "Flashlight", "Book", "Walkie-Talkie", "Toolbox",
-      "Backpack", "Binoculars", "Duct Tape", "Musical Instruments",
-      "Magic Wand", "Compass", "Magic Potion", "Treasure Map",
-      "Magnifying Glass", "Disguise"
+    entries: [
+      { label: "Telescope", file: "item-08.png" },
+      { label: "Walkie-Talkie", file: "item-11.png" },
+      { label: "Duct Tape", file: "item-15.png" },
+      { label: "Magic Wand", file: "item-17.png" },
+      { label: "Disguise", file: "item-22.png" }
     ]
   }
 };
@@ -158,8 +159,8 @@ function getRandomIndex(length, previousIndex = null) {
 }
 
 function makeImagePath(category, index) {
-  const paddedNumber = String(index + 1).padStart(2, "0");
-  return `${category.folder}/${category.prefix}-${paddedNumber}.png`;
+  const entry = getEntry(category, index);
+  return `${category.folder}/${entry.file}`;
 }
 
 function preloadImage(path) {
