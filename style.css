@@ -249,11 +249,6 @@ button:disabled {
   cursor: pointer;
 }
 
-.educator-toggle {
-  color: #714900;
-  background: #fff9ed;
-  border-color: #efd7a8;
-}
 
 input[type="checkbox"],
 input[type="radio"] {
@@ -502,13 +497,13 @@ input[type="radio"] {
   text-align: left;
 }
 
-.educator-prompts ul {
+.thinking-prompts ul {
   margin: 0;
   padding-left: 24px;
   text-align: left;
 }
 
-.educator-prompts li {
+.thinking-prompts li {
   margin: 10px 0;
   line-height: 1.45;
 }

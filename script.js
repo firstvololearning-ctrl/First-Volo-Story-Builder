@@ -646,36 +646,21 @@ function updateSentenceSupportPanel() {
   `;
 }
 
-function updateEducatorMode() {
-  const isEducatorMode =
-    document.getElementById("educatorMode").checked;
+function updateThinkingPrompts() {
+  const panel =
+    document.getElementById("thinkingPromptPanel");
 
-  const educatorPanel =
-    document.getElementById("educatorPromptPanel");
-
-  educatorPanel.classList.toggle(
+  panel.classList.toggle(
     "hidden-support",
-    !isEducatorMode
+    !document.getElementById("thinkingPromptsToggle").checked
   );
-
-  if (!isEducatorMode) {
-    return;
-  }
-
-  document.getElementById("toggleLabels").checked = true;
-  document.getElementById("toggleVocabulary").checked = true;
-
-  document.querySelector(
-    'input[name="sentenceSupport"][value="generated"]'
-  ).checked = true;
-
-  updateAllSupports();
 }
 
 function updateAllSupports() {
   updateLabelVisibility();
   updateVocabularyPanel();
   updateSentenceSupportPanel();
+  updateThinkingPrompts();
 }
 
 function buildPrintPlanner() {
@@ -850,9 +835,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("toggleVocabulary")
     .addEventListener("change", updateVocabularyPanel);
 
-  document
-    .getElementById("educatorMode")
-    .addEventListener("change", updateEducatorMode);
+ document
+  .getElementById("thinkingPromptsToggle")
+  .addEventListener("change", updateThinkingPrompts);
 
   document
     .querySelectorAll(
