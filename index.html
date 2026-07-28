@@ -44,54 +44,76 @@
 
         <section class="controls-panel" aria-label="Story builder controls">
 
-          <div class="primary-actions">
-            <button
-              class="create-story-button"
-              id="rollAll"
-              type="button"
-            >
-              <span class="main">🎲 Create a Story</span>
-              <span class="sub">Roll All Cards</span>
-            </button>
+    <div class="primary-actions">
+  <button
+    class="create-story-button"
+    id="rollAll"
+    type="button"
+  >
+    <span class="main">🎲 Create a Story</span>
+    <span class="sub">Roll All Cards</span>
+  </button>
 
-            <button
-              class="reset-button"
-              id="resetAll"
-              type="button"
-            >
-              <span aria-hidden="true">↺</span>
-              Reset
-            </button>
+  <button
+    class="reset-button"
+    id="resetAll"
+    type="button"
+  >
+    <span aria-hidden="true">↺</span>
+    Reset
+  </button>
 
-            <button
-              class="print-button"
-              id="printPlanner"
-              type="button"
-            >
-              <span aria-hidden="true">🖨</span>
-              Print Planner
-            </button>
+  <button
+    class="save-story-button"
+    id="saveStory"
+    type="button"
+  >
+    <span aria-hidden="true">💾</span>
+    Save Story
+  </button>
 
-            <button
-              class="pdf-button"
-              id="savePdf"
-              type="button"
-            >
-              <span aria-hidden="true">📄</span>
-              Save as PDF
-            </button>
-          </div>
+  <button
+    class="open-story-button"
+    id="openStory"
+    type="button"
+  >
+    <span aria-hidden="true">📂</span>
+    Open Story
+  </button>
 
-          <div class="title-control">
-            <label for="storyTitle">Story Title</label>
+  <button
+    class="print-button"
+    id="printPlanner"
+    type="button"
+  >
+    <span aria-hidden="true">🖨</span>
+    Print Planner
+  </button>
 
-            <input
-              type="text"
-              id="storyTitle"
-              placeholder="Type your story title..."
-              maxlength="100"
-            >
-          </div>
+  <button
+    class="pdf-button"
+    id="savePdf"
+    type="button"
+  >
+    <span aria-hidden="true">📄</span>
+    Export PDF
+  </button>
+
+  <input
+    type="file"
+    id="openStoryFile"
+    accept=".json,application/json"
+    hidden
+  >
+</div>
+
+<p
+  class="save-status"
+  id="saveStatus"
+  role="status"
+  aria-live="polite"
+></p>
+
 
           <div class="settings-grid">
             <details>
@@ -471,7 +493,17 @@
               </div>
             </details>
           </div>
+          
+<div class="title-control">
+  <label for="storyTitle">Story Title</label>
 
+  <input
+    type="text"
+    id="storyTitle"
+    placeholder="Type your story title..."
+    maxlength="100"
+  >
+</div>
           <p
             class="roll-status"
             id="rollStatus"
@@ -689,6 +721,291 @@
         </article>
 
       </main>
+<section class="story-planner-panel" id="storyPlannerPanel">
+  <details class="story-planner-details" open>
+    <summary>🗂 Story Planner</summary>
+
+    <div class="story-planner-content">
+      <p class="story-planner-intro">
+        Use your story elements to plan your ideas before you write.
+      </p>
+
+      <div class="story-planner-grid">
+
+        <article
+          class="story-planner-card"
+          id="plannerCharacterCard"
+          data-planner-category="character"
+        >
+          <div class="story-planner-card-header">
+            <div class="story-planner-image-frame">
+              <img
+                id="plannerCharacterImage"
+                src="assets/categories/category-01.png"
+                alt="Character"
+              >
+            </div>
+
+            <div class="story-planner-heading">
+              <h3>Character</h3>
+              <p
+                class="story-planner-selection"
+                id="plannerCharacterLabel"
+              >
+                Roll to choose a character.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="story-planner-prompt"
+            id="plannerCharacterPrompt"
+          >
+            Add notes about the character.
+          </div>
+
+          <textarea
+            id="plannerCharacterNotes"
+            class="story-planner-notes"
+            placeholder="What should we know about the character?"
+          ></textarea>
+        </article>
+
+        <article
+          class="story-planner-card"
+          id="plannerSettingCard"
+          data-planner-category="setting"
+        >
+          <div class="story-planner-card-header">
+            <div class="story-planner-image-frame">
+              <img
+                id="plannerSettingImage"
+                src="assets/categories/category-02.png"
+                alt="Setting"
+              >
+            </div>
+
+            <div class="story-planner-heading">
+              <h3>Setting</h3>
+              <p
+                class="story-planner-selection"
+                id="plannerSettingLabel"
+              >
+                Roll to choose a setting.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="story-planner-prompt"
+            id="plannerSettingPrompt"
+          >
+            Add notes about the setting.
+          </div>
+
+          <textarea
+            id="plannerSettingNotes"
+            class="story-planner-notes"
+            placeholder="Where and when does the story take place?"
+          ></textarea>
+        </article>
+
+        <article
+          class="story-planner-card"
+          id="plannerProblemCard"
+          data-planner-category="problem"
+        >
+          <div class="story-planner-card-header">
+            <div class="story-planner-image-frame">
+              <img
+                id="plannerProblemImage"
+                src="assets/categories/category-03.png"
+                alt="Problem"
+              >
+            </div>
+
+            <div class="story-planner-heading">
+              <h3>Problem</h3>
+              <p
+                class="story-planner-selection"
+                id="plannerProblemLabel"
+              >
+                Roll to choose a problem.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="story-planner-prompt"
+            id="plannerProblemPrompt"
+          >
+            Add notes about the problem.
+          </div>
+
+          <textarea
+            id="plannerProblemNotes"
+            class="story-planner-notes"
+            placeholder="What problem does the character face?"
+          ></textarea>
+        </article>
+
+        <article
+          class="story-planner-card"
+          id="plannerFeelingCard"
+          data-planner-category="feeling"
+        >
+          <div class="story-planner-card-header">
+            <div class="story-planner-image-frame">
+              <img
+                id="plannerFeelingImage"
+                src="assets/categories/category-04.png"
+                alt="Feeling"
+              >
+            </div>
+
+            <div class="story-planner-heading">
+              <h3>Feeling</h3>
+              <p
+                class="story-planner-selection"
+                id="plannerFeelingLabel"
+              >
+                Roll to choose a feeling.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="story-planner-prompt"
+            id="plannerFeelingPrompt"
+          >
+            Add notes about the character’s feeling.
+          </div>
+
+          <textarea
+            id="plannerFeelingNotes"
+            class="story-planner-notes"
+            placeholder="How does the character feel?"
+          ></textarea>
+        </article>
+
+        <article
+          class="story-planner-card"
+          id="plannerPlanCard"
+          data-planner-category="plan"
+        >
+          <div class="story-planner-card-header">
+            <div class="story-planner-image-frame">
+              <img
+                id="plannerPlanImage"
+                src="assets/categories/category-05.png"
+                alt="Plan"
+              >
+            </div>
+
+            <div class="story-planner-heading">
+              <h3>Plan</h3>
+              <p
+                class="story-planner-selection"
+                id="plannerPlanLabel"
+              >
+                Roll to choose a plan.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="story-planner-prompt"
+            id="plannerPlanPrompt"
+          >
+            Add notes about the plan.
+          </div>
+
+          <textarea
+            id="plannerPlanNotes"
+            class="story-planner-notes"
+            placeholder="What will the character do?"
+          ></textarea>
+        </article>
+
+        <article
+          class="story-planner-card"
+          id="plannerItemCard"
+          data-planner-category="item"
+        >
+          <div class="story-planner-card-header">
+            <div class="story-planner-image-frame">
+              <img
+                id="plannerItemImage"
+                src="assets/categories/category-06.png"
+                alt="Item"
+              >
+            </div>
+
+            <div class="story-planner-heading">
+              <h3>Item</h3>
+              <p
+                class="story-planner-selection"
+                id="plannerItemLabel"
+              >
+                Roll to choose an item.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="story-planner-prompt"
+            id="plannerItemPrompt"
+          >
+            Add notes about the item.
+          </div>
+
+          <textarea
+            id="plannerItemNotes"
+            class="story-planner-notes"
+            placeholder="How could the item help?"
+          ></textarea>
+        </article>
+
+        <article
+          class="story-planner-card story-planner-resolution-card"
+          id="plannerResolutionCard"
+          data-planner-category="resolution"
+        >
+          <div class="story-planner-card-header">
+            <div class="story-planner-image-frame">
+              <img
+                id="plannerResolutionImage"
+                src="assets/categories/category-07.png"
+                alt="Resolution"
+              >
+            </div>
+
+            <div class="story-planner-heading">
+              <h3>Resolution</h3>
+              <p class="story-planner-selection">
+                It’s up to you!
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="story-planner-prompt"
+            id="plannerResolutionPrompt"
+          >
+            Add notes about how the story ends.
+          </div>
+
+          <textarea
+            id="plannerResolutionNotes"
+            class="story-planner-notes"
+            placeholder="How is the problem resolved?"
+          ></textarea>
+        </article>
+
+      </div>
+    </div>
+  </details>
+</section>
 
       <section class="writing-panel" id="writingPanel">
         <h2>Story Writing Area</h2>

@@ -1148,3 +1148,750 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateChallengeDisplay();
 })();
+/* =========================================================
+   STORY PLANNER + AUTO-SAVE + SAVE / OPEN STORY
+   Paste this entire section at the bottom of script.js.
+========================================================= */
+
+(function () {
+  "use strict";
+
+  const STORAGE_KEY = "firstVoloStoryBuilderSavedWork";
+  const SAVE_VERSION = 1;
+
+  const plannerCategories = [
+    "character",
+    "setting",
+    "problem",
+    "feeling",
+    "plan",
+    "item"
+  ];
+
+  const plannerPrompts = {
+    default: {
+      character: "Add notes about the character.",
+      setting: "Add notes about the setting.",
+      problem: "Add notes about the problem.",
+      feeling: "Add notes about the character’s feeling.",
+      plan: "Add notes about the plan.",
+      item: "Add notes about the item.",
+      resolution: "Add notes about how the story ends."
+    },
+
+    open: {
+      character:
+        "Who is the main character? What is the character like? What does the character want?",
+      setting:
+        "Where does the story take place? When does it happen? What is the setting like?",
+      problem:
+        "What goes wrong? Why is this a problem for the character?",
+      feeling:
+        "How does the character feel? Why does the character feel that way?",
+      plan:
+        "What does the character plan to do? How could the plan solve the problem?",
+      item:
+        "How could the item help? What might the character do with it?",
+      resolution:
+        "How is the problem solved? How does the character feel at the end?"
+    }
+  };
+
+  let autoSaveTimer = null;
+  let statusTimer = null;
+  let isRestoringStory = false;
+
+  function getElement(id) {
+    return document.getElementById(id);
+  }
+
+  function showSaveStatus(message, duration = 2200) {
+    const status = getElement("saveStatus");
+
+    if (!status) {
+      return;
+    }
+
+    window.clearTimeout(statusTimer);
+    status.textContent = message;
+
+    if (duration > 0) {
+      statusTimer = window.setTimeout(() => {
+        status.textContent = "";
+      }, duration);
+    }
+  }
+
+  function getCheckedValue(name, fallback = "") {
+    const checked = document.querySelector(
+      `input[name="${name}"]:checked`
+    );
+
+    return checked ? checked.value : fallback;
+  }
+
+  function getPlannerNotes() {
+    const notes = {};
+
+    [...plannerCategories, "resolution"].forEach((categoryName) => {
+      notes[categoryName] =
+        getElement(
+          `planner${capitalize(categoryName)}Notes`
+        )?.value || "";
+    });
+
+    return notes;
+  }
+
+  function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
+  function getCategoryVisibility() {
+    const visibility = {};
+
+    plannerCategories.forEach((categoryName) => {
+      visibility[categoryName] =
+        getElement(
+          `show${capitalize(categoryName)}`
+        )?.checked ?? true;
+    });
+
+    visibility.resolution =
+      getElement("showResolution")?.checked ?? true;
+
+    return visibility;
+  }
+
+  function getChallengeState() {
+    const challengeCheckboxes = Array.from(
+      document.querySelectorAll(".challenge-checkbox")
+    );
+
+    return {
+      mode: getCheckedValue("challengeMode", "none"),
+
+      selected: challengeCheckboxes.map((checkbox) => ({
+        text: checkbox.dataset.text || "",
+        category: checkbox.dataset.category || "",
+        checked: checkbox.checked
+      })),
+
+      tierTwoWord: getElement("tierTwoWord")?.value || "",
+
+      revealedCategory:
+        getElement("revealedCategory")?.textContent || "",
+
+      revealedText:
+        getElement("revealedChallengeText")?.textContent || "",
+
+      revealed:
+        Boolean(
+          getElement("challengeCardScene")?.classList.contains(
+            "is-revealed"
+          )
+        )
+    };
+  }
+
+  function buildStorySaveData() {
+    const selections = {};
+
+    plannerCategories.forEach((categoryName) => {
+      const selection = currentSelections[categoryName];
+
+      selections[categoryName] = selection
+        ? {
+            index: selection.index,
+            label: selection.label,
+            phrase: selection.phrase || null,
+            imagePath: selection.imagePath
+          }
+        : null;
+    });
+
+    return {
+      app: "First Volo Story Builder",
+      version: SAVE_VERSION,
+      savedAt: new Date().toISOString(),
+
+      title: getElement("storyTitle")?.value || "",
+      storyWriting: getElement("storyWriting")?.value || "",
+      plannerNotes: getPlannerNotes(),
+      selections,
+
+      settings: {
+        showLabels: getElement("toggleLabels")?.checked ?? false,
+        showVocabulary:
+          getElement("toggleVocabulary")?.checked ?? false,
+        sentenceSupport:
+          getCheckedValue("sentenceSupport", "off"),
+        categoryVisibility: getCategoryVisibility()
+      },
+
+      challenge: getChallengeState()
+    };
+  }
+
+  function saveToBrowser(showMessage = false) {
+    if (isRestoringStory) {
+      return;
+    }
+
+    try {
+      const data = buildStorySaveData();
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+      );
+
+      if (showMessage) {
+        showSaveStatus("✓ Work saved in this browser.");
+      }
+    } catch (error) {
+      console.error("Could not auto-save story:", error);
+
+      if (showMessage) {
+        showSaveStatus("Could not save in this browser.");
+      }
+    }
+  }
+
+  function scheduleAutoSave() {
+    if (isRestoringStory) {
+      return;
+    }
+
+    window.clearTimeout(autoSaveTimer);
+
+    autoSaveTimer = window.setTimeout(() => {
+      saveToBrowser(false);
+      showSaveStatus("✓ Auto-saved", 1100);
+    }, 550);
+  }
+
+  function updatePlannerPrompts() {
+    const sentenceMode =
+      getCheckedValue("sentenceSupport", "off");
+
+    const promptSet =
+      sentenceMode === "open"
+        ? plannerPrompts.open
+        : plannerPrompts.default;
+
+    Object.entries(promptSet).forEach(
+      ([categoryName, prompt]) => {
+        const element = getElement(
+          `planner${capitalize(categoryName)}Prompt`
+        );
+
+        if (element) {
+          element.textContent = prompt;
+        }
+      }
+    );
+  }
+
+  function updatePlannerVisibility() {
+    const visibility = getCategoryVisibility();
+
+    Object.entries(visibility).forEach(
+      ([categoryName, isVisible]) => {
+        const card = getElement(
+          `planner${capitalize(categoryName)}Card`
+        );
+
+        card?.classList.toggle(
+          "hidden-planner-card",
+          !isVisible
+        );
+      }
+    );
+  }
+
+  function updateStoryPlanner() {
+    plannerCategories.forEach((categoryName) => {
+      const category = categories[categoryName];
+      const selection = currentSelections[categoryName];
+
+      const image = getElement(
+        `planner${capitalize(categoryName)}Image`
+      );
+
+      const label = getElement(
+        `planner${capitalize(categoryName)}Label`
+      );
+
+      if (!category || !image || !label) {
+        return;
+      }
+
+      if (selection) {
+        image.src = selection.imagePath;
+        image.alt = `${category.title}: ${selection.label}`;
+        label.textContent = selection.label;
+      } else {
+        image.src = category.starterImage;
+        image.alt = category.title;
+        label.textContent =
+          `Roll to choose a ${category.title.toLowerCase()}.`;
+      }
+    });
+
+    updatePlannerPrompts();
+    updatePlannerVisibility();
+  }
+
+  function applyRadioValue(name, value) {
+    const radio = document.querySelector(
+      `input[name="${name}"][value="${CSS.escape(value)}"]`
+    );
+
+    if (radio) {
+      radio.checked = true;
+      radio.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
+    }
+  }
+
+  function restoreChallengeState(challenge) {
+    if (!challenge) {
+      return;
+    }
+
+    applyRadioValue(
+      "challengeMode",
+      challenge.mode || "none"
+    );
+
+    const savedSelections = Array.isArray(challenge.selected)
+      ? challenge.selected
+      : [];
+
+    document
+      .querySelectorAll(".challenge-checkbox")
+      .forEach((checkbox) => {
+        const match = savedSelections.find(
+          (saved) =>
+            saved.text === (checkbox.dataset.text || "") &&
+            saved.category ===
+              (checkbox.dataset.category || "")
+        );
+
+        checkbox.checked = Boolean(match?.checked);
+        checkbox.dispatchEvent(
+          new Event("change", { bubbles: true })
+        );
+      });
+
+    const tierTwoWord = getElement("tierTwoWord");
+
+    if (tierTwoWord) {
+      tierTwoWord.value = challenge.tierTwoWord || "";
+      tierTwoWord.dispatchEvent(
+        new Event("input", { bubbles: true })
+      );
+    }
+
+    const revealedCategory = getElement("revealedCategory");
+    const revealedText = getElement("revealedChallengeText");
+    const scene = getElement("challengeCardScene");
+
+    if (revealedCategory) {
+      revealedCategory.textContent =
+        challenge.revealedCategory || "";
+    }
+
+    if (revealedText) {
+      revealedText.textContent =
+        challenge.revealedText || "";
+    }
+
+    if (scene) {
+      scene.classList.toggle(
+        "is-revealed",
+        Boolean(challenge.revealed)
+      );
+    }
+  }
+
+  function restoreStory(data, options = {}) {
+    if (
+      !data ||
+      typeof data !== "object" ||
+      data.app !== "First Volo Story Builder"
+    ) {
+      throw new Error(
+        "This file is not a First Volo Story Builder save file."
+      );
+    }
+
+    isRestoringStory = true;
+
+    try {
+      const title = getElement("storyTitle");
+      const writing = getElement("storyWriting");
+
+      if (title) {
+        title.value = data.title || "";
+      }
+
+      if (writing) {
+        writing.value = data.storyWriting || "";
+      }
+
+      const notes = data.plannerNotes || {};
+
+      [...plannerCategories, "resolution"].forEach(
+        (categoryName) => {
+          const textarea = getElement(
+            `planner${capitalize(categoryName)}Notes`
+          );
+
+          if (textarea) {
+            textarea.value = notes[categoryName] || "";
+          }
+        }
+      );
+
+      const settings = data.settings || {};
+
+      const labelsToggle = getElement("toggleLabels");
+      const vocabularyToggle =
+        getElement("toggleVocabulary");
+
+      if (labelsToggle) {
+        labelsToggle.checked =
+          Boolean(settings.showLabels);
+      }
+
+      if (vocabularyToggle) {
+        vocabularyToggle.checked =
+          Boolean(settings.showVocabulary);
+      }
+
+      applyRadioValue(
+        "sentenceSupport",
+        settings.sentenceSupport || "off"
+      );
+
+      const visibility =
+        settings.categoryVisibility || {};
+
+      plannerCategories.forEach((categoryName) => {
+        const toggle = getElement(
+          `show${capitalize(categoryName)}`
+        );
+
+        if (!toggle) {
+          return;
+        }
+
+        toggle.checked =
+          visibility[categoryName] !== false;
+
+        toggle.dispatchEvent(
+          new Event("change", { bubbles: true })
+        );
+      });
+
+      const resolutionToggle =
+        getElement("showResolution");
+
+      if (resolutionToggle) {
+        resolutionToggle.checked =
+          visibility.resolution !== false;
+
+        resolutionToggle.dispatchEvent(
+          new Event("change", { bubbles: true })
+        );
+      }
+
+      plannerCategories.forEach((categoryName) => {
+        const savedSelection =
+          data.selections?.[categoryName];
+
+        if (
+          savedSelection &&
+          Number.isInteger(savedSelection.index) &&
+          savedSelection.index >= 0 &&
+          savedSelection.index <
+            getCategoryLength(categories[categoryName])
+        ) {
+          applySelection(
+            categoryName,
+            savedSelection.index
+          );
+        } else {
+          currentSelections[categoryName] = null;
+
+          const category = categories[categoryName];
+          const image = getElement(category.imageId);
+          const label = getElement(category.labelId);
+
+          if (image) {
+            image.src = category.starterImage;
+            image.alt =
+              `Roll to choose a ${category.title.toLowerCase()}`;
+          }
+
+          if (label) {
+            label.textContent = "";
+          }
+        }
+      });
+
+      restoreChallengeState(data.challenge);
+
+      if (typeof updateAllSupports === "function") {
+        updateAllSupports();
+      }
+
+      updateStoryPlanner();
+
+      labelsToggle?.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
+
+      vocabularyToggle?.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
+    } finally {
+      isRestoringStory = false;
+    }
+
+    saveToBrowser(false);
+
+    if (options.showMessage) {
+      showSaveStatus("✓ Story opened successfully.");
+    }
+  }
+
+  function restoreBrowserSave() {
+    const savedText = localStorage.getItem(STORAGE_KEY);
+
+    if (!savedText) {
+      updateStoryPlanner();
+      return;
+    }
+
+    try {
+      const data = JSON.parse(savedText);
+      restoreStory(data, { showMessage: false });
+      showSaveStatus("✓ Previous work restored.", 1800);
+    } catch (error) {
+      console.error("Could not restore saved work:", error);
+      localStorage.removeItem(STORAGE_KEY);
+      updateStoryPlanner();
+    }
+  }
+
+  function makeSafeFileName(title) {
+    const cleaned = String(title || "Untitled Story")
+      .trim()
+      .replace(/[<>:"/\\|?*\u0000-\u001F]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .slice(0, 70);
+
+    return cleaned || "Untitled-Story";
+  }
+
+  function downloadStoryFile() {
+    try {
+      const data = buildStorySaveData();
+      const json = JSON.stringify(data, null, 2);
+
+      const blob = new Blob([json], {
+        type: "application/json"
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download =
+        `${makeSafeFileName(data.title)}.firstvolo.json`;
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      window.setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 1000);
+
+      saveToBrowser(false);
+      showSaveStatus("✓ Story file saved.");
+    } catch (error) {
+      console.error("Could not save story file:", error);
+      showSaveStatus("Could not save the story file.");
+    }
+  }
+
+  function openStoryPicker() {
+    const fileInput = getElement("openStoryFile");
+
+    if (!fileInput) {
+      return;
+    }
+
+    fileInput.value = "";
+    fileInput.click();
+  }
+
+  function readStoryFile(event) {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    if (
+      !file.name.toLowerCase().endsWith(".json")
+    ) {
+      window.alert(
+        "Please choose a First Volo Story Builder JSON file."
+      );
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        restoreStory(data, { showMessage: true });
+      } catch (error) {
+        console.error("Could not open story:", error);
+
+        window.alert(
+          error.message ||
+            "The selected story file could not be opened."
+        );
+      }
+    };
+
+    reader.onerror = () => {
+      window.alert(
+        "The selected story file could not be read."
+      );
+    };
+
+    reader.readAsText(file);
+  }
+
+  function clearPlannerNotes() {
+    [...plannerCategories, "resolution"].forEach(
+      (categoryName) => {
+        const textarea = getElement(
+          `planner${capitalize(categoryName)}Notes`
+        );
+
+        if (textarea) {
+          textarea.value = "";
+        }
+      }
+    );
+  }
+
+  function connectAutoSaveEvents() {
+    document.addEventListener("input", (event) => {
+      if (
+        event.target.matches(
+          "#storyTitle, #storyWriting, .story-planner-notes, #tierTwoWord"
+        )
+      ) {
+        scheduleAutoSave();
+      }
+    });
+
+    document.addEventListener("change", (event) => {
+      if (
+        event.target.matches(
+          '#toggleLabels, #toggleVocabulary, input[name="sentenceSupport"], input[name="challengeMode"], .challenge-checkbox, [id^="show"]'
+        )
+      ) {
+        updateStoryPlanner();
+        scheduleAutoSave();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        event.target.closest(
+          ".card button, #rollAll, #revealChallengeButton"
+        )
+      ) {
+        window.setTimeout(() => {
+          updateStoryPlanner();
+          scheduleAutoSave();
+        }, 900);
+      }
+    });
+  }
+
+  function observeStoryCards() {
+    const observer = new MutationObserver(() => {
+      updateStoryPlanner();
+      scheduleAutoSave();
+    });
+
+    plannerCategories.forEach((categoryName) => {
+      const category = categories[categoryName];
+      const image = getElement(category.imageId);
+      const label = getElement(category.labelId);
+
+      if (image) {
+        observer.observe(image, {
+          attributes: true,
+          attributeFilter: ["src"]
+        });
+      }
+
+      if (label) {
+        observer.observe(label, {
+          childList: true,
+          characterData: true,
+          subtree: true
+        });
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    getElement("saveStory")?.addEventListener(
+      "click",
+      downloadStoryFile
+    );
+
+    getElement("openStory")?.addEventListener(
+      "click",
+      openStoryPicker
+    );
+
+    getElement("openStoryFile")?.addEventListener(
+      "change",
+      readStoryFile
+    );
+
+    getElement("resetAll")?.addEventListener(
+      "click",
+      () => {
+        clearPlannerNotes();
+        updateStoryPlanner();
+
+        window.setTimeout(() => {
+          saveToBrowser(false);
+          showSaveStatus("Story reset.");
+        }, 50);
+      }
+    );
+
+    connectAutoSaveEvents();
+    observeStoryCards();
+    restoreBrowserSave();
+  });
+})();
