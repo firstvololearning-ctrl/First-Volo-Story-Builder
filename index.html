@@ -123,7 +123,7 @@
 
               <div class="settings-content">
                 <label class="setting-option">
-                  <input type="checkbox" id="toggleLabels">    
+                  <input type="checkbox" id="toggleLabels">
                   <span>Show image labels</span>
                 </label>
 
@@ -495,7 +495,7 @@
               </div>
             </details>
           </div>
-          
+
 <div class="title-control">
   <label for="storyTitle">Story Title</label>
 
@@ -1148,17 +1148,22 @@
 
 <div id="aboutModal" class="about-modal hidden" aria-hidden="true">
 
-  <div class="about-window">
+  <div
+    class="about-window"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="aboutTitle"
+  >
 
     <button
       id="closeAbout"
       class="about-close"
-      aria-label="Close"
+      aria-label="Close About guide"
       type="button">
       ×
     </button>
 
-    <h1>📖 About First Volo Story Builder</h1>
+    <h1 id="aboutTitle">📖 About First Volo Story Builder</h1>
 
     <p class="about-intro">
       <strong>First Volo Story Builder</strong> is an interactive storytelling
@@ -1167,7 +1172,7 @@
       and engaging.
     </p>
 
-    <nav class="about-nav">
+    <nav class="about-nav" aria-label="About guide sections">
       <a href="#welcome">Welcome</a>
       <a href="#story">Story</a>
       <a href="#supports">Supports</a>
@@ -1228,8 +1233,8 @@
       <h2>⚙️ Customize Story Elements</h2>
 
       <p>
-        Teachers can show or hide individual story categories to match student
-        needs. A Resolution card can also be added for complete story planning.
+        Educators can show or hide individual story categories to match student
+        needs. A Resolution card can also be included for complete story planning.
       </p>
 
     </section>
@@ -1238,7 +1243,7 @@
 
       <h2>💭 Language Supports</h2>
 
-      <h3>🏷 Show Labels</h3>
+      <h3>🏷 Show Image Labels</h3>
 
       <p>
         Displays the name of each selected image to support vocabulary,
@@ -1264,9 +1269,9 @@
 
         <li>Open Prompts</li>
 
-        <li>Basic Sentence Starters</li>
+        <li>Sentence Starters</li>
 
-        <li>Generated Sentence Starters</li>
+        <li>Generated Starters</li>
 
       </ul>
 
@@ -1290,7 +1295,7 @@
       <h2>⭐ Story Challenge</h2>
 
       <p>
-        Add an optional language challenge to every story.
+        Add an optional language challenge to a story.
       </p>
 
       <ul>
@@ -1305,7 +1310,7 @@
 
       <p>
         Challenges can target vocabulary, complex sentences, social thinking,
-        narrative language, and more.
+        and narrative language.
       </p>
 
       <p>
@@ -1383,7 +1388,7 @@
 
     <section id="print">
 
-      <h2>🖨 Print or Save as PDF</h2>
+      <h2>🖨 Print or Export as PDF</h2>
 
       <p>
         Create a printable Story Planner that can include:

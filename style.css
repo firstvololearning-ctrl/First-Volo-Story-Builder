@@ -1806,3 +1806,25 @@ input[type="radio"] {
     font-size:.9rem;
   }
 }
+
+/* Free-sample notice: unused in the full version, shared so both builds
+   can use the same stylesheet. */
+.about-sample-note {
+  margin: 14px 0 20px;
+  padding: 13px 15px;
+  color: #44546b;
+  background: #f4f8fd;
+  border: 1px solid #d8e4f2;
+  border-left: 5px solid var(--navy);
+  border-radius: 11px;
+  text-align: left;
+}
+
+.about-sample-note strong {
+  color: var(--navy);
+}
+
+.about-sample-note p {
+  margin: 5px 0 0;
+  line-height: 1.5;
+}
