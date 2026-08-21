@@ -39,9 +39,23 @@
         "Student is expected to organize the important parts of the story into a coherent narrative: who/where → problem and feeling → plan → action/attempt → resolution.",
       watches:
         "Watch for a missing or misplaced story function, a plan that does not grow from the problem, an attempt that does not carry out the plan, or an ending that does not resolve the story problem.",
-      relevant: ["problem", "feeling", "plan", "attempt", "resolution"],
+      relevant: ["character", "setting", "problem", "feeling", "plan", "attempt", "resolution"],
       build(category) {
         const maps = {
+          character: [
+            "Look at who the story is about. Make the main character clear before the problem begins.",
+            "Who is the main character?",
+            "Name or describe the character clearly enough for the listener to follow the story.",
+            "Think: character → problem.",
+            "The story is about ___."
+          ],
+          setting: [
+            "Look at where the story begins. Make the setting clear before the problem begins.",
+            "Where is the character when the story starts?",
+            "Give the place or time information needed to understand the beginning.",
+            "Think: character + setting → problem.",
+            "At/In ___, the character ___."
+          ],
           problem: [
             "Look at what goes wrong. This problem should change what the character needs or wants to do.",
             "What is the main problem the character needs to deal with?",
@@ -82,6 +96,8 @@
       },
       retry(category) {
         const text = {
+          character: "Now introduce the character again so it is clear who the story is about.",
+          setting: "Now introduce the setting again so it is clear where the story begins.",
           problem: "Now try the problem again so it is clear what needs to change.",
           feeling: "Now try the feeling again so it clearly connects to the problem.",
           plan: "Now say the plan again so it clearly grows from the problem and feeling.",
