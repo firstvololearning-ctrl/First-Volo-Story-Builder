@@ -2752,3 +2752,37 @@ body.modal-open {
   width: 100%;
   font-size: 13px;
 }
+
+.sample-comparison {
+  max-width: 760px;
+  margin: 14px auto 18px;
+  padding: 12px 16px;
+  color: #44546b;
+  background: var(--soft-blue);
+  border: 1px solid #dce7f3;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.sample-comparison > strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--navy);
+}
+
+.sample-comparison span {
+  display: block;
+}
+
+.sample-comparison a {
+  display: inline-block;
+  margin-top: 5px;
+  color: var(--navy);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.sample-comparison a:hover {
+  text-decoration: underline;
+}
