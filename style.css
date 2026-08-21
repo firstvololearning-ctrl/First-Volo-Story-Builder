@@ -2428,3 +2428,211 @@ body.modal-open {
     display: none;
   }
 }
+
+/* =========================================================
+   INSTRUCTIONAL TARGET + TARGETED SUPPORT
+========================================================= */
+
+.instructional-target-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--navy);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.instructional-target-select {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 10px;
+  border: 1px solid #cbd7e4;
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--navy);
+  font: inherit;
+  font-weight: 800;
+}
+
+.instructional-target-setting-summary {
+  margin: 9px 0 0;
+  color: #5b6b7c;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.instructional-focus-panel {
+  margin: 22px 0;
+  padding: 18px;
+  border: 1px solid #cbdbe8;
+  border-radius: 18px;
+  background: #f7fbff;
+  box-shadow: 0 8px 24px rgba(28, 61, 88, 0.06);
+}
+
+.instructional-focus-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.instructional-focus-kicker {
+  margin: 0 0 3px;
+  color: #5e7082;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.instructional-focus-heading h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.22rem;
+}
+
+.instructional-focus-badge {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e7f2fb;
+  color: var(--navy);
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.instructional-focus-expected {
+  margin: 12px 0 0;
+  color: #34495e;
+  line-height: 1.55;
+}
+
+.instructional-focus-educator {
+  margin-top: 12px;
+  border-top: 1px solid #d8e4ee;
+  border-bottom: 1px solid #d8e4ee;
+}
+
+.instructional-focus-educator summary {
+  padding: 10px 0;
+  color: var(--navy);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.instructional-focus-educator p {
+  margin: 0 0 12px;
+  color: #44596c;
+  line-height: 1.5;
+}
+
+.instructional-access-note {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.instructional-focus-note {
+  margin: 12px 0 0;
+  color: #506579;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.planner-targeted-support {
+  margin: 10px 0 12px;
+}
+
+.planner-help-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.planner-help-button,
+.planner-more-help-button,
+.planner-retry-button {
+  min-height: 36px;
+  padding: 7px 11px;
+  border: 1px solid #b8cad9;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.planner-help-button:hover,
+.planner-more-help-button:hover,
+.planner-retry-button:hover {
+  background: #f0f7fc;
+}
+
+.planner-more-help-button {
+  border-color: #d6c59b;
+  background: #fffaf0;
+}
+
+.planner-support-card {
+  margin-top: 9px;
+  padding: 12px;
+  border: 1px solid #d2dfeb;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.planner-support-step-label {
+  margin: 0 0 4px;
+  color: #607487;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.planner-support-step-text {
+  margin: 0;
+  color: #263f56;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.planner-retry-box {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e2e9ef;
+}
+
+.planner-retry-box p {
+  margin: 0 0 8px;
+  color: #52687b;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.planner-retry-button {
+  border-color: #a7cdb6;
+  background: #f1faf4;
+}
+
+.planner-retry-button.is-active {
+  background: #e2f4e8;
+}
+
+@media (max-width: 620px) {
+  .instructional-focus-heading {
+    flex-direction: column;
+  }
+
+  .instructional-focus-badge {
+    align-self: flex-start;
+  }
+}
+
+/* Legacy support controls remain only as hidden compatibility shims. */
+.legacy-support-compat {
+  display: none !important;
+}

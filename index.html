@@ -117,55 +117,37 @@
                   <span>Show vocabulary support</span>
                 </label>
 
-              <label class="setting-option">
-  <input type="checkbox" id="thinkingPromptsToggle">
-  <span>Show Thinking Prompts</span>
-</label>
+
               </div>
             </details>
 
-            <details>
-              <summary>Sentence Support</summary>
 
-              <div class="settings-content">
-                <label class="setting-option">
-                  <input
-                    type="radio"
-                    name="sentenceSupport"
-                    value="off"
-                    checked
-                  >
-                  <span>Off</span>
-                </label>
 
-                <label class="setting-option">
-                  <input
-                    type="radio"
-                    name="sentenceSupport"
-                    value="open"
-                  >
-                  <span>Open Prompts</span>
-                </label>
 
-                <label class="setting-option">
-                  <input
-                    type="radio"
-                    name="sentenceSupport"
-                    value="basic"
-                  >
-                  <span>Sentence Starters</span>
-                </label>
+<details class="instructional-target-settings">
+  <summary>Instructional Target</summary>
 
-                <label class="setting-option">
-                  <input
-                    type="radio"
-                    name="sentenceSupport"
-                    value="generated"
-                  >
-                  <span>Generated Starters</span>
-                </label>
-              </div>
-            </details>
+  <div class="settings-content">
+    <label class="instructional-target-label" for="instructionalTarget">
+      Primary target
+    </label>
+
+    <select id="instructionalTarget" class="instructional-target-select">
+      <option value="off">Off</option>
+      <option value="story-organization">Story Organization</option>
+      <option value="connections-cohesion">Connections &amp; Cohesion</option>
+      <option value="cause-effect">Cause &amp; Effect</option>
+      <option value="sentence-formulation">Sentence Formulation</option>
+      <option value="elaboration">Elaboration</option>
+      <option value="perspective-internal-state">Perspective &amp; Internal State</option>
+      <option value="vocabulary-precision">Vocabulary Precision</option>
+    </select>
+
+    <p class="instructional-target-setting-summary" id="instructionalTargetSettingSummary">
+      Choose one primary language target. Support will open one step at a time only when needed.
+    </p>
+  </div>
+</details>
 
             <details>
               <summary>Story Elements</summary>
@@ -181,325 +163,7 @@
               </div>
             </details>
 
-            <details>
-              <summary>Story Challenge</summary>
 
-              <div class="settings-content challenge-settings-content">
-                <fieldset class="challenge-mode">
-                  <legend>Challenge Mode</legend>
-
-                  <label class="setting-option challenge-mode-option">
-                    <input
-                      type="radio"
-                      name="challengeMode"
-                      value="none"
-                      checked
-                    >
-                    <span>
-                      <strong>Off</strong>
-                      <small>No challenge.</small>
-                    </span>
-                  </label>
-
-                  <label class="setting-option challenge-mode-option">
-                    <input
-                      type="radio"
-                      name="challengeMode"
-                      value="pool"
-                    >
-                    <span>
-                      <strong>Educator Challenge Pool</strong>
-                      <small>
-                        Check any number of challenges. The app randomly picks
-                        one from those checked.
-                      </small>
-                    </span>
-                  </label>
-
-                  <label class="setting-option challenge-mode-option">
-                    <input
-                      type="radio"
-                      name="challengeMode"
-                      value="choice"
-                    >
-                    <span>
-                      <strong>Educator Choice</strong>
-                      <small>
-                        Check one challenge. Every student receives that exact
-                        challenge.
-                      </small>
-                    </span>
-                  </label>
-                </fieldset>
-
-                <div id="challengeOptions" hidden>
-                  <h4>🧠 Sentence Formulation</h4>
-
-                  <p class="challenge-subheading">
-                    Subordinating Conjunctions
-                  </p>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-complex-because"
-                      data-category="🧠 Complex Sentence"
-                      data-text="Tell your story using because."
-                    >
-                    <span>because</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-complex-although"
-                      data-category="🧠 Complex Sentence"
-                      data-text="Tell your story using although."
-                    >
-                    <span>although</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-complex-if"
-                      data-category="🧠 Complex Sentence"
-                      data-text="Tell your story using if."
-                    >
-                    <span>if</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-complex-before"
-                      data-category="🧠 Complex Sentence"
-                      data-text="Tell your story using before."
-                    >
-                    <span>before</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-complex-after"
-                      data-category="🧠 Complex Sentence"
-                      data-text="Tell your story using after."
-                    >
-                    <span>after</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-complex-until"
-                      data-category="🧠 Complex Sentence"
-                      data-text="Tell your story using until."
-                    >
-                    <span>until</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-complex-unless"
-                      data-category="🧠 Complex Sentence"
-                      data-text="Tell your story using unless."
-                    >
-                    <span>unless</span>
-                  </label>
-
-                  <p class="challenge-subheading">
-                    Coordinating Conjunctions
-                  </p>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-compound-and"
-                      data-category="🧠 Compound Sentence"
-                      data-text="Tell your story using and to join two complete ideas."
-                    >
-                    <span>and</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-compound-but"
-                      data-category="🧠 Compound Sentence"
-                      data-text="Tell your story using but to join two complete ideas."
-                    >
-                    <span>but</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-compound-or"
-                      data-category="🧠 Compound Sentence"
-                      data-text="Tell your story using or to join two complete ideas."
-                    >
-                    <span>or</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-compound-nor"
-                      data-category="🧠 Compound Sentence"
-                      data-text="Tell your story using nor to join two complete ideas."
-                    >
-                    <span>nor</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-compound-so"
-                      data-category="🧠 Compound Sentence"
-                      data-text="Tell your story using so to join two complete ideas."
-                    >
-                    <span>so</span>
-                  </label>
-
-                  <h4>📚 Vocabulary</h4>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-vocab-describing-words"
-                      data-category="📚 Vocabulary"
-                      data-text="Use at least 3 describing words in your story."
-                    >
-                    <span>Use at least 3 describing words</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="tierTwoCheckbox"
-                      data-category="📚 Vocabulary"
-                      data-text="Use the educator-assigned Tier 2 word in your story."
-                    >
-                    <span>Include an educator-assigned Tier 2 word</span>
-                  </label>
-
-                  <input
-                    type="text"
-                    id="tierTwoWord"
-                    class="tier-two-input"
-                    placeholder="Type the Tier 2 word"
-                  >
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-vocab-figurative-language"
-                      data-category="📚 Vocabulary"
-                      data-text="Use one simile or metaphor in your story."
-                    >
-                    <span>Use one simile or metaphor</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-vocab-sensory-language"
-                      data-category="📚 Vocabulary"
-                      data-text="Use sensory language in your story."
-                    >
-                    <span>Use sensory language</span>
-                  </label>
-
-                  <h4>😊 Social Thinking</h4>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-social-feelings"
-                      data-category="😊 Social Thinking"
-                      data-text="Explain how a character feels and why."
-                    >
-                    <span>Explain how a character feels and why</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-social-perspective"
-                      data-category="😊 Social Thinking"
-                      data-text="Tell the story from another character's perspective."
-                    >
-                    <span>Tell the story from another character's perspective</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-social-solutions"
-                      data-category="😊 Social Thinking"
-                      data-text="Think of three possible solutions before choosing one."
-                    >
-                    <span>Think of three possible solutions before choosing one</span>
-                  </label>
-
-                  <h4>🗣 Narrative</h4>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-narrative-dialogue"
-                      data-category="🗣 Narrative"
-                      data-text="Include dialogue in your story."
-                    >
-                    <span>Include dialogue</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-narrative-flashback"
-                      data-category="🗣 Narrative"
-                      data-text="Include a flashback in your story."
-                    >
-                    <span>Include a flashback</span>
-                  </label>
-
-                  <label class="setting-option">
-                    <input
-                      type="checkbox"
-                      class="challenge-checkbox"
-                      id="challenge-narrative-plot-twist"
-                      data-category="🗣 Narrative"
-                      data-text="Include a plot twist in your story."
-                    >
-                    <span>Include a plot twist</span>
-                  </label>
-                </div>
-              </div>
-            </details>
           </div>
 
 <div class="title-control">
@@ -520,59 +184,7 @@
           ></p>
         </section>
 
-        <section
-          class="mystery-challenge-section"
-          id="mysteryChallengeSection"
-          hidden
-        >
-          <button
-            id="revealChallengeButton"
-            class="reveal-challenge-button"
-            type="button"
-          >
-            🎁 Reveal Mystery Challenge
-          </button>
 
-          <p
-            class="challenge-error"
-            id="challengeError"
-            role="status"
-            aria-live="polite"
-          ></p>
-
-          <div
-            class="challenge-card-scene"
-            id="challengeCardScene"
-            hidden
-          >
-            <div
-              class="challenge-confetti"
-              id="challengeConfetti"
-              aria-hidden="true"
-            ></div>
-
-            <div class="challenge-card" id="challengeCard">
-              <div class="challenge-card-face challenge-card-front">
-                <span class="gift-icon" aria-hidden="true">🎁</span>
-                <h2>Mystery Challenge</h2>
-                <p>Click the button to reveal your challenge!</p>
-              </div>
-
-              <div class="challenge-card-face challenge-card-back">
-                <p
-                  class="revealed-category"
-                  id="revealedCategory"
-                >
-                  Mystery Challenge
-                </p>
-
-                <h2 id="revealedChallengeText">
-                  Tell your story using although.
-                </h2>
-              </div>
-            </div>
-          </div>
-        </section>
       </header>
 
       <main class="story-grid" id="storyGrid">
@@ -729,6 +341,41 @@
         </article>
 
       </main>
+
+<section
+  class="instructional-focus-panel"
+  id="instructionalFocusPanel"
+  hidden
+  aria-labelledby="instructionalFocusTitle"
+>
+  <div class="instructional-focus-heading">
+    <div>
+      <p class="instructional-focus-kicker">Educator instructional focus</p>
+      <h2 id="instructionalFocusTitle">Instructional Target</h2>
+    </div>
+
+    <span class="instructional-focus-badge">Targeted Support</span>
+  </div>
+
+  <p class="instructional-focus-expected" id="instructionalFocusExpected"></p>
+
+  <details class="instructional-focus-educator">
+    <summary>What should the educator watch for?</summary>
+    <p id="instructionalFocusWatches"></p>
+    <p class="instructional-access-note">
+      <strong>Access Support:</strong>
+      clarifying directions, helping navigate the planner, locating a story card,
+      rereading a prompt, or explaining a non-target word does not count as
+      support for the instructional target.
+    </p>
+  </details>
+
+  <p class="instructional-focus-note">
+    Let the student attempt the language first. If help is needed, open only
+    the next support step, then have the student retry the same idea.
+  </p>
+</section>
+
 <section class="story-planner-panel" id="storyPlannerPanel">
   <details class="story-planner-details" open>
     <summary>🗂 Story Planner</summary>
@@ -1024,28 +671,14 @@
         ></textarea>
       </section>
 
-      <section class="support-panel hidden-support" id="sentenceSupportPanel">
-        <h2>Sentence Support</h2>
-        <div id="sentenceSupportContent"></div>
-      </section>
+
 
       <section class="support-panel hidden-support" id="vocabularyPanel">
         <h2>Story Vocabulary</h2>
         <div class="vocabulary-grid" id="vocabularyList"></div>
       </section>
 
-      <section class="support-panel hidden-support thinking-prompts" id="thinkingPromptPanel">
-        <h2>Thinking Prompts</h2>
 
-        <ul>
-          <li>What details in the pictures helped you create your story?</li>
-          <li>Why might the character feel this way?</li>
-          <li>How does the plan address the problem?</li>
-          <li>How could the item help the character?</li>
-          <li>What might happen if the plan does not work?</li>
-          <li>How will the character’s actions lead to the resolution?</li>
-        </ul>
-      </section>
 
     </div>
   </div>
@@ -1394,8 +1027,7 @@
     <nav class="about-nav" aria-label="About guide sections">
       <a href="#welcome">Welcome</a>
       <a href="#story">Story</a>
-      <a href="#supports">Supports</a>
-      <a href="#challenge">Challenge</a>
+      <a href="#instructional-support">Instructional Support</a>
       <a href="#planner">Planner</a>
       <a href="#save">Save</a>
       <a href="#print">Print</a>
@@ -1458,85 +1090,36 @@
 
     </section>
 
-    <section id="supports">
+    <section id="instructional-support">
 
-      <h2>💭 Language Supports</h2>
-
-      <h3>🏷 Show Image Labels</h3>
+      <h2>🎯 Instructional Support</h2>
 
       <p>
-        Displays the name of each selected image to support vocabulary,
-        spelling, and word retrieval.
+        Educators can choose one primary instructional target for the story.
+        Story Builder then places targeted support directly inside the Story
+        Planner where that language demand occurs.
       </p>
 
-      <h3>📚 Story Vocabulary</h3>
-
       <p>
-        Automatically creates a vocabulary list using the selected story
-        elements.
+        Students attempt the language first. If support is needed, choose
+        <strong>Need help?</strong> to reveal one cue at a time. Additional
+        support becomes more explicit only as needed, and the student then
+        retries the same idea.
       </p>
 
-      <h3>✏ Sentence Support</h3>
-
       <p>
-        Choose the amount of support students need:
+        Current instructional targets include Story Organization,
+        Connections &amp; Cohesion, Cause &amp; Effect, Sentence Formulation,
+        Elaboration, Perspective &amp; Internal State, and Vocabulary Precision.
       </p>
 
-      <ul>
-
-        <li>Off</li>
-
-        <li>Open Prompts</li>
-
-        <li>Sentence Starters</li>
-
-        <li>Generated Starters</li>
-
-      </ul>
-
       <p>
-        Generated sentence starters automatically use the selected story
-        elements.
-      </p>
-
-      <h3>💭 Thinking Prompts</h3>
-
-      <p>
-        Thinking Prompts encourage students to think more deeply about
-        character motivation, emotions, problem solving, cause and effect,
-        and story organization.
+        Access help such as clarifying directions, locating a story element,
+        or navigating the planner is kept separate from targeted language support.
       </p>
 
     </section>
 
-    <section id="challenge">
-
-      <h2>⭐ Story Challenge</h2>
-
-      <p>
-        Add an optional language challenge to a story.
-      </p>
-
-      <ul>
-
-        <li>Off</li>
-
-        <li>Educator Challenge Pool</li>
-
-        <li>Educator Choice</li>
-
-      </ul>
-
-      <p>
-        Challenges can target vocabulary, complex sentences, social thinking,
-        and narrative language.
-      </p>
-
-      <p>
-        Students reveal the challenge by flipping a mystery card.
-      </p>
-
-    </section>
 
     <section id="planner">
 
@@ -1567,8 +1150,9 @@
       </ul>
 
       <p>
-        Planner prompts automatically adjust to match the selected sentence
-        support level.
+        Guiding questions remain available as the planning baseline. When an
+        Instructional Target is selected, targeted support can be opened one
+        step at a time only where it is needed.
       </p>
 
     </section>
@@ -1615,9 +1199,9 @@
 
         <li>Story selections</li>
 
-        <li>Supports</li>
+        <li>Display and vocabulary preferences</li>
 
-        <li>Story Challenge settings</li>
+        <li>Instructional Target and targeted-support state</li>
 
       </ul>
 
@@ -1639,7 +1223,6 @@
 
         <li>Vocabulary</li>
 
-        <li>Sentence supports</li>
 
         <li>Graphic organizer pages</li>
 
@@ -1663,7 +1246,7 @@
 
         <li>Turn on labels and vocabulary.</li>
 
-        <li>Use Open Prompts.</li>
+        <li>Select an Instructional Target and open targeted support only when needed.</li>
 
       </ul>
 
@@ -1673,9 +1256,9 @@
 
         <li>Use all story elements.</li>
 
-        <li>Add Story Challenges.</li>
+        <li>Let students attempt each language demand before opening targeted support.</li>
 
-        <li>Turn off supports for independent writing.</li>
+        <li>Use the same target across new stories to practice transfer.</li>
 
       </ul>
 
@@ -1696,7 +1279,37 @@
   </div>
 
 </div>
+  <!-- Hidden compatibility shims for older Story Builder saves. -->
+  <div class="legacy-support-compat" hidden aria-hidden="true">
+    <input type="radio" name="sentenceSupport" value="off" checked>
+    <input type="checkbox" id="thinkingPromptsToggle">
+    <input type="radio" name="challengeMode" value="none" checked>
+
+    <div id="challengeOptions" hidden></div>
+    <input type="text" id="tierTwoWord" value="">
+
+    <section id="mysteryChallengeSection" hidden>
+      <button id="revealChallengeButton" type="button"></button>
+      <p id="challengeError"></p>
+      <div id="challengeCardScene" hidden>
+        <div id="challengeConfetti"></div>
+        <div id="challengeCard"></div>
+        <span id="revealedCategory"></span>
+        <span id="revealedChallengeText"></span>
+      </div>
+    </section>
+
+    <section id="sentenceSupportPanel" hidden>
+      <div id="sentenceSupportContent"></div>
+    </section>
+
+    <section id="thinkingPromptPanel" hidden>
+      <ul></ul>
+    </section>
+  </div>
+
   <script src="script.js"></script>
+  <script src="instructional-support.js"></script>
   <script type="module" src="cloud-sync.mjs"></script>
 </body>
 </html>

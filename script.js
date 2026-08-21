@@ -1698,7 +1698,10 @@ document.addEventListener("DOMContentLoaded", () => {
         categoryVisibility: getCategoryVisibility()
       },
 
-      challenge: getChallengeState()
+      challenge: getChallengeState(),
+
+      instructionalSupport:
+        window.FirstVoloInstructionalSupport?.getState?.() || null
     };
   }
 
@@ -1763,13 +1766,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updatePlannerPrompts() {
-    const sentenceMode =
-      getCheckedValue("sentenceSupport", "off");
-
-    const promptSet =
-      sentenceMode === "open"
-        ? plannerPrompts.open
-        : plannerPrompts.default;
+    const promptSet = plannerPrompts.open;
 
     Object.entries(promptSet).forEach(
       ([categoryName, prompt]) => {
@@ -2049,6 +2046,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       restoreChallengeState(data.challenge);
 
+      window.FirstVoloInstructionalSupport?.restoreState?.(
+        data.instructionalSupport || null
+      );
+
       if (typeof updateAllSupports === "function") {
         updateAllSupports();
       }
@@ -2238,6 +2239,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 900);
       }
     });
+
+    window.addEventListener(
+      "firstvolo:instructional-support-changed",
+      scheduleAutoSave
+    );
   }
 
   function observeStoryCards() {
