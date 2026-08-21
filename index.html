@@ -66,24 +66,6 @@
   </button>
 
   <button
-    class="save-story-button"
-    id="saveStory"
-    type="button"
-  >
-    <span aria-hidden="true">⬇️</span>
-    Download Backup
-  </button>
-
-  <button
-    class="open-story-button"
-    id="openStory"
-    type="button"
-  >
-    <span aria-hidden="true">📂</span>
-    Restore Backup
-  </button>
-
-  <button
     class="my-stories-button"
     id="myStoriesButton"
     type="button"
@@ -110,12 +92,6 @@
     Export PDF
   </button>
 
-  <input
-    type="file"
-    id="openStoryFile"
-    accept=".firstvolo,.json,application/json"
-    hidden
-  >
 </div>
 
 <p
@@ -1196,12 +1172,10 @@
 
       <div class="my-stories-heading-row">
         <div>
-          <p class="my-stories-eyebrow">Saved on this device</p>
+          <p class="my-stories-eyebrow" id="myStoriesEyebrow">Saved on this device</p>
           <h1 id="myStoriesTitle">🗂 My Stories</h1>
           <p class="my-stories-intro">
-            Keep multiple Story Builder projects in this browser.
-            After a story is added here, later edits to that story
-            are updated automatically on this device.
+            Save, reopen, sync, or back up your Story Builder projects.
           </p>
         </div>
 
@@ -1215,12 +1189,109 @@
         </button>
       </div>
 
-      <p class="my-stories-local-note">
+      <details
+        class="cloud-sync-panel cloud-sync-details"
+        id="cloudSyncPanel"
+      >
+        <summary class="cloud-sync-summary-row">
+          <span class="cloud-sync-summary-label">
+            <span class="cloud-sync-kicker">Optional</span>
+            <span
+              class="cloud-sync-title"
+              id="cloudSyncTitle"
+            >
+              ☁️ Cloud Sync
+            </span>
+          </span>
+
+          <span
+            class="cloud-sync-badge"
+            id="cloudSyncBadge"
+          >
+            Off
+          </span>
+        </summary>
+
+        <div class="cloud-sync-details-content">
+
+        <p
+          class="cloud-sync-summary"
+          id="cloudSyncSummary"
+        >
+          Sign in to make My Stories available across your devices.
+          Local saving still works without an account.
+        </p>
+
+        <form
+          class="cloud-sign-in-form"
+          id="cloudSignInForm"
+        >
+          <label for="cloudEmail">Email</label>
+
+          <div class="cloud-sign-in-row">
+            <input
+              id="cloudEmail"
+              type="email"
+              autocomplete="email"
+              inputmode="email"
+              placeholder="you@example.com"
+              required
+            >
+
+            <button
+              id="cloudSignInButton"
+              type="submit"
+            >
+              Email me a sign-in link
+            </button>
+          </div>
+        </form>
+
+        <div
+          class="cloud-signed-in"
+          id="cloudSignedIn"
+          hidden
+        >
+          <p>
+            Signed in as
+            <strong id="cloudUserEmail"></strong>
+          </p>
+
+          <div class="cloud-signed-in-actions">
+            <button
+              id="cloudSyncNow"
+              type="button"
+            >
+              Sync now
+            </button>
+
+            <button
+              id="cloudSignOut"
+              class="cloud-sign-out"
+              type="button"
+            >
+              Sign out
+            </button>
+          </div>
+        </div>
+
+        <p
+          class="cloud-sync-status"
+          id="cloudSyncStatus"
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+      <p
+        class="my-stories-local-note"
+        id="myStoriesStorageNote"
+      >
         <strong>Stories in My Stories are saved on this device.</strong>
-        For an extra backup, choose <strong>Download Backup</strong>.
-        To use a downloaded backup later, return to Story Builder and choose
-        <strong>Restore Backup</strong>.
+        Sign in to Cloud Sync to keep them available across signed-in devices.
       </p>
+        </div>
+      </details>
 
       <p
         id="myStoriesStatus"
@@ -1246,6 +1317,48 @@
           <strong>Save to My Stories</strong>.
         </p>
       </div>
+
+      <details class="my-stories-backup">
+        <summary>
+          <span aria-hidden="true">🧰</span>
+          Backup &amp; Restore
+        </summary>
+
+        <div class="my-stories-backup-content">
+          <p>
+            My Stories already keeps your saved projects here.
+            Use a backup only when you want an extra file copy or
+            need to move a story manually.
+          </p>
+
+          <div class="my-stories-backup-actions">
+            <button
+              class="save-story-button"
+              id="saveStory"
+              type="button"
+            >
+              <span aria-hidden="true">⬇️</span>
+              Download Backup
+            </button>
+
+            <button
+              class="open-story-button"
+              id="openStory"
+              type="button"
+            >
+              <span aria-hidden="true">📂</span>
+              Restore Backup
+            </button>
+          </div>
+
+          <input
+            type="file"
+            id="openStoryFile"
+            accept=".firstvolo,.json,application/json"
+            hidden
+          >
+        </div>
+      </details>
     </div>
   </div>
 
@@ -1476,6 +1589,13 @@
       </p>
 
       <p>
+        <strong>Cloud Sync is optional.</strong> Sign in from My Stories to
+        make saved stories available across signed-in devices. Story Builder
+        continues keeping local copies so My Stories can still be used when
+        the internet is unavailable.
+      </p>
+
+      <p>
         <strong>Download Backup</strong> creates a separate Story Builder file
         for backup or transfer. To use that file later, return to Story Builder
         and choose <strong>Restore Backup</strong>.
@@ -1577,5 +1697,6 @@
 
 </div>
   <script src="script.js"></script>
+  <script type="module" src="cloud-sync.mjs"></script>
 </body>
 </html>

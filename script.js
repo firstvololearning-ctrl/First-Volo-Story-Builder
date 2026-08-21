@@ -2457,6 +2457,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       writeLibraryEnvelope(envelope);
+
+      window.dispatchEvent(
+        new CustomEvent("firstvolo:library-saved", {
+          detail: { story }
+        })
+      );
+
       return story;
     },
 
@@ -2474,6 +2481,12 @@ document.addEventListener("DOMContentLoaded", () => {
           version: LIBRARY_VERSION,
           stories: nextStories
         });
+
+        window.dispatchEvent(
+          new CustomEvent("firstvolo:library-removed", {
+            detail: { storyId }
+          })
+        );
       }
 
       return removed;
@@ -2589,8 +2602,14 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteButton.className = "my-story-library-delete";
     deleteButton.textContent = "Delete";
     deleteButton.addEventListener("click", () => {
+      const cloudSyncing = Boolean(
+        window.FirstVoloStoryCloud?.isSignedIn?.()
+      );
+
       const confirmed = window.confirm(
-        `Delete "${storyTitle(story)}" from My Stories on this device?`
+        cloudSyncing
+          ? `Delete "${storyTitle(story)}" from My Stories? This will remove it from synced devices too.`
+          : `Delete "${storyTitle(story)}" from My Stories on this device?`
       );
 
       if (!confirmed) {
@@ -2662,6 +2681,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("modal-open");
     saveCurrentButton.focus();
   }
+
+  window.addEventListener(
+    "firstvolo:cloud-library-updated",
+    () => {
+      if (!modal.classList.contains("hidden")) {
+        renderLibrary();
+      }
+    }
+  );
 
   function closeModal() {
     modal.classList.add("hidden");
