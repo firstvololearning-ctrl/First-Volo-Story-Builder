@@ -35,7 +35,7 @@
     "story-organization": {
       label: "Story Organization",
       expected:
-        "Student is expected to organize the important parts of the story into a coherent narrative: who/where → problem → response or plan → outcome.",
+        "Student is expected to organize the important parts of the story into a coherent narrative: who/where → problem → action/attempt → outcome.",
       watches:
         "Watch for a missing or misplaced story function, an ending that does not respond to the problem, a lost sequence, or story elements that are mentioned but not integrated.",
       relevant: ["problem", "plan", "resolution"],
@@ -49,17 +49,17 @@
             "The main problem is ___."
           ],
           plan: [
-            "Look back at the problem. The plan should be the character’s response to that problem.",
-            `What does the character decide to do about ${storyProblem(c)}?`,
+            "Look back at the problem. The action or attempt should respond to that problem.",
+            `What does the character try to do about ${storyProblem(c)}?`,
             "Name the character’s response or attempt, not just another event.",
-            "Use this story path: Problem → attempt/plan.",
-            "To deal with the problem, the character decides to ___."
+            "Use this story path: Problem → action/attempt.",
+            "To deal with the problem, the character tries to ___."
           ],
           resolution: [
-            "Look back at the problem and the plan. The ending should show what happened after the character acted.",
+            "Look back at the problem and the action. The ending should show what happened after the character acted.",
             `How does the ending respond to ${storyProblem(c)}?`,
             "Make sure the ending shows an outcome, not just a final unrelated event.",
-            "Use this story path: Plan/attempt → outcome → ending.",
+            "Use this story path: Action/attempt → outcome → ending.",
             "In the end, ___."
           ]
         };
@@ -71,7 +71,7 @@
           problem:
             "Now restate this part so the problem has a clear role in the story.",
           plan:
-            "Now try the plan again so it clearly responds to the problem.",
+            "Now try the action again so it clearly responds to the problem.",
           resolution:
             "Now try the ending again so it clearly follows from the story problem and response."
         };
@@ -117,11 +117,11 @@
             `The character felt ${storyFeeling(c)} when ___.`
           ],
           plan: [
-            "Connect the plan to the problem instead of listing it as a new event.",
+            "Connect the action or attempt to the problem instead of listing it as a new event.",
             `How does ${storyPlan(c)} connect to ${storyProblem(c)}?`,
-            "Show whether the plan happens because of the problem, after it, or in contrast to another idea.",
+            "Show whether the action happens because of the problem, after it, or in contrast to another idea.",
             "Try so, because, after, then, or another connector that fits.",
-            "After the problem, the character decided to ___."
+            "After the problem, the character tried to ___."
           ],
           item: [
             "Connect the item to an action or event in the story.",
@@ -135,7 +135,7 @@
             `How does the ending follow from ${storyPlan(c)}?`,
             "Show the relationship between the character’s action and the outcome.",
             "Try after, because, so, finally, or as a result if it fits.",
-            "After the character tried the plan, ___."
+            "After the character tried, ___."
           ]
         };
 
@@ -170,7 +170,7 @@
             `The character felt ${storyFeeling(c)} because ___.`
           ],
           plan: [
-            "Look at the problem and the plan together.",
+            "Look at the problem and the action/attempt together.",
             `Why might ${storyPlan(c)} help with ${storyProblem(c)}?`,
             "Explain why the character chooses this action or what the character hopes it will cause.",
             "Try because, so, or to in a way that matches the relationship.",
@@ -184,11 +184,11 @@
             `The character used ${storyItem(c)}, so ___.`
           ],
           resolution: [
-            "Look back at the character’s plan or action.",
+            "Look back at the character’s action or attempt.",
             `What happens because the character tries ${storyPlan(c)}?`,
             "State the result of the character’s action.",
             "Try so, because, therefore, or as a result if it matches your meaning.",
-            "The character tried the plan, so ___."
+            "The character tried ___, so ___."
           ]
         };
 
@@ -212,7 +212,7 @@
           setting: `The story takes place in ${storySetting(c)} where ___.`,
           problem: "The problem begins when ___.",
           feeling: `The character feels ${storyFeeling(c)} because ___.`,
-          plan: "The character decides to ___.",
+          plan: "The character tries to ___.",
           item: `The character uses ${storyItem(c)} to ___.`,
           resolution: "In the end, ___."
         };
@@ -243,7 +243,7 @@
           setting: `What detail about ${storySetting(c)} matters to what happens in the story?`,
           problem: `What detail would help us understand how ${storyProblem(c)} affects the character?`,
           feeling: `What happened that helps explain why the character feels ${storyFeeling(c)}?`,
-          plan: `How exactly will the character carry out ${storyPlan(c)}?`,
+          plan: `How exactly does the character carry out or try ${storyPlan(c)}?`,
           item: `How exactly could ${storyItem(c)} be used?`,
           resolution: "What important detail would help the listener understand how the story ends?"
         };

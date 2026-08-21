@@ -142,14 +142,14 @@ const categories = {
   },
 
   plan: {
-    title: "Plan",
+    title: "Action / Attempt",
     imageId: "planImage",
     labelId: "planLabel",
     cardId: "planCard",
     toggleId: "showPlan",
     folder: "assets/plans",
     prefix: "plan",
-    starterImage: "assets/categories/category-05.png",
+    starterImage: "assets/categories/category-action-attempt.png",
     entries: [
       { id: "plan-break-out", label: "Break Out", file: "plan-01.png" },
       { id: "plan-build", label: "Build", file: "plan-02.png" },
@@ -676,7 +676,7 @@ function getOpenPrompts() {
     "Where does the story take place?",
     "What problem occurs?",
     "How does the character feel about the problem?",
-    "What does the character plan to do to fix the problem?",
+    "What does the character do or try to solve the problem?",
     "How could the item help?",
     "How does the story end?"
   ];
@@ -687,7 +687,7 @@ function getBasicStarters() {
     "One day, __________ was in __________.",
     "Suddenly, __________.",
     "The character felt __________ because __________.",
-    "The plan was to __________.",
+    "The character tried to __________.",
     "The __________ could help by __________.",
     "In the end, __________."
   ];
@@ -746,7 +746,7 @@ function getGeneratedStarters() {
     `One day, ${characterPhrase} was ${settingPhrase}.`,
     `Suddenly, ${characterReference.toLowerCase()} ${problemPhrase}.`,
     `${characterReference} felt ${feelingPhrase} because __________.`,
-    `${characterReference} decided to ${planPhrase}.`,
+    `${characterReference} tried to ${planPhrase}.`,
     `${itemPhrase} could help by __________.`,
     "In the end, __________."
   ];
@@ -1314,7 +1314,7 @@ document.addEventListener("DOMContentLoaded", () => {
       feeling:
         "How does the character feel? Why does the character feel that way?",
       plan:
-        "What does the character plan to do? How could the plan solve the problem?",
+        "What does the character do or try? How could that action respond to the problem?",
       item:
         "How could the item help? What might the character do with it?",
       resolution:
