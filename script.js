@@ -1704,7 +1704,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function saveToBrowser(showMessage = false) {
     if (isRestoringStory) {
-      return;
+      return false;
     }
 
     try {
@@ -1712,15 +1712,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
       localStoryStorage.save(data);
 
-      if (showMessage) {
-        showSaveStatus("✓ Work saved in this browser.");
+      const library =
+        window.FirstVoloStoryLibrary?.local;
+
+      const isInMyStories = Boolean(
+        library?.has?.(data.storyId)
+      );
+
+      if (isInMyStories) {
+        library.save(data);
       }
+
+      if (showMessage) {
+        showSaveStatus(
+          isInMyStories
+            ? "✓ My Stories updated."
+            : "✓ Draft saved on this device."
+        );
+      }
+
+      return isInMyStories;
     } catch (error) {
       console.error("Could not auto-save story:", error);
 
       if (showMessage) {
-        showSaveStatus("Could not save in this browser.");
+        showSaveStatus("Could not save on this device.");
       }
+
+      return false;
     }
   }
 
@@ -1732,8 +1751,14 @@ document.addEventListener("DOMContentLoaded", () => {
     window.clearTimeout(autoSaveTimer);
 
     autoSaveTimer = window.setTimeout(() => {
-      saveToBrowser(false);
-      showSaveStatus("✓ Auto-saved", 1100);
+      const isInMyStories = saveToBrowser(false);
+
+      showSaveStatus(
+        isInMyStories
+          ? "✓ My Stories updated"
+          : "✓ Draft saved on this device",
+        1300
+      );
     }, 550);
   }
 
@@ -2092,7 +2117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       link.href = url;
       link.download =
-        `${makeSafeFileName(data.title)}.firstvolo.json`;
+        `${makeSafeFileName(data.title)}.firstvolo`;
 
       document.body.appendChild(link);
       link.click();
@@ -2103,7 +2128,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1000);
 
       saveToBrowser(false);
-      showSaveStatus("✓ Story file saved.");
+      showSaveStatus("✓ Backup downloaded.");
     } catch (error) {
       console.error("Could not save story file:", error);
       showSaveStatus("Could not save the story file.");
@@ -2128,11 +2153,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const lowerName = file.name.toLowerCase();
+
     if (
-      !file.name.toLowerCase().endsWith(".json")
+      !lowerName.endsWith(".firstvolo") &&
+      !lowerName.endsWith(".json")
     ) {
       window.alert(
-        "Please choose a First Volo Story Builder JSON file."
+        "Please choose a First Volo Story Builder file."
       );
       return;
     }
@@ -2289,6 +2317,392 @@ document.addEventListener("DOMContentLoaded", () => {
     restoreBrowserSave();
   });
 })();
+
+/* =========================================================
+   MY STORIES — LOCAL MULTI-STORY LIBRARY
+   This adapter is intentionally separate from cloud storage.
+   Supabase can later implement the same list/get/save/remove seam.
+========================================================= */
+
+(function () {
+  "use strict";
+
+  const LIBRARY_STORAGE_KEY = "firstVoloStoryBuilderMyStoriesV1";
+  const LIBRARY_VERSION = 1;
+  const storyState = window.FirstVoloStoryState;
+  const workingStorage = window.FirstVoloStoryStorage?.local;
+
+  const myStoriesButton = document.getElementById("myStoriesButton");
+  const modal = document.getElementById("myStoriesModal");
+  const closeButton = document.getElementById("closeMyStories");
+  const saveCurrentButton =
+    document.getElementById("saveCurrentToMyStories");
+  const listElement = document.getElementById("myStoriesList");
+  const emptyElement = document.getElementById("myStoriesEmpty");
+  const statusElement = document.getElementById("myStoriesStatus");
+
+  let previousFocus = null;
+  let statusTimer = null;
+
+  if (
+    !storyState ||
+    !myStoriesButton ||
+    !modal ||
+    !closeButton ||
+    !saveCurrentButton ||
+    !listElement ||
+    !emptyElement ||
+    !statusElement
+  ) {
+    console.warn(
+      "My Stories could not start because required Story Builder elements are missing."
+    );
+    return;
+  }
+
+  function loadLibraryEnvelope() {
+    const emptyLibrary = {
+      version: LIBRARY_VERSION,
+      stories: []
+    };
+
+    const raw = localStorage.getItem(LIBRARY_STORAGE_KEY);
+
+    if (!raw) {
+      return emptyLibrary;
+    }
+
+    try {
+      const parsed = JSON.parse(raw);
+
+      const rawStories = Array.isArray(parsed)
+        ? parsed
+        : Array.isArray(parsed?.stories)
+          ? parsed.stories
+          : [];
+
+      const stories = rawStories
+        .map((story) => {
+          try {
+            return storyState.migrate(story);
+          } catch (error) {
+            console.warn(
+              "Skipping an unreadable My Stories entry:",
+              error
+            );
+            return null;
+          }
+        })
+        .filter(Boolean);
+
+      return {
+        version: LIBRARY_VERSION,
+        stories
+      };
+    } catch (error) {
+      console.error("Could not read My Stories:", error);
+      return emptyLibrary;
+    }
+  }
+
+  function writeLibraryEnvelope(envelope) {
+    localStorage.setItem(
+      LIBRARY_STORAGE_KEY,
+      JSON.stringify({
+        version: LIBRARY_VERSION,
+        stories: envelope.stories
+      })
+    );
+  }
+
+  function sortStories(stories) {
+    return [...stories].sort((a, b) => {
+      const aTime = Date.parse(a.updatedAt || a.createdAt || "") || 0;
+      const bTime = Date.parse(b.updatedAt || b.createdAt || "") || 0;
+      return bTime - aTime;
+    });
+  }
+
+  const localStoryLibrary = {
+    list() {
+      return sortStories(loadLibraryEnvelope().stories);
+    },
+
+    get(storyId) {
+      return (
+        loadLibraryEnvelope().stories.find(
+          (story) => story.storyId === storyId
+        ) || null
+      );
+    },
+
+    has(storyId) {
+      return loadLibraryEnvelope().stories.some(
+        (story) => story.storyId === storyId
+      );
+    },
+
+    save(storyData) {
+      const story = storyState.migrate(storyData);
+      const envelope = loadLibraryEnvelope();
+
+      const existingIndex = envelope.stories.findIndex(
+        (candidate) => candidate.storyId === story.storyId
+      );
+
+      if (existingIndex >= 0) {
+        envelope.stories[existingIndex] = story;
+      } else {
+        envelope.stories.push(story);
+      }
+
+      writeLibraryEnvelope(envelope);
+      return story;
+    },
+
+    remove(storyId) {
+      const envelope = loadLibraryEnvelope();
+      const nextStories = envelope.stories.filter(
+        (story) => story.storyId !== storyId
+      );
+
+      const removed =
+        nextStories.length !== envelope.stories.length;
+
+      if (removed) {
+        writeLibraryEnvelope({
+          version: LIBRARY_VERSION,
+          stories: nextStories
+        });
+      }
+
+      return removed;
+    }
+  };
+
+  window.FirstVoloStoryLibrary = Object.freeze({
+    local: Object.freeze({
+      list: localStoryLibrary.list,
+      get: localStoryLibrary.get,
+      has: localStoryLibrary.has,
+      save: localStoryLibrary.save,
+      remove: localStoryLibrary.remove
+    })
+  });
+
+  function storyTitle(story) {
+    const title = String(story?.title || "").trim();
+    return title || "Untitled Story";
+  }
+
+  function formatUpdatedAt(story) {
+    const date = new Date(
+      story.updatedAt || story.createdAt || ""
+    );
+
+    if (Number.isNaN(date.getTime())) {
+      return "Saved story";
+    }
+
+    return `Updated ${new Intl.DateTimeFormat(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit"
+    }).format(date)}`;
+  }
+
+  function elementSummary(story) {
+    const selections = story?.selections || {};
+
+    return [
+      selections.character?.label,
+      selections.setting?.label,
+      selections.problem?.label,
+      selections.feeling?.label,
+      selections.plan?.label,
+      selections.item?.label
+    ]
+      .filter(Boolean)
+      .join(" • ");
+  }
+
+  function showStatus(message, duration = 2200) {
+    window.clearTimeout(statusTimer);
+    statusElement.textContent = message;
+
+    if (duration > 0) {
+      statusTimer = window.setTimeout(() => {
+        statusElement.textContent = "";
+      }, duration);
+    }
+  }
+
+  function createStoryCard(story) {
+    const card = document.createElement("article");
+    card.className = "my-story-library-card";
+
+    const info = document.createElement("div");
+
+    const title = document.createElement("h2");
+    title.className = "my-story-library-title";
+    title.textContent = storyTitle(story);
+
+    const meta = document.createElement("p");
+    meta.className = "my-story-library-meta";
+    meta.textContent = formatUpdatedAt(story);
+
+    const elements = document.createElement("p");
+    elements.className = "my-story-library-elements";
+    elements.textContent = elementSummary(story);
+
+    info.append(title, meta, elements);
+
+    const actions = document.createElement("div");
+    actions.className = "my-story-library-actions";
+
+    const openButton = document.createElement("button");
+    openButton.type = "button";
+    openButton.className = "my-story-library-open";
+    openButton.textContent = "Open";
+    openButton.addEventListener("click", () => {
+      const savedStory = localStoryLibrary.get(story.storyId);
+
+      if (!savedStory) {
+        showStatus("That saved story could not be found.");
+        renderLibrary();
+        return;
+      }
+
+      try {
+        storyState.restore(savedStory, { showMessage: true });
+        closeModal();
+      } catch (error) {
+        console.error("Could not open My Stories entry:", error);
+        showStatus("That saved story could not be opened.");
+      }
+    });
+
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "my-story-library-delete";
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", () => {
+      const confirmed = window.confirm(
+        `Delete "${storyTitle(story)}" from My Stories on this device?`
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      localStoryLibrary.remove(story.storyId);
+      renderLibrary();
+      showStatus("Story removed from My Stories.");
+    });
+
+    actions.append(openButton, deleteButton);
+    card.append(info, actions);
+
+    return card;
+  }
+
+  function renderLibrary() {
+    const stories = localStoryLibrary.list();
+
+    listElement.replaceChildren();
+    emptyElement.hidden = stories.length > 0;
+
+    stories.forEach((story) => {
+      listElement.appendChild(createStoryCard(story));
+    });
+  }
+
+  function saveCurrentStoryToLibrary({
+    showMessage = true
+  } = {}) {
+    try {
+      const story = storyState.build();
+
+      localStoryLibrary.save(story);
+      workingStorage?.save(story);
+
+      if (!modal.classList.contains("hidden")) {
+        renderLibrary();
+      }
+
+      if (showMessage) {
+        showStatus(
+          `✓ "${storyTitle(story)}" saved to My Stories.`
+        );
+      }
+
+      return story;
+    } catch (error) {
+      console.error("Could not save to My Stories:", error);
+
+      if (showMessage) {
+        showStatus(
+          "Could not save this story to My Stories on this device.",
+          3500
+        );
+      }
+
+      return null;
+    }
+  }
+
+  function openModal() {
+    previousFocus = document.activeElement;
+    renderLibrary();
+    statusElement.textContent = "";
+    modal.classList.remove("hidden");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    saveCurrentButton.focus();
+  }
+
+  function closeModal() {
+    modal.classList.add("hidden");
+    modal.setAttribute("aria-hidden", "true");
+
+    const anotherModalIsOpen =
+      document.querySelector(
+        ".about-modal:not(.hidden), .my-stories-modal:not(.hidden)"
+      );
+
+    if (!anotherModalIsOpen) {
+      document.body.classList.remove("modal-open");
+    }
+
+    previousFocus?.focus();
+  }
+
+  myStoriesButton.addEventListener("click", openModal);
+  closeButton.addEventListener("click", closeModal);
+
+  saveCurrentButton.addEventListener("click", () => {
+    saveCurrentStoryToLibrary({ showMessage: true });
+  });
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      !modal.classList.contains("hidden")
+    ) {
+      closeModal();
+    }
+  });
+
+})();
+
 /* =========================
    ABOUT MODAL
 ========================= */

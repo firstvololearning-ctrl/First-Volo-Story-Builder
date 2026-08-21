@@ -70,8 +70,8 @@
     id="saveStory"
     type="button"
   >
-    <span aria-hidden="true">💾</span>
-    Save Story
+    <span aria-hidden="true">⬇️</span>
+    Download Backup
   </button>
 
   <button
@@ -80,7 +80,16 @@
     type="button"
   >
     <span aria-hidden="true">📂</span>
-    Open Story
+    Restore Backup
+  </button>
+
+  <button
+    class="my-stories-button"
+    id="myStoriesButton"
+    type="button"
+  >
+    <span aria-hidden="true">🗂</span>
+    My Stories
   </button>
 
   <button
@@ -104,7 +113,7 @@
   <input
     type="file"
     id="openStoryFile"
-    accept=".json,application/json"
+    accept=".firstvolo,.json,application/json"
     hidden
   >
 </div>
@@ -1164,6 +1173,82 @@
     </footer>
   </section>
 
+  <!-- MY STORIES MODAL -->
+  <div
+    id="myStoriesModal"
+    class="my-stories-modal hidden"
+    aria-hidden="true"
+  >
+    <div
+      class="my-stories-window"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="myStoriesTitle"
+    >
+      <button
+        id="closeMyStories"
+        class="my-stories-close"
+        type="button"
+        aria-label="Close My Stories"
+      >
+        ×
+      </button>
+
+      <div class="my-stories-heading-row">
+        <div>
+          <p class="my-stories-eyebrow">Saved on this device</p>
+          <h1 id="myStoriesTitle">🗂 My Stories</h1>
+          <p class="my-stories-intro">
+            Keep multiple Story Builder projects in this browser.
+            After a story is added here, later edits to that story
+            are updated automatically on this device.
+          </p>
+        </div>
+
+        <button
+          id="saveCurrentToMyStories"
+          class="my-stories-save-current"
+          type="button"
+        >
+          <span aria-hidden="true">💾</span>
+          Save to My Stories
+        </button>
+      </div>
+
+      <p class="my-stories-local-note">
+        <strong>Stories in My Stories are saved on this device.</strong>
+        For an extra backup, choose <strong>Download Backup</strong>.
+        To use a downloaded backup later, return to Story Builder and choose
+        <strong>Restore Backup</strong>.
+      </p>
+
+      <p
+        id="myStoriesStatus"
+        class="my-stories-status"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+      <div
+        id="myStoriesList"
+        class="my-stories-list"
+      ></div>
+
+      <div
+        id="myStoriesEmpty"
+        class="my-stories-empty"
+        hidden
+      >
+        <span aria-hidden="true">📝</span>
+        <h2>No saved stories yet</h2>
+        <p>
+          Create or open a story, then choose
+          <strong>Save to My Stories</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+
   <!-- ABOUT MODAL -->
 
 
@@ -1385,8 +1470,19 @@
       </p>
 
       <p>
-        Stories can also be saved as First Volo Story Builder files that
-        preserve:
+        <strong>My Stories</strong> lets you keep multiple Story Builder
+        projects in this browser on this device. Once a story is added to
+        My Stories, later edits to that story are updated automatically.
+      </p>
+
+      <p>
+        <strong>Download Backup</strong> creates a separate Story Builder file
+        for backup or transfer. To use that file later, return to Story Builder
+        and choose <strong>Restore Backup</strong>.
+      </p>
+
+      <p>
+        Downloaded copies preserve:
       </p>
 
       <ul>
