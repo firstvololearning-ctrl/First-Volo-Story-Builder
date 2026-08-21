@@ -1335,9 +1335,9 @@ document.addEventListener("DOMContentLoaded", () => {
       problem: "Add notes about the problem.",
       feeling: "Add notes about the character’s feeling.",
       plan: "Add notes about the character’s plan.",
-      attempt: "Add notes about what the character actually does or tries.",
-      item: "Add notes about the item.",
-      resolution: "Add notes about how the story ends."
+      attempt: "What does the character actually do or try to carry out the plan? If needed, what do they try next?",
+      item: "How could the item connect to the plan or attempt(s)?",
+      resolution: "What happens because of the attempt(s)? How is the problem resolved?"
     },
 
     open: {
@@ -1352,11 +1352,11 @@ document.addEventListener("DOMContentLoaded", () => {
       plan:
         "What does the character decide or hope to do? How does the plan grow from the problem and feeling?",
       attempt:
-        "What does the character actually do or try to carry out the plan? What happens when they try?",
+        "What does the character actually do or try to carry out the plan? If needed, what do they try next?",
       item:
-        "How could the item help? What might the character do with it?",
+        "How could the item connect to the plan or attempt(s)?",
       resolution:
-        "How is the problem solved? How does the character feel at the end?"
+        "What happens because of the attempt(s)? How is the problem resolved?"
     }
   };
 

@@ -160,7 +160,7 @@
                   <label class="setting-option"><input type="checkbox" id="showProblem" checked><span>Problem</span></label>
                   <label class="setting-option"><input type="checkbox" id="showFeeling" checked><span>Feeling</span></label>
                   <label class="setting-option"><input type="checkbox" id="showPlan" checked><span>Plan</span></label>
-                  <label class="setting-option"><input type="checkbox" id="showAttempt" checked><span>Action / Attempt</span></label>
+                  <label class="setting-option"><input type="checkbox" id="showAttempt" checked><span>Action / Attempt(s)</span></label>
                   <label class="setting-option"><input type="checkbox" id="showResolution" checked><span>Resolution</span></label>
                 </div>
 
@@ -321,7 +321,7 @@
         <article class="card student-generated-card" id="attemptCard">
           <div class="card-heading">
             <span class="step-number">6</span>
-            <h2>Action / Attempt</h2>
+            <h2>Action / Attempt(s)</h2>
           </div>
 
           <div class="image-frame">
@@ -335,7 +335,7 @@
           <span class="student-generated-badge">Student-generated</span>
 
           <p class="student-generated-prompt">
-            What does the character actually do or try to carry out the plan?
+            What does the character actually do or try to carry out the plan? If needed, what do they try next?
           </p>
         </article>
 
@@ -355,8 +355,8 @@
 
           <span class="student-generated-badge">Student-generated</span>
 
-          <p class="resolution-prompt">
-            What happens because of the attempt? How is the problem resolved?
+          <p class="student-generated-prompt">
+            What happens because of the attempt(s)? How is the problem resolved?
           </p>
         </article>
 
@@ -424,7 +424,7 @@
 
     <div class="story-planner-content">
       <p class="story-planner-intro">
-        Use your story elements to plan your ideas before you write.
+        Use your story elements to develop and connect your story ideas.
       </p>
 
       <div class="story-planner-grid">
@@ -639,7 +639,7 @@
             </div>
 
             <div class="story-planner-heading">
-              <h3>Action / Attempt</h3>
+              <h3>Action / Attempt(s)</h3>
               <p class="story-planner-selection">
                 Student-generated
               </p>
@@ -650,13 +650,13 @@
             class="story-planner-prompt"
             id="plannerAttemptPrompt"
           >
-            What does the character actually do or try to carry out the plan? What happens when they try?
+            What does the character actually do or try to carry out the plan? If needed, what do they try next?
           </div>
 
           <textarea
             id="plannerAttemptNotes"
             class="story-planner-notes"
-            placeholder="What does the character do or try?"
+            placeholder="What does the character do or try? What might they try next?"
           ></textarea>
         </article>
 
@@ -686,13 +686,13 @@
             class="story-planner-prompt"
             id="plannerResolutionPrompt"
           >
-            Add notes about how the story ends.
+            What happens because of the attempt(s)? How is the problem resolved?
           </div>
 
           <textarea
             id="plannerResolutionNotes"
             class="story-planner-notes"
-            placeholder="How is the problem resolved?"
+            placeholder="What happens because of the attempt(s)? How is the problem resolved?"
           ></textarea>
         </article>
 
@@ -728,13 +728,13 @@
             class="story-planner-prompt"
             id="plannerItemPrompt"
           >
-            How could this optional item matter in the story?
+            How could the item connect to the plan or attempt(s)?
           </div>
 
           <textarea
             id="plannerItemNotes"
             class="story-planner-notes"
-            placeholder="How could the item connect to an action or event?"
+            placeholder="How could the item connect to the plan or attempt(s)?"
           ></textarea>
         </article>
 
@@ -821,21 +821,21 @@
         </div>
 
         <div class="organizer-prompt" id="printAttemptOrganizer">
-          <h2>Action / Attempt</h2>
-          <p>What does the character actually do or try to carry out the plan?</p>
+          <h2>Action / Attempt(s)</h2>
+          <p>What does the character actually do or try to carry out the plan? If needed, what do they try next?</p>
           <div class="organizer-lines"></div>
         </div>
       </div>
 
       <div class="organizer-prompt" id="printItemOrganizer">
         <h2>Item (Optional)</h2>
-        <p>How could this item connect to the plan or attempt?</p>
+        <p>How could this item connect to the plan or attempt(s)?</p>
         <div class="organizer-lines"></div>
       </div>
 
       <div class="organizer-prompt organizer-ending organizer-resolution" id="printResolutionOrganizer">
         <h2>Resolution</h2>
-        <p>What happens because of the attempt? How is the problem resolved?</p>
+        <p>What happens because of the attempt(s)? How is the problem resolved?</p>
         <div class="organizer-lines organizer-lines-large"></div>
       </div>
     </section>
@@ -1156,7 +1156,7 @@
 
       <ul>
         <li><strong>Plan:</strong> What does the character decide or hope to do after the problem, given how the character feels?</li>
-        <li><strong>Action / Attempt:</strong> What does the character actually do or try to carry out the plan?</li>
+        <li><strong>Action / Attempt(s):</strong> What does the character actually do or try to carry out the plan?</li>
         <li><strong>Resolution:</strong> What happens because of the attempt, and how is the problem resolved?</li>
       </ul>
 
@@ -1167,13 +1167,13 @@
       </p>
 
       <p>
-        <strong>Action / Attempt and Resolution are student-generated.</strong>
+        <strong>Action / Attempt(s) and Resolution are student-generated.</strong>
         They are not rolled by the app.
       </p>
 
       <p>
         <strong>Story path:</strong>
-        Problem + Feeling → Plan → Action / Attempt → Resolution
+        Problem + Feeling → Plan → Action / Attempt(s) → Resolution
       </p>
 
       <p>
@@ -1192,7 +1192,7 @@
       <p>
         Educators can show or hide story parts to match student needs. The core
         sequence includes Character, Setting, Problem, Feeling, Plan,
-        Action / Attempt, and Resolution. Item is available separately as an
+        Action / Attempt(s), and Resolution. Item is available separately as an
         optional story element.
       </p>
 
@@ -1237,7 +1237,7 @@
 
       <p>
         The Story Planner carries the rolled story ideas into a graphic organizer
-        and adds space for the student-generated Plan, Action / Attempt, and
+        and adds space for the student-generated Plan, Action / Attempt(s), and
         Resolution. It can support oral rehearsal, brief notes, scribed responses,
         or written planning.
       </p>
@@ -1254,7 +1254,7 @@
 
         <li>Plan</li>
 
-        <li>Action / Attempt</li>
+        <li>Action / Attempt(s)</li>
 
         <li>Resolution</li>
 
@@ -1331,7 +1331,7 @@
       <p>
         Create a printable Story Map that mirrors the story elements currently
         turned on. The organizer includes the student-generated Plan,
-        Action / Attempt, and Resolution when those elements are enabled.
+        Action / Attempt(s), and Resolution when those elements are enabled.
       </p>
 
       <p>
