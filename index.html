@@ -153,13 +153,23 @@
               <summary>Story Elements</summary>
 
               <div class="settings-content">
-                <label class="setting-option"><input type="checkbox" id="showCharacter" checked><span>Character</span></label>
-                <label class="setting-option"><input type="checkbox" id="showSetting" checked><span>Setting</span></label>
-                <label class="setting-option"><input type="checkbox" id="showProblem" checked><span>Problem</span></label>
-                <label class="setting-option"><input type="checkbox" id="showFeeling" checked><span>Feeling</span></label>
-                <label class="setting-option"><input type="checkbox" id="showPlan" checked><span>Action / Attempt</span></label>
-                <label class="setting-option"><input type="checkbox" id="showItem" checked><span>Item</span></label>
-                <label class="setting-option"><input type="checkbox" id="showResolution" checked><span>Resolution</span></label>
+                <div class="story-element-group">
+                  <p class="story-element-group-label">Core story parts</p>
+                  <label class="setting-option"><input type="checkbox" id="showCharacter" checked><span>Character</span></label>
+                  <label class="setting-option"><input type="checkbox" id="showSetting" checked><span>Setting</span></label>
+                  <label class="setting-option"><input type="checkbox" id="showProblem" checked><span>Problem</span></label>
+                  <label class="setting-option"><input type="checkbox" id="showFeeling" checked><span>Feeling</span></label>
+                  <label class="setting-option"><input type="checkbox" id="showPlan" checked><span>Action / Attempt</span></label>
+                  <label class="setting-option"><input type="checkbox" id="showResolution" checked><span>Resolution</span></label>
+                </div>
+
+                <div class="story-element-group optional-story-element-group">
+                  <p class="story-element-group-label">Optional story element</p>
+                  <label class="setting-option optional-story-option"><input type="checkbox" id="showItem"><span>Item</span></label>
+                  <p class="story-element-group-note">
+                    Add an object for an extra creative constraint. Item is not treated as a required narrative function.
+                  </p>
+                </div>
               </div>
             </details>
 
@@ -299,31 +309,9 @@
           </button>
         </article>
 
-        <article class="card" id="itemCard">
-          <div class="card-heading">
-            <span class="step-number">6</span>
-            <h2>Item</h2>
-          </div>
-
-          <div class="image-frame">
-            <img
-              id="itemImage"
-              src="assets/categories/category-06.png"
-              alt="Roll to choose an item"
-            >
-            <div class="loading-indicator" aria-hidden="true"></div>
-          </div>
-
-          <div class="image-label" id="itemLabel"></div>
-
-          <button type="button" onclick="rollCategory('item')">
-            ↻ Roll
-          </button>
-        </article>
-
         <article class="card resolution-card" id="resolutionCard">
           <div class="card-heading">
-            <span class="step-number">7</span>
+            <span class="step-number">6</span>
             <h2>Resolution</h2>
           </div>
 
@@ -338,6 +326,28 @@
           <p class="resolution-prompt">
             How will your story end?
           </p>
+        </article>
+
+        <article class="card optional-story-card hidden-category" id="itemCard">
+          <div class="card-heading">
+            <span class="optional-story-badge">Optional element</span>
+            <h2>Item</h2>
+          </div>
+
+          <div class="image-frame">
+            <img
+              id="itemImage"
+              src="assets/categories/category-06.png"
+              alt="Roll to choose an optional item"
+            >
+            <div class="loading-indicator" aria-hidden="true"></div>
+          </div>
+
+          <div class="image-label" id="itemLabel"></div>
+
+          <button type="button" onclick="rollCategory('item')">
+            ↻ Roll
+          </button>
         </article>
 
       </main>
@@ -583,45 +593,6 @@
         </article>
 
         <article
-          class="story-planner-card"
-          id="plannerItemCard"
-          data-planner-category="item"
-        >
-          <div class="story-planner-card-header">
-            <div class="story-planner-image-frame">
-              <img
-                id="plannerItemImage"
-                src="assets/categories/category-06.png"
-                alt="Item"
-              >
-            </div>
-
-            <div class="story-planner-heading">
-              <h3>Item</h3>
-              <p
-                class="story-planner-selection"
-                id="plannerItemLabel"
-              >
-                Roll to choose an item.
-              </p>
-            </div>
-          </div>
-
-          <div
-            class="story-planner-prompt"
-            id="plannerItemPrompt"
-          >
-            Add notes about the item.
-          </div>
-
-          <textarea
-            id="plannerItemNotes"
-            class="story-planner-notes"
-            placeholder="How could the item help?"
-          ></textarea>
-        </article>
-
-        <article
           class="story-planner-card story-planner-resolution-card"
           id="plannerResolutionCard"
           data-planner-category="resolution"
@@ -654,6 +625,48 @@
             id="plannerResolutionNotes"
             class="story-planner-notes"
             placeholder="How is the problem resolved?"
+          ></textarea>
+        </article>
+
+        <article
+          class="story-planner-card optional-story-planner-card hidden-planner-card"
+          id="plannerItemCard"
+          data-planner-category="item"
+        >
+          <div class="story-planner-card-header">
+            <div class="story-planner-image-frame">
+              <img
+                id="plannerItemImage"
+                src="assets/categories/category-06.png"
+                alt="Optional item"
+              >
+            </div>
+
+            <div class="story-planner-heading">
+              <div class="planner-heading-with-badge">
+                <h3>Item</h3>
+                <span class="optional-story-badge">Optional element</span>
+              </div>
+              <p
+                class="story-planner-selection"
+                id="plannerItemLabel"
+              >
+                Roll to choose an optional item.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="story-planner-prompt"
+            id="plannerItemPrompt"
+          >
+            How could this optional item matter in the story?
+          </div>
+
+          <textarea
+            id="plannerItemNotes"
+            class="story-planner-notes"
+            placeholder="How could the item connect to an action or event?"
           ></textarea>
         </article>
 
@@ -734,14 +747,14 @@
 
       <div class="organizer-row">
         <div class="organizer-prompt">
-          <h2>Plan</h2>
-          <p>What will the character do?</p>
+          <h2>Action / Attempt</h2>
+          <p>What does the character do or try?</p>
           <div class="organizer-lines"></div>
         </div>
 
-        <div class="organizer-prompt">
-          <h2>Item</h2>
-          <p>How could this item help?</p>
+        <div class="organizer-prompt" id="printItemOrganizer">
+          <h2>Item (Optional)</h2>
+          <p>How could this item connect to an action or event?</p>
           <div class="organizer-lines"></div>
         </div>
       </div>
@@ -1018,10 +1031,10 @@
     <h1 id="aboutTitle">📖 About First Volo Story Builder</h1>
 
     <p class="about-intro">
-      <strong>First Volo Story Builder</strong> is an interactive storytelling
-      tool designed to make narrative development, language organization,
-      sentence formulation, and creative writing more visible, structured,
-      and engaging.
+      <strong>First Volo Story Builder</strong> is an interactive narrative-language
+      tool for generating story ideas, organizing narrative relationships, and
+      practicing specific language targets. It can support oral, written, typed,
+      or scribed story production depending on the instructional goal.
     </p>
 
     <nav class="about-nav" aria-label="About guide sections">
@@ -1039,15 +1052,16 @@
       <h2>👋 Welcome</h2>
 
       <p>
-        Story Builder helps students generate ideas, organize their thinking,
-        develop narrative language, and write complete stories using engaging
-        visual supports.
+        Students generate visual story parts and decide how those parts fit
+        together into a coherent story. The cards provide content to work with;
+        they do not supply the causal or narrative relationships for the student.
       </p>
 
       <p>
-        Students can generate story elements, organize ideas, receive different
-        levels of language support, write their stories, and save or print
-        their work.
+        Story Builder can be used for oral storytelling, planning, written or
+        typed composition, or scribed composition. If handwriting, spelling, or
+        typing is not the instructional target, an educator can scribe the
+        student's language so those demands do not replace the language task.
       </p>
 
     </section>
@@ -1071,11 +1085,17 @@
 
         <li>Feeling</li>
 
-        <li>Plan</li>
+        <li>Action / Attempt</li>
 
-        <li>Item</li>
+        <li>Resolution</li>
 
       </ul>
+
+      <p>
+        The <strong>Item</strong> card is optional. It can add an object as an
+        extra creative constraint, but Item is not treated as a required narrative
+        function.
+      </p>
 
       <p>
         Thousands of different story combinations are possible.
@@ -1084,8 +1104,9 @@
       <h2>⚙️ Customize Story Elements</h2>
 
       <p>
-        Educators can show or hide individual story categories to match student
-        needs. A Resolution card can also be included for complete story planning.
+        Educators can show or hide story parts to match student needs. The core
+        sequence includes Character, Setting, Problem, Feeling, Action / Attempt,
+        and Resolution. Item is available separately as an optional story element.
       </p>
 
     </section>
@@ -1095,16 +1116,18 @@
       <h2>🎯 Instructional Support</h2>
 
       <p>
-        Educators can choose one primary instructional target for the story.
-        Story Builder then places targeted support directly inside the Story
-        Planner where that language demand occurs.
+        Educators can choose one primary instructional target based on the
+        language skill being taught or the breakdown observed in the student's
+        first attempt. Story Builder does not diagnose the target or score student
+        performance.
       </p>
 
       <p>
-        Students attempt the language first. If support is needed, choose
-        <strong>Need help?</strong> to reveal one cue at a time. Additional
-        support becomes more explicit only as needed, and the student then
-        retries the same idea.
+        The student attempts the language first. If targeted help is needed,
+        choose <strong>Need help?</strong> to reveal one support step at a time
+        in the relevant part of the Story Planner. Support becomes more explicit
+        only as needed, and the student then retries or reformulates the same
+        language demand.
       </p>
 
       <p>
@@ -1115,11 +1138,11 @@
 
       <p>
         Access help such as clarifying directions, locating a story element,
-        or navigating the planner is kept separate from targeted language support.
+        rereading a prompt, navigating the planner, or explaining a non-target
+        word is kept separate from support for the selected instructional target.
       </p>
 
     </section>
-
 
     <section id="planner">
 
@@ -1127,8 +1150,9 @@
 
       <p>
         The Story Planner automatically copies selected story elements into
-        a graphic organizer where students can organize their ideas before
-        writing.
+        a graphic organizer where students can develop the relationships and
+        language that make the story work. It can support oral rehearsal, brief
+        notes, scribed responses, or written planning.
       </p>
 
       <ul>
@@ -1141,13 +1165,16 @@
 
         <li>Feeling</li>
 
-        <li>Plan</li>
-
-        <li>Item</li>
+        <li>Action / Attempt</li>
 
         <li>Resolution</li>
 
       </ul>
+
+      <p>
+        If the optional Item element is turned on, it also appears in the planner
+        so the student can decide whether and how it matters to the story.
+      </p>
 
       <p>
         Guiding questions remain available as the planning baseline. When an
@@ -1162,8 +1189,8 @@
       <h2>💾 Save &amp; Open Stories</h2>
 
       <p>
-        Story Builder automatically saves student work in the browser while
-        students write.
+        Story Builder automatically saves work entered in the Story Planner
+        and writing area in the browser.
       </p>
 
       <p>
@@ -1228,7 +1255,7 @@
 
         <li>Writing paper</li>
 
-        <li>The student's typed draft</li>
+        <li>The student's typed story or draft</li>
 
       </ul>
 
@@ -1238,28 +1265,40 @@
 
       <h2>💡 Tips for Educators</h2>
 
-      <h3>Beginning Writers</h3>
+      <h3>Match the task to the instructional target</h3>
 
       <ul>
-
-        <li>Use fewer story elements.</li>
-
-        <li>Turn on labels and vocabulary.</li>
-
-        <li>Select an Instructional Target and open targeted support only when needed.</li>
-
+        <li>
+          The student can tell the story aloud, type or write it, or dictate
+          while an educator scribes.
+        </li>
+        <li>
+          If handwriting, spelling, or typing is not the target, do not require
+          those skills to be the main way the student demonstrates narrative
+          language.
+        </li>
+        <li>
+          Use only the story elements that are useful for the student and the
+          instructional goal. Item remains optional.
+        </li>
       </ul>
 
-      <h3>More Advanced Writers</h3>
+      <h3>Use targeted support responsively</h3>
 
       <ul>
+        <li>Let the student attempt the language before opening targeted support.</li>
+        <li>Use the least support likely to help, then have the student retry the same language demand.</li>
+        <li>Reduce or remove support when the student can maintain the target with less help.</li>
+        <li>Provide access help when needed without treating it as support for the language target.</li>
+      </ul>
 
-        <li>Use all story elements.</li>
+      <h3>Look for transfer</h3>
 
-        <li>Let students attempt each language demand before opening targeted support.</li>
-
-        <li>Use the same target across new stories to practice transfer.</li>
-
+      <ul>
+        <li>
+          After the student improves within one story, use a new story with the
+          same target to see whether the skill carries over to new content.
+        </li>
       </ul>
 
     </section>

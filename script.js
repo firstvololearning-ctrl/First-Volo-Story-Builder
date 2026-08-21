@@ -819,6 +819,13 @@ function buildPrintPlanner() {
   const showLabels =
     document.getElementById("toggleLabels").checked;
 
+  const printItemOrganizer =
+    document.getElementById("printItemOrganizer");
+
+  if (printItemOrganizer) {
+    printItemOrganizer.hidden = !isCategoryVisible("item");
+  }
+
   Object.entries(categories).forEach(
     ([categoryName, category]) => {
       const selection =
@@ -1299,7 +1306,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setting: "Add notes about the setting.",
       problem: "Add notes about the problem.",
       feeling: "Add notes about the character’s feeling.",
-      plan: "Add notes about the plan.",
+      plan: "Add notes about what the character does or tries.",
       item: "Add notes about the item.",
       resolution: "Add notes about how the story ends."
     },
