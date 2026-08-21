@@ -159,7 +159,8 @@
                   <label class="setting-option"><input type="checkbox" id="showSetting" checked><span>Setting</span></label>
                   <label class="setting-option"><input type="checkbox" id="showProblem" checked><span>Problem</span></label>
                   <label class="setting-option"><input type="checkbox" id="showFeeling" checked><span>Feeling</span></label>
-                  <label class="setting-option"><input type="checkbox" id="showPlan" checked><span>Action / Attempt</span></label>
+                  <label class="setting-option"><input type="checkbox" id="showPlan" checked><span>Plan</span></label>
+                  <label class="setting-option"><input type="checkbox" id="showAttempt" checked><span>Action / Attempt</span></label>
                   <label class="setting-option"><input type="checkbox" id="showResolution" checked><span>Resolution</span></label>
                 </div>
 
@@ -287,31 +288,60 @@
           </button>
         </article>
 
-        <article class="card" id="planCard">
+        <article class="card plan-card" id="planCard">
           <div class="card-heading">
             <span class="step-number">5</span>
-            <h2>Action / Attempt</h2>
+            <h2>Plan</h2>
           </div>
 
           <div class="image-frame">
             <img
               id="planImage"
-              src="assets/categories/category-action-attempt.png"
-              alt="Roll to choose an action or attempt"
+              src="assets/categories/category-05.png"
+              alt="Plan"
             >
             <div class="loading-indicator" aria-hidden="true"></div>
           </div>
 
+          <p class="student-generated-prompt">
+            What does the character decide or hope to do because of the problem and how they feel?
+          </p>
+
           <div class="image-label" id="planLabel"></div>
 
-          <button type="button" onclick="rollCategory('plan')">
-            ↻ Roll
-          </button>
+          <div class="plan-idea-box">
+            <span class="plan-idea-label">Optional idea help</span>
+            <p>Make your own plan, or roll a card if you need an idea. You can use it, change it, or ignore it.</p>
+            <button type="button" class="plan-idea-button" onclick="rollCategory('plan')">
+              🎲 Need an idea? Roll a Plan Idea
+            </button>
+          </div>
         </article>
 
-        <article class="card resolution-card" id="resolutionCard">
+        <article class="card student-generated-card" id="attemptCard">
           <div class="card-heading">
             <span class="step-number">6</span>
+            <h2>Action / Attempt</h2>
+          </div>
+
+          <div class="image-frame">
+            <img
+              id="attemptImage"
+              src="assets/categories/category-action-attempt.png"
+              alt="Action or attempt"
+            >
+          </div>
+
+          <span class="student-generated-badge">Student-generated</span>
+
+          <p class="student-generated-prompt">
+            What does the character actually do or try to carry out the plan?
+          </p>
+        </article>
+
+        <article class="card resolution-card student-generated-card" id="resolutionCard">
+          <div class="card-heading">
+            <span class="step-number">7</span>
             <h2>Resolution</h2>
           </div>
 
@@ -323,8 +353,10 @@
             >
           </div>
 
+          <span class="student-generated-badge">Student-generated</span>
+
           <p class="resolution-prompt">
-            How will your story end?
+            What happens because of the attempt? How is the problem resolved?
           </p>
         </article>
 
@@ -562,18 +594,18 @@
             <div class="story-planner-image-frame">
               <img
                 id="plannerPlanImage"
-                src="assets/categories/category-action-attempt.png"
-                alt="Action or attempt"
+                src="assets/categories/category-05.png"
+                alt="Plan"
               >
             </div>
 
             <div class="story-planner-heading">
-              <h3>Action / Attempt</h3>
+              <h3>Plan</h3>
               <p
                 class="story-planner-selection"
                 id="plannerPlanLabel"
               >
-                Roll to choose an action or attempt.
+                Make your own plan. A rolled idea is optional.
               </p>
             </div>
           </div>
@@ -582,18 +614,54 @@
             class="story-planner-prompt"
             id="plannerPlanPrompt"
           >
-            Add notes about what the character does or tries.
+            What does the character decide or hope to do? How does the plan grow from the problem and feeling?
           </div>
 
           <textarea
             id="plannerPlanNotes"
+            class="story-planner-notes"
+            placeholder="What is the character's plan? Why does it make sense?"
+          ></textarea>
+        </article>
+
+        <article
+          class="story-planner-card student-generated-planner-card"
+          id="plannerAttemptCard"
+          data-planner-category="attempt"
+        >
+          <div class="story-planner-card-header">
+            <div class="story-planner-image-frame">
+              <img
+                id="plannerAttemptImage"
+                src="assets/categories/category-action-attempt.png"
+                alt="Action or attempt"
+              >
+            </div>
+
+            <div class="story-planner-heading">
+              <h3>Action / Attempt</h3>
+              <p class="story-planner-selection">
+                Student-generated
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="story-planner-prompt"
+            id="plannerAttemptPrompt"
+          >
+            What does the character actually do or try to carry out the plan? What happens when they try?
+          </div>
+
+          <textarea
+            id="plannerAttemptNotes"
             class="story-planner-notes"
             placeholder="What does the character do or try?"
           ></textarea>
         </article>
 
         <article
-          class="story-planner-card story-planner-resolution-card"
+          class="story-planner-card story-planner-resolution-card student-generated-planner-card"
           id="plannerResolutionCard"
           data-planner-category="resolution"
         >
@@ -609,7 +677,7 @@
             <div class="story-planner-heading">
               <h3>Resolution</h3>
               <p class="story-planner-selection">
-                It’s up to you!
+                Student-generated
               </p>
             </div>
           </div>
@@ -746,22 +814,28 @@
       </div>
 
       <div class="organizer-row">
-        <div class="organizer-prompt">
-          <h2>Action / Attempt</h2>
-          <p>What does the character do or try?</p>
+        <div class="organizer-prompt" id="printPlanOrganizer">
+          <h2>Plan</h2>
+          <p>What does the character decide or hope to do because of the problem and feeling?</p>
           <div class="organizer-lines"></div>
         </div>
 
-        <div class="organizer-prompt" id="printItemOrganizer">
-          <h2>Item (Optional)</h2>
-          <p>How could this item connect to an action or event?</p>
+        <div class="organizer-prompt" id="printAttemptOrganizer">
+          <h2>Action / Attempt</h2>
+          <p>What does the character actually do or try to carry out the plan?</p>
           <div class="organizer-lines"></div>
         </div>
       </div>
 
-      <div class="organizer-prompt organizer-ending organizer-resolution">
+      <div class="organizer-prompt" id="printItemOrganizer">
+        <h2>Item (Optional)</h2>
+        <p>How could this item connect to the plan or attempt?</p>
+        <div class="organizer-lines"></div>
+      </div>
+
+      <div class="organizer-prompt organizer-ending organizer-resolution" id="printResolutionOrganizer">
         <h2>Resolution</h2>
-        <p>How does the story end?</p>
+        <p>What happens because of the attempt? How is the problem resolved?</p>
         <div class="organizer-lines organizer-lines-large"></div>
       </div>
     </section>
@@ -1071,25 +1145,36 @@
       <h2>🎲 Build a Story</h2>
 
       <p>
-        Roll all story elements at once or roll individual cards to change
-        only one part of the story.
+        <strong>Create a Story</strong> rolls the visual idea cards for Character,
+        Setting, Problem, and Feeling. These give the student content to work with
+        without deciding how the story should unfold.
+      </p>
+
+      <p>
+        The student then builds the rest of the narrative:
       </p>
 
       <ul>
-
-        <li>Character</li>
-
-        <li>Setting</li>
-
-        <li>Problem</li>
-
-        <li>Feeling</li>
-
-        <li>Action / Attempt</li>
-
-        <li>Resolution</li>
-
+        <li><strong>Plan:</strong> What does the character decide or hope to do after the problem, given how the character feels?</li>
+        <li><strong>Action / Attempt:</strong> What does the character actually do or try to carry out the plan?</li>
+        <li><strong>Resolution:</strong> What happens because of the attempt, and how is the problem resolved?</li>
       </ul>
+
+      <p>
+        <strong>Plan is student-generated.</strong> If the student needs an idea,
+        the existing Plan cards can be rolled as optional idea help. A rolled idea
+        can be used, changed, or ignored; it does not replace the student's own plan.
+      </p>
+
+      <p>
+        <strong>Action / Attempt and Resolution are student-generated.</strong>
+        They are not rolled by the app.
+      </p>
+
+      <p>
+        <strong>Story path:</strong>
+        Problem + Feeling → Plan → Action / Attempt → Resolution
+      </p>
 
       <p>
         The <strong>Item</strong> card is optional. It can add an object as an
@@ -1098,15 +1183,17 @@
       </p>
 
       <p>
-        Thousands of different story combinations are possible.
+        Because the app supplies only part of the story, the same visual
+        combination can lead to many different plans, attempts, and resolutions.
       </p>
 
       <h2>⚙️ Customize Story Elements</h2>
 
       <p>
         Educators can show or hide story parts to match student needs. The core
-        sequence includes Character, Setting, Problem, Feeling, Action / Attempt,
-        and Resolution. Item is available separately as an optional story element.
+        sequence includes Character, Setting, Problem, Feeling, Plan,
+        Action / Attempt, and Resolution. Item is available separately as an
+        optional story element.
       </p>
 
     </section>
@@ -1149,10 +1236,10 @@
       <h2>🗂 Interactive Story Planner</h2>
 
       <p>
-        The Story Planner automatically copies selected story elements into
-        a graphic organizer where students can develop the relationships and
-        language that make the story work. It can support oral rehearsal, brief
-        notes, scribed responses, or written planning.
+        The Story Planner carries the rolled story ideas into a graphic organizer
+        and adds space for the student-generated Plan, Action / Attempt, and
+        Resolution. It can support oral rehearsal, brief notes, scribed responses,
+        or written planning.
       </p>
 
       <ul>
@@ -1165,6 +1252,8 @@
 
         <li>Feeling</li>
 
+        <li>Plan</li>
+
         <li>Action / Attempt</li>
 
         <li>Resolution</li>
@@ -1173,7 +1262,8 @@
 
       <p>
         If the optional Item element is turned on, it also appears in the planner
-        so the student can decide whether and how it matters to the story.
+        so the student can decide whether and how it matters to the plan, attempt,
+        or other part of the story.
       </p>
 
       <p>
@@ -1239,7 +1329,13 @@
       <h2>🖨 Print or Export as PDF</h2>
 
       <p>
-        Create a printable Story Planner that can include:
+        Create a printable Story Map that mirrors the story elements currently
+        turned on. The organizer includes the student-generated Plan,
+        Action / Attempt, and Resolution when those elements are enabled.
+      </p>
+
+      <p>
+        The printable pages can include:
       </p>
 
       <ul>
@@ -1279,7 +1375,8 @@
         </li>
         <li>
           Use only the story elements that are useful for the student and the
-          instructional goal. Item remains optional.
+          instructional goal. Item remains optional, and a Plan Idea roll should
+          be used only when idea-generation support is helpful.
         </li>
       </ul>
 

@@ -142,14 +142,14 @@ const categories = {
   },
 
   plan: {
-    title: "Action / Attempt",
+    title: "Plan Idea",
     imageId: "planImage",
     labelId: "planLabel",
     cardId: "planCard",
     toggleId: "showPlan",
     folder: "assets/plans",
     prefix: "plan",
-    starterImage: "assets/categories/category-action-attempt.png",
+    starterImage: "assets/categories/category-05.png",
     entries: [
       { id: "plan-break-out", label: "Break Out", file: "plan-01.png" },
       { id: "plan-build", label: "Build", file: "plan-02.png" },
@@ -435,7 +435,9 @@ async function rollCategory(categoryName) {
 
 async function rollAllCategories() {
   const visibleCategories = Object.keys(categories).filter(
-    isCategoryVisible
+    (categoryName) =>
+      categoryName !== "plan" &&
+      isCategoryVisible(categoryName)
   );
 
   if (!visibleCategories.length) {
@@ -464,7 +466,7 @@ async function rollAllCategories() {
     }
   }
 
-  setStatus("✨ Your story is ready!");
+  setStatus("✨ Your story parts are ready! Now make a plan.");
 
   if (!reducedMotion) {
     await sleep(550);
@@ -541,12 +543,13 @@ function connectCategoryToggle(categoryName) {
   });
 }
 
-function connectResolutionToggle() {
-  const toggle =
-    document.getElementById("showResolution");
+function connectStudentGeneratedToggle(toggleId, cardId) {
+  const toggle = document.getElementById(toggleId);
+  const card = document.getElementById(cardId);
 
-  const card =
-    document.getElementById("resolutionCard");
+  if (!toggle || !card) {
+    return;
+  }
 
   toggle.addEventListener("change", () => {
     card.classList.toggle(
@@ -676,7 +679,8 @@ function getOpenPrompts() {
     "Where does the story take place?",
     "What problem occurs?",
     "How does the character feel about the problem?",
-    "What does the character do or try to solve the problem?",
+    "What does the character decide or hope to do about the problem?",
+    "What does the character actually do or try to carry out the plan?",
     "How could the item help?",
     "How does the story end?"
   ];
@@ -687,7 +691,8 @@ function getBasicStarters() {
     "One day, __________ was in __________.",
     "Suddenly, __________.",
     "The character felt __________ because __________.",
-    "The character tried to __________.",
+    "The character planned to __________.",
+    "Then the character tried to __________.",
     "The __________ could help by __________.",
     "In the end, __________."
   ];
@@ -746,7 +751,8 @@ function getGeneratedStarters() {
     `One day, ${characterPhrase} was ${settingPhrase}.`,
     `Suddenly, ${characterReference.toLowerCase()} ${problemPhrase}.`,
     `${characterReference} felt ${feelingPhrase} because __________.`,
-    `${characterReference} tried to ${planPhrase}.`,
+    `${characterReference} planned to ${planPhrase}.`,
+    `${characterReference} then tried to __________.`,
     `${itemPhrase} could help by __________.`,
     "In the end, __________."
   ];
@@ -819,8 +825,29 @@ function buildPrintPlanner() {
   const showLabels =
     document.getElementById("toggleLabels").checked;
 
+  const printPlanOrganizer =
+    document.getElementById("printPlanOrganizer");
+  const printAttemptOrganizer =
+    document.getElementById("printAttemptOrganizer");
+  const printResolutionOrganizer =
+    document.getElementById("printResolutionOrganizer");
   const printItemOrganizer =
     document.getElementById("printItemOrganizer");
+
+  if (printPlanOrganizer) {
+    printPlanOrganizer.hidden =
+      !(document.getElementById("showPlan")?.checked ?? true);
+  }
+
+  if (printAttemptOrganizer) {
+    printAttemptOrganizer.hidden =
+      !(document.getElementById("showAttempt")?.checked ?? true);
+  }
+
+  if (printResolutionOrganizer) {
+    printResolutionOrganizer.hidden =
+      !(document.getElementById("showResolution")?.checked ?? true);
+  }
 
   if (printItemOrganizer) {
     printItemOrganizer.hidden = !isCategoryVisible("item");
@@ -1000,7 +1027,8 @@ document.addEventListener("DOMContentLoaded", () => {
     connectCategoryToggle
   );
 
-  connectResolutionToggle();
+  connectStudentGeneratedToggle("showAttempt", "attemptCard");
+  connectStudentGeneratedToggle("showResolution", "resolutionCard");
 
   document
     .getElementById("printPlanner")
@@ -1306,7 +1334,8 @@ document.addEventListener("DOMContentLoaded", () => {
       setting: "Add notes about the setting.",
       problem: "Add notes about the problem.",
       feeling: "Add notes about the character’s feeling.",
-      plan: "Add notes about what the character does or tries.",
+      plan: "Add notes about the character’s plan.",
+      attempt: "Add notes about what the character actually does or tries.",
       item: "Add notes about the item.",
       resolution: "Add notes about how the story ends."
     },
@@ -1321,7 +1350,9 @@ document.addEventListener("DOMContentLoaded", () => {
       feeling:
         "How does the character feel? Why does the character feel that way?",
       plan:
-        "What does the character do or try? How could that action respond to the problem?",
+        "What does the character decide or hope to do? How does the plan grow from the problem and feeling?",
+      attempt:
+        "What does the character actually do or try to carry out the plan? What happens when they try?",
       item:
         "How could the item help? What might the character do with it?",
       resolution:
@@ -1596,7 +1627,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function getPlannerNotes() {
     const notes = {};
 
-    [...plannerCategories, "resolution"].forEach((categoryName) => {
+    [...plannerCategories, "attempt", "resolution"].forEach((categoryName) => {
       notes[categoryName] =
         getElement(
           `planner${capitalize(categoryName)}Notes`
@@ -1619,6 +1650,9 @@ document.addEventListener("DOMContentLoaded", () => {
           `show${capitalize(categoryName)}`
         )?.checked ?? true;
     });
+
+    visibility.attempt =
+      getElement("showAttempt")?.checked ?? true;
 
     visibility.resolution =
       getElement("showResolution")?.checked ?? true;
@@ -1829,8 +1863,14 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         image.src = category.starterImage;
         image.alt = category.title;
-        label.textContent =
-          `Roll to choose a ${category.title.toLowerCase()}.`;
+
+        if (categoryName === "plan") {
+          label.textContent =
+            "Make your own plan. A rolled idea is optional.";
+        } else {
+          label.textContent =
+            `Roll to choose a ${category.title.toLowerCase()}.`;
+        }
       }
     });
 
@@ -1945,7 +1985,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const notes = data.plannerNotes || {};
 
-      [...plannerCategories, "resolution"].forEach(
+      [...plannerCategories, "attempt", "resolution"].forEach(
         (categoryName) => {
           const textarea = getElement(
             `planner${capitalize(categoryName)}Notes`
@@ -2004,6 +2044,18 @@ document.addEventListener("DOMContentLoaded", () => {
           new Event("change", { bubbles: true })
         );
       });
+
+      const attemptToggle =
+        getElement("showAttempt");
+
+      if (attemptToggle) {
+        attemptToggle.checked =
+          visibility.attempt !== false;
+
+        attemptToggle.dispatchEvent(
+          new Event("change", { bubbles: true })
+        );
+      }
 
       const resolutionToggle =
         getElement("showResolution");
@@ -2199,7 +2251,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function clearPlannerNotes() {
-    [...plannerCategories, "resolution"].forEach(
+    [...plannerCategories, "attempt", "resolution"].forEach(
       (categoryName) => {
         const textarea = getElement(
           `planner${capitalize(categoryName)}Notes`

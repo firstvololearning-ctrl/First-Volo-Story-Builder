@@ -19,6 +19,7 @@
     "problem",
     "feeling",
     "plan",
+    "attempt",
     "item",
     "resolution"
   ];
@@ -35,45 +36,57 @@
     "story-organization": {
       label: "Story Organization",
       expected:
-        "Student is expected to organize the important parts of the story into a coherent narrative: who/where → problem → action/attempt → outcome.",
+        "Student is expected to organize the important parts of the story into a coherent narrative: who/where → problem and feeling → plan → action/attempt → resolution.",
       watches:
-        "Watch for a missing or misplaced story function, an ending that does not respond to the problem, a lost sequence, or story elements that are mentioned but not integrated.",
-      relevant: ["problem", "plan", "resolution"],
-      build(category, c) {
+        "Watch for a missing or misplaced story function, a plan that does not grow from the problem, an attempt that does not carry out the plan, or an ending that does not resolve the story problem.",
+      relevant: ["problem", "feeling", "plan", "attempt", "resolution"],
+      build(category) {
         const maps = {
           problem: [
-            "Look at the problem and the parts that come after it. What changes when this problem happens?",
-            `What is the main problem the character needs to deal with${known(c.problem) ? `: ${c.problem}` : ""}?`,
-            "Say the problem clearly. Then tell what the character does about it.",
-            "Use this story path: Problem → what the character tries → what happens.",
+            "Look at what goes wrong. This problem should change what the character needs or wants to do.",
+            "What is the main problem the character needs to deal with?",
+            "Say the problem clearly before moving on.",
+            "Think: problem → feeling → plan.",
             "The main problem is ___."
           ],
+          feeling: [
+            "Look at the problem and the character’s feeling together.",
+            "How does the character feel because of what happened?",
+            "Make the feeling connect to the problem.",
+            "Think: problem → feeling.",
+            "The character felt ___ because ___."
+          ],
           plan: [
-            "Look back at the problem. The action or attempt should connect to that problem.",
-            `What does the character try to do about ${storyProblem(c)}?`,
-            "Tell what the character tries to do about the problem, not just another event.",
-            "Use this story path: Problem → action/attempt.",
-            "To deal with the problem, the character tries to ___."
+            "Look at the problem and how the character feels. The plan should grow from both.",
+            "What does the character decide or hope to do next?",
+            "Tell the goal or intention. Do not tell the actual attempt yet.",
+            "Think: problem + feeling → plan.",
+            "The character felt ___, so they planned to ___."
+          ],
+          attempt: [
+            "Look back at the plan. Now tell what the character actually does or tries.",
+            "What does the character do to carry out the plan?",
+            "The attempt should be an action, not another plan.",
+            "Think: plan → action/attempt.",
+            "To carry out the plan, the character tried to ___."
           ],
           resolution: [
-            "Look back at the problem and the action. The ending should show what happened after the character acted.",
-            `How does the ending respond to ${storyProblem(c)}?`,
-            "Make sure the ending shows what happened after the character acted, not a new unrelated event.",
-            "Use this story path: Action/attempt → outcome → ending.",
+            "Look back at the problem and what the character tried.",
+            "What happened because of the attempt? How is the problem resolved?",
+            "The ending should show an outcome, not a new unrelated event.",
+            "Think: attempt → outcome → resolution.",
             "In the end, ___."
           ]
         };
-
         return maps[category] || [];
       },
       retry(category) {
         const text = {
-          problem:
-            "Now try this part again so the problem is clear and matters to the story.",
-          plan:
-            "Now try the action again so it clearly responds to the problem.",
-          resolution:
-            "Now try the ending again so it connects to the problem and what the character did."
+          problem: "Now try the problem again so it is clear what needs to change.",
+          feeling: "Now try the feeling again so it clearly connects to the problem.",
+          plan: "Now say the plan again so it clearly grows from the problem and feeling.",
+          attempt: "Now say what the character actually tries so it clearly carries out the plan.",
+          resolution: "Now try the ending again so it clearly follows from the attempt and resolves the problem."
         };
         return text[category] || "Now try the same story part again.";
       }
@@ -84,62 +97,68 @@
       expected:
         "Student is expected to connect ideas and events rather than produce isolated statements, using clear relationships, sequencing, connectors, and referents.",
       watches:
-        "Watch for choppy event-list language, repeated and then, abrupt shifts, unclear pronouns/referents, or related ideas that are stated without showing how they belong together.",
+        "Watch for choppy event-list language, repeated and then, abrupt shifts, unclear pronouns/referents, or ideas that are present but not clearly connected.",
       relevant: plannerCategories,
       build(category, c) {
-        const relationships = {
+        const maps = {
           character: [
             "Think about the character and where the story begins.",
             `How can ${storyCharacter(c)} connect to ${storySetting(c)}?`,
-            "Explain why the character is in this setting or what the character is doing there.",
-            "Try a connector or linking phrase such as when, while, at, or because if it fits your meaning.",
+            "Explain why the character is there or what the character is doing there.",
+            "Try when, while, at, or because if one fits what you mean.",
             `${capitalize(storyCharacter(c))} was at ${storySetting(c)} when ___.`
           ],
           setting: [
             "Connect the setting to what the character is doing there.",
             `What is ${storyCharacter(c)} doing in ${storySetting(c)}?`,
-            "Tell how the character and the place fit together, not just two separate facts.",
-            "Try when, while, at, or because if one fits what you mean.",
+            "Tell how the character and place fit together.",
+            "Try when, while, at, or because if one fits.",
             `While ${storyCharacter(c)} was in ${storySetting(c)}, ___.`
           ],
           problem: [
-            "Connect the problem to the story that came before it.",
-            `How does ${storyProblem(c)} change what is happening for the character?`,
-            "Show how the story changes when the problem happens.",
-            "Try but, when, suddenly, after, or another connector that matches your meaning.",
+            "Connect the problem to what was happening before it.",
+            "How does the problem change the story?",
+            "Show the change from the beginning to the problem.",
+            "Try but, when, suddenly, or after if one fits.",
             "Everything changed when ___."
           ],
           feeling: [
-            "Connect the feeling to the event that matters.",
-            `How does ${storyFeeling(c)} connect to ${storyProblem(c)}?`,
-            "Tell how what happened connects to how the character feels.",
-            "Try because, when, after, or so if it fits what you mean.",
-            `The character felt ${storyFeeling(c)} when ___.`
+            "Connect the feeling to the problem.",
+            "Why does the character feel that way now?",
+            "Tell how the event connects to the feeling.",
+            "Try because, when, after, or so if one fits.",
+            `The character felt ${storyFeeling(c)} because ___.`
           ],
           plan: [
-            "Connect the action or attempt to the problem instead of listing it as a new event.",
-            `How does the character’s attempt to ${lower(storyPlan(c))} connect to ${storyProblem(c)}?`,
-            "Tell whether the action happens because of the problem, after it, or even though something else happened.",
-            "Try so, because, after, then, or another connector that fits.",
-            "After the problem, the character tried to ___."
+            "Connect the plan to the problem and the character’s feeling.",
+            "Why does this plan make sense now?",
+            "Show how the problem and feeling lead to the plan.",
+            "Try because, so, wants to, hopes to, or plans to.",
+            "The character felt ___, so they planned to ___."
+          ],
+          attempt: [
+            "Connect the attempt to the plan.",
+            "What does the character actually do to carry out the plan?",
+            "Show how the action follows from the plan.",
+            "Try then, so, to, or by if one helps.",
+            "To carry out the plan, the character ___."
           ],
           item: [
-            "Connect the item to an action or event in the story.",
-            `How does ${storyItem(c)} connect to the character’s attempt to ${lower(storyPlan(c))}?`,
-            "Explain what the character does with the item or why it matters.",
-            "Try with, by using, so, because, or another phrase that shows the relationship.",
+            "Connect the item to the plan or attempt.",
+            `How could ${storyItem(c)} matter to what the character wants or tries to do?`,
+            "Explain how the character uses the item or why it matters.",
+            "Try with, by using, so, or because if one fits.",
             `The character used ${storyItem(c)} to ___.`
           ],
           resolution: [
-            "Connect the ending to what the character tried.",
-            `How does the ending follow from the character’s attempt to ${lower(storyPlan(c))}?`,
-            "Show the relationship between the character’s action and the outcome.",
-            "Try after, because, so, finally, or as a result if it fits.",
-            "After the character tried, ___."
+            "Connect the ending to the attempt.",
+            "What happened because of what the character tried?",
+            "Show how the action leads to the outcome.",
+            "Try after, because, so, finally, or as a result.",
+            "After the character tried to ___, ___."
           ]
         };
-
-        return relationships[category] || [];
+        return maps[category] || [];
       },
       retry() {
         return "Now say or write the same ideas again so it is clear how they connect.";
@@ -149,49 +168,55 @@
     "cause-effect": {
       label: "Cause & Effect",
       expected:
-        "Student is expected to express why important events or feelings occur, why a character chooses an action, and/or what happens as a result.",
+        "Student is expected to explain why important events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the character’s attempt.",
       watches:
-        "Watch for related events that are both present but whose causal relationship is only implied, a missing consequence, or misuse/absence of causal language such as because or so.",
-      relevant: ["problem", "feeling", "plan", "item", "resolution"],
+        "Watch for events that are both present but whose cause-and-effect connection is unclear, a plan with no reason, an attempt with no result, or missing causal language such as because or so.",
+      relevant: ["problem", "feeling", "plan", "attempt", "item", "resolution"],
       build(category, c) {
         const maps = {
           problem: [
             "Look at what happened before and after the problem.",
-            `What happens because ${storyProblem(c)} becomes part of the story?`,
-            "Tell why something happened or what happened because of it. Do not stop with two separate events.",
-            "Think: what happened → what happened because of it. Because or so may help.",
+            "What changes because the problem happens?",
+            "Tell why something happened or what happened because of it.",
+            "Think: cause → result. Because or so may help.",
             "Because ___, ___."
           ],
           feeling: [
-            "Look at the problem and the character’s feeling together.",
-            `Why might the character feel ${storyFeeling(c)} when the problem is ${storyProblem(c)}?`,
-            "Explain the reason for the feeling.",
-            "Try because to explain why the character feels that way.",
+            "Look at the problem and feeling together.",
+            `Why might the character feel ${storyFeeling(c)}?`,
+            "Explain what caused the feeling.",
+            "Try because to explain why.",
             `The character felt ${storyFeeling(c)} because ___.`
           ],
           plan: [
-            "Look at the problem and the action/attempt together.",
-            `Why might trying to ${lower(storyPlan(c))} help with ${storyProblem(c)}?`,
-            "Explain why the character tries this or what the character hopes will happen.",
-            "Try because, so, or to if one fits what you mean.",
-            "The character tried to ___ because ___."
+            "Look at the problem, feeling, and plan together.",
+            "Why does the character choose this plan?",
+            "Explain how the problem and feeling lead to the plan.",
+            "Try because, so, wants to, hopes to, or plans to.",
+            "The character felt ___, so they planned to ___."
+          ],
+          attempt: [
+            "Look at the plan and what the character actually tries.",
+            "What action does the character take because of the plan?",
+            "Show that the attempt happens for a reason.",
+            "Try so, to, because, or in order to.",
+            "The character tried to ___ so that ___."
           ],
           item: [
-            "Look at the item and what the character is trying to do.",
+            "Look at the item and the attempt.",
             `What could happen because the character uses ${storyItem(c)}?`,
-            "Explain what could happen if the character uses the item.",
-            "Try so, because, or by using to show what happened and why.",
+            "Explain how the item changes what the character can do.",
+            "Try so, because, or by using.",
             `The character used ${storyItem(c)}, so ___.`
           ],
           resolution: [
-            "Look back at the character’s action or attempt.",
-            `What happens because the character tries to ${lower(storyPlan(c))}?`,
-            "Tell what happens after the character tries.",
-            "Try so, because, therefore, or as a result if it matches your meaning.",
-            "The character tried ___, so ___."
+            "Look back at what the character tried.",
+            "What happens because of the attempt?",
+            "Tell the result of what the character did.",
+            "Try so, because, finally, or as a result.",
+            "The character tried to ___, so ___."
           ]
         };
-
         return maps[category] || [];
       },
       retry() {
@@ -204,7 +229,7 @@
       expected:
         "Student is expected to turn an intended idea into a complete, organized spoken or written sentence.",
       watches:
-        "Watch for repeated false starts, fragments, abandoned sentences, missing essential sentence parts, or a learner who appears to have the idea but cannot organize it into a complete sentence.",
+        "Watch for repeated false starts, fragments, abandoned sentences, missing important sentence parts, or a learner who has the idea but cannot organize it into a complete sentence.",
       relevant: plannerCategories,
       build(category, c) {
         const frames = {
@@ -212,13 +237,13 @@
           setting: `The story takes place in ${storySetting(c)} where ___.`,
           problem: "The problem begins when ___.",
           feeling: `The character feels ${storyFeeling(c)} because ___.`,
-          plan: "The character tries to ___.",
+          plan: "The character plans to ___.",
+          attempt: "The character tries to ___.",
           item: `The character uses ${storyItem(c)} to ___.`,
           resolution: "In the end, ___."
         };
-
         return [
-          "Say the idea out loud first. Keep the idea; do not worry about making it perfect yet.",
+          "Say the idea out loud first. Keep the idea; it does not have to be perfect yet.",
           "What is the one main idea you want this sentence to say?",
           "Build it: Who? → did what? → what or whom? → where or why?",
           "Start with who or what the sentence is about and what they did. Then add the other information.",
@@ -233,90 +258,96 @@
     "elaboration": {
       label: "Elaboration",
       expected:
-        "Student is expected to add relevant information that clarifies or develops an important story event.",
+        "Student is expected to add useful information that clarifies or develops an important story idea or event.",
       watches:
-        "Watch for bare events that need more information to understand or imagine them, as well as extra details that do not clarify or advance the important story idea.",
+        "Watch for bare events that need more information to understand or picture them, as well as extra details that do not help the important story idea.",
       relevant: plannerCategories,
       build(category, c) {
-        const dimension = {
+        const questions = {
           character: "What important detail would help us understand this character?",
-          setting: `What detail about ${storySetting(c)} matters to what happens in the story?`,
-          problem: `What detail would help us understand how ${storyProblem(c)} affects the character?`,
+          setting: `What detail about ${storySetting(c)} matters to what happens?`,
+          problem: "What detail would help us understand why the problem matters?",
           feeling: `What happened that helps explain why the character feels ${storyFeeling(c)}?`,
-          plan: `How exactly does the character carry out or try to ${lower(storyPlan(c))}?`,
+          plan: "What does the character hope this plan will accomplish?",
+          attempt: "How exactly does the character carry out the attempt? What happens while they try?",
           item: `How exactly could ${storyItem(c)} be used?`,
-          resolution: "What important detail would help the listener understand how the story ends?"
+          resolution: "What detail would help us understand how the story ends?"
         };
-
-        const frame = {
+        const frames = {
           character: "The character is ___, which matters because ___.",
           setting: "In the setting, ___, so ___.",
           problem: "The problem becomes harder when ___.",
           feeling: "The character feels ___ because ___.",
-          plan: "The character ___ by ___.",
+          plan: "The character plans to ___ because ___.",
+          attempt: "The character tried to ___ by ___.",
           item: `The character uses ${storyItem(c)} to ___.`,
           resolution: "In the end, ___ because ___."
         };
-
         return [
           "Choose one important story idea that could use a little more information.",
-          dimension[category] || "What useful detail would help the listener understand this part?",
+          questions[category] || "What useful detail would help the listener understand this part?",
           "Add one useful detail: where, how, why, what it looked like, or what else was happening.",
           "Choose a detail that helps us understand or picture this part.",
-          frame[category] || "___ because ___."
+          frames[category] || "___ because ___."
         ];
       },
       retry() {
-        return "Now say or write the same event again with one useful detail added.";
+        return "Now say or write the same idea again with one useful detail added.";
       }
     },
 
     "perspective-internal-state": {
       label: "Perspective & Internal State",
       expected:
-        "Student is expected to explain what characters feel, think, know, want, expect, wonder, or intend and connect those internal states to story events when appropriate.",
+        "Student is expected to explain what characters feel, think, know, want, expect, wonder, or intend and connect those ideas to story events when appropriate.",
       watches:
-        "Watch for action-only narratives, unsupported emotion labels, actions with no motivation, or characters who are treated as if they all know, want, or expect the same things.",
-      relevant: ["character", "problem", "feeling", "plan", "resolution"],
+        "Watch for action-only narratives, unsupported emotion labels, actions with no reason, or characters who are treated as if they all know, want, or expect the same things.",
+      relevant: ["character", "problem", "feeling", "plan", "attempt", "resolution"],
       build(category, c) {
         const maps = {
           character: [
             "Think about what the character is thinking or feeling, not only what the character does.",
             `What might ${storyCharacter(c)} want, know, think, or expect at the beginning?`,
-            "Choose one thought, feeling, want, or expectation that matters to the story.",
-            "Try a word such as wants, knows, thinks, hopes, wonders, or expects.",
+            "Choose one thought, feeling, want, or expectation that matters.",
+            "Try wants, knows, thinks, hopes, wonders, or expects.",
             "The character hopes that ___."
           ],
           problem: [
             "Think about what the character knows or believes when the problem appears.",
-            `What does the character think when ${storyProblem(c)} happens?`,
-            "Think about what really happened and what the character thinks, knows, or expects.",
+            "What does the character think when the problem happens?",
+            "Think about what really happened and what the character thinks or knows.",
             "Try thought, knew, wondered, expected, or wanted.",
             "The character wondered whether ___."
           ],
           feeling: [
             "Think about the feeling and what caused it.",
             `Why does the character feel ${storyFeeling(c)}?`,
-            "Connect the character’s thought or feeling to what happened.",
+            "Connect the feeling to what happened.",
             "Try felt, thought, hoped, worried, knew, or wondered.",
             `The character felt ${storyFeeling(c)} because ___.`
           ],
           plan: [
-            "Think about why the character acts.",
-            `What does the character want or hope will happen by trying to ${lower(storyPlan(c))}?`,
-            "Tell why the character does or tries this.",
-            "Try wanted, hoped, intended, expected, or decided.",
-            "The character hoped that ___."
+            "Think about what the character wants to happen next.",
+            "How do the problem and feeling shape what the character wants to do?",
+            "Tell the character’s goal or intention.",
+            "Try wanted, hoped, planned, expected, or decided.",
+            "The character hoped to ___."
+          ],
+          attempt: [
+            "Think about what the character is trying to make happen.",
+            "Why does the character choose this action to carry out the plan?",
+            "Connect the action to what the character wants.",
+            "Try wanted to, hoped to, decided to, or tried to.",
+            "The character tried to ___ because ___."
           ],
           resolution: [
-            "Think about what changed inside the character by the end.",
-            "What does the character know, feel, think, or understand now that was different earlier?",
-            "Show how the character thinks or feels differently at the end.",
+            "Think about what changed for the character by the end.",
+            "What does the character know, feel, think, or understand now?",
+            "Show how the character is different after what happened.",
             "Try realized, learned, felt, knew, understood, or hoped.",
             "By the end, the character realized ___."
           ]
         };
-
         return maps[category] || [];
       },
       retry() {
@@ -327,21 +358,21 @@
     "vocabulary-precision": {
       label: "Vocabulary Precision",
       expected:
-        "Student is expected to select words that communicate the intended meaning increasingly precisely.",
+        "Student is expected to choose words that communicate the intended meaning more specifically.",
       watches:
-        "Watch for repeated vague words such as thing, stuff, good, bad, went, did, or got; overuse of the same broad verb; circumlocution; or difficulty retrieving a more precise known word.",
+        "Watch for repeated general words such as thing, stuff, good, bad, went, did, or got; repeated broad verbs; or difficulty finding a more specific known word.",
       relevant: plannerCategories,
       build(category, c) {
         const focus = {
           character: "Choose a more specific word to describe the character.",
           setting: `Choose a more specific word for what ${storySetting(c)} looks, sounds, or feels like.`,
-          problem: `Choose a more specific word for what happens during ${storyProblem(c)}.`,
-          feeling: `Can you make ${storyFeeling(c)} more specific? Think about how strong the feeling is or how the character shows it.`,
-          plan: `Choose a more specific action word for the character’s attempt to ${lower(storyPlan(c))}.`,
+          problem: "Choose a more specific word for what happens in the problem.",
+          feeling: `Can you make ${storyFeeling(c)} more specific? Think about how strong it is or how the character shows it.`,
+          plan: "Choose words that clearly name what the character plans or hopes to do.",
+          attempt: "Choose a specific action word for what the character actually does or tries.",
           item: `Choose a more specific action word for how the character uses ${storyItem(c)}.`,
           resolution: "Choose a more specific word that makes the ending clearer."
         };
-
         return [
           "Find one word that is too general or that you used many times.",
           focus[category] || "What more specific word would show exactly what you mean?",
@@ -398,6 +429,10 @@
   }
 
   function plannerLabel(category) {
+    if (category === "attempt") {
+      return "the attempt";
+    }
+
     if (category === "resolution") {
       return "the ending";
     }
@@ -417,6 +452,7 @@
       problem: plannerLabel("problem"),
       feeling: lower(plannerLabel("feeling")),
       plan: plannerLabel("plan"),
+      attempt: plannerLabel("attempt"),
       item: plannerLabel("item")
     };
   }
@@ -438,7 +474,7 @@
   }
 
   function storyPlan(c) {
-    return known(c.plan) ? c.plan : "act";
+    return known(c.plan) ? c.plan : "a plan";
   }
 
   function storyItem(c) {
@@ -775,7 +811,7 @@
     });
 
     plannerCategories.forEach((category) => {
-      if (category === "resolution") {
+      if (category === "attempt" || category === "resolution") {
         return;
       }
 
