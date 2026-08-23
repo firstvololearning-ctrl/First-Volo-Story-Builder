@@ -24,6 +24,28 @@
     "resolution"
   ];
 
+
+  const sessionPhaseDefinitions = {
+    "first-tell": {
+      badge: "Whole 1 · First Tell",
+      title: "First Tell",
+      text:
+        "Have the student tell or generate the complete story from beginning to end before opening the Story Planner or targeted support. If the target is already known, listen for it. If not, listen for the most meaningful narrative or language breakdown to address next."
+    },
+    part: {
+      badge: "Part · Work on Target",
+      title: "Work on Target",
+      text:
+        "Open the Story Planner and work only on the selected target where support is needed. After the student repairs the language, reconnect that repaired part to the surrounding story."
+    },
+    "tell-again": {
+      badge: "Whole 2 · Tell Again",
+      title: "Tell Again",
+      text:
+        "Have the student tell or generate the complete story again from the beginning. Targeted help stays closed. The educator may allow the student to refer to the Story Planner as a scaffold whether it contains writing, brief or scribed notes, or no writing at all. Hide the planner when you want an independent whole-story tell."
+    }
+  };
+
   const supportStepLabels = [
     "Look here",
     "Think about it",
@@ -406,6 +428,8 @@
   let initialized = false;
   let pendingRestoreState = null;
   let selectedTarget = "off";
+  let sessionPhase = "first-tell";
+  let tellAgainPlannerAvailable = true;
   let supportLevels = emptySupportLevels();
   let retryRequested = emptyRetryState();
 
@@ -506,6 +530,8 @@
   function getState() {
     return {
       target: selectedTarget,
+      sessionPhase,
+      tellAgainPlannerAvailable,
       supportLevels: { ...supportLevels },
       retryRequested: { ...retryRequested }
     };
@@ -515,9 +541,23 @@
     const target =
       state &&
       typeof state.target === "string" &&
-      (state.target === "off" || targetDefinitions[state.target])
+      (
+        state.target === "off" ||
+        state.target === "observe-first" ||
+        targetDefinitions[state.target]
+      )
         ? state.target
         : "off";
+
+    const phase =
+      state &&
+      typeof state.sessionPhase === "string" &&
+      sessionPhaseDefinitions[state.sessionPhase]
+        ? state.sessionPhase
+        : "first-tell";
+
+    const plannerAvailable =
+      state?.tellAgainPlannerAvailable !== false;
 
     const levels = emptySupportLevels();
     const retries = emptyRetryState();
@@ -535,6 +575,8 @@
 
     return {
       target,
+      sessionPhase: phase,
+      tellAgainPlannerAvailable: plannerAvailable,
       supportLevels: levels,
       retryRequested: retries
     };
@@ -544,6 +586,9 @@
     const normalized = normalizeSavedState(state);
 
     selectedTarget = normalized.target;
+    sessionPhase = normalized.sessionPhase;
+    tellAgainPlannerAvailable =
+      normalized.tellAgainPlannerAvailable;
     supportLevels = normalized.supportLevels;
     retryRequested = normalized.retryRequested;
 
@@ -553,6 +598,226 @@
     }
 
     applyStateToUI();
+  }
+
+
+  function normalizeSessionPhase(phase) {
+    return sessionPhaseDefinitions[phase]
+      ? phase
+      : "first-tell";
+  }
+
+  function sessionTargetLabel() {
+    return (
+      targetDefinitions[selectedTarget]?.label ||
+      "the selected instructional target"
+    );
+  }
+
+  function setSessionPhase(phase, options = {}) {
+    sessionPhase = normalizeSessionPhase(phase);
+
+    if (
+      sessionPhase === "first-tell" &&
+      options.resetSupport !== false
+    ) {
+      resetAllSectionSupport();
+    }
+
+    updateSessionFlow();
+    renderAllPlannerSupports();
+
+    if (options.announce !== false) {
+      announceChanged();
+    }
+  }
+
+  function updateSessionFlow() {
+    const panel = document.getElementById(
+      "instructionalSessionPanel"
+    );
+
+    const plannerPanel = document.getElementById(
+      "storyPlannerPanel"
+    );
+
+    const plannerIntro = document.getElementById(
+      "storyPlannerIntro"
+    );
+
+    const stageBadge = document.getElementById(
+      "instructionalSessionStageBadge"
+    );
+
+    const phaseTitle = document.getElementById(
+      "instructionalSessionPhaseTitle"
+    );
+
+    const phaseText = document.getElementById(
+      "instructionalSessionPhaseText"
+    );
+
+    const targetReminder = document.getElementById(
+      "instructionalSessionTargetReminder"
+    );
+
+    const tellAgainPlannerOption = document.getElementById(
+      "tellAgainPlannerOption"
+    );
+
+    const tellAgainPlannerCheckbox = document.getElementById(
+      "tellAgainPlannerAvailable"
+    );
+
+    const focusNote = document.querySelector(
+      ".instructional-focus-note"
+    );
+
+    const definition = targetDefinitions[selectedTarget];
+    const observeFirst = selectedTarget === "observe-first";
+    const cycleIsOn =
+      observeFirst || Boolean(definition);
+
+    if (panel) {
+      panel.hidden = !cycleIsOn;
+    }
+
+    if (!cycleIsOn) {
+      if (plannerPanel) {
+        plannerPanel.hidden = false;
+      }
+      return;
+    }
+
+    const phase =
+      sessionPhaseDefinitions[normalizeSessionPhase(sessionPhase)];
+
+    if (stageBadge) {
+      stageBadge.textContent = phase.badge;
+    }
+
+    if (phaseTitle) {
+      phaseTitle.textContent = phase.title;
+    }
+
+    if (phaseText) {
+      phaseText.textContent = phase.text;
+    }
+
+    if (targetReminder) {
+      targetReminder.textContent = observeFirst
+        ? "Listen across the whole narrative. After the First Tell, choose one primary instructional target above."
+        : `Listen for: ${sessionTargetLabel()}.`;
+    }
+
+    document
+      .querySelectorAll("[data-session-phase]")
+      .forEach((button) => {
+        const active =
+          button.dataset.sessionPhase === sessionPhase;
+
+        const requiresTarget =
+          button.dataset.sessionPhase !== "first-tell";
+
+        button.disabled =
+          observeFirst && requiresTarget;
+
+        button.classList.toggle("is-active", active);
+        button.setAttribute(
+          "aria-pressed",
+          active ? "true" : "false"
+        );
+
+        if (observeFirst && requiresTarget) {
+          button.setAttribute(
+            "title",
+            "Choose the instructional target after the First Tell."
+          );
+        } else {
+          button.removeAttribute("title");
+        }
+      });
+
+    if (tellAgainPlannerOption) {
+      tellAgainPlannerOption.hidden =
+        sessionPhase !== "tell-again";
+    }
+
+    if (tellAgainPlannerCheckbox) {
+      tellAgainPlannerCheckbox.checked =
+        tellAgainPlannerAvailable;
+    }
+
+    if (plannerIntro) {
+      if (sessionPhase === "tell-again") {
+        plannerIntro.textContent =
+          "Use the Story Planner to help you tell the whole story again. You can use the pictures and story parts, with or without notes.";
+      } else if (sessionPhase === "part") {
+        plannerIntro.textContent =
+          "Use the Story Planner to work on the part of your story you are practicing. You can talk through your ideas, add notes, or write if that helps.";
+      } else {
+        plannerIntro.textContent =
+          "Use the Story Planner to build and connect your story ideas. You can talk through your ideas, add notes, or write if that helps.";
+      }
+    }
+
+    if (plannerPanel) {
+      const showPlanner =
+        sessionPhase === "part" ||
+        (
+          sessionPhase === "tell-again" &&
+          tellAgainPlannerAvailable
+        );
+
+      plannerPanel.hidden = !showPlanner;
+
+      if (showPlanner) {
+        const details = plannerPanel.querySelector(
+          ".story-planner-details"
+        );
+
+        if (details) {
+          details.open = true;
+        }
+      }
+    }
+
+    if (focusNote) {
+      if (sessionPhase === "first-tell") {
+        focusNote.textContent =
+          "Listen to the whole first attempt before opening targeted support. Access help is still okay when it does not supply the instructional target.";
+      } else if (sessionPhase === "part") {
+        focusNote.textContent =
+          "Let the student attempt the language first. If help is needed, open only the next support step, then have the student retry and reconnect the repaired idea to the story.";
+      } else {
+        focusNote.textContent =
+          "Targeted help stays closed during Tell Again. The Story Planner may remain available as a scaffold with or without written notes; hide it when you want to observe an independent whole-story tell.";
+      }
+    }
+  }
+
+  function reconnectPrompt(category) {
+    const prompts = {
+      character:
+        "Reconnect to the story: tell the character and setting together as one connected opening.",
+      setting:
+        "Reconnect to the story: tell the character and setting together, then continue into what happens.",
+      problem:
+        "Reconnect to the story: start just before the problem and tell what was happening and then the problem.",
+      feeling:
+        "Reconnect to the story: go back to the problem and tell the problem and the character’s feeling together.",
+      plan:
+        "Reconnect to the story: go back to the problem and tell the problem and the action / attempt together.",
+      item:
+        "Reconnect to the story: go back to the action / attempt and tell how the item connects to what the character does.",
+      resolution:
+        "Reconnect to the story: go back to the action / attempt and tell the action and the outcome / ending together."
+    };
+
+    return (
+      prompts[category] ||
+      "Reconnect to the story: tell the repaired idea again with the story part immediately before it."
+    );
   }
 
   function resetAllSectionSupport() {
@@ -667,7 +932,10 @@
       return;
     }
 
-    const support = supportFor(category);
+    const support =
+      sessionPhase === "part"
+        ? supportFor(category)
+        : null;
 
     if (!support) {
       container.replaceChildren();
@@ -787,6 +1055,24 @@
 
     retryBox.append(retryText, retryButton);
     supportCard.appendChild(retryBox);
+
+
+    if (retryRequested[category]) {
+      const reconnectBox = document.createElement("div");
+      reconnectBox.className = "planner-reconnect-box";
+
+      const reconnectLabel = document.createElement("p");
+      reconnectLabel.className = "planner-reconnect-label";
+      reconnectLabel.textContent = "Reconnect to the story";
+
+      const reconnectText = document.createElement("p");
+      reconnectText.className = "planner-reconnect-text";
+      reconnectText.textContent = reconnectPrompt(category);
+
+      reconnectBox.append(reconnectLabel, reconnectText);
+      supportCard.appendChild(reconnectBox);
+    }
+
     container.appendChild(supportCard);
   }
 
@@ -804,19 +1090,33 @@
     }
 
     updateTargetOverview();
+    updateSessionFlow();
     renderAllPlannerSupports();
   }
 
   function handleTargetChange(event) {
     const value = event.target.value;
+    const previousTarget = selectedTarget;
 
     selectedTarget =
-      value === "off" || targetDefinitions[value]
+      value === "off" ||
+      value === "observe-first" ||
+      targetDefinitions[value]
         ? value
         : "off";
 
+    const targetChosenAfterObserveFirst =
+      previousTarget === "observe-first" &&
+      Boolean(targetDefinitions[selectedTarget]);
+
+    sessionPhase =
+      targetChosenAfterObserveFirst
+        ? "part"
+        : "first-tell";
+
     resetAllSectionSupport();
     updateTargetOverview();
+    updateSessionFlow();
     renderAllPlannerSupports();
     announceChanged();
   }
@@ -845,6 +1145,15 @@
     });
   }
 
+
+  function handleTellAgainPlannerAvailability(event) {
+    tellAgainPlannerAvailable =
+      Boolean(event.target.checked);
+
+    updateSessionFlow();
+    announceChanged();
+  }
+
   function initialize() {
     if (initialized) {
       return;
@@ -863,6 +1172,21 @@
 
     ensurePlannerSupportContainers();
 
+    document
+      .querySelectorAll("[data-session-phase]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          setSessionPhase(button.dataset.sessionPhase);
+        });
+      });
+
+    document
+      .getElementById("tellAgainPlannerAvailable")
+      ?.addEventListener(
+        "change",
+        handleTellAgainPlannerAvailability
+      );
+
     select.addEventListener(
       "change",
       handleTargetChange
@@ -871,6 +1195,7 @@
     document.getElementById("resetAll")?.addEventListener(
       "click",
       () => {
+        sessionPhase = "first-tell";
         resetAllSectionSupport();
         window.setTimeout(() => {
           renderAllPlannerSupports();
@@ -887,6 +1212,9 @@
       const pending = pendingRestoreState;
       pendingRestoreState = null;
       selectedTarget = pending.target;
+      sessionPhase = pending.sessionPhase;
+      tellAgainPlannerAvailable =
+        pending.tellAgainPlannerAvailable;
       supportLevels = pending.supportLevels;
       retryRequested = pending.retryRequested;
     }
