@@ -2632,6 +2632,258 @@ body.modal-open {
   }
 }
 
+/* =========================================================
+   WHOLE → PART → WHOLE NARRATIVE TEACHING CYCLE
+========================================================= */
+
+.instructional-session-panel {
+  margin: 22px 0;
+  padding: 18px;
+  border: 1px solid #d8d0e8;
+  border-radius: 18px;
+  background: #fbf9ff;
+  box-shadow: 0 8px 24px rgba(72, 54, 103, 0.06);
+}
+
+.instructional-session-panel[hidden],
+.story-planner-panel[hidden] {
+  display: none !important;
+}
+
+.instructional-session-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.instructional-session-kicker {
+  margin: 0 0 3px;
+  color: #735b91;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.instructional-session-heading h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.22rem;
+}
+
+.instructional-session-stage-badge {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  color: #5b4776;
+  background: #efe8f7;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.instructional-session-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.instructional-session-step {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  min-height: 64px;
+  padding: 10px 12px;
+  color: #43566a;
+  background: #ffffff;
+  border: 1px solid #d8e1eb;
+  border-radius: 13px;
+  box-shadow: none;
+  text-align: left;
+}
+
+.instructional-session-step:hover:not(:disabled) {
+  background: #f7f4fb;
+  border-color: #c8b8da;
+  transform: none;
+}
+
+.instructional-session-step.is-active {
+  color: #423159;
+  background: #f1ebf8;
+  border-color: #ad95c6;
+  box-shadow: inset 0 0 0 1px rgba(123, 91, 157, 0.14);
+}
+
+.instructional-session-step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #7a6097;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.instructional-session-step span:last-child {
+  min-width: 0;
+}
+
+.instructional-session-step strong,
+.instructional-session-step small {
+  display: block;
+}
+
+.instructional-session-step strong {
+  font-size: 0.88rem;
+}
+
+.instructional-session-step small {
+  margin-top: 2px;
+  color: #748092;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.instructional-session-phase-card {
+  margin-top: 12px;
+  padding: 13px 14px;
+  border: 1px solid #ddd5e8;
+  border-radius: 13px;
+  background: #ffffff;
+}
+
+.instructional-session-phase-card h3 {
+  margin: 0 0 5px;
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.instructional-session-phase-card p {
+  margin: 0;
+  color: #485c70;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.instructional-session-target-reminder {
+  margin-top: 8px !important;
+  padding-top: 8px;
+  border-top: 1px solid #e7e2ed;
+  color: #5b4776 !important;
+  font-weight: 800;
+}
+
+.planner-reconnect-box {
+  margin-top: 10px;
+  padding: 10px 11px;
+  border: 1px solid #d7cde4;
+  border-radius: 10px;
+  background: #faf7fd;
+}
+
+.planner-reconnect-label {
+  margin: 0 0 4px !important;
+  color: #6d538b !important;
+  font-size: 0.7rem !important;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.planner-reconnect-text {
+  margin: 0 !important;
+  color: #42566a !important;
+  font-size: 0.84rem !important;
+  line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+  .instructional-session-heading {
+    flex-direction: column;
+  }
+
+  .instructional-session-stage-badge {
+    align-self: flex-start;
+  }
+
+  .instructional-session-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .instructional-session-panel,
+  .instructional-focus-panel {
+    display: none !important;
+  }
+}
+
+.optional-writing-note {
+  max-width: 760px;
+  margin: -4px auto 12px;
+  color: #5b6b7c;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.instructional-session-step:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background: #f7f8fa;
+}
+
+.instructional-session-step:disabled:hover {
+  transform: none;
+  border-color: #d8e1eb;
+  background: #f7f8fa;
+}
+
+.tell-again-planner-option {
+  display: block;
+  margin-top: 12px;
+  padding: 11px 12px;
+  color: #42566a;
+  background: #faf7fd;
+  border: 1px solid #d7cde4;
+  border-radius: 11px;
+}
+
+.tell-again-planner-option[hidden] {
+  display: none !important;
+}
+
+.tell-again-planner-option-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.tell-again-planner-option input {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.tell-again-planner-option strong {
+  color: #5b4776;
+  font-size: 0.86rem;
+}
+
+.tell-again-planner-option small {
+  display: block;
+  margin: 6px 0 0 25px;
+  color: #607084;
+  font-size: 0.79rem;
+  line-height: 1.45;
+}
+
 /* Legacy support controls remain only as hidden compatibility shims. */
 .legacy-support-compat {
   display: none !important;

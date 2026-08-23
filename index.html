@@ -134,6 +134,7 @@
 
     <select id="instructionalTarget" class="instructional-target-select">
       <option value="off">Off</option>
+      <option value="observe-first">Observe First · Choose After First Tell</option>
       <option value="story-organization">Story Organization</option>
       <option value="connections-cohesion">Connections &amp; Cohesion</option>
       <option value="cause-effect">Cause &amp; Effect</option>
@@ -144,7 +145,7 @@
     </select>
 
     <p class="instructional-target-setting-summary" id="instructionalTargetSettingSummary">
-      Choose one primary language target. Support will open one step at a time only when needed.
+      Start with a known goal, or choose Observe First and select the primary target after the student's first whole-story attempt.
     </p>
   </div>
 </details>
@@ -353,6 +354,109 @@
       </main>
 
 <section
+  class="instructional-session-panel"
+  id="instructionalSessionPanel"
+  hidden
+  aria-labelledby="instructionalSessionTitle"
+>
+  <div class="instructional-session-heading">
+    <div>
+      <p class="instructional-session-kicker">Whole → Part → Whole</p>
+      <h2 id="instructionalSessionTitle">Narrative Teaching Cycle</h2>
+    </div>
+
+    <span
+      class="instructional-session-stage-badge"
+      id="instructionalSessionStageBadge"
+    >
+      Whole 1 · First Tell
+    </span>
+  </div>
+
+  <div
+    class="instructional-session-steps"
+    role="group"
+    aria-label="Narrative teaching cycle"
+  >
+    <button
+      class="instructional-session-step is-active"
+      type="button"
+      data-session-phase="first-tell"
+      aria-pressed="true"
+    >
+      <span class="instructional-session-step-number">1</span>
+      <span>
+        <strong>First Tell</strong>
+        <small>Whole story first</small>
+      </span>
+    </button>
+
+    <button
+      class="instructional-session-step"
+      type="button"
+      data-session-phase="part"
+      aria-pressed="false"
+    >
+      <span class="instructional-session-step-number">2</span>
+      <span>
+        <strong>Work on Target</strong>
+        <small>Unpack and repair</small>
+      </span>
+    </button>
+
+    <button
+      class="instructional-session-step"
+      type="button"
+      data-session-phase="tell-again"
+      aria-pressed="false"
+    >
+      <span class="instructional-session-step-number">3</span>
+      <span>
+        <strong>Tell Again</strong>
+        <small>Whole story again</small>
+      </span>
+    </button>
+  </div>
+
+  <div
+    class="instructional-session-phase-card"
+    id="instructionalSessionPhaseCard"
+    role="status"
+    aria-live="polite"
+  >
+    <h3 id="instructionalSessionPhaseTitle">First Tell</h3>
+    <p id="instructionalSessionPhaseText"></p>
+    <p
+      class="instructional-session-target-reminder"
+      id="instructionalSessionTargetReminder"
+    ></p>
+
+
+    <label
+      class="tell-again-planner-option"
+      id="tellAgainPlannerOption"
+      hidden
+    >
+      <span class="tell-again-planner-option-row">
+        <input
+          type="checkbox"
+          id="tellAgainPlannerAvailable"
+          checked
+        >
+        <strong>Allow Story Planner reference during Tell Again</strong>
+      </span>
+
+      <small>
+        The student may refer to the Story Planner as a visual/organizational
+        scaffold whether it contains written notes, scribed language, brief
+        planning notes, or no writing at all. Uncheck this when you want an
+        independent whole-story tell with the planner hidden.
+      </small>
+    </label>
+  </div>
+</section>
+
+<section
   class="instructional-focus-panel"
   id="instructionalFocusPanel"
   hidden
@@ -391,8 +495,8 @@
     <summary>🗂 Story Planner</summary>
 
     <div class="story-planner-content">
-      <p class="story-planner-intro">
-        Use your story elements to plan your ideas before you write.
+      <p class="story-planner-intro" id="storyPlannerIntro">
+        Use this Story Planner graphic organizer to develop the story relationships and language you are working on. It can support oral rehearsal, brief notes, scribed responses, or writing.
       </p>
 
       <div class="story-planner-grid">
@@ -676,11 +780,16 @@
 </section>
 
       <section class="writing-panel" id="writingPanel">
-        <h2>Story Writing Area</h2>
+        <h2>Optional Story Writing Area</h2>
+
+        <p class="optional-writing-note">
+          Use this only when writing, typing, or scribing is part of the task.
+          For oral storytelling, leave this area blank.
+        </p>
 
         <textarea
           id="storyWriting"
-          placeholder="Write your story here..."
+          placeholder="Optional: write, type, or scribe the story here..."
         ></textarea>
       </section>
 
@@ -1116,17 +1225,29 @@
       <h2>🎯 Instructional Support</h2>
 
       <p>
-        Educators can choose one primary instructional target based on the
-        language skill being taught or the breakdown observed in the student's
-        first attempt. Story Builder does not diagnose the target or score student
-        performance.
+        Educators can begin with a known instructional target when it comes
+        from an established goal or prior assessment, or choose
+        <strong>Observe First</strong> and listen to the student's first whole-story
+        attempt before selecting the primary target. Story Builder does not
+        diagnose the target or score student performance.
       </p>
 
       <p>
-        The student attempts the language first. If targeted help is needed,
-        choose <strong>Need help?</strong> to reveal one support step at a time
-        in the relevant part of the Story Planner. Support becomes more explicit
-        only as needed, and the student then retries or reformulates the same
+        When an Instructional Target is selected, Story Builder uses a
+        <strong>Whole → Part → Whole</strong> teaching cycle. The student first
+        tells or generates the complete story before targeted help opens. The
+        educator then uses the Story Planner to work only on the selected target
+        where a breakdown appears, reconnects the repaired language to the
+        surrounding story, and finally asks the student to tell the complete
+        story again with targeted support closed.
+      </p>
+
+      <p>
+        Within the <strong>Work on Target</strong> stage, the student attempts
+        the language first. If targeted help is needed, choose
+        <strong>Need help?</strong> to reveal one support step at a time in the
+        relevant part of the Story Planner. Support becomes more explicit only
+        as needed, and the student then retries or reformulates the same
         language demand.
       </p>
 
@@ -1182,6 +1303,15 @@
         step at a time only where it is needed.
       </p>
 
+      <p>
+        During a later retell or <strong>Tell Again</strong>, the educator may
+        allow the student to refer to the Story Planner as a scaffold
+        <strong>whether or not anything has been written in it</strong>. The
+        planner may function through its story images and organization alone,
+        through brief or scribed notes, or through student writing. Hide the
+        planner when an unsupported whole-story tell is the goal.
+      </p>
+
     </section>
 
     <section id="save">
@@ -1228,7 +1358,7 @@
 
         <li>Display and vocabulary preferences</li>
 
-        <li>Instructional Target and targeted-support state</li>
+        <li>Instructional Target, Whole → Part → Whole stage, and targeted-support state</li>
 
       </ul>
 
