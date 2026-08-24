@@ -2462,11 +2462,12 @@ body.modal-open {
 
 .instructional-focus-panel {
   margin: 22px 0;
-  padding: 18px;
-  border: 1px solid #cbdbe8;
+  padding: 0;
+  border: 1px solid #b9ccdc;
   border-radius: 18px;
-  background: #f7fbff;
+  background: #f1f6fa;
   box-shadow: 0 8px 24px rgba(28, 61, 88, 0.06);
+  overflow: hidden;
 }
 
 .instructional-focus-heading {
@@ -2478,7 +2479,7 @@ body.modal-open {
 
 .instructional-focus-kicker {
   margin: 0 0 3px;
-  color: #5e7082;
+  color: #536a7d !important;
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -2547,6 +2548,7 @@ body.modal-open {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  padding-bottom: 2px;
 }
 
 .planner-help-button,
@@ -2578,9 +2580,9 @@ body.modal-open {
 .planner-support-card {
   margin-top: 9px;
   padding: 12px;
-  border: 1px solid #d2dfeb;
+  border: 2px solid #e1c766;
   border-radius: 12px;
-  background: #ffffff;
+  background: #fffdf3;
 }
 
 .planner-support-step-label {
@@ -2778,6 +2780,239 @@ body.modal-open {
   border-top: 1px solid #e7e2ed;
   color: #5b4776 !important;
   font-weight: 800;
+}
+
+
+/* =========================================================
+   EDUCATOR GUIDANCE DISCLOSURE
+========================================================= */
+
+
+.instructional-focus-panel[hidden] {
+  display: none !important;
+}
+
+.instructional-focus-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  cursor: pointer;
+  list-style: none;
+  background: #edf4f9;
+}
+
+.instructional-focus-summary::-webkit-details-marker {
+  display: none;
+}
+
+.instructional-focus-summary::after {
+  content: "▾";
+  color: #607487;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease;
+}
+
+.instructional-focus-panel:not([open])
+  > .instructional-focus-summary::after {
+  transform: rotate(-90deg);
+}
+
+.instructional-focus-summary:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.instructional-focus-summary:focus-visible {
+  outline: 3px solid rgba(40, 118, 187, 0.22);
+  outline-offset: -3px;
+}
+
+.instructional-focus-summary-main {
+  min-width: 0;
+}
+
+.instructional-focus-summary .instructional-focus-kicker {
+  display: block;
+  margin: 0 0 2px;
+}
+
+.instructional-focus-summary-title {
+  display: block;
+  color: var(--navy);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.instructional-focus-content {
+  padding: 0 16px 15px;
+  border-top: 1px solid #d8e4ee;
+}
+
+.instructional-focus-content
+  .instructional-focus-expected {
+  margin: 13px 0 0;
+}
+
+.instructional-focus-watch {
+  margin-top: 13px;
+  padding-top: 12px;
+  border-top: 1px solid #d8e4ee;
+}
+
+.instructional-focus-watch h3 {
+  margin: 0 0 5px;
+  color: var(--navy);
+  font-size: 0.9rem;
+}
+
+.instructional-focus-watch p {
+  margin: 0;
+  color: #44596c;
+  line-height: 1.5;
+}
+
+.instructional-focus-content
+  .instructional-access-note {
+  margin: 13px 0 0;
+}
+
+.instructional-focus-content
+  .instructional-focus-note {
+  margin: 12px 0 0;
+}
+
+@media (max-width: 720px) {
+  .instructional-focus-summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .instructional-focus-summary
+    .instructional-focus-badge {
+    display: none;
+  }
+}
+
+.student-target-card {
+  margin-top: 14px;
+  padding: 14px;
+  border: 2px solid #d8b84d;
+  border-radius: 14px;
+  background: #fffdf3;
+}
+
+.student-target-card[hidden] {
+  display: none !important;
+}
+
+.student-target-kicker {
+  margin: 0 0 4px !important;
+  color: #735900 !important;
+  font-size: 0.72rem !important;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.student-target-card h3 {
+  margin: 0 0 7px;
+  font-size: 1.15rem;
+  color: var(--navy);
+}
+
+.student-target-look-for,
+.student-target-retell {
+  margin: 0 !important;
+  line-height: 1.5;
+  color: #263f56;
+}
+
+.student-target-look-for {
+  font-weight: 750;
+}
+
+.student-reflection-reveal {
+  margin-top: 11px;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 999px;
+  background: #6d538b;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.student-reflection-reveal[hidden] {
+  display: none !important;
+}
+
+.student-reflection-reveal:hover {
+  background: #5d4579;
+}
+
+.student-reflection-reveal:focus-visible,
+.student-reflection-options button:focus-visible {
+  outline: 3px solid rgba(109, 83, 139, 0.24);
+  outline-offset: 3px;
+}
+
+.student-target-reflection {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid #dfe7ee;
+}
+
+.student-target-reflection[hidden] {
+  display: none !important;
+}
+
+.student-reflection-label {
+  margin: 0 0 4px !important;
+  color: #5e7082 !important;
+  font-size: 0.72rem !important;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.student-reflection-question {
+  margin: 0 0 10px !important;
+  color: var(--navy) !important;
+  font-weight: 800;
+}
+
+.student-reflection-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.student-reflection-options button {
+  min-height: 38px;
+  padding: 7px 13px;
+  border: 1px solid #c9d6e2;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.student-reflection-options button:hover,
+.student-reflection-options button.is-selected {
+  border-color: #6d538b;
+  background: #f1ebf8;
+}
+
+.student-target-reflection small {
+  display: block;
+  margin-top: 9px;
+  color: #68798a;
+  font-size: 0.74rem;
 }
 
 .planner-reconnect-box {
@@ -3003,4 +3238,67 @@ body.modal-open {
 .plan-idea-button {
   width: 100%;
   font-size: 13px;
+}
+
+/* =========================================================
+   STUDENT / EDUCATOR AUDIENCE SEPARATION
+========================================================= */
+
+.instructional-audience-label {
+  margin: 9px 0 6px;
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.educator-controls-label {
+  color: #5d4777;
+}
+
+.educator-option-kicker {
+  display: block;
+  margin: 0 0 7px;
+  color: #5d4777;
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.075em;
+}
+
+.planner-support-audience {
+  margin: 0;
+  font-size: 0.66rem;
+  font-weight: 950;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.planner-support-audience-educator {
+  margin-bottom: 6px;
+  color: #5d4777;
+}
+
+.planner-support-audience-student {
+  margin-bottom: 6px;
+  color: #735900;
+}
+
+/* Educator controls remain visually distinct from
+   the student-facing teaching card. */
+.planner-help-button,
+.planner-more-help-button {
+  background: #f4f1f8;
+  border-color: #c9bdd7;
+}
+
+.planner-help-button:hover,
+.planner-more-help-button:hover {
+  background: #ece6f3;
+}
+
+@media (max-width: 720px) {
+  .instructional-audience-label,
+  .educator-option-kicker {
+    font-size: 0.64rem;
+  }
 }

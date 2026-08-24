@@ -57,6 +57,9 @@
   const targetDefinitions = {
     "story-organization": {
       label: "Story Organization",
+      studentGoal: "Make my story easy to follow.",
+      lookFor: "Did I include the important story parts and put them together in a way that makes sense?",
+      reflection: "Did I make my story easy to follow?",
       expected:
         "Student is expected to organize the important parts of the story into a coherent narrative: who/where → problem and feeling → plan → action/attempt → resolution.",
       watches:
@@ -132,6 +135,9 @@
 
     "connections-cohesion": {
       label: "Connections & Cohesion",
+      studentGoal: "Connect my story ideas.",
+      lookFor: "Did I show how my ideas and events connect?",
+      reflection: "Did I connect my story ideas?",
       expected:
         "Student is expected to connect ideas and events rather than produce isolated statements, using clear relationships, sequencing, connectors, and referents.",
       watches:
@@ -205,6 +211,9 @@
 
     "cause-effect": {
       label: "Cause & Effect",
+      studentGoal: "Make the cause clear.",
+      lookFor: "Did I explain why it happened or what happened because of it?",
+      reflection: "Did I make the cause clear?",
       expected:
         "Student is expected to explain why important events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the character’s attempt.",
       watches:
@@ -264,6 +273,9 @@
 
     "sentence-formulation": {
       label: "Sentence Formulation",
+      studentGoal: "Say my idea in a clear sentence.",
+      lookFor: "Did I say my whole idea in a clear, complete sentence?",
+      reflection: "Did I say my ideas in clear sentences?",
       expected:
         "Student is expected to turn an intended idea into a complete, organized spoken or written sentence.",
       watches:
@@ -295,6 +307,9 @@
 
     "elaboration": {
       label: "Elaboration",
+      studentGoal: "Add a useful detail.",
+      lookFor: "Did I add a detail that helped my listener understand or picture the story?",
+      reflection: "Did I add useful details?",
       expected:
         "Student is expected to add useful information that clarifies or develops an important story idea or event.",
       watches:
@@ -336,6 +351,9 @@
 
     "perspective-internal-state": {
       label: "Perspective & Internal State",
+      studentGoal: "Help my listener understand the character.",
+      lookFor: "Did I explain what the character thought, felt, knew, wanted, or expected?",
+      reflection: "Did I help my listener understand the character?",
       expected:
         "Student is expected to explain what characters feel, think, know, want, expect, wonder, or intend and connect those ideas to story events when appropriate.",
       watches:
@@ -395,6 +413,9 @@
 
     "vocabulary-precision": {
       label: "Vocabulary Precision",
+      studentGoal: "Choose words that say exactly what I mean.",
+      lookFor: "Did I use specific words that fit what I meant?",
+      reflection: "Did I choose words that said exactly what I meant?",
       expected:
         "Student is expected to choose words that communicate the intended meaning more specifically.",
       watches:
@@ -432,6 +453,8 @@
   let tellAgainPlannerAvailable = true;
   let supportLevels = emptySupportLevels();
   let retryRequested = emptyRetryState();
+  let studentReflection = null;
+  let studentReflectionOpen = false;
 
   function emptySupportLevels() {
     return Object.fromEntries(
@@ -533,7 +556,8 @@
       sessionPhase,
       tellAgainPlannerAvailable,
       supportLevels: { ...supportLevels },
-      retryRequested: { ...retryRequested }
+      retryRequested: { ...retryRequested },
+      studentReflection
     };
   }
 
@@ -559,6 +583,17 @@
     const plannerAvailable =
       state?.tellAgainPlannerAvailable !== false;
 
+    const validReflections = [
+      "yes",
+      "sometimes",
+      "not-yet"
+    ];
+
+    const reflection =
+      validReflections.includes(state?.studentReflection)
+        ? state.studentReflection
+        : null;
+
     const levels = emptySupportLevels();
     const retries = emptyRetryState();
 
@@ -578,7 +613,8 @@
       sessionPhase: phase,
       tellAgainPlannerAvailable: plannerAvailable,
       supportLevels: levels,
-      retryRequested: retries
+      retryRequested: retries,
+      studentReflection: reflection
     };
   }
 
@@ -591,6 +627,8 @@
       normalized.tellAgainPlannerAvailable;
     supportLevels = normalized.supportLevels;
     retryRequested = normalized.retryRequested;
+    studentReflection = normalized.studentReflection;
+    studentReflectionOpen = Boolean(studentReflection);
 
     if (!initialized) {
       pendingRestoreState = normalized;
@@ -615,7 +653,14 @@
   }
 
   function setSessionPhase(phase, options = {}) {
-    sessionPhase = normalizeSessionPhase(phase);
+    const nextPhase = normalizeSessionPhase(phase);
+
+    if (nextPhase !== "tell-again") {
+      studentReflection = null;
+      studentReflectionOpen = false;
+    }
+
+    sessionPhase = nextPhase;
 
     if (
       sessionPhase === "first-tell" &&
@@ -630,6 +675,150 @@
     if (options.announce !== false) {
       announceChanged();
     }
+  }
+
+
+  function updateStudentTargetCard() {
+    const definition = targetDefinitions[selectedTarget];
+
+    const card = document.getElementById(
+      "studentTargetCard"
+    );
+
+    const goal = document.getElementById(
+      "studentTargetGoal"
+    );
+
+    const lookFor = document.getElementById(
+      "studentTargetLookFor"
+    );
+
+    const retell = document.getElementById(
+      "studentTargetRetell"
+    );
+
+    const reveal = document.getElementById(
+      "studentReflectionReveal"
+    );
+
+    const reflection = document.getElementById(
+      "studentTargetReflection"
+    );
+
+    const reflectionQuestion = document.getElementById(
+      "studentTargetReflectionQuestion"
+    );
+
+    if (!card) {
+      return;
+    }
+
+    // Preserve the First Tell as the pre-teaching whole-story attempt.
+    if (!definition || sessionPhase === "first-tell") {
+      card.hidden = true;
+      return;
+    }
+
+    card.hidden = false;
+
+    if (goal) {
+      goal.textContent = definition.studentGoal;
+    }
+
+    if (sessionPhase === "part") {
+      if (lookFor) {
+        lookFor.hidden = false;
+        lookFor.textContent =
+          `Listen/look for: ${definition.lookFor}`;
+      }
+
+      if (retell) {
+        retell.hidden = true;
+      }
+
+      if (reveal) {
+        reveal.hidden = true;
+      }
+
+      if (reflection) {
+        reflection.hidden = true;
+      }
+    }
+
+    if (sessionPhase === "tell-again") {
+      // Keep only the short goal visible during the retell.
+      // The specific look-for returns after the retell for self-reflection.
+      if (lookFor) {
+        lookFor.hidden = true;
+      }
+
+      if (retell) {
+        retell.hidden = false;
+      }
+
+      if (reveal) {
+        reveal.hidden =
+          studentReflectionOpen ||
+          Boolean(studentReflection);
+      }
+
+      if (reflection) {
+        reflection.hidden =
+          !studentReflectionOpen &&
+          !studentReflection;
+      }
+
+      if (reflectionQuestion) {
+        reflectionQuestion.textContent =
+          definition.reflection;
+      }
+    }
+
+    document
+      .querySelectorAll("[data-student-reflection]")
+      .forEach((button) => {
+        const selected =
+          button.dataset.studentReflection ===
+          studentReflection;
+
+        button.classList.toggle(
+          "is-selected",
+          selected
+        );
+
+        button.setAttribute(
+          "aria-pressed",
+          selected ? "true" : "false"
+        );
+      });
+  }
+
+  function handleStudentReflectionReveal() {
+    studentReflectionOpen = true;
+    updateStudentTargetCard();
+
+    window.setTimeout(() => {
+      document
+        .querySelector("[data-student-reflection]")
+        ?.focus();
+    }, 0);
+  }
+
+  function handleStudentReflectionChoice(event) {
+    const value =
+      event.currentTarget?.dataset?.studentReflection;
+
+    if (
+      !["yes", "sometimes", "not-yet"].includes(value)
+    ) {
+      return;
+    }
+
+    studentReflection = value;
+    studentReflectionOpen = true;
+
+    updateStudentTargetCard();
+    announceChanged();
   }
 
   function updateSessionFlow() {
@@ -673,6 +862,10 @@
       ".instructional-focus-note"
     );
 
+    const educatorGuidance = document.getElementById(
+      "instructionalFocusPanel"
+    );
+
     const definition = targetDefinitions[selectedTarget];
     const observeFirst = selectedTarget === "observe-first";
     const cycleIsOn =
@@ -680,6 +873,13 @@
 
     if (panel) {
       panel.hidden = !cycleIsOn;
+    }
+
+    if (
+      educatorGuidance &&
+      sessionPhase === "tell-again"
+    ) {
+      educatorGuidance.open = false;
     }
 
     if (!cycleIsOn) {
@@ -705,10 +905,17 @@
     }
 
     if (targetReminder) {
-      targetReminder.textContent = observeFirst
-        ? "Listen across the whole narrative. After the First Tell, choose one primary instructional target above."
-        : `Listen for: ${sessionTargetLabel()}.`;
+      targetReminder.hidden = !observeFirst;
+
+      if (observeFirst) {
+        targetReminder.textContent =
+          "👩‍🏫 Educator: listen across the whole narrative. After the First Tell, choose one primary instructional target above.";
+      } else {
+        targetReminder.textContent = "";
+      }
     }
+
+    updateStudentTargetCard();
 
     document
       .querySelectorAll("[data-session-phase]")
@@ -823,6 +1030,8 @@
   function resetAllSectionSupport() {
     supportLevels = emptySupportLevels();
     retryRequested = emptyRetryState();
+    studentReflection = null;
+    studentReflectionOpen = false;
   }
 
   function ensurePlannerSupportContainers() {
@@ -879,6 +1088,10 @@
 
     if (panel) {
       panel.hidden = !isOn;
+
+      if (isOn) {
+        panel.open = false;
+      }
     }
 
     if (!definition) {
@@ -946,6 +1159,14 @@
     container.hidden = false;
     container.replaceChildren();
 
+    const educatorAudience = document.createElement("p");
+    educatorAudience.className =
+      "planner-support-audience planner-support-audience-educator";
+    educatorAudience.textContent =
+      "👩‍🏫 EDUCATOR SUPPORT";
+
+    container.appendChild(educatorAudience);
+
     const row = document.createElement("div");
     row.className = "planner-help-row";
 
@@ -957,7 +1178,7 @@
 
     helpButton.textContent =
       level === 0
-        ? "Need help?"
+        ? "Open support"
         : "Hide support";
 
     helpButton.setAttribute(
@@ -983,7 +1204,7 @@
       const moreButton = document.createElement("button");
       moreButton.type = "button";
       moreButton.className = "planner-more-help-button";
-      moreButton.textContent = "More help";
+      moreButton.textContent = "More support";
 
       moreButton.addEventListener("click", () => {
         supportLevels[category] = Math.min(
@@ -1009,6 +1230,12 @@
     supportCard.setAttribute("role", "status");
     supportCard.setAttribute("aria-live", "polite");
 
+    const studentAudience = document.createElement("p");
+    studentAudience.className =
+      "planner-support-audience planner-support-audience-student";
+    studentAudience.textContent =
+      "🎯 FOR THE STUDENT";
+
     const stepLabel = document.createElement("p");
     stepLabel.className = "planner-support-step-label";
     stepLabel.textContent =
@@ -1019,7 +1246,11 @@
     stepText.className = "planner-support-step-text";
     stepText.textContent = support.steps[level - 1];
 
-    supportCard.append(stepLabel, stepText);
+    supportCard.append(
+      studentAudience,
+      stepLabel,
+      stepText
+    );
 
     const retryBox = document.createElement("div");
     retryBox.className = "planner-retry-box";
@@ -1187,6 +1418,22 @@
         handleTellAgainPlannerAvailability
       );
 
+    document
+      .getElementById("studentReflectionReveal")
+      ?.addEventListener(
+        "click",
+        handleStudentReflectionReveal
+      );
+
+    document
+      .querySelectorAll("[data-student-reflection]")
+      .forEach((button) => {
+        button.addEventListener(
+          "click",
+          handleStudentReflectionChoice
+        );
+      });
+
     select.addEventListener(
       "change",
       handleTargetChange
@@ -1217,6 +1464,8 @@
         pending.tellAgainPlannerAvailable;
       supportLevels = pending.supportLevels;
       retryRequested = pending.retryRequested;
+      studentReflection = pending.studentReflection;
+      studentReflectionOpen = Boolean(studentReflection);
     }
 
     applyStateToUI();

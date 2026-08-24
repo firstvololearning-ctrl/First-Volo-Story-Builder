@@ -419,6 +419,10 @@
     </span>
   </div>
 
+  <p class="instructional-audience-label educator-controls-label">
+    👩‍🏫 EDUCATOR CONTROLS
+  </p>
+
   <div
     class="instructional-session-steps"
     role="group"
@@ -478,11 +482,100 @@
     ></p>
 
 
+
+    <section
+      class="student-target-card"
+      id="studentTargetCard"
+      hidden
+      aria-labelledby="studentTargetGoal"
+    >
+      <p class="student-target-kicker">
+        🎯 FOR THE STUDENT · STORY GOAL
+      </p>
+
+      <h3 id="studentTargetGoal"></h3>
+
+      <p
+        class="student-target-look-for"
+        id="studentTargetLookFor"
+      ></p>
+
+      <p
+        class="student-target-retell"
+        id="studentTargetRetell"
+        hidden
+      >
+        Tell the whole story again with your story goal in mind.
+      </p>
+
+      <button
+        class="student-reflection-reveal"
+        id="studentReflectionReveal"
+        type="button"
+        hidden
+      >
+        Retell complete · Check my goal
+      </button>
+
+      <div
+        class="student-target-reflection"
+        id="studentTargetReflection"
+        hidden
+      >
+        <p class="student-reflection-label">
+          After the retell
+        </p>
+
+        <p
+          class="student-reflection-question"
+          id="studentTargetReflectionQuestion"
+        ></p>
+
+        <div
+          class="student-reflection-options"
+          role="group"
+          aria-label="Student reflection"
+        >
+          <button
+            type="button"
+            data-student-reflection="yes"
+            aria-pressed="false"
+          >
+            Yes
+          </button>
+
+          <button
+            type="button"
+            data-student-reflection="sometimes"
+            aria-pressed="false"
+          >
+            Sometimes
+          </button>
+
+          <button
+            type="button"
+            data-student-reflection="not-yet"
+            aria-pressed="false"
+          >
+            Not yet
+          </button>
+        </div>
+
+        <small>
+          Student self-check · not a score
+        </small>
+      </div>
+    </section>
+
     <label
       class="tell-again-planner-option"
       id="tellAgainPlannerOption"
       hidden
     >
+      <span class="educator-option-kicker">
+        👩‍🏫 EDUCATOR OPTION
+      </span>
+
       <span class="tell-again-planner-option-row">
         <input
           type="checkbox"
@@ -502,39 +595,53 @@
   </div>
 </section>
 
-<section
+<details
   class="instructional-focus-panel"
   id="instructionalFocusPanel"
   hidden
-  aria-labelledby="instructionalFocusTitle"
 >
-  <div class="instructional-focus-heading">
-    <div>
-      <p class="instructional-focus-kicker">Educator instructional focus</p>
-      <h2 id="instructionalFocusTitle">Instructional Target</h2>
+  <summary class="instructional-focus-summary">
+    <span class="instructional-focus-summary-main">
+      <span class="instructional-focus-kicker">
+        👩‍🏫 EDUCATOR GUIDANCE
+      </span>
+
+      <strong class="instructional-focus-summary-title">
+        <span id="instructionalFocusTitle">Instructional Target</span>
+      </strong>
+    </span>
+
+    <span class="instructional-focus-badge">
+      Targeted Support
+    </span>
+  </summary>
+
+  <div class="instructional-focus-content">
+    <p
+      class="instructional-focus-expected"
+      id="instructionalFocusExpected"
+    ></p>
+
+    <div class="instructional-focus-watch">
+      <h3>What should I listen for?</h3>
+      <p id="instructionalFocusWatches"></p>
     </div>
 
-    <span class="instructional-focus-badge">Targeted Support</span>
-  </div>
-
-  <p class="instructional-focus-expected" id="instructionalFocusExpected"></p>
-
-  <details class="instructional-focus-educator">
-    <summary>What should the educator watch for?</summary>
-    <p id="instructionalFocusWatches"></p>
     <p class="instructional-access-note">
       <strong>Access Support:</strong>
-      clarifying directions, helping navigate the planner, locating a story card,
-      rereading a prompt, or explaining a non-target word does not count as
-      support for the instructional target.
+      clarifying directions, helping navigate the planner,
+      locating a story card, rereading a prompt, or explaining
+      a non-target word does not count as support for the
+      instructional target.
     </p>
-  </details>
 
-  <p class="instructional-focus-note">
-    Let the student attempt the language first. If help is needed, open only
-    the next support step, then have the student retry the same idea.
-  </p>
-</section>
+    <p class="instructional-focus-note">
+      Let the student attempt the language first. If help is
+      needed, open only the next support step, then have the
+      student retry and reconnect the repaired idea to the story.
+    </p>
+  </div>
+</details>
 
 <section class="story-planner-panel" id="storyPlannerPanel">
   <details class="story-planner-details" open>
@@ -1356,17 +1463,38 @@
 
       <p>
         Within the <strong>Work on Target</strong> stage, the student attempts
-        the language first. If targeted help is needed, choose
-        <strong>Need help?</strong> to reveal one support step at a time in the
-        relevant part of the Story Planner. Support becomes more explicit only
-        as needed, and the student then retries or reformulates the same
-        language demand.
+        the language first. If targeted help is needed, the educator chooses
+        <strong>Open support</strong> to reveal the first support step in the
+        relevant part of the Story Planner. <strong>More support</strong> makes
+        the support progressively more explicit only as needed. The student then
+        retries or reformulates the same language demand and reconnects the
+        improved language to the story.
       </p>
 
       <p>
         Current instructional targets include Story Organization,
         Connections &amp; Cohesion, Cause &amp; Effect, Sentence Formulation,
         Elaboration, Perspective &amp; Internal State, and Vocabulary Precision.
+      </p>
+
+      <p>
+        Story Builder separates <strong>educator controls and guidance</strong>
+        from language intended <strong>for the student</strong>. Educator controls
+        manage the teaching stage, instructional target, scaffold level, and
+        optional Story Planner access. Student-facing language is explicitly marked
+        <strong>For the Student</strong>.
+      </p>
+
+      <p>
+        Once a target is selected, the student sees a short
+        <strong>Story Goal</strong> and a concrete <strong>look-for</strong>.
+        During <strong>Work on Target</strong>, the look-for makes the target
+        explicit while the educator opens support only as needed. During
+        <strong>Tell Again</strong>, the detailed teaching prompt is removed and
+        the student keeps only the shorter Story Goal in mind. After the retell,
+        the student can complete a brief self-check about use of the target.
+        This reflection is stored as a student self-report, not as an automated
+        performance score.
       </p>
 
       <p>
@@ -1473,7 +1601,7 @@
 
         <li>Display and vocabulary preferences</li>
 
-        <li>Instructional Target, Whole → Part → Whole stage, and targeted-support state</li>
+        <li>Instructional Target, Whole → Part → Whole stage, targeted-support state, and student goal reflection</li>
 
       </ul>
 
