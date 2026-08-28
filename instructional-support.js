@@ -1014,7 +1014,7 @@
       feeling:
         "Reconnect to the story: go back to the problem and tell the problem and the character’s feeling together.",
       plan:
-        "Reconnect to the story: go back to the problem and tell the problem and the action / attempt together.",
+        "Reconnect to the story: go back to the problem and feeling and tell how they lead to the plan.",
       item:
         "Reconnect to the story: go back to the action / attempt and tell how the item connects to what the character does.",
       resolution:
