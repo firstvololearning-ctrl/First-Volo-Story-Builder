@@ -448,7 +448,7 @@
 
   let initialized = false;
   let pendingRestoreState = null;
-  let selectedTarget = "off";
+  let selectedTarget = "observe-first";
   let sessionPhase = "first-tell";
   let tellAgainPlannerAvailable = true;
   let supportLevels = emptySupportLevels();
@@ -909,7 +909,7 @@
 
       if (observeFirst) {
         targetReminder.textContent =
-          "👩‍🏫 Educator: listen across the whole narrative. After the First Tell, choose one primary instructional target above.";
+          "👩‍🏫 Educator: listen across the whole narrative. After the First Tell, choose one Story Goal above.";
       } else {
         targetReminder.textContent = "";
       }
