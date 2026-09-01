@@ -23,6 +23,9 @@ const accessSupport = accessShell?.querySelector(".story-builder-access-support"
 const accessStatus = document.getElementById("storyBuilderAccessStatus");
 const accessActions = document.getElementById("storyBuilderAccessActions");
 const app = document.getElementById("storyBuilderApp");
+const accessChrome = accessShell?.querySelectorAll(
+  ".story-builder-access-logo, .story-builder-access-eyebrow, .story-builder-access-title, .story-builder-access-support, .story-builder-access-status, .story-builder-access-actions, .story-builder-access-helper"
+);
 
 const lockedAccess = Object.freeze({
   mode: "locked",
@@ -37,6 +40,9 @@ let authorizationGeneration = 0;
 let educatorRuntimeStarted = false;
 let educatorRuntimePromise = null;
 let educatorCloudModule = null;
+let educatorSupportsModule = null;
+let studentRuntimeStarted = false;
+let studentRuntimeModule = null;
 
 function setLocked() {
   app?.setAttribute("inert", "");
@@ -54,6 +60,13 @@ function clearAccessState() {
   setLocked();
   currentAccess = lockedAccess;
   educatorCloudModule?.suspendEducatorCloudSync?.();
+  studentRuntimeModule?.unmountStudentMode?.();
+}
+
+function setAccessChromeHidden(hidden) {
+  accessChrome?.forEach((node) => {
+    node.hidden = hidden;
+  });
 }
 
 function makeLink({ label, href = "#", primary = false, retry = false }) {
@@ -73,6 +86,7 @@ function makeLink({ label, href = "#", primary = false, retry = false }) {
 
 function showState(message, actions = []) {
   setLocked();
+  setAccessChromeHidden(false);
   if (accessSupport) {
     accessSupport.textContent = "Your Story Builder access is connected to My First Volo.";
   }
@@ -186,6 +200,8 @@ async function startEducatorRuntime(access) {
     educatorRuntimePromise = (async () => {
       await loadClassicScript("./script.js");
       await loadClassicScript("./instructional-support.js");
+      educatorSupportsModule = await import("./student-supports.mjs");
+      await educatorSupportsModule.initializeStudentSupports(access);
       educatorCloudModule = await import("./cloud-sync.mjs");
       await educatorCloudModule.initializeEducatorCloudSync(access);
     })();
@@ -195,44 +211,11 @@ async function startEducatorRuntime(access) {
   }
 }
 
-function showStudentShell(access) {
+async function showStudentShell(access) {
   setLocked();
-  const context = access.studentContext;
-  if (accessSupport) accessSupport.textContent = "Story Builder Student Mode";
-  if (accessStatus) {
-    accessStatus.replaceChildren();
-    const greeting = document.createElement("strong");
-    greeting.textContent = `Hi, ${context.display_name || "student"}!`;
-    const className = document.createElement("span");
-    className.textContent = context.class_name ? `Class: ${context.class_name}` : "";
-    const message = document.createElement("span");
-    message.textContent = "Your Story Builder activities are getting ready.";
-    accessStatus.append(greeting, className, message);
-  }
-  if (!accessActions) return;
-
-  const signOutButton = document.createElement("button");
-  signOutButton.type = "button";
-  signOutButton.className = "story-builder-access-link is-primary";
-  signOutButton.textContent = "Sign out";
-  signOutButton.addEventListener("click", async () => {
-    signOutButton.disabled = true;
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      signOutButton.disabled = false;
-      showState("Could not sign out. Please try again.", [
-        { label: "Try again", retry: true, primary: true }
-      ]);
-      return;
-    }
-    window.location.replace(STUDENT_LOGIN_URL);
-  });
-
-  accessActions.replaceChildren(signOutButton, makeLink({
-    label: "Return to First Volo",
-    href: STUDENT_LOGIN_URL
-  }));
-  accessActions.hidden = false;
+  setAccessChromeHidden(true);
+  if (!studentRuntimeModule) return;
+  await studentRuntimeModule.mountStudentMode(accessShell, access);
 }
 
 function showLockedForSession(session) {
@@ -270,6 +253,11 @@ async function publishAccess(access, session, generation, previousAccess) {
     return access;
   }
 
+  if (studentRuntimeStarted && access.mode !== "student") {
+    window.location.reload();
+    return access;
+  }
+
   if (access.mode === "educator") {
     try {
       await startEducatorRuntime(access);
@@ -287,7 +275,20 @@ async function publishAccess(access, session, generation, previousAccess) {
   }
 
   if (access.mode === "student") {
-    showStudentShell(access);
+    try {
+      if (!studentRuntimeModule) {
+        studentRuntimeModule = await import("./student-mode.mjs");
+        studentRuntimeStarted = true;
+      }
+    } catch (error) {
+      if (generation !== authorizationGeneration) return lockedAccess;
+      currentAccess = lockedAccess;
+      showState("Story Builder student access could not be verified.", [
+        { label: "Return to Student Sign In", href: STUDENT_LOGIN_URL, primary: true }
+      ]);
+      return lockedAccess;
+    }
+    await showStudentShell(access);
     return access;
   }
 
