@@ -3,16 +3,40 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const SUPABASE_URL = "https://apkvvspubolyxlqtlkto.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_0O4rNLfhuW18xYRZSPkLpw_xyXR9d3n";
 const ACCOUNT_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/?returnTo=storyBuilder";
+const ACCOUNT_HOME_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/";
+const STUDENT_LOGIN_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html";
 const PRODUCT_KEY = "first-volo-story-builder";
+const AUTH_EVENTS_TO_VERIFY = new Set([
+  "INITIAL_SESSION",
+  "SIGNED_IN",
+  "SIGNED_OUT",
+  "TOKEN_REFRESHED",
+  "USER_UPDATED"
+]);
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
 });
 
 const accessShell = document.getElementById("storyBuilderAccess");
+const accessSupport = accessShell?.querySelector(".story-builder-access-support");
 const accessStatus = document.getElementById("storyBuilderAccessStatus");
 const accessActions = document.getElementById("storyBuilderAccessActions");
 const app = document.getElementById("storyBuilderApp");
+
+const lockedAccess = Object.freeze({
+  mode: "locked",
+  user: null,
+  studentContext: null,
+  productKeys: Object.freeze([]),
+  studentStorageKeys: null
+});
+
+let currentAccess = lockedAccess;
+let authorizationGeneration = 0;
+let educatorRuntimeStarted = false;
+let educatorRuntimePromise = null;
+let educatorCloudModule = null;
 
 function setLocked() {
   app?.setAttribute("inert", "");
@@ -26,46 +50,63 @@ function setApproved() {
   if (accessShell) accessShell.hidden = true;
 }
 
-function showState(message, action = null) {
+function clearAccessState() {
   setLocked();
-  if (accessStatus) accessStatus.textContent = message;
+  currentAccess = lockedAccess;
+  educatorCloudModule?.suspendEducatorCloudSync?.();
+}
+
+function makeLink({ label, href = "#", primary = false, retry = false }) {
+  const link = document.createElement("a");
+  link.className = "story-builder-access-link";
+  if (primary) link.classList.add("is-primary");
+  link.href = href;
+  link.textContent = label;
+  if (retry) {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.location.reload();
+    });
+  }
+  return link;
+}
+
+function showState(message, actions = []) {
+  setLocked();
+  if (accessSupport) {
+    accessSupport.textContent = "Your Story Builder access is connected to My First Volo.";
+  }
+  if (accessStatus) {
+    accessStatus.replaceChildren();
+    accessStatus.textContent = message;
+  }
   if (!accessActions) return;
-  accessActions.replaceChildren();
-  const actions = action ? (Array.isArray(action) ? action : [action]) : [];
-  accessActions.hidden = actions.length === 0;
-  actions.forEach((item) => {
-    const link = document.createElement("a");
-    link.className = "story-builder-access-link";
-    if (item.primary) link.classList.add("is-primary");
-    link.href = item.href || "#";
-    link.textContent = item.label;
-    if (item.retry) {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        window.location.reload();
-      });
-    }
-    accessActions.append(link);
+  const items = Array.isArray(actions) ? actions : [actions];
+  const visibleItems = items.filter(Boolean);
+  accessActions.replaceChildren(...visibleItems.map(makeLink));
+  accessActions.hidden = visibleItems.length === 0;
+}
+
+function firstRow(data) {
+  return Array.isArray(data) ? (data[0] || null) : (data || null);
+}
+
+function studentStorageKeys(studentContext) {
+  const studentId = String(studentContext?.student_id || "").trim();
+  if (!studentId) return null;
+  const prefix = `firstVoloStoryBuilderStudent:${studentId}`;
+  return Object.freeze({
+    draft: `${prefix}:SavedWork`,
+    library: `${prefix}:MyStoriesV1`,
+    deleteQueue: `${prefix}:CloudDeleteQueueV1`
   });
 }
 
-async function verifyAccess() {
-  showState("Checking your First Volo access…");
-  const sessionResult = await supabase.auth.getSession();
-  if (sessionResult.error) {
-    showState("First Volo access could not be verified. Please try again.", [
-      { label: "Try again", retry: true, primary: true },
-      { label: "View My First Volo", href: "https://firstvololearning-ctrl.github.io/First-Volo-Account/" }
-    ]);
-    return false;
-  }
+function isAnonymousUser(user) {
+  return user?.is_anonymous === true;
+}
 
-  const user = sessionResult.data.session?.user;
-  if (!user) {
-    showState("Sign in to continue to Story Builder", { label: "Sign in to Story Builder", href: ACCOUNT_URL, primary: true });
-    return false;
-  }
-
+async function authorizeEducator(user) {
   const result = await supabase
     .from("product_entitlements")
     .select("product_key,status,starts_at,expires_at")
@@ -74,13 +115,7 @@ async function verifyAccess() {
     .eq("status", "active")
     .limit(20);
 
-  if (result.error) {
-    showState("First Volo access could not be verified. Please try again.", [
-      { label: "Try again", retry: true, primary: true },
-      { label: "View My First Volo", href: "https://firstvololearning-ctrl.github.io/First-Volo-Account/" }
-    ]);
-    return false;
-  }
+  if (result.error) return lockedAccess;
 
   const now = Date.now();
   const active = (result.data || []).some((row) => {
@@ -89,25 +124,216 @@ async function verifyAccess() {
     return Number.isFinite(starts) && Number.isFinite(expires) && starts <= now && expires > now;
   });
 
-  if (!active) {
-    showState("Story Builder is not included in the current First Volo access for this account.", { label: "View My First Volo", href: "https://firstvololearning-ctrl.github.io/First-Volo-Account/" });
-    return false;
-  }
+  if (!active) return lockedAccess;
 
-  setApproved();
-  return true;
+  return Object.freeze({
+    mode: "educator",
+    user,
+    studentContext: null,
+    productKeys: Object.freeze([PRODUCT_KEY]),
+    studentStorageKeys: null
+  });
 }
 
-export const accessReady = verifyAccess().catch(() => {
-  showState("First Volo access could not be verified. Please try again.", [
-    { label: "Try again", retry: true, primary: true },
-    { label: "View My First Volo", href: "https://firstvololearning-ctrl.github.io/First-Volo-Account/" }
-  ]);
-  return false;
-});
+async function authorizeStudent(user) {
+  const contextResult = await supabase.rpc("get_student_session_context");
+  if (contextResult.error) return lockedAccess;
 
-supabase.auth.onAuthStateChange((event) => {
-  if (event === "SIGNED_OUT") {
-    showState("Sign in to continue to Story Builder", { label: "Sign in to Story Builder", href: ACCOUNT_URL, primary: true });
+  const studentContext = firstRow(contextResult.data);
+  if (!studentContext?.student_id || !studentContext?.class_id) return lockedAccess;
+
+  const accessResult = await supabase.rpc("get_student_product_access");
+  if (accessResult.error) return lockedAccess;
+
+  const productKeys = Object.freeze(
+    (accessResult.data || [])
+      .map((row) => row?.product_key)
+      .filter((key) => typeof key === "string")
+  );
+
+  if (!productKeys.includes(PRODUCT_KEY)) return lockedAccess;
+
+  return Object.freeze({
+    mode: "student",
+    user,
+    studentContext: Object.freeze({ ...studentContext }),
+    productKeys,
+    studentStorageKeys: studentStorageKeys(studentContext)
+  });
+}
+
+async function determineAccess(session) {
+  const user = session?.user;
+  if (!user) return lockedAccess;
+  return isAnonymousUser(user)
+    ? authorizeStudent(user)
+    : authorizeEducator(user);
+}
+
+function loadClassicScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.addEventListener("load", resolve, { once: true });
+    script.addEventListener("error", () => reject(new Error(`Could not load ${src}`)), { once: true });
+    document.body.appendChild(script);
+  });
+}
+
+async function startEducatorRuntime(access) {
+  if (!educatorRuntimePromise) {
+    educatorRuntimeStarted = true;
+    educatorRuntimePromise = (async () => {
+      await loadClassicScript("./script.js");
+      await loadClassicScript("./instructional-support.js");
+      educatorCloudModule = await import("./cloud-sync.mjs");
+      await educatorCloudModule.initializeEducatorCloudSync(access);
+    })();
+  } else {
+    await educatorRuntimePromise;
+    await educatorCloudModule?.resumeEducatorCloudSync?.(access);
   }
+}
+
+function showStudentShell(access) {
+  setLocked();
+  const context = access.studentContext;
+  if (accessSupport) accessSupport.textContent = "Story Builder Student Mode";
+  if (accessStatus) {
+    accessStatus.replaceChildren();
+    const greeting = document.createElement("strong");
+    greeting.textContent = `Hi, ${context.display_name || "student"}!`;
+    const className = document.createElement("span");
+    className.textContent = context.class_name ? `Class: ${context.class_name}` : "";
+    const message = document.createElement("span");
+    message.textContent = "Your Story Builder activities are getting ready.";
+    accessStatus.append(greeting, className, message);
+  }
+  if (!accessActions) return;
+
+  const signOutButton = document.createElement("button");
+  signOutButton.type = "button";
+  signOutButton.className = "story-builder-access-link is-primary";
+  signOutButton.textContent = "Sign out";
+  signOutButton.addEventListener("click", async () => {
+    signOutButton.disabled = true;
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      signOutButton.disabled = false;
+      showState("Could not sign out. Please try again.", [
+        { label: "Try again", retry: true, primary: true }
+      ]);
+      return;
+    }
+    window.location.replace(STUDENT_LOGIN_URL);
+  });
+
+  accessActions.replaceChildren(signOutButton, makeLink({
+    label: "Return to First Volo",
+    href: STUDENT_LOGIN_URL
+  }));
+  accessActions.hidden = false;
+}
+
+function showLockedForSession(session) {
+  if (!session?.user) {
+    showState("Sign in to continue to Story Builder", [
+      { label: "Educator sign in", href: ACCOUNT_URL, primary: true },
+      { label: "Student sign in", href: STUDENT_LOGIN_URL }
+    ]);
+    return;
+  }
+
+  if (isAnonymousUser(session.user)) {
+    showState("Story Builder student access could not be verified.", [
+      { label: "Return to Student Sign In", href: STUDENT_LOGIN_URL, primary: true }
+    ]);
+    return;
+  }
+
+  showState("Story Builder is not included in the current First Volo access for this account.", [
+    { label: "View My First Volo", href: ACCOUNT_HOME_URL, primary: true }
+  ]);
+}
+
+function sameIdentity(left, right) {
+  return left?.mode === right?.mode && left?.user?.id === right?.user?.id;
+}
+
+async function publishAccess(access, session, generation, previousAccess) {
+  if (generation !== authorizationGeneration) return lockedAccess;
+
+  currentAccess = access;
+
+  if (educatorRuntimeStarted && !sameIdentity(previousAccess, access)) {
+    window.location.reload();
+    return access;
+  }
+
+  if (access.mode === "educator") {
+    try {
+      await startEducatorRuntime(access);
+    } catch (error) {
+      if (generation !== authorizationGeneration) return lockedAccess;
+      currentAccess = lockedAccess;
+      showState("First Volo access could not be verified. Please try again.", [
+        { label: "Try again", retry: true, primary: true },
+        { label: "View My First Volo", href: ACCOUNT_HOME_URL }
+      ]);
+      return lockedAccess;
+    }
+    if (generation === authorizationGeneration) setApproved();
+    return access;
+  }
+
+  if (access.mode === "student") {
+    showStudentShell(access);
+    return access;
+  }
+
+  showLockedForSession(session);
+  return lockedAccess;
+}
+
+export async function reauthorize(session = undefined) {
+  const generation = ++authorizationGeneration;
+  const previousAccess = currentAccess;
+  clearAccessState();
+  showState("Checking your First Volo access…");
+
+  let activeSession = session;
+  if (activeSession === undefined) {
+    const sessionResult = await supabase.auth.getSession();
+    if (generation !== authorizationGeneration) return lockedAccess;
+    if (sessionResult.error) {
+      showState("First Volo access could not be verified. Please try again.", [
+        { label: "Try again", retry: true, primary: true },
+        { label: "View My First Volo", href: ACCOUNT_HOME_URL }
+      ]);
+      return lockedAccess;
+    }
+    activeSession = sessionResult.data.session;
+  }
+
+  let access = lockedAccess;
+  try {
+    access = await determineAccess(activeSession);
+  } catch (error) {
+    access = lockedAccess;
+  }
+
+  return publishAccess(access, activeSession, generation, previousAccess);
+}
+
+export function getCurrentAccess() {
+  return currentAccess;
+}
+
+export const accessReady = reauthorize();
+
+supabase.auth.onAuthStateChange((event, session) => {
+  if (!AUTH_EVENTS_TO_VERIFY.has(event)) return;
+  window.setTimeout(() => {
+    reauthorize(session);
+  }, 0);
 });

@@ -71,6 +71,14 @@ textarea {
   line-height: 1.5;
 }
 
+.story-builder-access-status > * {
+  display: block;
+}
+
+.story-builder-access-status > span {
+  margin-top: 4px;
+}
+
 .story-builder-access-logo {
   display: block;
   width: 78px;
@@ -119,6 +127,8 @@ textarea {
   color: #173a64;
   font-weight: 700;
   text-decoration: none;
+  font: inherit;
+  cursor: pointer;
 }
 
 .story-builder-access-link.is-primary {

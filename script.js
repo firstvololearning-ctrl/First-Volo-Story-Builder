@@ -991,7 +991,7 @@ function preloadStarterAssets() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function initializeStoryBuilderCore() {
   document
     .getElementById("rollAll")
     .addEventListener("click", rollAllCategories);
@@ -1040,7 +1040,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   preloadStarterAssets();
   updateAllSupports();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeStoryBuilderCore, { once: true });
+} else {
+  initializeStoryBuilderCore();
+}
 /* =========================================================
    STORY CHALLENGE
    Replace the previous Story Challenge JavaScript with this.
@@ -2347,7 +2353,7 @@ document.addEventListener("DOMContentLoaded", () => {
     local: localStoryStorage
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
+  function initializeStoryPersistence() {
     getElement("saveStory")?.addEventListener(
       "click",
       downloadStoryFile
@@ -2380,7 +2386,13 @@ document.addEventListener("DOMContentLoaded", () => {
     connectAutoSaveEvents();
     observeStoryCards();
     restoreBrowserSave();
-  });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeStoryPersistence, { once: true });
+  } else {
+    initializeStoryPersistence();
+  }
 })();
 
 /* =========================================================
