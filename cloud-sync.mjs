@@ -1,23 +1,8 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-
-const SUPABASE_URL = "https://apkvvspubolyxlqtlkto.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_0O4rNLfhuW18xYRZSPkLpw_xyXR9d3n";
+import { supabase, accessReady } from "./access-gate.mjs";
 const STORY_TABLE = "story_builder_stories";
 const DELETE_QUEUE_KEY =
   "firstVoloStoryBuilderCloudDeleteQueueV1";
 const CLOUD_SAVE_DELAY_MS = 3500;
-
-const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY,
-  {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true
-    }
-  }
-);
 
 const storyState = window.FirstVoloStoryState;
 const localLibrary = window.FirstVoloStoryLibrary?.local;
@@ -74,7 +59,11 @@ if (
     "Cloud Sync could not start because required Story Builder elements are missing."
   );
 } else {
-  initializeCloudSync();
+  accessReady.then((approved) => {
+    if (approved) {
+      initializeCloudSync();
+    }
+  });
 }
 
 function isSignedIn() {

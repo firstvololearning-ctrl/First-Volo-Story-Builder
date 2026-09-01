@@ -28,7 +28,17 @@
 
 <body>
   <div class="page-shell">
-    <div class="app-content">
+    <section class="story-builder-access" id="storyBuilderAccess" aria-live="polite">
+      <img class="story-builder-access-logo" src="assets/logo/logo.png" alt="First Volo Learning">
+      <p class="story-builder-access-eyebrow">FIRST VOLO LEARNING</p>
+      <h1 class="story-builder-access-title">First Volo Story Builder</h1>
+      <p class="story-builder-access-support">Your Story Builder access is connected to My First Volo.</p>
+      <p class="story-builder-access-status" id="storyBuilderAccessStatus">Checking your First Volo access…</p>
+      <div class="story-builder-access-actions" id="storyBuilderAccessActions" hidden></div>
+      <p class="story-builder-access-helper">Uses your My First Volo account</p>
+    </section>
+
+    <div class="app-content" id="storyBuilderApp" inert aria-hidden="true">
 
       <header class="page-header">
         <img
@@ -1742,6 +1752,7 @@
     </section>
   </div>
 
+  <script type="module" src="access-gate.mjs"></script>
   <script src="script.js"></script>
   <script src="instructional-support.js"></script>
   <script type="module" src="cloud-sync.mjs"></script>
