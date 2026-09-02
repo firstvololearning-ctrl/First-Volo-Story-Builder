@@ -560,10 +560,29 @@ h1 {
 }
 
 .more-actions-menu button,
-.more-actions-menu .about-button {
+.more-actions-menu .about-button,
+.more-actions-menu .target-builder-link {
   width: 100%;
   margin: 0;
   text-align: left;
+}
+
+.more-actions-menu .target-builder-link {
+  display: block;
+  min-height: 42px;
+  padding: 10px 17px;
+  color: white;
+  background: var(--navy);
+  border-radius: 12px;
+  box-shadow: 0 5px 12px rgba(32, 63, 114, 0.14);
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.more-actions-menu .target-builder-link:hover {
+  background: var(--navy-dark);
+  transform: translateY(-2px);
 }
 
 .story-goal-control {

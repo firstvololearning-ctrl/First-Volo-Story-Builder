@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Target + Goal + Evidence Builder | First Volo Story Builder</title>
+  <link rel="stylesheet" href="story-builder-target-builder.css">
+</head>
+<body>
+  <main class="builder-shell">
+    <header class="hero">
+      <p class="eyebrow">FIRST VOLO STORY BUILDER · TEACHERS + SLPs</p>
+      <h1>Target + Goal + Evidence Builder</h1>
+      <p class="lede">
+        Choose who you are supporting, what narrative-language skill you are targeting,
+        why the target is appropriate, and how much help the student needs.
+      </p>
+
+      <ol class="logic-strip" aria-label="Builder sequence">
+        <li><strong>WHO?</strong><span>Grade band</span></li>
+        <li><strong>WHAT?</strong><span>Narrative-language target</span></li>
+        <li><strong>WHY?</strong><span>Standards + research</span></li>
+        <li><strong>HOW MUCH HELP?</strong><span>Condition + support</span></li>
+      </ol>
+
+      <p class="evidence-disclaimer">
+        <strong>Evidence note:</strong> First Volo Story Builder is research-informed and
+        standards-aligned where relevant. The cited sources support the targeted
+        narrative-language skills and instructional principles; they do not constitute
+        direct efficacy evidence for First Volo Story Builder itself.
+      </p>
+      <p class="evidence-disclaimer">
+        <strong>Product-grounding note:</strong> This builder describes the targets and supports that exist in the current Story Builder.
+        Grade-band differences are educator-facing developmental guidance; they do not imply a different grade-specific runtime.
+      </p>
+    </header>
+
+    <section class="builder-panel" aria-labelledby="whoTitle">
+      <div class="step-head"><span>1</span><div><h2 id="whoTitle">WHO?</h2><p>Choose the grade band.</p></div></div>
+      <div id="gradeChoices" class="choice-row" role="group" aria-label="Grade band">
+        <button type="button" data-grade="2-3" aria-pressed="true">Grades 2–3</button>
+        <button type="button" data-grade="4-5" aria-pressed="false">Grades 4–5</button>
+        <button type="button" data-grade="6-8" aria-pressed="false">Grades 6–8</button>
+      </div>
+      <p class="note product-grounding-note">
+        <strong>What grade band changes:</strong> the suggested objective and developmental expectation in this educator tool.
+        The current Story Builder app itself does <strong>not</strong> switch to different prompts or support sequences by grade.
+      </p>
+    </section>
+
+    <section class="builder-panel" aria-labelledby="whatTitle">
+      <div class="step-head"><span>2</span><div><h2 id="whatTitle">WHAT?</h2><p>Choose one primary narrative-language target.</p></div></div>
+      <button type="button" id="observeFirstButton" class="observe-first">
+        👀 Observe First · Choose After First Tell
+      </button>
+      <p class="microcopy">Observe First is a workflow option, not a student objective.</p>
+      <div id="targetChoices" class="target-grid" role="group" aria-label="Narrative-language target"></div>
+    </section>
+
+    <section class="builder-panel" aria-labelledby="whyTitle">
+      <div class="step-head"><span>3</span><div><h2 id="whyTitle">WHY?</h2><p>Story Builder generates the rationale from the selected grade band and target.</p></div></div>
+
+      <div class="tabs" role="tablist" aria-label="Why this target">
+        <button type="button" role="tab" id="tabStandards" data-tab="standards" aria-selected="true" tabindex="0">Standards</button>
+        <button type="button" role="tab" id="tabResearch" data-tab="research" aria-selected="false" tabindex="-1">Research</button>
+        <button type="button" role="tab" id="tabSystem" data-tab="system" aria-selected="false" tabindex="-1">In Story Builder</button>
+        <button type="button" role="tab" id="tabSources" data-tab="sources" aria-selected="false" tabindex="-1">Sources</button>
+      </div>
+
+      <div id="whyPanel" class="why-panel" role="tabpanel" aria-live="polite"></div>
+    </section>
+
+    <section class="builder-panel" aria-labelledby="supportTitle">
+      <div class="step-head"><span>4</span><div><h2 id="supportTitle">HOW MUCH HELP?</h2><p>Choose the possible condition/support level.</p></div></div>
+
+      <label class="field-label" for="supportSelect">Support condition</label>
+      <select id="supportSelect">
+        <option value="program">Story Builder supports available</option>
+        <option value="teacher">Teacher/SLP-guided support as needed</option>
+        <option value="independent">Independent</option>
+        <option value="explicit">Explicit teaching / high support</option>
+      </select>
+
+      <fieldset class="planner-choice">
+        <legend>Story Planner during this condition</legend>
+        <label><input type="radio" name="planner" value="available" checked> Available as an organizational/access scaffold</label>
+        <label><input type="radio" name="planner" value="hidden"> Hidden</label>
+      </fieldset>
+
+      <div class="support-principle">
+        <strong>Support principle:</strong>
+        Support may provide access without solving the targeted narrative-language
+        demand. Teacher/SLP-guided work follows:
+        <strong>independent attempt → least support needed → retry the same demand → fade support.</strong>
+      </div>
+    </section>
+
+    <section class="result-card" id="resultCard" aria-live="polite">
+      <div class="result-head">
+        <div>
+          <p class="eyebrow">SUGGESTED TARGET</p>
+          <h2 id="resultTitle">Your Story Builder target</h2>
+        </div>
+        <div class="copy-actions">
+          <button type="button" id="copyObjective">Copy objective</button>
+          <button type="button" id="copyObjectiveCondition">Copy objective + condition</button>
+        </div>
+      </div>
+
+      <div id="observeResult" class="observe-result hidden">
+        <h3>Observe First</h3>
+        <p>
+          No student objective is generated yet. Complete the First Tell, identify the most
+          meaningful narrative-language breakdown, then select one of the seven targets.
+        </p>
+      </div>
+
+      <div id="targetResult">
+        <article class="result-section primary">
+          <h3>Suggested objective</h3>
+          <p id="objectiveText"></p>
+        </article>
+
+        <article class="result-section">
+          <h3>Possible condition</h3>
+          <p id="conditionText"></p>
+        </article>
+
+        <article class="result-section">
+          <h3>At this level</h3>
+          <p id="developmentalText"></p>
+        </article>
+
+        <div class="two-col">
+          <article class="result-section">
+            <h3>Story Builder teaching focus</h3>
+            <ul id="teachingList"></ul>
+          </article>
+
+          <article class="result-section">
+            <h3>Access supports</h3>
+            <ul id="accessSupportList"></ul>
+          </article>
+        </div>
+
+        <div class="two-col">
+          <article class="result-section">
+            <h3>Built-in Story Builder target supports</h3>
+            <ul id="targetSupportList"></ul>
+          </article>
+
+          <article class="result-section">
+            <h3>Additional teacher/SLP support</h3>
+            <ul id="educatorSupportList"></ul>
+          </article>
+        </div>
+
+        <div class="two-col">
+          <article class="result-section">
+            <h3>What to monitor during target work</h3>
+            <ul id="monitorList"></ul>
+          </article>
+
+          <article class="result-section">
+            <h3>What to look for during Retell / transfer</h3>
+            <ul id="transferList"></ul>
+          </article>
+        </div>
+
+        <details class="iep-box">
+          <summary>+ Make this IEP-ready</summary>
+          <p>
+            The objective stays canonical. Add an individualized criterion or sampling rule
+            only if it fits the student and local IEP requirements.
+          </p>
+          <label>
+            Optional criterion
+            <input id="criterionInput" type="text" placeholder="e.g., your individualized criterion">
+          </label>
+          <label>
+            Optional sampling/context
+            <input id="samplingInput" type="text" placeholder="e.g., across your chosen sessions/contexts">
+          </label>
+          <div class="iep-preview">
+            <h3>IEP-style wording</h3>
+            <p id="iepText">Add a criterion to generate IEP-style wording.</p>
+            <button type="button" id="copyIep" disabled>Copy IEP wording</button>
+          </div>
+        </details>
+
+        <div class="evidence-copy">
+          <button type="button" id="copyEvidence">Copy evidence note</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="cycle-card" aria-labelledby="cycleTitle">
+      <p class="eyebrow">INSTRUCTIONAL CYCLE</p>
+      <h2 id="cycleTitle">Whole → Part → Whole</h2>
+      <div class="cycle">
+        <span>First Tell</span><b>→</b>
+        <span>Select Story Goal</span><b>→</b>
+        <span>Work on Target · Dynamic Support + Retry</span><b>→</b>
+        <span>Tell Again</span>
+      </div>
+      <p>
+        These labels match the current product: the in-app phase controls are
+        <strong>First Tell → Work on Target → Tell Again</strong>, while Story Goal selection is a separate educator control.
+        Supported performance during Work on Target and whole-story integration during Tell Again
+        are related but separate observations. Tell Again is not the only evidence of learning.
+      </p>
+    </section>
+  </main>
+
+  <script src="story-builder-target-builder.js"></script>
+</body>
+</html>
