@@ -1,4 +1,5 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { ENABLE_STORY_BUILDER_CYCLE_CLOUD } from "./story-builder-cycle-config.mjs";
 
 const SUPABASE_URL = "https://apkvvspubolyxlqtlkto.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_0O4rNLfhuW18xYRZSPkLpw_xyXR9d3n";
@@ -41,6 +42,7 @@ let educatorRuntimeStarted = false;
 let educatorRuntimePromise = null;
 let educatorCloudModule = null;
 let educatorSupportsModule = null;
+let educatorCycleModule = null;
 let studentRuntimeStarted = false;
 let studentRuntimeModule = null;
 
@@ -60,6 +62,7 @@ function clearAccessState() {
   setLocked();
   currentAccess = lockedAccess;
   educatorCloudModule?.suspendEducatorCloudSync?.();
+  educatorCycleModule?.suspendStoryBuilderCycleCloud?.();
   studentRuntimeModule?.unmountStudentMode?.();
 }
 
@@ -204,6 +207,13 @@ async function startEducatorRuntime(access) {
       await educatorSupportsModule.initializeStudentSupports(access);
       educatorCloudModule = await import("./cloud-sync.mjs");
       await educatorCloudModule.initializeEducatorCloudSync(access);
+      if (ENABLE_STORY_BUILDER_CYCLE_CLOUD) {
+        educatorCycleModule = await import("./story-builder-cycle-cloud.mjs");
+        await educatorCycleModule.initializeStoryBuilderCycleCloud({
+          access,
+          supabase
+        });
+      }
     })();
   } else {
     await educatorRuntimePromise;
