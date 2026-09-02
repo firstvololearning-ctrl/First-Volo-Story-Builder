@@ -561,13 +561,13 @@ h1 {
 
 .more-actions-menu button,
 .more-actions-menu .about-button,
-.more-actions-menu .target-builder-link {
+.more-actions-menu .educator-resources-link {
   width: 100%;
   margin: 0;
   text-align: left;
 }
 
-.more-actions-menu .target-builder-link {
+.more-actions-menu .educator-resources-link {
   display: block;
   min-height: 42px;
   padding: 10px 17px;
@@ -580,7 +580,7 @@ h1 {
   text-decoration: none;
 }
 
-.more-actions-menu .target-builder-link:hover {
+.more-actions-menu .educator-resources-link:hover {
   background: var(--navy-dark);
   transform: translateY(-2px);
 }
