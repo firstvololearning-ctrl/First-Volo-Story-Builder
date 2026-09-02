@@ -50,8 +50,8 @@ function mockSupabase(resolver) {
   };
 }
 
-test("committed feature flags keep cycle and Student Mode writes disabled", async () => {
-  assert.equal(ENABLE_STORY_BUILDER_CYCLE_CLOUD, false);
+test("educator cycle cloud is enabled while Student Mode writes remain disabled", async () => {
+  assert.equal(ENABLE_STORY_BUILDER_CYCLE_CLOUD, true);
   assert.equal(STUDENT_MODE_CYCLE_WRITES, false);
   const supabase = mockSupabase(() => {
     throw new Error("RPC must not run");
@@ -59,7 +59,8 @@ test("committed feature flags keep cycle and Student Mode writes disabled", asyn
   const result = await initializeStoryBuilderCycleCloud({
     access: { mode: "educator" },
     supabase,
-    locationLike: { search: `?studentId=${STUDENT_ID}` }
+    locationLike: { search: `?studentId=${STUDENT_ID}` },
+    enabled: false
   });
   assert.deepEqual(result, { enabled: false, reason: "feature_disabled" });
   assert.equal(supabase.calls.length, 0);
