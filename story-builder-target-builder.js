@@ -31,13 +31,14 @@
         "Whether the Planner is available or hidden during Tell Again"
       ],
       "in_story_builder": [
-        "First Tell captures the complete story before the Planner or targeted support is opened.",
-        "Work on Target focuses on the selected story function where repair is needed.",
-        "After Retry, the repaired part is reconnected to the surrounding story before Tell Again."
+        "Begins with the student’s complete story during First Tell.",
+        "Focuses prompts on the selected story function only when needed.",
+        "Uses same-demand Retry after support.",
+        "Reconnects the repaired story part to the whole story during Tell Again."
       ],
-      "student_mode_supports": [
+      "built_in_supports": [
         "Question prompt",
-        "Story-part reminder",
+        "Story reminder",
         "Sentence starter"
       ]
     },
@@ -64,11 +65,12 @@
         "Whether the Planner is available or hidden during Tell Again"
       ],
       "in_story_builder": [
-        "Connections & Cohesion support is available across the Story Planner categories.",
-        "Current built-in language includes temporal/causal connectors such as when, while, after, because, so, but, suddenly, finally, and as a result when they fit the intended meaning.",
-        "The current product watches for unclear referents, but it does not contain a dedicated pronoun/referent-repair module."
+        "Uses the student’s own story ideas across Story Planner categories.",
+        "Provides target-specific prompts and connecting words only when needed.",
+        "Uses same-demand Retry after support.",
+        "Reconnects clearer relationships to the whole story during Tell Again."
       ],
-      "student_mode_supports": [
+      "built_in_supports": [
         "Question prompt",
         "Connecting words",
         "Sentence starter"
@@ -97,11 +99,12 @@
         "Whether the Planner is available or hidden during Tell Again"
       ],
       "in_story_builder": [
-        "Current Cause & Effect support targets problem, feeling, plan, attempt, optional item, and resolution relationships.",
-        "Built-in prompts include because, so, finally, as a result, to, and in order to when they fit the intended relationship.",
-        "The current product does not include a dedicated multi-step causal-chain, competing-cause, or counterfactual module."
+        "Uses the student’s own problem, feeling, plan, attempt, item, and resolution ideas.",
+        "Provides causal prompts and connecting words only when needed.",
+        "Uses same-demand Retry after support.",
+        "Reconnects the clarified cause-and-effect relationship to the whole story during Tell Again."
       ],
-      "student_mode_supports": [
+      "built_in_supports": [
         "Question prompt",
         "Connecting words",
         "Sentence starter"
@@ -130,11 +133,12 @@
         "Whether the Planner is available or hidden during Tell Again"
       ],
       "in_story_builder": [
-        "Sentence Formulation begins with the student’s intended idea rather than a new clinician-generated sentence.",
-        "The current built-in reminder is Who? → did what? → what or whom? → where or why?, with story-part sentence starters.",
-        "The current product does not contain a systematic sentence-combining or advanced syntax hierarchy."
+        "Uses the student’s own intended story idea.",
+        "Provides the Who? → did what? → what or whom? → where or why? reminder and sentence starters only when needed.",
+        "Uses same-demand Retry after support.",
+        "Reconnects the clearer sentence to the whole story during Tell Again."
       ],
-      "student_mode_supports": [
+      "built_in_supports": [
         "Question prompt",
         "Sentence reminder",
         "Sentence starter"
@@ -163,11 +167,12 @@
         "Whether the Planner is available or hidden during Tell Again"
       ],
       "in_story_builder": [
-        "Current Elaboration prompts ask for one useful detail tied to the selected story part.",
-        "The program explicitly distinguishes useful detail from extra information that does not help the important story idea.",
-        "The current product does not include dedicated dialogue, pacing, reflection, or literary-craft modules."
+        "Uses the student’s own important story idea.",
+        "Prompts for one useful, relevant detail only when needed.",
+        "Uses same-demand Retry after support.",
+        "Reconnects the elaborated idea to the whole story during Tell Again."
       ],
-      "student_mode_supports": [
+      "built_in_supports": [
         "Question prompt",
         "Detail reminder",
         "Sentence starter"
@@ -196,11 +201,12 @@
         "Whether the Planner is available or hidden during Tell Again"
       ],
       "in_story_builder": [
-        "Current Perspective & Internal State prompts target character, problem, feeling, plan, attempt, and resolution.",
-        "Built-in word support includes wants, knows, thinks, hopes, wonders, expects, planned, decided, realized, learned, and understood.",
-        "The current product does not include a dedicated two-character perspective-comparison or systematic perspective-change module."
+        "Uses the student’s own character and story-event ideas.",
+        "Provides mental-state prompts and words to try only when needed.",
+        "Uses same-demand Retry after support.",
+        "Reconnects the character’s internal state to the whole story during Tell Again."
       ],
-      "student_mode_supports": [
+      "built_in_supports": [
         "Question prompt",
         "Words to try",
         "Sentence starter"
@@ -229,11 +235,12 @@
         "Whether the Planner is available or hidden during Tell Again"
       ],
       "in_story_builder": [
-        "Current Vocabulary Precision support works inside the student’s narrative rather than as a decontextualized vocabulary lesson.",
-        "The built-in prompt asks How? What kind? How strong? What exactly happened? and supports comparison among candidate words.",
-        "The current product does not include dedicated connotation, register, tone, or broad vocabulary-intervention modules."
+        "Uses the student’s own intended story meaning.",
+        "Prompts with How? What kind? How strong? and What exactly happened? only when needed.",
+        "Uses same-demand Retry after support.",
+        "Reconnects the more precise word to the whole sentence and story during Tell Again."
       ],
-      "student_mode_supports": [
+      "built_in_supports": [
         "Question prompt",
         "Word reminder",
         "Sentence starter"
@@ -260,7 +267,7 @@
       "vocabulary": "The student will select more specific words that fit the intended narrative meaning and use them in the whole sentence or story idea."
     },
     "6-8": {
-      "organization": "The student will independently organize and connect the important story functions into a coherent narrative using the Story Builder episode structure as appropriate.",
+      "organization": "The student will independently organize and connect important story functions into a coherent narrative with decreasing support.",
       "cohesion": "The student will maintain clear relationships among story ideas and events using sequencing, connectors, and clear referents with decreasing support.",
       "cause": "The student will explain the important causal relationships supported by the story, including why events or feelings occur and how plans, attempts, and outcomes relate, with decreasing support.",
       "sentence": "The student will formulate clear, complete, organized spoken or written narrative sentences that preserve the intended idea with decreasing support.",
@@ -271,8 +278,8 @@
   },
   "developmental": {
     "2-3": {
-      "organization": "Use the current Story Builder core episode structure with concrete, visible relationships among character/setting, problem/feeling, plan, attempt, and resolution. Support may be explicit while the student learns to reconnect repaired parts to the whole story.",
-      "cohesion": "Emphasize clear nearby relationships among story ideas using the current connector and sentence-support options. The current product can flag unclear referents, but it does not provide a dedicated pronoun-repair module.",
+      "organization": "Emphasize concrete, visible relationships among character/setting, problem/feeling, plan, attempt, and resolution. Support may be explicit while the student learns to reconnect repaired parts to the whole story.",
+      "cohesion": "Emphasize clear nearby relationships among story ideas using connector and sentence-support options as needed.",
       "cause": "Emphasize the current supported relationships: problem/event → feeling, problem/feeling → plan, plan → attempt, and attempt → outcome/resolution. Keep the focus on one relationship at a time when needed.",
       "sentence": "Emphasize expressing one intended story idea in a complete, organized sentence using oral rehearsal, the current sentence reminder, and story-part sentence starters when needed.",
       "elaboration": "Emphasize adding one useful detail that clarifies or develops the selected story part. Relevance matters more than quantity.",
@@ -280,22 +287,22 @@
       "vocabulary": "Emphasize replacing very general/repeated words with a more specific known word that fits the intended meaning, then reintegrating it into the sentence/story idea."
     },
     "4-5": {
-      "organization": "Use the same current Story Builder episode structure while expecting clearer integration among problem/feeling, plan, attempt, and resolution and less support for maintaining the whole sequence.",
-      "cohesion": "Use the current prompts/connectors with increasing consistency across the story. Do not imply a separate long-discourse cohesion curriculum beyond the supports actually present.",
-      "cause": "Expect clearer and more independent explanation of the current supported causal relationships across problem, feeling, plan, attempt, and resolution. Do not imply a separate multi-step causal-chain module.",
-      "sentence": "Expect clearer, more independent formulation of the student's intended sentence using the current one-main-idea reminder and sentence starters as needed. Story Builder does not currently provide a systematic sentence-combining progression.",
+      "organization": "Expect clearer integration among problem/feeling, plan, attempt, and resolution, with less support for maintaining the whole sequence.",
+      "cohesion": "Expect increasingly consistent use of sequencing, connectors, and clear referents across the story.",
+      "cause": "Expect clearer and more independent explanation of causal relationships across problem, feeling, plan, attempt, and resolution.",
+      "sentence": "Expect clearer, more independent formulation of the student’s intended sentence using the one-main-idea reminder and sentence starters as needed.",
       "elaboration": "Expect students to choose details that are useful for understanding the selected story part and to avoid unrelated additions, with reduced prompting.",
       "perspective": "Expect more explicit links between relevant internal states and what the character does or experiences, using the current mental-state prompts/word supports.",
       "vocabulary": "Expect more consistent selection of specific words for character, setting, problem, feeling, plan, attempt, item use, and resolution while preserving the intended meaning."
     },
     "6-8": {
-      "organization": "Increase independence and coherence within Story Builder's current core episode architecture. The current product does not teach advanced multi-episode plot structure as a separate module.",
-      "cohesion": "Increase independence in making story relationships, sequencing, connectors, and referents clear across the complete Story Builder narrative. The product does not currently provide systematic advanced cohesion instruction.",
-      "cause": "Increase independence and precision in explaining the causal relationships that Story Builder already targets. Do not extend the objective to competing causes, counterfactuals, or a dedicated multi-step causal-chain curriculum.",
-      "sentence": "Increase independence in formulating clear, complete narrative sentences that preserve the intended idea. The current product does not contain a comprehensive older-student syntax or sentence-combining hierarchy.",
-      "elaboration": "Increase independence in selecting useful details that clarify/develop the story. Story Builder does not currently teach dialogue, pacing, reflection, or literary craft as dedicated targets.",
-      "perspective": "Increase independence and specificity in explaining internal states across the current story parts. Do not imply a dedicated two-character comparison, false-belief, or perspective-change curriculum.",
-      "vocabulary": "Increase independence and specificity within the current semantic-fit prompts. Do not imply dedicated instruction in connotation, register, tone, or broad decontextualized vocabulary."
+      "organization": "Increase independence and coherence while working with the core story relationships supported in Story Builder.",
+      "cohesion": "Increase independence in making story relationships, sequencing, connectors, and referents clear across the complete narrative.",
+      "cause": "Increase independence and precision in explaining causal relationships among problems, feelings, plans, attempts, and outcomes.",
+      "sentence": "Increase independence in formulating clear, complete narrative sentences that preserve the intended idea.",
+      "elaboration": "Increase independence in selecting useful details that clarify or develop important story ideas.",
+      "perspective": "Increase independence and specificity in explaining internal states across the core story parts.",
+      "vocabulary": "Increase independence and specificity when choosing words that fit the intended story meaning."
     }
   },
   "standards": {
@@ -869,7 +876,7 @@
   "educatorAddedSupport": [
     "Responsive verbal cue or guided question",
     "Clarification request",
-    "Brief/scribed Planner note",
+    "Brief or scribed Planner note",
     "Model/recast when explicitly teaching"
   ],
   "productGrounding": {
@@ -1000,23 +1007,16 @@
       <h3>What research suggests for ${escapeHtml(DATA.targets[state.target].short)}</h3>
       <p>${escapeHtml(evidence.research)}</p>
       <p><strong>Grade/population relevance:</strong> ${escapeHtml(evidence.gradePopulationRelevance)}</p>
-      <p class="note"><strong>Product grounding:</strong> Grade band changes the educator-facing expectation in this builder; the current Story Builder runtime uses the same target/support engine across grade bands.</p>
-      <p class="note"><strong>Development status:</strong> ${escapeHtml(evidence.claimStatus)}</p>
+      <p class="note"><strong>Evidence note:</strong> These sources support the target and instructional rationale; they are not direct efficacy evidence for First Volo Story Builder.</p>
     `;
   }
 
   function renderSystem() {
     const target = DATA.targets[state.target];
     return `
-      <h3>How Story Builder applies this rationale</h3>
+      <h3>How Story Builder supports this target</h3>
       <ul>${target.in_story_builder.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-      <p><strong>Actual in-app phases:</strong>
-        First Tell → Work on Target → Tell Again.
-      </p>
-      <p><strong>Target selection:</strong> the educator chooses the Story Goal separately; Observe First is the default and the target may be selected after First Tell or earlier when already known.</p>
-      <p><strong>Dynamic support during Work on Target:</strong> student attempt first → Look here → Think about it → A clue → Words to try → Sentence start, revealing only the next needed support step, followed by Retry of the same language demand.</p>
-      <p><strong>Whole → Part → Whole:</strong> the repaired part is reconnected to the surrounding story before Tell Again.</p>
-      <p>These are First Volo design decisions informed by the evidence base; they are not themselves direct efficacy findings for the complete Story Builder program.</p>
+      <p class="note"><strong>Instructional cycle:</strong> First Tell → Work on Target → Tell Again. The educator selects the Story Goal, and support is revealed progressively after the student’s first attempt.</p>
     `;
   }
 
@@ -1037,7 +1037,7 @@
       <h3>Sources for this selection</h3>
       <p>Sources are filtered for the selected grade band and target. Evidence types are shown so intervention studies, reviews, and practice guidance are not treated as equivalent.</p>
       ${cards}
-      <p class="note"><strong>Evidence verification:</strong> final source-by-source full-text verification is still pending before public evidence claims are treated as final.</p>
+      <p class="note">These sources support the target and instructional rationale; final source-by-source full-text verification is still pending.</p>
     `;
   }
 
@@ -1081,29 +1081,11 @@
 
   function builtInTargetSupports() {
     const target = DATA.targets[state.target];
-    if (state.support === "independent") {
-      return ["No built-in target-specific support is opened under the Independent condition."];
-    }
-
-    const selectedStudentSupports = target.student_mode_supports.map(
-      (label) => `Student Mode option: ${label}`
-    );
-
-    const educatorProgressive = DATA.educatorProgressiveSupport.map(
-      (label) => `Educator progressive support: ${label}`
-    );
-
-    return [...selectedStudentSupports, ...educatorProgressive];
+    return target.built_in_supports;
   }
 
   function educatorAddedSupports() {
-    if (state.support === "independent" || state.support === "program") {
-      return ["No additional teacher/SLP support is assumed for this condition."];
-    }
-
-    return DATA.educatorAddedSupport.map(
-      (item) => `Educator-added (not a separate built-in program control): ${item}`
-    );
+    return DATA.educatorAddedSupport;
   }
 
   function updateIep() {
@@ -1282,8 +1264,7 @@
 
   els.copyEvidence.addEventListener("click", () => {
     if (state.observeFirst) return;
-    const evidence = selectedEvidence();
-    const note = `This ${DATA.targets[state.target].label} target is connected to grade-level narrative/language expectations and informed by school-age narrative-intervention research and guidance. The current mapping is claim-bounded; final source-by-source full-text verification is pending. It should not be interpreted as direct efficacy evidence for First Volo Story Builder.`;
+    const note = `This ${DATA.targets[state.target].label} target is connected to grade-level narrative/language expectations and informed by school-age narrative-intervention research and guidance. These sources support the target and instructional rationale; they are not direct efficacy evidence for First Volo Story Builder. Final source-by-source full-text verification is still pending.`;
     copyText(note, els.copyEvidence);
   });
 
