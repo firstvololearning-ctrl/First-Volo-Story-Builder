@@ -1,5 +1,6 @@
 import { supabase, getCurrentAccess } from "./access-gate.mjs";
 import { supportOptionsForTarget, STUDENT_SUPPORTS, STUDENT_SUPPORT_RELEVANT_PARTS } from "./student-support-content.mjs";
+import { createStudentDraftCloud } from "./student-draft-cloud.mjs";
 
 const STUDENT_PRODUCT_KEY = "first-volo-story-builder";
 const STUDENT_LOGIN_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html";
@@ -219,11 +220,38 @@ async function mountStudentMode(shell, access) {
   const supportPackage = await loadStudentSupports();
   if (generation !== mountGeneration || getCurrentAccess().mode !== "student") return;
 
-  const draft = readDraft(access);
+  const localDraft = readDraft(access);
+  let cloudDraft = null;
+  try {
+    const loader = createStudentDraftCloud({ supabase, delay: 700 });
+    cloudDraft = await loader.load();
+    loader.stop();
+  } catch {
+    // Keep the device copy available if cloud service is temporarily unavailable.
+  }
+  const draft = cloudDraft || localDraft;
+  writeDraft(access, draft);
   const root = element("div", "student-mode-root");
   mountedRoot = root;
   const context = access.studentContext;
-  const updateDraft = () => writeDraft(access, draft);
+  const saveStatus = element("span", "student-mode-save-status", cloudDraft ? "Saved to First Volo" : "Ready to save");
+  const cloud = createStudentDraftCloud({
+    supabase,
+    delay: 700,
+    onStatus(status) {
+      saveStatus.textContent = status === "saving"
+        ? "Saving…"
+        : status === "saved"
+          ? "Saved to First Volo"
+          : "Saved on this device; cloud save will retry when you make another change.";
+    }
+  });
+  cleanup.push(() => cloud.stop());
+  if (!cloudDraft && Object.keys(localDraft).length) cloud.schedule(draft);
+  const updateDraft = () => {
+    writeDraft(access, draft);
+    cloud.schedule(draft);
+  };
 
   const header = element("header", "student-mode-header");
   header.append(
@@ -323,7 +351,9 @@ async function mountStudentMode(shell, access) {
   checkSection.append(check);
 
   const footer = element("div", "student-mode-footer");
-  footer.append(element("p", "student-mode-footer-note", "Your draft is saved on this device for you."), element("a", "student-mode-account-link", "Return to First Volo"));
+  const saveNote = element("p", "student-mode-footer-note");
+  saveNote.append(saveStatus);
+  footer.append(saveNote, element("a", "student-mode-account-link", "Return to First Volo"));
   footer.querySelector(".student-mode-account-link").href = STUDENT_LOGIN_URL;
 
   const rollAllIdeas = () => {
@@ -332,7 +362,7 @@ async function mountStudentMode(shell, access) {
   rollAll.addEventListener("click", rollAllIdeas);
   cleanup.push(() => rollAll.removeEventListener("click", rollAllIdeas));
 
-  const onStartOver = () => {
+  const onStartOver = async () => {
     if (!window.confirm("Start a new story? Your current draft will be cleared.")) return;
     const key = currentKey(access);
     if (key) {
@@ -342,6 +372,8 @@ async function mountStudentMode(shell, access) {
         // A restricted browser store must not block starting a new story.
       }
     }
+    cloud.schedule({});
+    try { await cloud.flush(); } catch { /* The cleared device copy remains authoritative locally. */ }
     mountStudentMode(shell, access);
   };
   startOver.addEventListener("click", onStartOver);

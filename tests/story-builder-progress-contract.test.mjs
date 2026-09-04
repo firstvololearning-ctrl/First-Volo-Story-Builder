@@ -14,6 +14,9 @@ test("educator report is read-only, student-bound, and uses protected cycle RPCs
   assert.match(source,/studentId/);
   assert.match(source,/list_story_builder_student_cycles_for_educator/);
   assert.match(source,/get_story_builder_student_cycle_for_educator/);
+  assert.match(source,/get_story_builder_student_draft_for_educator/);
+  assert.match(source,/Student-created draft/);
+  assert.match(source,/separate from educator-led instructional cycles/);
   assert.match(source,/support_evidence/);
   assert.match(source,/Supports documented/);
   assert.match(source,/first_tell_recorded_at/);
