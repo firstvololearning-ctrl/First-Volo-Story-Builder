@@ -180,6 +180,10 @@ async function loadStudents() {
     option.value = student.id;
     studentSelect.append(option);
   });
+  const requestedStudentId = new URLSearchParams(globalThis.location?.search || "").get("studentId");
+  if (requestedStudentId && currentStudents.some((student) => student.id === requestedStudentId)) {
+    studentSelect.value = requestedStudentId;
+  }
   const hasStudents = currentStudents.length > 0;
   studentSelect.disabled = !hasStudents;
   targetSelect.disabled = !hasStudents;
