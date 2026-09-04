@@ -218,6 +218,12 @@ async function startEducatorRuntime(access) {
   } else {
     await educatorRuntimePromise;
     await educatorCloudModule?.resumeEducatorCloudSync?.(access);
+    if (ENABLE_STORY_BUILDER_CYCLE_CLOUD && educatorCycleModule) {
+      await educatorCycleModule.initializeStoryBuilderCycleCloud({
+        access,
+        supabase
+      });
+    }
   }
 }
 
