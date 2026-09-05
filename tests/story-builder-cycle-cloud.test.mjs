@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
 
 import { ENABLE_STORY_BUILDER_CYCLE_CLOUD } from "../story-builder-cycle-config.mjs";
 import {
@@ -129,6 +130,12 @@ test("studentId hint is optional, UUID-only, and never name-based", () => {
     status: "valid",
     studentId: STUDENT_ID
   });
+});
+
+test("selected educator activity wording is Working with, never Looking at", () => {
+  const source = fs.readFileSync(new URL("../story-builder-cycle-cloud.mjs", import.meta.url), "utf8");
+  assert.match(source, /`Working with \$\{await educatorStudentName/);
+  assert.doesNotMatch(source, /`Looking at \$\{await educatorStudentName/);
 });
 
 test("target and reflection mappings are frozen and canonical", () => {

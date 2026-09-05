@@ -97,6 +97,22 @@ function firstRow(data) {
   return Array.isArray(data) ? data[0] || null : data || null;
 }
 
+async function educatorStudentName(supabase, studentId) {
+  if (!supabase?.from || !isUuid(studentId)) return "Student";
+  try {
+    const { data, error } = await supabase
+      .from("students")
+      .select("display_name")
+      .eq("id", studentId)
+      .is("archived_at", null)
+      .limit(1);
+    if (error) return "Student";
+    return firstRow(data)?.display_name || "Student";
+  } catch {
+    return "Student";
+  }
+}
+
 function normalizeRpcResult(data) {
   const row = firstRow(data);
   if (!row) return { result_code: "not_found", cycle: null };
@@ -580,6 +596,12 @@ export async function initializeStoryBuilderCycleCloud({
     return { enabled: true, reason: "student_binding_absent" };
   }
 
+  const identity = element("div", "story-builder-selected-student");
+  identity.setAttribute("aria-label", "Current selected student");
+  identity.textContent = hint.status === "valid"
+    ? `Working with ${await educatorStudentName(supabase, hint.studentId)}`
+    : "Selected student unavailable";
+
   const client = createStoryBuilderCycleClient({ supabase, enabled: true });
   const coordinator = createStoryBuilderCycleCoordinator({
     client,
@@ -587,10 +609,15 @@ export async function initializeStoryBuilderCycleCloud({
   });
   const view = createCyclePanel({ coordinator, hintStatus: hint.status });
   const anchor = document.getElementById("instructionalSessionPanel");
-  if (anchor) anchor.insertAdjacentElement("beforebegin", view.panel);
-  else document.querySelector(".controls-panel")?.append(view.panel);
+  if (anchor) {
+    anchor.insertAdjacentElement("beforebegin", identity);
+    anchor.insertAdjacentElement("beforebegin", view.panel);
+  } else {
+    document.querySelector(".controls-panel")?.append(identity, view.panel);
+  }
   activeCycleCleanup = () => {
     coordinator.clear();
+    identity.remove();
     view.panel.remove();
   };
 

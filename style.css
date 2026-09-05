@@ -3225,6 +3225,18 @@ body.modal-open {
   text-align: left;
 }
 
+.story-builder-selected-student {
+  width: min(1180px, calc(100% - 32px));
+  margin: 18px auto 0;
+  padding: 11px 18px;
+  border: 1px solid #d8c9f4;
+  border-radius: 999px;
+  background: #f5f0ff;
+  color: #4b347e;
+  font-weight: 800;
+  text-align: center;
+}
+
 .story-cycle-kicker,
 .story-cycle-intro,
 .story-cycle-status,
