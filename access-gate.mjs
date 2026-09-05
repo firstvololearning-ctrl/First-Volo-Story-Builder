@@ -5,7 +5,7 @@ const SUPABASE_URL = "https://apkvvspubolyxlqtlkto.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_0O4rNLfhuW18xYRZSPkLpw_xyXR9d3n";
 const ACCOUNT_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/?returnTo=storyBuilder";
 const ACCOUNT_HOME_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/";
-const STUDENT_LOGIN_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html";
+const STUDENT_LOGIN_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html?returnTo=storyBuilder";
 const PRODUCT_KEY = "first-volo-story-builder";
 const AUTH_EVENTS_TO_VERIFY = new Set([
   "INITIAL_SESSION",
