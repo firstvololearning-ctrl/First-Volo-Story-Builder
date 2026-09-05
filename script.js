@@ -1321,7 +1321,7 @@ if (document.readyState === "loading") {
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "firstVoloStoryBuilderSavedWork";
+  const STORAGE_KEY = `firstVoloStoryBuilderSavedWork:${window.FirstVoloStoryEducatorStorageScope || "educator:unavailable"}`;
   const STORY_APP_NAME = "First Volo Story Builder";
   const STORY_SCHEMA_VERSION = 2;
 
@@ -2404,7 +2404,7 @@ if (document.readyState === "loading") {
 (function () {
   "use strict";
 
-  const LIBRARY_STORAGE_KEY = "firstVoloStoryBuilderMyStoriesV1";
+  const LIBRARY_STORAGE_KEY = `firstVoloStoryBuilderMyStoriesV1:${window.FirstVoloStoryEducatorStorageScope || "educator:unavailable"}`;
   const LIBRARY_VERSION = 1;
   const storyState = window.FirstVoloStoryState;
   const workingStorage = window.FirstVoloStoryStorage?.local;

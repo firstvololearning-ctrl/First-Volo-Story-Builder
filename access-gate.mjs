@@ -198,6 +198,9 @@ function loadClassicScript(src) {
 }
 
 async function startEducatorRuntime(access) {
+  window.FirstVoloStoryEducatorStorageScope = access?.user?.id
+    ? `educator:${access.user.id}`
+    : "educator:unavailable";
   if (!educatorRuntimePromise) {
     educatorRuntimeStarted = true;
     educatorRuntimePromise = (async () => {
