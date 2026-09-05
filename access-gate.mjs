@@ -208,7 +208,7 @@ async function startEducatorRuntime(access) {
       educatorCloudModule = await import("./cloud-sync.mjs");
       await educatorCloudModule.initializeEducatorCloudSync(access);
       if (ENABLE_STORY_BUILDER_CYCLE_CLOUD) {
-        educatorCycleModule = await import("./story-builder-cycle-cloud.mjs?v=2");
+        educatorCycleModule = await import("./story-builder-cycle-cloud.mjs?v=3");
         await educatorCycleModule.initializeStoryBuilderCycleCloud({
           access,
           supabase
