@@ -279,6 +279,13 @@
           </button>
         </article>
 
+          </div>
+        </section>
+
+        <section class="story-arc-group" aria-labelledby="characterRespondsHeading">
+          <h2 class="story-arc-heading" id="characterRespondsHeading">The Character Responds</h2>
+          <div class="story-arc-cards">
+
         <article class="card" id="feelingCard">
           <div class="card-heading">
             <span class="step-number">4</span>
@@ -301,13 +308,6 @@
           </button>
         </article>
 
-          </div>
-        </section>
-
-        <section class="story-arc-group" aria-labelledby="characterRespondsHeading">
-          <h2 class="story-arc-heading" id="characterRespondsHeading">The Character Responds</h2>
-          <div class="story-arc-cards">
-
         <article class="card plan-card" id="planCard">
           <div class="card-heading">
             <span class="step-number">5</span>
@@ -324,7 +324,7 @@
           </div>
 
           <p class="student-generated-prompt">
-            What does the character decide or hope to do because of the problem and how they feel?
+            What does the character plan to do to solve the problem?
           </p>
 
           <div class="image-label" id="planLabel"></div>
@@ -355,7 +355,7 @@
           <span class="student-generated-badge">Student-generated</span>
 
           <p class="student-generated-prompt">
-            What does the character actually do or try to carry out the plan? If needed, what do they try next?
+            What does the character do to carry out the plan? If needed, what do they try next?
           </p>
         </article>
 
@@ -383,7 +383,7 @@
           <span class="student-generated-badge">Student-generated</span>
 
           <p class="student-generated-prompt">
-            What happens because of the attempt(s)? How is the problem resolved?
+            What happens in the end? How is the problem resolved?
           </p>
         </article>
 
@@ -716,13 +716,13 @@
             class="story-planner-prompt"
             id="plannerCharacterPrompt"
           >
-            Add notes about the character.
+            Who is the main character? What is the character like? What does the character want?
           </div>
 
           <textarea
             id="plannerCharacterNotes"
             class="story-planner-notes"
-            placeholder="What should we know about the character?"
+            placeholder="Who is the main character?"
           ></textarea>
         </article>
 
@@ -755,7 +755,7 @@
             class="story-planner-prompt"
             id="plannerSettingPrompt"
           >
-            Add notes about the setting.
+            Where and when does the story take place? What is the setting like?
           </div>
 
           <textarea
@@ -794,7 +794,7 @@
             class="story-planner-prompt"
             id="plannerProblemPrompt"
           >
-            Add notes about the problem.
+            What problem does the character face? Why is this a problem for the character?
           </div>
 
           <textarea
@@ -833,13 +833,13 @@
             class="story-planner-prompt"
             id="plannerFeelingPrompt"
           >
-            Add notes about the character’s feeling.
+            How does the character feel about the problem? Why does the character feel that way?
           </div>
 
           <textarea
             id="plannerFeelingNotes"
             class="story-planner-notes"
-            placeholder="How does the character feel?"
+            placeholder="How does the character feel about the problem?"
           ></textarea>
         </article>
 
@@ -872,13 +872,13 @@
             class="story-planner-prompt"
             id="plannerPlanPrompt"
           >
-            What does the character decide or hope to do? How does the plan grow from the problem and feeling?
+            What does the character plan to do to solve the problem? Why does this plan make sense?
           </div>
 
           <textarea
             id="plannerPlanNotes"
             class="story-planner-notes"
-            placeholder="What is the character's plan? Why does it make sense?"
+            placeholder="What does the character plan to do to solve the problem?"
           ></textarea>
         </article>
 
@@ -908,13 +908,13 @@
             class="story-planner-prompt"
             id="plannerAttemptPrompt"
           >
-            What does the character actually do or try to carry out the plan? If needed, what do they try next?
+            What does the character do to carry out the plan? If needed, what do they try next?
           </div>
 
           <textarea
             id="plannerAttemptNotes"
             class="story-planner-notes"
-            placeholder="What does the character do or try? What might they try next?"
+            placeholder="What does the character do to carry out the plan? If needed, what do they try next?"
           ></textarea>
         </article>
 
@@ -944,13 +944,13 @@
             class="story-planner-prompt"
             id="plannerResolutionPrompt"
           >
-            What happens because of the attempt(s)? How is the problem resolved?
+            What happens in the end as a result of the character’s actions? How is the problem resolved?
           </div>
 
           <textarea
             id="plannerResolutionNotes"
             class="story-planner-notes"
-            placeholder="What happens because of the attempt(s)? How is the problem resolved?"
+            placeholder="What happens in the end? How is the problem resolved?"
           ></textarea>
         </article>
 
@@ -1048,58 +1048,65 @@
     ></div>
 
     <section class="graphic-organizer">
-      <div class="organizer-row">
-        <div class="organizer-prompt">
-          <h2>Character</h2>
-          <p>Who is the main character?</p>
-          <div class="organizer-lines"></div>
+      <section class="organizer-section">
+        <h2 class="organizer-section-heading">Set the Story</h2>
+        <div class="organizer-row organizer-row-2">
+          <div class="organizer-prompt">
+            <h3>1 Character</h3>
+            <p>Who is the main character?</p>
+            <div class="organizer-lines"></div>
+          </div>
+          <div class="organizer-prompt">
+            <h3>2 Setting</h3>
+            <p>Where and when does the story take place?</p>
+            <div class="organizer-lines"></div>
+          </div>
         </div>
-
-        <div class="organizer-prompt">
-          <h2>Setting</h2>
-          <p>Where does the story take place?</p>
-          <div class="organizer-lines"></div>
+      </section>
+      <section class="organizer-section">
+        <h2 class="organizer-section-heading">Something Happens</h2>
+        <div class="organizer-row organizer-row-1">
+          <div class="organizer-prompt">
+            <h3>3 Problem</h3>
+            <p>What problem does the character face?</p>
+            <div class="organizer-lines"></div>
+          </div>
         </div>
-      </div>
-
-      <div class="organizer-row">
-        <div class="organizer-prompt">
-          <h2>Problem</h2>
-          <p>What problem does the character face?</p>
-          <div class="organizer-lines"></div>
+      </section>
+      <section class="organizer-section">
+        <h2 class="organizer-section-heading">The Character Responds</h2>
+        <div class="organizer-row organizer-row-3">
+          <div class="organizer-prompt">
+            <h3>4 Feeling</h3>
+            <p>How does the character feel about the problem?</p>
+            <div class="organizer-lines"></div>
+          </div>
+          <div class="organizer-prompt" id="printPlanOrganizer">
+            <h3>5 Plan</h3>
+            <p>What does the character plan to do to solve the problem?</p>
+            <div class="organizer-lines"></div>
+          </div>
+          <div class="organizer-prompt" id="printAttemptOrganizer">
+            <h3>6 Action / Attempt(s)</h3>
+            <p>What does the character do to carry out the plan? If needed, what do they try next?</p>
+            <div class="organizer-lines"></div>
+          </div>
         </div>
-
-        <div class="organizer-prompt">
-          <h2>Feeling</h2>
-          <p>How does the character feel?</p>
-          <div class="organizer-lines"></div>
+      </section>
+      <section class="organizer-section">
+        <h2 class="organizer-section-heading">What Happens in the End?</h2>
+        <div class="organizer-row organizer-row-1">
+          <div class="organizer-prompt organizer-ending organizer-resolution" id="printResolutionOrganizer">
+            <h3>7 Resolution</h3>
+            <p>What happens in the end? How is the problem resolved?</p>
+            <div class="organizer-lines organizer-lines-large"></div>
+          </div>
         </div>
-      </div>
-
-      <div class="organizer-row">
-        <div class="organizer-prompt" id="printPlanOrganizer">
-          <h2>Plan</h2>
-          <p>What does the character decide or hope to do because of the problem and feeling?</p>
-          <div class="organizer-lines"></div>
-        </div>
-
-        <div class="organizer-prompt" id="printAttemptOrganizer">
-          <h2>Action / Attempt(s)</h2>
-          <p>What does the character actually do or try to carry out the plan? If needed, what do they try next?</p>
-          <div class="organizer-lines"></div>
-        </div>
-      </div>
-
+      </section>
       <div class="organizer-prompt" id="printItemOrganizer">
-        <h2>Item (Optional)</h2>
+        <h3>Item (Optional)</h3>
         <p>How could this item connect to the plan or attempt(s)?</p>
         <div class="organizer-lines"></div>
-      </div>
-
-      <div class="organizer-prompt organizer-ending organizer-resolution" id="printResolutionOrganizer">
-        <h2>Resolution</h2>
-        <p>What happens because of the attempt(s)? How is the problem resolved?</p>
-        <div class="organizer-lines organizer-lines-large"></div>
       </div>
     </section>
 

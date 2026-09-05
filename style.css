@@ -1337,6 +1337,28 @@ input[type="radio"] {
     break-inside: avoid;
   }
 
+  .organizer-section {
+    break-inside: avoid;
+  }
+
+  .organizer-section:not(:has(.organizer-prompt:not([hidden]))) {
+    display: none;
+  }
+
+  .organizer-section-heading {
+    margin: 0 0 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  .organizer-row-1 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .organizer-row-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .organizer-prompt {
     min-height: 84px;
     padding: 7px 9px;
@@ -1344,7 +1366,7 @@ input[type="radio"] {
     break-inside: avoid;
   }
 
-  .organizer-prompt h2 {
+  .organizer-prompt h3 {
     margin: 0 0 2px;
     font-size: 12.5px;
   }

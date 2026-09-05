@@ -61,7 +61,7 @@
       lookFor: "Did I include the important story parts and put them together in a way that makes sense?",
       reflection: "Did I make my story easy to follow?",
       expected:
-        "Student is expected to organize the important parts of the story into a coherent narrative: who/where → problem and feeling → plan → action/attempt → resolution.",
+        "Student is expected to organize the important parts of the story into a coherent narrative: who/where → problem → feeling → plan → action/attempt → resolution.",
       watches:
         "Watch for a missing or misplaced story function, a plan that does not grow from the problem, an attempt that does not carry out the plan, or an ending that does not resolve the story problem.",
       relevant: ["character", "setting", "problem", "feeling", "plan", "attempt", "resolution"],

@@ -675,14 +675,14 @@ function getSettingPhrase(settingLabel) {
 
 function getOpenPrompts() {
   return [
-    "Who is the story about?",
-    "Where does the story take place?",
-    "What problem occurs?",
+    "Who is the main character?",
+    "Where and when does the story take place?",
+    "What problem does the character face?",
     "How does the character feel about the problem?",
-    "What does the character decide or hope to do about the problem?",
-    "What does the character actually do or try to carry out the plan?",
+    "What does the character plan to do to solve the problem?",
+    "What does the character do to carry out the plan? If needed, what do they try next?",
     "How could the item help?",
-    "How does the story end?"
+    "What happens in the end? How is the problem resolved?"
   ];
 }
 
@@ -1336,33 +1336,33 @@ if (document.readyState === "loading") {
 
   const plannerPrompts = {
     default: {
-      character: "Add notes about the character.",
-      setting: "Add notes about the setting.",
-      problem: "Add notes about the problem.",
-      feeling: "Add notes about the character’s feeling.",
-      plan: "Add notes about the character’s plan.",
-      attempt: "What does the character actually do or try to carry out the plan? If needed, what do they try next?",
+      character: "Who is the main character? What is the character like? What does the character want?",
+      setting: "Where and when does the story take place? What is the setting like?",
+      problem: "What problem does the character face? Why is this a problem for the character?",
+      feeling: "How does the character feel about the problem? Why does the character feel that way?",
+      plan: "What does the character plan to do to solve the problem? Why does this plan make sense?",
+      attempt: "What does the character do to carry out the plan? If needed, what do they try next?",
       item: "How could the item connect to the plan or attempt(s)?",
-      resolution: "What happens because of the attempt(s)? How is the problem resolved?"
+      resolution: "What happens in the end as a result of the character’s actions? How is the problem resolved?"
     },
 
     open: {
       character:
         "Who is the main character? What is the character like? What does the character want?",
       setting:
-        "Where does the story take place? When does it happen? What is the setting like?",
+        "Where and when does the story take place? What is the setting like?",
       problem:
-        "What goes wrong? Why is this a problem for the character?",
+        "What problem does the character face? Why is this a problem for the character?",
       feeling:
-        "How does the character feel? Why does the character feel that way?",
+        "How does the character feel about the problem? Why does the character feel that way?",
       plan:
-        "What does the character decide or hope to do? How does the plan grow from the problem and feeling?",
+        "What does the character plan to do to solve the problem? Why does this plan make sense?",
       attempt:
-        "What does the character actually do or try to carry out the plan? If needed, what do they try next?",
+        "What does the character do to carry out the plan? If needed, what do they try next?",
       item:
         "How could the item connect to the plan or attempt(s)?",
       resolution:
-        "What happens because of the attempt(s)? How is the problem resolved?"
+        "What happens in the end as a result of the character’s actions? How is the problem resolved?"
     }
   };
 
