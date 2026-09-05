@@ -8,6 +8,7 @@ import {
   STUDENT_MODE_CYCLE_WRITES,
   STORY_BUILDER_TARGET_KEYS,
   buildPromptProvenance,
+  buildSupportEvidence,
   createStoryBuilderCycleClient,
   createStoryBuilderCycleCoordinator,
   educatorStudentHint,
@@ -79,7 +80,7 @@ test("disabled transport makes zero RPCs for every operation", async () => {
     client.saveMetadata(CYCLE_ID, 1, null, {}),
     client.recordEvidence(CYCLE_ID, 1, { boundary: "first_tell", status: "captured" }),
     client.setTarget(CYCLE_ID, 1, "story_organization"),
-    client.setContext(CYCLE_ID, 1, null),
+    client.setContext(CYCLE_ID, 1, {}, null),
     client.complete(CYCLE_ID, 1),
     client.abandon(CYCLE_ID, 1)
   ]);
@@ -136,6 +137,11 @@ test("selected educator activity wording is Working with, never Looking at", () 
   const source = fs.readFileSync(new URL("../story-builder-cycle-cloud.mjs", import.meta.url), "utf8");
   assert.match(source, /`Working with \$\{await educatorStudentName/);
   assert.doesNotMatch(source, /`Looking at \$\{await educatorStudentName/);
+});
+
+test("instructional target and support saves are serialized", () => {
+  const source = fs.readFileSync(new URL("../story-builder-cycle-cloud.mjs", import.meta.url), "utf8");
+  assert.match(source, /instructionalSaveQueue = instructionalSaveQueue\.then\(synchronizeInstructionalState\)/);
 });
 
 test("target and reflection mappings are frozen and canonical", () => {
@@ -369,14 +375,42 @@ test("terminal and incomplete completion results remain explicit", async () => {
   assert.equal((await coordinator.abandon()).result_code, "terminal_cycle_immutable");
 });
 
-test("cycle context never copies configured supports and reflection is canonical", async () => {
+test("used dynamic supports are converted to the validated cycle evidence shape", () => {
+  assert.deepEqual(buildSupportEvidence({
+    sessionPhase: "part",
+    supportLevels: { character: 1, setting: 0, problem: 3 }
+  }), {
+    version: 1,
+    recording_method: "educator_documented",
+    tell_again_planner: "not_documented",
+    observations: [
+      { story_part: "character", support_key: "look_here", level: 1, used: true },
+      { story_part: "problem", support_key: "clue", level: 3, used: true }
+    ]
+  });
+  assert.deepEqual(buildSupportEvidence({ supportLevels: { character: 0 } }), {});
+});
+
+test("cycle context sends only normalized support evidence and canonical reflection", async () => {
   const supabase = mockSupabase(() => [{
     result_code: "updated",
     cycle: cycle({ record_revision: 6, student_reflection: "not_yet" })
   }]);
   const client = createStoryBuilderCycleClient({ supabase, enabled: true });
-  await client.setContext(CYCLE_ID, 5, "not_yet");
-  assert.deepEqual(supabase.calls[0].args.p_support_evidence, {});
+  const evidence = buildSupportEvidence({
+    sessionPhase: "tell-again",
+    tellAgainPlannerAvailable: true,
+    supportLevels: { character: 2 }
+  });
+  await client.setContext(CYCLE_ID, 5, evidence, "not_yet");
+  assert.deepEqual(supabase.calls[0].args.p_support_evidence, {
+    version: 1,
+    recording_method: "educator_documented",
+    tell_again_planner: "available",
+    observations: [
+      { story_part: "character", support_key: "think_about_it", level: 2, used: true }
+    ]
+  });
   assert.equal(supabase.calls[0].args.p_student_reflection, "not_yet");
   assert.equal(Object.hasOwn(supabase.calls[0].args, "supportLevels"), false);
   assert.equal(Object.hasOwn(supabase.calls[0].args, "retryRequested"), false);

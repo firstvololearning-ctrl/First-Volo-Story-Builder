@@ -25,6 +25,15 @@ const REFLECTION_KEYS = Object.freeze({
   "not-yet": "not_yet"
 });
 
+const SUPPORT_KEYS_BY_LEVEL = Object.freeze([
+  null,
+  "look_here",
+  "think_about_it",
+  "clue",
+  "words_to_try",
+  "sentence_start"
+]);
+
 const SUCCESS_CODES = new Set(["created", "updated", "completed", "abandoned"]);
 const BOUNDARY_LABELS = Object.freeze({
   first_tell: "First Tell",
@@ -90,6 +99,33 @@ export function buildPromptProvenance(story = {}) {
     version: 1,
     source: Object.keys(selections).length ? "story_builder_visual_cards" : "unspecified",
     selections
+  };
+}
+
+export function buildSupportEvidence(instruction = {}) {
+  const levels = instruction?.supportLevels || {};
+  const observations = Object.entries(levels)
+    .filter(([storyPart, level]) =>
+      ["character", "setting", "problem", "feeling", "plan", "attempt", "item", "resolution"].includes(storyPart) &&
+      Number.isInteger(Number(level)) &&
+      Number(level) >= 1 &&
+      Number(level) <= 5
+    )
+    .map(([storyPart, level]) => ({
+      story_part: storyPart,
+      support_key: SUPPORT_KEYS_BY_LEVEL[Number(level)],
+      level: Number(level),
+      used: true
+    }));
+
+  if (!observations.length) return {};
+  return {
+    version: 1,
+    recording_method: "educator_documented",
+    tell_again_planner: instruction?.sessionPhase === "tell-again"
+      ? instruction?.tellAgainPlannerAvailable === false ? "not_available" : "available"
+      : "not_documented",
+    observations
   };
 }
 
@@ -190,11 +226,11 @@ export function createStoryBuilderCycleClient({
         p_confirm_replace: confirmReplace
       });
     },
-    setContext(cycleId, expectedRevision, studentReflection = null) {
+    setContext(cycleId, expectedRevision, supportEvidence = {}, studentReflection = null) {
       return call("set_story_builder_cycle_context", {
         p_cycle_id: cycleId,
         p_expected_revision: expectedRevision,
-        p_support_evidence: {},
+        p_support_evidence: supportEvidence,
         p_student_reflection: studentReflection
       });
     },
@@ -265,9 +301,9 @@ export function createStoryBuilderCycleCoordinator({ client, studentId }) {
         client.setTarget(id, revision, targetKey, confirmReplace)
       );
     },
-    setContext(studentReflection) {
+    setContext(supportEvidence, studentReflection) {
       return mutate((id, revision) =>
-        client.setContext(id, revision, studentReflection)
+        client.setContext(id, revision, supportEvidence, studentReflection)
       );
     },
     complete() {
@@ -565,9 +601,18 @@ function createCyclePanel({ coordinator, hintStatus }) {
       "Cycle title and story-card IDs saved."
     );
   });
-  complete.addEventListener("click", () =>
-    run(() => coordinator.complete(), "Cycle completed.")
-  );
+  complete.addEventListener("click", async () => {
+    const instruction = currentInstruction();
+    const contextResult = await run(
+      () => coordinator.setContext(
+        buildSupportEvidence(instruction),
+        serverReflectionKey(instruction.studentReflection)
+      ),
+      "Instructional context saved."
+    );
+    if (!contextResult || contextResult.result_code === "revision_conflict") return null;
+    return run(() => coordinator.complete(), "Cycle completed.");
+  });
   abandon.addEventListener("click", () => {
     if (!window.confirm("Abandon this student cycle? Saved terminal cycles cannot be reopened.")) return;
     return run(() => coordinator.abandon(), "Cycle abandoned.");
@@ -650,7 +695,9 @@ export async function initializeStoryBuilderCycleCloud({
 
   let observedTarget = serverTargetKey(currentInstruction().target);
   let observedReflection = serverReflectionKey(currentInstruction().studentReflection);
-  const handleInstructionalChange = async () => {
+  let observedSupportEvidence = JSON.stringify(buildSupportEvidence(currentInstruction()));
+  let instructionalSaveQueue = Promise.resolve();
+  const synchronizeInstructionalState = async () => {
     const cycle = coordinator.state.cycle;
     if (!cycle || !["draft", "in_progress"].includes(cycle.status)) return;
 
@@ -681,13 +728,26 @@ export async function initializeStoryBuilderCycleCloud({
     }
 
     const reflection = serverReflectionKey(instruction.studentReflection);
-    if (reflection && reflection !== observedReflection) {
-      await view.run(
-        () => coordinator.setContext(reflection),
-        "Student self-reflection saved."
+    const supportEvidence = buildSupportEvidence(instruction);
+    const serializedSupportEvidence = JSON.stringify(supportEvidence);
+    if (
+      serializedSupportEvidence !== observedSupportEvidence ||
+      (reflection && reflection !== observedReflection)
+    ) {
+      const contextResult = await view.run(
+        () => coordinator.setContext(supportEvidence, reflection),
+        reflection && reflection !== observedReflection
+          ? "Student self-reflection saved."
+          : "Instructional support use saved."
       );
-      observedReflection = reflection;
+      if (contextResult?.result_code === "updated") {
+        observedSupportEvidence = serializedSupportEvidence;
+        observedReflection = reflection;
+      }
     }
+  };
+  const handleInstructionalChange = () => {
+    instructionalSaveQueue = instructionalSaveQueue.then(synchronizeInstructionalState);
   };
   window.addEventListener("firstvolo:instructional-support-changed", handleInstructionalChange);
   activeCycleCleanup = () => {
