@@ -264,7 +264,11 @@ async function mountStudentMode(shell, access) {
   const topActions = element("div", "student-mode-actions");
   const startOver = button("Start a new story", "student-secondary-button");
   const signOut = button("Sign out", "student-secondary-button");
-  topActions.append(startOver, signOut);
+  const signOutStatus = element("p", "student-mode-intro", "");
+  signOutStatus.hidden = true;
+  signOutStatus.setAttribute("role", "status");
+  signOutStatus.setAttribute("aria-live", "polite");
+  topActions.append(startOver, signOut, signOutStatus);
 
   if (supportPackage?.studentGoal) {
     const goalSection = element("section", "student-mode-goal", "");
@@ -381,12 +385,16 @@ async function mountStudentMode(shell, access) {
 
   const onSignOut = async () => {
     signOut.disabled = true;
-    const { error } = await supabase.auth.signOut();
-    if (error) {
+    signOutStatus.hidden = false;
+    signOutStatus.textContent = "Signing out…";
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      window.location.replace(STUDENT_LOGIN_URL);
+    } catch (error) {
       signOut.disabled = false;
-      return;
+      signOutStatus.textContent = "Could not sign out. Please try again.";
     }
-    window.location.replace(STUDENT_LOGIN_URL);
   };
   signOut.addEventListener("click", onSignOut);
   cleanup.push(() => signOut.removeEventListener("click", onSignOut));

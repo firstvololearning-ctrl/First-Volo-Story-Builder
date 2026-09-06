@@ -6,6 +6,7 @@ const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_0O4rNLfhuW18xYRZSPkLpw_xyXR9d3n
 const ACCOUNT_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/?returnTo=storyBuilder";
 const ACCOUNT_HOME_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/";
 const STUDENT_LOGIN_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html?returnTo=storyBuilder";
+const STUDENT_SIGN_OUT_URL = "https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html";
 const PRODUCT_KEY = "first-volo-story-builder";
 const AUTH_EVENTS_TO_VERIFY = new Set([
   "INITIAL_SESSION",
@@ -273,7 +274,10 @@ async function publishAccess(access, session, generation, previousAccess) {
   }
 
   if (studentRuntimeStarted && access.mode !== "student") {
-    window.location.reload();
+    // Sign-out can emit an auth event before the button handler finishes.
+    // Both paths must leave the product at the same neutral destination.
+    if (!session?.user) window.location.replace(STUDENT_SIGN_OUT_URL);
+    else window.location.reload();
     return access;
   }
 
