@@ -599,6 +599,14 @@ h1 {
   background: #3f4954;
 }
 
+.more-actions-menu .anchor-chart-link {
+  background: var(--navy);
+}
+
+.more-actions-menu .anchor-chart-link:hover {
+  background: var(--navy-dark);
+}
+
 .more-actions-menu .educator-resources-link:hover {
   background: var(--navy-dark);
   transform: translateY(-2px);
