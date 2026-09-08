@@ -409,40 +409,6 @@
       retry() {
         return "Now try this part again and include what the character thinks, feels, knows, wants, or expects.";
       }
-    },
-
-    "vocabulary-precision": {
-      label: "Vocabulary Precision",
-      studentGoal: "Choose words that say exactly what I mean.",
-      lookFor: "Did I use specific words that fit what I meant?",
-      reflection: "Did I choose words that said exactly what I meant?",
-      expected:
-        "Student is expected to choose words that communicate the intended meaning more specifically.",
-      watches:
-        "Watch for repeated general words such as thing, stuff, good, bad, went, did, or got; repeated broad verbs; or difficulty finding a more specific known word.",
-      relevant: plannerCategories,
-      build(category, c) {
-        const focus = {
-          character: "Choose a more specific word to describe the character.",
-          setting: `Choose a more specific word for what ${storySetting(c)} looks, sounds, or feels like.`,
-          problem: "Choose a more specific word for what happens in the problem.",
-          feeling: `Can you make ${storyFeeling(c)} more specific? Think about how strong it is or how the character shows it.`,
-          plan: "Choose words that clearly name what the character plans or hopes to do.",
-          attempt: "Choose a specific action word for what the character actually does or tries.",
-          item: `Choose a more specific action word for how the character uses ${storyItem(c)}.`,
-          resolution: "Choose a more specific word that makes the ending clearer."
-        };
-        return [
-          "Find one word that is too general or that you used many times.",
-          focus[category] || "What more specific word would show exactly what you mean?",
-          "Ask yourself: How? What kind? How strong? What exactly happened?",
-          "Think of two or three words. Choose the one that says what you mean best.",
-          "Use the more specific word in the whole sentence: ___."
-        ];
-      },
-      retry() {
-        return "Now put the more specific word back into your sentence or story idea.";
-      }
     }
   };
 

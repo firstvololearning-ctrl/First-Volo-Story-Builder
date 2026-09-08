@@ -211,40 +211,6 @@
         "Words to try",
         "Sentence starter"
       ]
-    },
-    "vocabulary": {
-      "label": "Vocabulary Precision",
-      "short": "Vocabulary Precision",
-      "icon": "🎯",
-      "description": "Choose a more specific known word that better communicates the intended story meaning.",
-      "clinical": "Choose words that communicate the intended meaning more specifically.",
-      "teaching": [
-        "Find one word that is too general or repeated.",
-        "Use the current prompts: How? What kind? How strong? What exactly happened?",
-        "Choose the word that best fits the intended meaning and put it back into the whole sentence/story idea."
-      ],
-      "monitor": [
-        "Whether the selected word is more specific and semantically appropriate",
-        "Whether the word matches the student’s intended meaning",
-        "Whether the student can reintegrate the word into the whole sentence/story idea",
-        "Whether precision improves without changing the intended story content"
-      ],
-      "transfer": [
-        "Whether the more precise word is retained in Tell Again",
-        "Whether the student selects specific words with targeted help closed",
-        "Whether the Planner is available or hidden during Tell Again"
-      ],
-      "in_story_builder": [
-        "Uses the student’s own intended story meaning.",
-        "Prompts with How? What kind? How strong? and What exactly happened? only when needed.",
-        "Uses same-demand Retry after support.",
-        "Reconnects the more precise word to the whole sentence and story during Tell Again."
-      ],
-      "built_in_supports": [
-        "Question prompt",
-        "Word reminder",
-        "Sentence starter"
-      ]
     }
   },
   "objectives": {
@@ -254,8 +220,7 @@
       "cause": "The student will explain why important events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the character’s attempt.",
       "sentence": "The student will turn an intended story idea into a complete, organized spoken or written sentence.",
       "elaboration": "The student will add useful information that clarifies or develops an important story idea or event.",
-      "perspective": "The student will explain what a character feels, thinks, knows, wants, expects, wonders, or intends and connect that information to story events when appropriate.",
-      "vocabulary": "The student will choose words that communicate the intended story meaning more specifically."
+      "perspective": "The student will explain what a character feels, thinks, knows, wants, expects, wonders, or intends and connect that information to story events when appropriate."
     },
     "4-5": {
       "organization": "The student will organize the important story functions into a coherent narrative and make the relationships among the problem/feeling, plan, action/attempt, and resolution increasingly clear.",
@@ -263,8 +228,7 @@
       "cause": "The student will make important causal relationships explicit by explaining why events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the attempt.",
       "sentence": "The student will formulate complete, organized spoken or written sentences that preserve and clearly express the intended narrative idea.",
       "elaboration": "The student will select and add useful information that clarifies or develops important story ideas or events without adding unrelated detail.",
-      "perspective": "The student will explain relevant character thoughts, feelings, knowledge, wants, expectations, wonders, or intentions and connect them to story events and actions.",
-      "vocabulary": "The student will select more specific words that fit the intended narrative meaning and use them in the whole sentence or story idea."
+      "perspective": "The student will explain relevant character thoughts, feelings, knowledge, wants, expectations, wonders, or intentions and connect them to story events and actions."
     },
     "6-8": {
       "organization": "The student will independently organize and connect important story functions into a coherent narrative with decreasing support.",
@@ -272,8 +236,7 @@
       "cause": "The student will explain the important causal relationships supported by the story, including why events or feelings occur and how plans, attempts, and outcomes relate, with decreasing support.",
       "sentence": "The student will formulate clear, complete, organized spoken or written narrative sentences that preserve the intended idea with decreasing support.",
       "elaboration": "The student will independently select useful, listener-relevant information that clarifies or develops important story ideas or events.",
-      "perspective": "The student will explain relevant character internal states and connect them to story events/actions with increasing specificity and independence.",
-      "vocabulary": "The student will independently select specific words that best fit the intended narrative meaning and reintegrate them into connected story language."
+      "perspective": "The student will explain relevant character internal states and connect them to story events/actions with increasing specificity and independence."
     }
   },
   "developmental": {
@@ -283,8 +246,7 @@
       "cause": "Emphasize the current supported relationships: problem/event → feeling, problem/feeling → plan, plan → attempt, and attempt → outcome/resolution. Keep the focus on one relationship at a time when needed.",
       "sentence": "Emphasize expressing one intended story idea in a complete, organized sentence using oral rehearsal, the current sentence reminder, and story-part sentence starters when needed.",
       "elaboration": "Emphasize adding one useful detail that clarifies or develops the selected story part. Relevance matters more than quantity.",
-      "perspective": "Emphasize basic character feelings, thoughts, knowledge, wants, expectations, or intentions and their relationship to the current story event.",
-      "vocabulary": "Emphasize replacing very general/repeated words with a more specific known word that fits the intended meaning, then reintegrating it into the sentence/story idea."
+      "perspective": "Emphasize basic character feelings, thoughts, knowledge, wants, expectations, or intentions and their relationship to the current story event."
     },
     "4-5": {
       "organization": "Expect clearer integration among problem/feeling, plan, attempt, and resolution, with less support for maintaining the whole sequence.",
@@ -292,8 +254,7 @@
       "cause": "Expect clearer and more independent explanation of causal relationships across problem, feeling, plan, attempt, and resolution.",
       "sentence": "Expect clearer, more independent formulation of the student’s intended sentence using the one-main-idea reminder and sentence starters as needed.",
       "elaboration": "Expect students to choose details that are useful for understanding the selected story part and to avoid unrelated additions, with reduced prompting.",
-      "perspective": "Expect more explicit links between relevant internal states and what the character does or experiences, using the current mental-state prompts/word supports.",
-      "vocabulary": "Expect more consistent selection of specific words for character, setting, problem, feeling, plan, attempt, item use, and resolution while preserving the intended meaning."
+      "perspective": "Expect more explicit links between relevant internal states and what the character does or experiences, using the current mental-state prompts/word supports."
     },
     "6-8": {
       "organization": "Increase independence and coherence while working with the core story relationships supported in Story Builder.",
@@ -301,8 +262,7 @@
       "cause": "Increase independence and precision in explaining causal relationships among problems, feelings, plans, attempts, and outcomes.",
       "sentence": "Increase independence in formulating clear, complete narrative sentences that preserve the intended idea.",
       "elaboration": "Increase independence in selecting useful details that clarify or develop important story ideas.",
-      "perspective": "Increase independence and specificity in explaining internal states across the core story parts.",
-      "vocabulary": "Increase independence and specificity when choosing words that fit the intended story meaning."
+      "perspective": "Increase independence and specificity in explaining internal states across the core story parts."
     }
   },
   "standards": {
@@ -366,16 +326,6 @@
         ],
         "massachusetts": "Massachusetts alignment: crosswalk in development. No exact Massachusetts code is displayed unless the exact grade-and-target match has been separately verified.",
         "note": "Exact codes are shown only when verified. Direct may be empty. Related standards are not presented as one-to-one clinical targets. Standards alignment establishes instructional relevance, not efficacy for First Volo Story Builder."
-      },
-      "vocabulary": {
-        "summary": "Verified grade-level narrative-writing standards are relevant to narrative production, but Story Builder's clinical/oral-written narrative-language target is more specific than the standard itself.",
-        "direct": [],
-        "related": [
-          "CCSS.ELA-Literacy.W.2.3",
-          "CCSS.ELA-Literacy.W.3.3"
-        ],
-        "massachusetts": "Massachusetts alignment: crosswalk in development. No exact Massachusetts code is displayed unless the exact grade-and-target match has been separately verified.",
-        "note": "Exact codes are shown only when verified. Direct may be empty. Related standards are not presented as one-to-one clinical targets. Standards alignment establishes instructional relevance, not efficacy for First Volo Story Builder."
       }
     },
     "4-5": {
@@ -430,16 +380,6 @@
         "note": "Exact codes are shown only when verified. Direct may be empty. Related standards are not presented as one-to-one clinical targets. Standards alignment establishes instructional relevance, not efficacy for First Volo Story Builder."
       },
       "perspective": {
-        "summary": "Verified grade-level narrative-writing standards are relevant to narrative production, but Story Builder's clinical/oral-written narrative-language target is more specific than the standard itself.",
-        "direct": [],
-        "related": [
-          "CCSS.ELA-Literacy.W.4.3",
-          "CCSS.ELA-Literacy.W.5.3"
-        ],
-        "massachusetts": "Massachusetts alignment: crosswalk in development. No exact Massachusetts code is displayed unless the exact grade-and-target match has been separately verified.",
-        "note": "Exact codes are shown only when verified. Direct may be empty. Related standards are not presented as one-to-one clinical targets. Standards alignment establishes instructional relevance, not efficacy for First Volo Story Builder."
-      },
-      "vocabulary": {
         "summary": "Verified grade-level narrative-writing standards are relevant to narrative production, but Story Builder's clinical/oral-written narrative-language target is more specific than the standard itself.",
         "direct": [],
         "related": [
@@ -507,17 +447,6 @@
         "note": "Exact codes are shown only when verified. Direct may be empty. Related standards are not presented as one-to-one clinical targets. Standards alignment establishes instructional relevance, not efficacy for First Volo Story Builder."
       },
       "perspective": {
-        "summary": "Verified grade-level narrative-writing standards are relevant to narrative production, but Story Builder's clinical/oral-written narrative-language target is more specific than the standard itself.",
-        "direct": [],
-        "related": [
-          "CCSS.ELA-Literacy.W.6.3",
-          "CCSS.ELA-Literacy.W.7.3",
-          "CCSS.ELA-Literacy.W.8.3"
-        ],
-        "massachusetts": "Massachusetts alignment: crosswalk in development. No exact Massachusetts code is displayed unless the exact grade-and-target match has been separately verified.",
-        "note": "Exact codes are shown only when verified. Direct may be empty. Related standards are not presented as one-to-one clinical targets. Standards alignment establishes instructional relevance, not efficacy for First Volo Story Builder."
-      },
-      "vocabulary": {
         "summary": "Verified grade-level narrative-writing standards are relevant to narrative production, but Story Builder's clinical/oral-written narrative-language target is more specific than the standard itself.",
         "direct": [],
         "related": [
@@ -642,17 +571,6 @@
         "gradePopulationRelevance": "Younger-elementary relevance prioritized. Broader school-age syntheses are used where direct Grade 2–3 target-specific evidence is limited.",
         "claimStatus": "Product-grounded and claim-bounded; final source-by-source full-text evidence verification pending.",
         "requiredLimitation": "Do not present this mapping as direct efficacy evidence for First Volo Story Builder, a hard developmental grade cutoff, or evidence for product features that are not currently implemented."
-      },
-      "vocabulary": {
-        "research": "Narrative intervention may include vocabulary support inside connected stories. This supports Story Builder's current goal of choosing a more specific word in context, but it should not be presented as evidence for a broad standalone vocabulary program.",
-        "sourceIds": [
-          "gillam2025",
-          "spencer2020",
-          "pico2021"
-        ],
-        "gradePopulationRelevance": "Younger-elementary relevance prioritized. Broader school-age syntheses are used where direct Grade 2–3 target-specific evidence is limited.",
-        "claimStatus": "Product-grounded and claim-bounded; final source-by-source full-text evidence verification pending.",
-        "requiredLimitation": "Do not present this mapping as direct efficacy evidence for First Volo Story Builder, a hard developmental grade cutoff, or evidence for product features that are not currently implemented."
       }
     },
     "4-5": {
@@ -723,17 +641,6 @@
         "gradePopulationRelevance": "Later-elementary relevance prioritized. Evidence spanning Grades 1–4, ages 8–12, and ages 9–14 is labeled rather than treated as an exact grade match.",
         "claimStatus": "Product-grounded and claim-bounded; final source-by-source full-text evidence verification pending.",
         "requiredLimitation": "Do not present this mapping as direct efficacy evidence for First Volo Story Builder, a hard developmental grade cutoff, or evidence for product features that are not currently implemented."
-      },
-      "vocabulary": {
-        "research": "Narrative intervention may support word learning and more precise language within discourse. Story Builder's current Vocabulary Precision target is appropriately narrow: choose a more specific known word that fits the intended story meaning and use it in context.",
-        "sourceIds": [
-          "gillam2025",
-          "spencer2020",
-          "peterson2020"
-        ],
-        "gradePopulationRelevance": "Later-elementary relevance prioritized. Evidence spanning Grades 1–4, ages 8–12, and ages 9–14 is labeled rather than treated as an exact grade match.",
-        "claimStatus": "Product-grounded and claim-bounded; final source-by-source full-text evidence verification pending.",
-        "requiredLimitation": "Do not present this mapping as direct efficacy evidence for First Volo Story Builder, a hard developmental grade cutoff, or evidence for product features that are not currently implemented."
       }
     },
     "6-8": {
@@ -797,17 +704,6 @@
         "sourceIds": [
           "peterson2020",
           "gillam2015",
-          "spencer2020"
-        ],
-        "gradePopulationRelevance": "Later school-age/secondary relevance prioritized. Younger-elementary findings are not used as direct middle-school evidence.",
-        "claimStatus": "Product-grounded and claim-bounded; final source-by-source full-text evidence verification pending.",
-        "requiredLimitation": "Do not present this mapping as direct efficacy evidence for First Volo Story Builder, a hard developmental grade cutoff, or evidence for product features that are not currently implemented."
-      },
-      "vocabulary": {
-        "research": "Secondary narrative/vocabulary intervention evidence supports narrative-language work, while broad vocabulary gains should not be assumed. Story Builder's current target is precise semantic fit within the narrative, not broad decontextualized vocabulary instruction.",
-        "sourceIds": [
-          "joffe2019",
-          "peterson2020",
           "spencer2020"
         ],
         "gradePopulationRelevance": "Later school-age/secondary relevance prioritized. Younger-elementary findings are not used as direct middle-school evidence.",
