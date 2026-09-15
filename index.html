@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; https://cdn.jsdelivr.net ; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27; https://fonts.googleapis.com; font-src &#x27;self&#x27; data: https://fonts.gstatic.com; img-src &#x27;self&#x27; data: blob:; media-src &#x27;self&#x27; blob:; connect-src &#x27;self&#x27; https://apkvvspubolyxlqtlkto.supabase.co wss://apkvvspubolyxlqtlkto.supabase.co; form-action &#x27;self&#x27;; worker-src &#x27;self&#x27; blob:; upgrade-insecure-requests">
+<meta name="referrer" content="no-referrer">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>First Volo Story Builder | Narrative Language & Storytelling</title>
 
@@ -237,7 +240,7 @@
 
           <div class="image-label" id="characterLabel"></div>
 
-          <button type="button" onclick="rollCategory('character')">
+          <button type="button" data-security-handler-0="true">
             ↻ Roll
           </button>
         </article>
@@ -259,7 +262,7 @@
 
           <div class="image-label" id="settingLabel"></div>
 
-          <button type="button" onclick="rollCategory('setting')">
+          <button type="button" data-security-handler-1="true">
             ↻ Roll
           </button>
         </article>
@@ -288,7 +291,7 @@
 
           <div class="image-label" id="problemLabel"></div>
 
-          <button type="button" onclick="rollCategory('problem')">
+          <button type="button" data-security-handler-2="true">
             ↻ Roll
           </button>
         </article>
@@ -317,7 +320,7 @@
 
           <div class="image-label" id="feelingLabel"></div>
 
-          <button type="button" onclick="rollCategory('feeling')">
+          <button type="button" data-security-handler-3="true">
             ↻ Roll
           </button>
         </article>
@@ -346,7 +349,7 @@
           <div class="plan-idea-box">
             <span class="plan-idea-label">Optional idea help</span>
             <p>Make your own plan, or roll a card if you need an idea. You can use it, change it, or ignore it.</p>
-            <button type="button" class="plan-idea-button" onclick="rollCategory('plan')">
+            <button type="button" class="plan-idea-button" data-security-handler-4="true">
               🎲 Need an idea? Roll a Plan Idea
             </button>
           </div>
@@ -425,7 +428,7 @@
 
           <div class="image-label" id="itemLabel"></div>
 
-          <button type="button" onclick="rollCategory('item')">
+          <button type="button" data-security-handler-5="true">
             ↻ Roll
           </button>
         </article>
@@ -1195,7 +1198,7 @@
         </button>
       </div>
 
-      <p class="my-stories-storage-note">Cloud Sync saves your My Stories library across devices. Learner-cycle evidence saves separately. <a href="user-guide.html#saving">How saving works</a>.</p>
+      <p class="my-stories-storage-note">Cloud Sync saves explicitly linked, authorized stories across devices. Learner-cycle evidence saves separately. <a href="user-guide.html#saving">How saving works</a>.</p>
 <details
         class="cloud-sync-panel cloud-sync-details"
         id="cloudSyncPanel"
@@ -1264,6 +1267,16 @@
             <strong id="cloudUserEmail"></strong>
           </p>
 
+          <div class="cloud-learner-link">
+            <label for="cloudStoryPicker">Saved story</label>
+            <select id="cloudStoryPicker"><option value="">Choose a saved story</option></select>
+            <label for="cloudLearnerPicker">Learner this story belongs to</label>
+            <select id="cloudLearnerPicker"><option value="">Choose an authorized learner</option></select>
+            <button id="cloudLinkSave" type="button">Link and save to cloud</button>
+            <button id="cloudUseVersion" type="button">Replace local story with cloud version</button>
+            <p>Replacing uses the current authorized cloud copy and discards this device’s edits for the selected story. Download Backup first to keep those edits.</p>
+            <p>Only learners with current permission and Story Builder access appear. Confirm that the story belongs to the selected learner.</p>
+          </div>
           <div class="cloud-signed-in-actions">
             <button
               id="cloudSyncNow"
@@ -1791,7 +1804,7 @@
     </section>
   </div>
 
-  <script type="module" src="access-gate.mjs?v=3"></script>
+  <script type="module" src="access-gate.mjs"></script>
 <p style="text-align:center;padding:16px"><a href="https://firstvololearning-ctrl.github.io/First-Volo-Account/privacy-status.html">Privacy protections · September 6, 2026</a></p>
-</body>
+<script src="index-events.js"></script></body>
 </html>

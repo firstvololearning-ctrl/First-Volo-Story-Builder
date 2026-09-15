@@ -1,4 +1,4 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.111.0/+esm";
 import { STUDENT_SUPPORTS } from "./student-support-content.mjs";
 
 const SUPABASE_URL="https://apkvvspubolyxlqtlkto.supabase.co";

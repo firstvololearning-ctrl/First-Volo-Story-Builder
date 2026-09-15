@@ -1,4 +1,4 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.111.0/+esm";
 import { ENABLE_STORY_BUILDER_CYCLE_CLOUD } from "./story-builder-cycle-config.mjs";
 
 const SUPABASE_URL = "https://apkvvspubolyxlqtlkto.supabase.co";

@@ -4110,3 +4110,6 @@ body.modal-open {
     font-size: 0.64rem;
   }
 }
+
+.cloud-learner-link { display:grid; gap:.65rem; margin:1rem 0; }
+.cloud-learner-link select { max-width:100%; padding:.65rem; font:inherit; }
