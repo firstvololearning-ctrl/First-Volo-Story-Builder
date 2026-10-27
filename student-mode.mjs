@@ -1,4 +1,4 @@
-import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261027-workspaces";
+import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261027-activity-order";
 import { supportOptionsForTarget, STUDENT_SUPPORTS, STUDENT_SUPPORT_RELEVANT_PARTS } from "./student-support-content.mjs";
 import { createStudentDraftCloud } from "./student-draft-cloud.mjs";
 

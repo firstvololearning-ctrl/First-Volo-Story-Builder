@@ -4182,6 +4182,10 @@ body.modal-open {
 .educator-task-switch button:focus-visible { outline:3px solid #ad6411; outline-offset:3px; }
 #studentSetupWorkspace { background:white; border:1px solid #d4dfeb; border-radius:16px; padding:20px; text-align:left; }
 #studentSetupWorkspace[hidden] { display:none !important; }
-[data-educator-workspace="setup"] :is(.controls-panel, #instructionalSessionPanel, #storyGrid, .title-control, #instructionalFocusPanel, #storyPlannerPanel, #writingPanel, #vocabularyPanel, .story-builder-selected-student, .story-cycle-panel) { display:none !important; }
+[data-educator-workspace="setup"] :is(.controls-panel, #instructionalSessionPanel, #storyGrid, .title-control, #instructionalFocusPanel, #storyPlannerPanel, #writingPanel, #vocabularyPanel, #storyStepCompletion, .story-builder-selected-student, .story-cycle-panel) { display:none !important; }
 @media(max-width:600px) { .educator-task-switch { flex-direction:column; } }
 @media print { .educator-task-switch, #studentSetupWorkspace { display:none !important; } }
+
+.story-step-completion { margin: 24px 0; padding: 20px; border: 1px solid #d8cdea; border-radius: 16px; background: #faf8ff; }
+.story-step-completion p { margin: 0; }
+@media print { .story-step-completion { display: none !important; } }

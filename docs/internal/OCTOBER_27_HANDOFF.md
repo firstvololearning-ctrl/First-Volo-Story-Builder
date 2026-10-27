@@ -17,3 +17,7 @@ No database/schema/policy changes were made for these content and interface rele
 - Detailed SLP review and remaining external linguistic/accessibility source checks. Educator approved initial Story Builder wording for later fine review; software tests do not close clinical/source queues.
 
 Generated curriculum CSVs can be rebuilt with curriculum-map.js. Local report screenshots/logs are supporting evidence; essential source and reconciled inventory files are in Git. Do not declare the full Morphology pilot QA complete.
+
+
+## Teaching activity order correction
+Moved the phase-advance action from the cycle overview to after the planner, target practice and writing area. The overview remains navigation; Tell Again follows the work. The completion section hides when the cycle is off or the educator is configuring student supports. Oral responses require no written completion gate. Updated the guide and release cache version together. All 43 Story Builder tests pass.

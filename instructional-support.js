@@ -1013,6 +1013,8 @@
     if (panel) {
       panel.hidden = !cycleIsOn;
     }
+    const completion = document.getElementById("storyStepCompletion");
+    if (completion) completion.hidden = !cycleIsOn;
 
     if (
       educatorGuidance &&
