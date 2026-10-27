@@ -1,4 +1,4 @@
-import {supabase,getCurrentAccess} from './access-gate.mjs';
+import {supabase,getCurrentAccess} from './access-gate.mjs?v=20261027-workspaces';
 import {createLearnerLibrarySync} from './learner-library-sync.mjs';
 const by=id=>document.getElementById(id);
 let session=null,initialized=false,timer=null;

@@ -205,12 +205,12 @@ async function startEducatorRuntime(access) {
   if (!educatorRuntimePromise) {
     educatorRuntimeStarted = true;
     educatorRuntimePromise = (async () => {
-      await loadClassicScript("./script.js");
-      await loadClassicScript("./instructional-support.js");
-      await loadClassicScript("./educator-workspace.js");
-      educatorSupportsModule = await import("./student-supports.mjs");
+      await loadClassicScript("./script.js?v=20261027-workspaces");
+      await loadClassicScript("./instructional-support.js?v=20261027-workspaces");
+      await loadClassicScript("./educator-workspace.js?v=20261027-workspaces");
+      educatorSupportsModule = await import("./student-supports.mjs?v=20261027-workspaces");
       await educatorSupportsModule.initializeStudentSupports(access);
-      educatorCloudModule = await import("./cloud-sync.mjs");
+      educatorCloudModule = await import("./cloud-sync.mjs?v=20261027-workspaces");
       await educatorCloudModule.initializeEducatorCloudSync(access);
       if (ENABLE_STORY_BUILDER_CYCLE_CLOUD) {
         educatorCycleModule = await import("./story-builder-cycle-cloud.mjs?v=3");
@@ -301,7 +301,7 @@ async function publishAccess(access, session, generation, previousAccess) {
   if (access.mode === "student") {
     try {
       if (!studentRuntimeModule) {
-        studentRuntimeModule = await import("./student-mode.mjs");
+        studentRuntimeModule = await import("./student-mode.mjs?v=20261027-workspaces");
         studentRuntimeStarted = true;
       }
     } catch (error) {

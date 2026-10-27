@@ -7,3 +7,5 @@ The real Narrative Teaching Cycle panel sits above the pictures; a next-action b
 Validation: all automated tests plus browser checks for phase navigation without rolled cards, writing preservation, optional picture drawer, planner visibility, saving/reload and phone layout. Authenticated educator view is checked after publication. Authenticated student end-to-end remains unavailable without an active shared student.
 
 User guide, educator resource descriptions, target-builder introduction and in-app About guide share the two-task distinction. The color/grayscale printable planner sources and all three printable PDFs use “Is the problem still there?” for the ending question, allowing unresolved outcomes. All three PDFs were rendered and visually checked.
+
+The entry module, its three access-dependent modules, educator scripts and stylesheet use a consistent release version. This prevents a cached older setup renderer from being combined with new task markup, while retaining a single shared access-module identity in the module graph.
