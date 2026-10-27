@@ -21,9 +21,9 @@
       ],
       "monitor": [
         "Whether important story functions are present and logically connected",
-        "Whether the plan grows from the problem/feeling",
-        "Whether the action/attempt carries out the plan",
-        "Whether the ending follows from the attempt and resolves the problem"
+        "Whether the plan responds to the situation in a way the story supports",
+        "Whether the action carries out, changes or departs from the plan",
+        "Whether the ending connects to prior events, including a partial or unresolved outcome"
       ],
       "transfer": [
         "Whether the repaired story organization appears in Tell Again",
@@ -36,11 +36,7 @@
         "Uses same-demand Retry after support.",
         "Reconnects the repaired story part to the whole story during Tell Again."
       ],
-      "built_in_supports": [
-        "Question prompt",
-        "Story reminder",
-        "Sentence starter"
-      ]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
     },
     "cohesion": {
       "label": "Connections & Cohesion",
@@ -70,18 +66,14 @@
         "Uses same-demand Retry after support.",
         "Reconnects clearer relationships to the whole story during Tell Again."
       ],
-      "built_in_supports": [
-        "Question prompt",
-        "Connecting words",
-        "Sentence starter"
-      ]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
     },
     "cause": {
       "label": "Cause & Effect",
       "short": "Cause & Effect",
       "icon": "➡️",
       "description": "Make important why/result relationships in the story clear.",
-      "clinical": "Explain why important events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the character’s attempt.",
+      "clinical": "Explain cause, reason or result relationships when the story supports them; distinguish these from sequence and purpose.",
       "teaching": [
         "Identify the current story relationship whose cause or result is unclear.",
         "Use the built-in problem/feeling/plan/attempt/item/resolution prompts to make the relationship explicit.",
@@ -104,11 +96,7 @@
         "Uses same-demand Retry after support.",
         "Reconnects the clarified cause-and-effect relationship to the whole story during Tell Again."
       ],
-      "built_in_supports": [
-        "Question prompt",
-        "Connecting words",
-        "Sentence starter"
-      ]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
     },
     "sentence": {
       "label": "Sentence Formulation",
@@ -119,7 +107,7 @@
       "teaching": [
         "Keep the student’s intended story idea.",
         "Have the student say the idea aloud and identify the one main idea.",
-        "Use the current Who? → did what? → what/whom? → where/why? reminder or a story-part sentence starter, then retry the same idea."
+        "Choose Build a Sentence or Combine Ideas, identify the intended relationship, and select grammatical support as needed before retrying the same idea."
       ],
       "monitor": [
         "Whether the intended idea is expressed in a complete, organized sentence",
@@ -134,15 +122,11 @@
       ],
       "in_story_builder": [
         "Uses the student’s own intended story idea.",
-        "Provides the Who? → did what? → what or whom? → where or why? reminder and sentence starters only when needed.",
+        "Provides two formulation pathways, an intended-relationship menu, a grammatical-support dropdown and optional Sentence Help / More Help.",
         "Uses same-demand Retry after support.",
         "Reconnects the clearer sentence to the whole story during Tell Again."
       ],
-      "built_in_supports": [
-        "Question prompt",
-        "Sentence reminder",
-        "Sentence starter"
-      ]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
     },
     "elaboration": {
       "label": "Elaboration",
@@ -172,11 +156,7 @@
         "Uses same-demand Retry after support.",
         "Reconnects the elaborated idea to the whole story during Tell Again."
       ],
-      "built_in_supports": [
-        "Question prompt",
-        "Detail reminder",
-        "Sentence starter"
-      ]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
     },
     "perspective": {
       "label": "Perspective & Internal State",
@@ -186,7 +166,7 @@
       "clinical": "Explain what characters feel, think, know, want, expect, wonder, or intend and connect those ideas to story events when appropriate.",
       "teaching": [
         "Identify the relevant thought, feeling, knowledge, want, expectation, wonder, or intention.",
-        "Use the current story-part question and mental-state words to connect the internal state to the story event/action.",
+        "Use a supported internal state, with uncertainty where appropriate. Optional Explore Thinking beside Feeling distinguishes beliefs and knowledge from plans.",
         "Retry the same story part with the internal-state information included."
       ],
       "monitor": [
@@ -202,22 +182,18 @@
       ],
       "in_story_builder": [
         "Uses the student’s own character and story-event ideas.",
-        "Provides mental-state prompts and words to try only when needed.",
+        "Provides mental-state prompts and optional Explore Thinking, including evidence cues, mistaken beliefs and differences in character knowledge.",
         "Uses same-demand Retry after support.",
         "Reconnects the character’s internal state to the whole story during Tell Again."
       ],
-      "built_in_supports": [
-        "Question prompt",
-        "Words to try",
-        "Sentence starter"
-      ]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
     }
   },
   "objectives": {
     "2-3": {
       "organization": "The student will organize the important parts of a story into a coherent narrative, including the character/setting, problem and feeling, plan, action/attempt, and resolution as relevant.",
       "cohesion": "The student will connect story ideas and events using clear relationships, sequencing, connectors, and referents so the listener can follow the narrative.",
-      "cause": "The student will explain why important events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the character’s attempt.",
+      "cause": "The student will explain relevant cause, reason or result relationships supported by the story.",
       "sentence": "The student will turn an intended story idea into a complete, organized spoken or written sentence.",
       "elaboration": "The student will add useful information that clarifies or develops an important story idea or event.",
       "perspective": "The student will explain what a character feels, thinks, knows, wants, expects, wonders, or intends and connect that information to story events when appropriate."
@@ -243,7 +219,7 @@
     "2-3": {
       "organization": "Emphasize concrete, visible relationships among character/setting, problem/feeling, plan, attempt, and resolution. Support may be explicit while the student learns to reconnect repaired parts to the whole story.",
       "cohesion": "Emphasize clear nearby relationships among story ideas using connector and sentence-support options as needed.",
-      "cause": "Emphasize the current supported relationships: problem/event → feeling, problem/feeling → plan, plan → attempt, and attempt → outcome/resolution. Keep the focus on one relationship at a time when needed.",
+      "cause": "Explore one relationship supported by the story at a time. Do not assume a feeling causes a plan or an attempt succeeds; distinguish cause, purpose and sequence.",
       "sentence": "Emphasize expressing one intended story idea in a complete, organized sentence using oral rehearsal, the current sentence reminder, and story-part sentence starters when needed.",
       "elaboration": "Emphasize adding one useful detail that clarifies or develops the selected story part. Relevance matters more than quantity.",
       "perspective": "Emphasize basic character feelings, thoughts, knowledge, wants, expectations, or intentions and their relationship to the current story event."
@@ -763,11 +739,7 @@
     }
   },
   "educatorProgressiveSupport": [
-    "Look here",
-    "Think about it",
-    "A clue",
-    "Words to try",
-    "Sentence start"
+    "Look / Listen", "Think", "A Clue"
   ],
   "educatorAddedSupport": [
     "Responsive verbal cue or guided question",
@@ -786,11 +758,7 @@
     "targetSelection": "The educator chooses a Story Goal separately; Observe First is the default and the target may be chosen after First Tell or selected earlier when already known.",
     "plannerTellAgain": "The educator may allow Story Planner reference during Tell Again or hide it for an independent whole-story tell.",
     "educatorSupportSequence": [
-      "Look here",
-      "Think about it",
-      "A clue",
-      "Words to try",
-      "Sentence start"
+      "Look / Listen", "Think", "A Clue"
     ],
     "studentAttemptFirst": true,
     "sameDemandRetry": true,
