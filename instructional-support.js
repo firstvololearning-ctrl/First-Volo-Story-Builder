@@ -947,6 +947,13 @@
     announceChanged();
   }
 
+  function workflowActionFor(target, phase) {
+    if (phase === "part") return { label: "Ready? Tell the whole story again →", phase: "tell-again", hint: "Practice one useful change. Open help only when needed, retry, then reconnect the idea." };
+    if (phase === "tell-again") return { label: "Return to First Tell", phase: "first-tell", hint: "Tell the complete story with the goal in mind. Use the self-check after the tell." };
+    if (target === "observe-first") return { label: "Finished the first tell? Choose a goal →", chooseGoal: true, hint: "Listen to the whole story first. Then choose one goal if teaching is needed." };
+    return { label: "Finished the first tell? Work on this goal →", phase: "part", hint: "Let the learner tell the complete story first. Keep targeted help closed while you listen." };
+  }
+
   function updateSessionFlow() {
     const panel = document.getElementById(
       "instructionalSessionPanel"
@@ -991,6 +998,12 @@
     const educatorGuidance = document.getElementById(
       "instructionalFocusPanel"
     );
+
+    const nextAction = workflowActionFor(selectedTarget, sessionPhase);
+    const nextButton = document.getElementById("storyNextStep");
+    if (nextButton) nextButton.textContent = nextAction.label;
+    const workflowHint = document.getElementById("workflowHint");
+    if (workflowHint) workflowHint.textContent = nextAction.hint;
 
     const definition = targetDefinitions[selectedTarget];
     const observeFirst = selectedTarget === "observe-first";
@@ -1648,6 +1661,22 @@
       );
       return;
     }
+
+    document.getElementById("storyNextStep")?.addEventListener("click", () => {
+      const action = workflowActionFor(selectedTarget, sessionPhase);
+      if (action.chooseGoal) {
+        select.scrollIntoView({ block: "center" });
+        select.focus({ preventScroll: true });
+        return;
+      }
+      setSessionPhase(action.phase);
+      const destination = document.getElementById(action.phase === "part" ? "storyPlannerIntro" : "storyGrid");
+      if (destination) {
+        destination.tabIndex = -1;
+        destination.scrollIntoView({ block: "start" });
+        destination.focus({ preventScroll: true });
+      }
+    });
 
     ensurePlannerSupportContainers();
 

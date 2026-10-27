@@ -255,7 +255,7 @@ async function mountStudentMode(shell, access) {
 
   const header = element("header", "student-mode-header");
   header.append(
-    element("p", "student-mode-eyebrow", "FIRST VOLO STORY BUILDER"),
+    element("p", "student-mode-eyebrow", "FIRST VOLO STORY BUILDER · STUDENT WORKSPACE"),
     element("h1", "student-mode-title", "Build your story."),
     element("p", "student-mode-identity", `Hi, ${context.display_name || "student"}!`),
     element("p", "student-mode-class", context.class_name || "")
@@ -284,16 +284,16 @@ async function mountStudentMode(shell, access) {
   }
 
   const ideasSection = element("section", "student-mode-section");
-  ideasSection.append(element("h2", "student-mode-section-title", "1. Roll story ideas"));
-  ideasSection.append(element("p", "student-mode-intro", "Roll a card for an idea, or use your own idea."));
-  const rollAll = button("🎲 Roll all ideas", "student-primary-button");
+  ideasSection.append(element("h2", "student-mode-section-title", "Picture ideas (optional)"));
+  ideasSection.append(element("p", "student-mode-intro", "Use your own ideas. Choose or change pictures whenever they help; pictures are optional."));
+  const rollAll = button("🎲 Choose picture ideas", "student-primary-button");
   const ideasGrid = element("div", "student-ideas-grid");
   const cards = Object.keys(visualIdeas).map((category) => buildCard(category, draft, updateDraft, supportPackage?.showImageLabels === true));
   cards.forEach(({ card }) => ideasGrid.append(card));
   ideasSection.append(rollAll, ideasGrid);
 
   const plannerSection = element("section", "student-mode-section");
-  plannerSection.append(element("h2", "student-mode-section-title", "2. Plan your story"));
+  plannerSection.append(element("h2", "student-mode-section-title", "Plan your story (optional)"));
   plannerSection.append(element("p", "student-mode-intro", "Jot down a word or sentence for each part. You can also tell your ideas aloud."));
   const plannerGrid = element("div", "student-planner-grid");
   plannerPrompts.forEach(([key, prompt]) => {
@@ -317,7 +317,7 @@ async function mountStudentMode(shell, access) {
   plannerSection.append(plannerGrid);
 
   const writeSection = element("section", "student-mode-section student-writing-section");
-  writeSection.append(element("h2", "student-mode-section-title", "3. Tell or write your story"));
+  writeSection.append(element("h2", "student-mode-section-title", "Tell or write your story"));
   writeSection.append(element("p", "student-mode-intro", "Tell it aloud, or write it here when you are ready."));
   const titleLabel = element("label", "student-writing-label", "Story title (optional)");
   const titleInput = document.createElement("input");
@@ -341,7 +341,7 @@ async function mountStudentMode(shell, access) {
   writeSection.append(titleLabel, storyLabel);
 
   const checkSection = element("section", "student-mode-section student-check-section");
-  checkSection.append(element("h2", "student-mode-section-title", "4. Check your story"));
+  checkSection.append(element("h2", "student-mode-section-title", "Check your story"));
   checkSection.append(element("p", "student-mode-intro", "Does your story have a beginning, something that happens, and an ending?"));
   const check = document.createElement("label");
   check.className = "student-check-option";

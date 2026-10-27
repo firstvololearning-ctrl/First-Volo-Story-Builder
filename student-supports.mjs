@@ -203,6 +203,7 @@ function createPanel() {
   panel.setAttribute("aria-labelledby", "studentSupportsHeading");
   panel.append(element("p", "student-supports-eyebrow", "EDUCATOR TOOL"), element("h2", "student-supports-title", "Student Mode Supports"), element("p", "student-supports-intro", "Choose predefined student-facing help for one of your students. These supports are optional and do not change educator guidance."));
 
+  panel.querySelector("h2").id = "studentSupportsHeading";
   const studentLabel = element("label", "student-supports-field", "Student");
   studentSelect = document.createElement("select");
   studentSelect.setAttribute("data-support-action", "true");
@@ -258,12 +259,9 @@ function createPanel() {
 export async function initializeStudentSupports(access) {
   if (access?.mode !== "educator" || getCurrentAccess().mode !== "educator") return false;
   if (panel) return true;
-  const controls = document.querySelector(".controls-panel");
-  const storyGoal = controls?.querySelector(".story-goal-control");
-  if (!controls) return false;
-  const created = createPanel();
-  if (storyGoal) controls.insertBefore(created, storyGoal);
-  else controls.prepend(created);
+  const mount = document.getElementById("studentSupportsMount");
+  if (!mount) return false;
+  mount.replaceChildren(createPanel());
   await loadStudents();
   return true;
 }

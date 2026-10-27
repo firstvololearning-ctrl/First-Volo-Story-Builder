@@ -53,13 +53,8 @@
         <p class="eyebrow">First Volo Learning</p>
         <h1>First Volo Story Builder</h1>
 
-        <p class="tagline">
-          <strong>Build stories. Strengthen narrative language.</strong><br>
-          Use visual story ideas to support coherent storytelling, develop narrative connections,
-          and provide targeted support only when needed.<br>
-          For oral storytelling, narrative-language instruction, and supported writing.
-        </p>
-
+        <p class="workspace-mode"><strong>Educator workspace</strong> · <a href="https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html?returnTo=storyBuilder">Student sign-in</a></p>
+        <p class="tagline">The learner tells the story. Use picture ideas and teaching help when they’re useful.</p>
         <a
           class="website-link"
           href="https://firstvololearning.com"
@@ -68,18 +63,18 @@
         >
           firstvololearning.com
         </a>
+        <div class="educator-task-switch" role="group" aria-label="What are you doing?">
+          <button type="button" data-educator-task="teach" aria-pressed="true">Teach with a learner</button>
+          <button type="button" data-educator-task="setup" aria-pressed="false">Set up a student’s view</button>
+        </div>
+        <section id="studentSetupWorkspace" hidden aria-labelledby="studentSetupTitle">
+          <h2 id="studentSetupTitle">Set up a student’s view</h2>
+          <p>Choose the goal and help available when the student signs in to their own workspace. These settings are separate from the story you teach together.</p>
+          <div id="studentSupportsMount"><p role="status">Loading student-view options…</p></div>
+        </section>
         <section class="controls-panel" aria-label="Story builder controls">
 
     <div class="primary-actions">
-  <button
-    class="create-story-button"
-    id="rollAll"
-    type="button"
-  >
-    <span class="main">🎲 Create a Story</span>
-    <span class="sub">Roll All Cards</span>
-  </button>
-
   <button
     class="my-stories-button"
     id="myStoriesButton"
@@ -90,7 +85,7 @@
   </button>
 
   <details class="more-actions">
-    <summary aria-label="More story actions">••• More</summary>
+    <summary aria-label="More story actions">Print, resources &amp; more</summary>
     <div class="more-actions-menu">
       <button class="reset-button" id="resetAll" type="button">
         <span aria-hidden="true">↺</span> Reset
@@ -156,6 +151,19 @@
             </div>
           </section>
 
+          <details class="picture-ideas-options">
+            <summary>Picture ideas (optional)</summary>
+            <p>Use the learner’s own ideas, or choose pictures for inspiration. Pictures provide ideas; the learner creates the story. Use or change them whenever helpful—before, during or after a tell. They are never a required first step.</p>
+  <button
+    class="create-story-button"
+    id="rollAll"
+    type="button"
+  >
+    <span class="main">🎲 Choose picture ideas</span>
+    <span class="sub">Change the picture cards</span>
+  </button>
+
+          </details>
           <div class="settings-grid">
             <details>
               <summary>Display Options</summary>
@@ -216,6 +224,204 @@
 
 
       </header>
+
+<section
+  class="instructional-session-panel"
+  id="instructionalSessionPanel"
+  hidden
+  aria-labelledby="instructionalSessionTitle"
+>
+  <div class="instructional-session-heading">
+    <div>
+      <p class="instructional-session-kicker">Whole → Part → Whole</p>
+      <h2 id="instructionalSessionTitle">Narrative Teaching Cycle</h2>
+    </div>
+
+    <span
+      class="instructional-session-stage-badge"
+      id="instructionalSessionStageBadge"
+    >
+      Whole 1 · First Tell
+    </span>
+  </div>
+
+  <p class="instructional-audience-label educator-controls-label">
+    👩‍🏫 EDUCATOR CONTROLS
+  </p>
+
+  <div
+    class="instructional-session-steps"
+    role="group"
+    aria-label="Narrative teaching cycle"
+  >
+    <button
+      class="instructional-session-step is-active"
+      type="button"
+      data-session-phase="first-tell"
+      aria-pressed="true"
+    >
+      <span class="instructional-session-step-number">1</span>
+      <span>
+        <strong>First Tell</strong>
+        <small>Whole story first</small>
+      </span>
+    </button>
+
+    <button
+      class="instructional-session-step"
+      type="button"
+      data-session-phase="part"
+      aria-pressed="false"
+    >
+      <span class="instructional-session-step-number">2</span>
+      <span>
+        <strong>Work on Target</strong>
+        <small>Unpack and repair</small>
+      </span>
+    </button>
+
+    <button
+      class="instructional-session-step"
+      type="button"
+      data-session-phase="tell-again"
+      aria-pressed="false"
+    >
+      <span class="instructional-session-step-number">3</span>
+      <span>
+        <strong>Tell Again</strong>
+        <small>Whole story again</small>
+      </span>
+    </button>
+  </div>
+
+  <div
+    class="instructional-session-phase-card"
+    id="instructionalSessionPhaseCard"
+    role="status"
+    aria-live="polite"
+  >
+    <h3 id="instructionalSessionPhaseTitle">First Tell</h3>
+    <p id="workflowHint" class="workflow-hint"></p>
+    <details class="workflow-step-details"><summary>How this step works</summary><p id="instructionalSessionPhaseText"></p></details>
+    <p
+      class="instructional-session-target-reminder"
+      id="instructionalSessionTargetReminder"
+    ></p>
+
+
+
+    <section
+      class="student-target-card"
+      id="studentTargetCard"
+      hidden
+      aria-labelledby="studentTargetGoal"
+    >
+      <p class="student-target-kicker">
+        🎯 FOR THE STUDENT · STORY GOAL
+      </p>
+
+      <h3 id="studentTargetGoal"></h3>
+
+      <p
+        class="student-target-look-for"
+        id="studentTargetLookFor"
+      ></p>
+
+      <p
+        class="student-target-retell"
+        id="studentTargetRetell"
+        hidden
+      >
+        Tell the whole story again with your story goal in mind.
+      </p>
+
+      <button
+        class="student-reflection-reveal"
+        id="studentReflectionReveal"
+        type="button"
+        hidden
+      >
+        Retell complete · Check my goal
+      </button>
+
+      <div
+        class="student-target-reflection"
+        id="studentTargetReflection"
+        hidden
+      >
+        <p class="student-reflection-label">
+          After the retell
+        </p>
+
+        <p
+          class="student-reflection-question"
+          id="studentTargetReflectionQuestion"
+        ></p>
+
+        <div
+          class="student-reflection-options"
+          role="group"
+          aria-label="Student reflection"
+        >
+          <button
+            type="button"
+            data-student-reflection="yes"
+            aria-pressed="false"
+          >
+            Yes
+          </button>
+
+          <button
+            type="button"
+            data-student-reflection="sometimes"
+            aria-pressed="false"
+          >
+            Sometimes
+          </button>
+
+          <button
+            type="button"
+            data-student-reflection="not-yet"
+            aria-pressed="false"
+          >
+            Not yet
+          </button>
+        </div>
+
+        <small>
+          Student self-check · not a score
+        </small>
+      </div>
+    </section>
+
+    <label
+      class="tell-again-planner-option"
+      id="tellAgainPlannerOption"
+      hidden
+    >
+      <span class="educator-option-kicker">
+        👩‍🏫 EDUCATOR OPTION
+      </span>
+
+      <span class="tell-again-planner-option-row">
+        <input
+          type="checkbox"
+          id="tellAgainPlannerAvailable"
+          checked
+        >
+        <strong>Allow Story Planner reference during Tell Again</strong>
+      </span>
+
+      <small>
+        The student may refer to the Story Planner as a visual/organizational
+        scaffold whether it contains written notes, scribed language, brief
+        planning notes, or no writing at all. Uncheck this when you want an
+        independent whole-story tell with the planner hidden.
+      </small>
+    </label>
+  </div>
+  <button id="storyNextStep" class="workflow-next-button" type="button"></button>
+</section>
 
       <main class="story-grid" id="storyGrid">
 
@@ -451,201 +657,6 @@
   >
 </div>
 
-<section
-  class="instructional-session-panel"
-  id="instructionalSessionPanel"
-  hidden
-  aria-labelledby="instructionalSessionTitle"
->
-  <div class="instructional-session-heading">
-    <div>
-      <p class="instructional-session-kicker">Whole → Part → Whole</p>
-      <h2 id="instructionalSessionTitle">Narrative Teaching Cycle</h2>
-    </div>
-
-    <span
-      class="instructional-session-stage-badge"
-      id="instructionalSessionStageBadge"
-    >
-      Whole 1 · First Tell
-    </span>
-  </div>
-
-  <p class="instructional-audience-label educator-controls-label">
-    👩‍🏫 EDUCATOR CONTROLS
-  </p>
-
-  <div
-    class="instructional-session-steps"
-    role="group"
-    aria-label="Narrative teaching cycle"
-  >
-    <button
-      class="instructional-session-step is-active"
-      type="button"
-      data-session-phase="first-tell"
-      aria-pressed="true"
-    >
-      <span class="instructional-session-step-number">1</span>
-      <span>
-        <strong>First Tell</strong>
-        <small>Whole story first</small>
-      </span>
-    </button>
-
-    <button
-      class="instructional-session-step"
-      type="button"
-      data-session-phase="part"
-      aria-pressed="false"
-    >
-      <span class="instructional-session-step-number">2</span>
-      <span>
-        <strong>Work on Target</strong>
-        <small>Unpack and repair</small>
-      </span>
-    </button>
-
-    <button
-      class="instructional-session-step"
-      type="button"
-      data-session-phase="tell-again"
-      aria-pressed="false"
-    >
-      <span class="instructional-session-step-number">3</span>
-      <span>
-        <strong>Tell Again</strong>
-        <small>Whole story again</small>
-      </span>
-    </button>
-  </div>
-
-  <div
-    class="instructional-session-phase-card"
-    id="instructionalSessionPhaseCard"
-    role="status"
-    aria-live="polite"
-  >
-    <h3 id="instructionalSessionPhaseTitle">First Tell</h3>
-    <p id="instructionalSessionPhaseText"></p>
-    <p
-      class="instructional-session-target-reminder"
-      id="instructionalSessionTargetReminder"
-    ></p>
-
-
-
-    <section
-      class="student-target-card"
-      id="studentTargetCard"
-      hidden
-      aria-labelledby="studentTargetGoal"
-    >
-      <p class="student-target-kicker">
-        🎯 FOR THE STUDENT · STORY GOAL
-      </p>
-
-      <h3 id="studentTargetGoal"></h3>
-
-      <p
-        class="student-target-look-for"
-        id="studentTargetLookFor"
-      ></p>
-
-      <p
-        class="student-target-retell"
-        id="studentTargetRetell"
-        hidden
-      >
-        Tell the whole story again with your story goal in mind.
-      </p>
-
-      <button
-        class="student-reflection-reveal"
-        id="studentReflectionReveal"
-        type="button"
-        hidden
-      >
-        Retell complete · Check my goal
-      </button>
-
-      <div
-        class="student-target-reflection"
-        id="studentTargetReflection"
-        hidden
-      >
-        <p class="student-reflection-label">
-          After the retell
-        </p>
-
-        <p
-          class="student-reflection-question"
-          id="studentTargetReflectionQuestion"
-        ></p>
-
-        <div
-          class="student-reflection-options"
-          role="group"
-          aria-label="Student reflection"
-        >
-          <button
-            type="button"
-            data-student-reflection="yes"
-            aria-pressed="false"
-          >
-            Yes
-          </button>
-
-          <button
-            type="button"
-            data-student-reflection="sometimes"
-            aria-pressed="false"
-          >
-            Sometimes
-          </button>
-
-          <button
-            type="button"
-            data-student-reflection="not-yet"
-            aria-pressed="false"
-          >
-            Not yet
-          </button>
-        </div>
-
-        <small>
-          Student self-check · not a score
-        </small>
-      </div>
-    </section>
-
-    <label
-      class="tell-again-planner-option"
-      id="tellAgainPlannerOption"
-      hidden
-    >
-      <span class="educator-option-kicker">
-        👩‍🏫 EDUCATOR OPTION
-      </span>
-
-      <span class="tell-again-planner-option-row">
-        <input
-          type="checkbox"
-          id="tellAgainPlannerAvailable"
-          checked
-        >
-        <strong>Allow Story Planner reference during Tell Again</strong>
-      </span>
-
-      <small>
-        The student may refer to the Story Planner as a visual/organizational
-        scaffold whether it contains written notes, scribed language, brief
-        planning notes, or no writing at all. Uncheck this when you want an
-        independent whole-story tell with the planner hidden.
-      </small>
-    </label>
-  </div>
-</section>
 
 <details
   class="instructional-focus-panel"
@@ -1442,6 +1453,9 @@
     <section id="welcome">
 
       <h2>👋 Welcome</h2>
+      <h3>Choose your educator task</h3>
+      <ul><li><strong>Teach with a learner:</strong> use the story interface together. Choose picture ideas whenever helpful; rolling is optional and never a required first step.</li><li><strong>Set up a student’s view:</strong> choose a student’s goal and available help for their own sign-in. This task has no story-rolling controls. Save changed supports explicitly and check the confirmation.</li><li><strong>Student sign-in:</strong> opens the student’s separate workspace with educator-selected supports.</li></ul>
+      <p>Switching educator tasks preserves the current teaching draft. It does not switch accounts or automatically assign the shared story to a learner.</p>
 
       <p>
         Students generate visual story parts and decide how those parts fit
@@ -1463,13 +1477,11 @@
       <h2>🎲 Build a Story</h2>
 
       <p>
-        <strong>Create a Story</strong> rolls the visual idea cards for Character,
-        Setting, Problem, and Feeling. These give the student content to work with
-        without deciding how the story should unfold.
+        In <strong>Teach with a learner</strong>, open <strong>Picture ideas (optional)</strong> and choose <strong>Choose picture ideas</strong> when visual ideas would help. Use the learner’s own ideas instead whenever appropriate. Pictures can be used or changed before, during or after a tell; they do not determine how the story unfolds.
       </p>
 
       <p>
-        The student then builds the rest of the narrative:
+        The learner constructs the narrative, including:
       </p>
 
       <ul>
@@ -1593,7 +1605,7 @@
       <h2>🗂 Interactive Story Planner</h2>
 
       <p>
-        The Story Planner carries the rolled story ideas into a graphic organizer
+        The Story Planner can carry selected picture ideas into a graphic organizer
         and adds space for the student-generated Plan, Action / Attempt(s), and
         Resolution. It can support oral rehearsal, brief notes, scribed responses,
         or written planning.

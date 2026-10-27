@@ -207,6 +207,7 @@ async function startEducatorRuntime(access) {
     educatorRuntimePromise = (async () => {
       await loadClassicScript("./script.js");
       await loadClassicScript("./instructional-support.js");
+      await loadClassicScript("./educator-workspace.js");
       educatorSupportsModule = await import("./student-supports.mjs");
       await educatorSupportsModule.initializeStudentSupports(access);
       educatorCloudModule = await import("./cloud-sync.mjs");

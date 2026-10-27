@@ -1,0 +1,9 @@
+# October 27 interface update
+
+Pictures are optional idea support, not the first required step. The educator roll-all button now sits inside Picture ideas (optional), labeled Choose picture ideas. Educator workspace and Student sign-in are explicit; student sign-in uses the existing account route, with no authentication or permission changes. Student-view headings no longer number picture selection as step one.
+
+The real Narrative Teaching Cycle panel sits above the pictures; a next-action button uses the existing phase state and save event. Observe First directs focus to the goal selector without choosing a target. Known goals proceed First Tell → Part → Tell Again. Existing manual phase controls, both formulation pathways, relationship and grammar menus, optional help, reflection, planner visibility, writing and saving remain available. Longer phase explanations are under How this step works. The educator task switch separates Teach with a learner from Set up a student’s view. Setup shows only student-view configuration; the teaching UI is hidden without clearing its draft or phase. This is a task switch within the authorized educator UI, not an authentication or permission switch.
+
+Validation: all automated tests plus browser checks for phase navigation without rolled cards, writing preservation, optional picture drawer, planner visibility, saving/reload and phone layout. Authenticated educator view is checked after publication. Authenticated student end-to-end remains unavailable without an active shared student.
+
+User guide, educator resource descriptions, target-builder introduction and in-app About guide share the two-task distinction. The color/grayscale printable planner sources and all three printable PDFs use “Is the problem still there?” for the ending question, allowing unresolved outcomes. All three PDFs were rendered and visually checked.

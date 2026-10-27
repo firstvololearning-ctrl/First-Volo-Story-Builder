@@ -1,0 +1,7 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+function runtime(){const sandbox={window:{},document:{readyState:'loading',addEventListener(){},getElementById(){return null;}},console};let source=fs.readFileSync(new URL('../instructional-support.js',import.meta.url),'utf8');source=source.replace('  let initialized = false;','  window.workflowActionFor = workflowActionFor;\n  let initialized = false;');vm.runInNewContext(source,sandbox);return sandbox.window;}
+test('observe-first directs the educator to a goal without choosing a target or requiring pictures',()=>{const w=runtime();w.FirstVoloInstructionalSupport.restoreState({target:'observe-first',sessionPhase:'first-tell'});const action=w.workflowActionFor('observe-first','first-tell');assert.equal(action.chooseGoal,true);assert.equal(action.phase,undefined);assert.equal(w.FirstVoloInstructionalSupport.getState().target,'observe-first');});
+test('next-step policy preserves whole-part-whole without a picture-selection prerequisite',()=>{const w=runtime();for(const target of ['story-organization','connections-cohesion','cause-effect','sentence-formulation','elaboration','perspective-internal-state']){assert.equal(w.workflowActionFor(target,'first-tell').phase,'part');assert.equal(w.workflowActionFor(target,'part').phase,'tell-again');assert.equal(w.workflowActionFor(target,'tell-again').phase,'first-tell');}});
