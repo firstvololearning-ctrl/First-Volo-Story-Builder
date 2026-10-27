@@ -4171,7 +4171,7 @@ body.modal-open {
 .workflow-hint { font-weight: 650; }
 .workflow-next-button { margin-top: 14px; padding: 12px 18px; min-height: 46px; border: 0; border-radius: 10px; background: #203f72; color: white; font: inherit; font-weight: 750; cursor: pointer; }
 .workflow-next-button:hover { background: #142b50; }
-.workflow-next-button:focus-visible, .picture-ideas-options summary:focus-visible:focus-visible { outline: 3px solid #ad6411; outline-offset: 3px; }
+.workflow-next-button:focus-visible, .picture-ideas-options summary:focus-visible { outline: 3px solid #ad6411; outline-offset: 3px; }
 #storyGrid, #storyPlannerIntro { scroll-margin-top: 18px; }
 @media(max-width:600px) { .workflow-next-button { width:100%; } .workspace-mode { line-height: 1.7; } .more-actions > summary { padding: 14px 12px; } }
 @media print { .workspace-mode, .picture-ideas-options, .workflow-next-button { display:none !important; } }
