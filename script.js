@@ -682,7 +682,7 @@ function getOpenPrompts() {
     "What does the character plan to do to solve the problem?",
     "What does the character do to carry out the plan? If needed, what do they try next?",
     "How could the item help?",
-    "What happens in the end? How is the problem resolved?"
+    "What happens in the end? Is the problem resolved, partly resolved, or still unresolved?"
   ];
 }
 
@@ -1343,7 +1343,7 @@ if (document.readyState === "loading") {
       plan: "What does the character plan to do to solve the problem? Why does this plan make sense?",
       attempt: "What does the character do to carry out the plan? If needed, what do they try next?",
       item: "How could the item connect to the plan or attempt(s)?",
-      resolution: "What happens in the end as a result of the character’s actions? How is the problem resolved?"
+      resolution: "What happens after the character’s actions? What changes, and what remains unresolved?"
     },
 
     open: {
@@ -1362,7 +1362,7 @@ if (document.readyState === "loading") {
       item:
         "How could the item connect to the plan or attempt(s)?",
       resolution:
-        "What happens in the end as a result of the character’s actions? How is the problem resolved?"
+        "What happens after the character’s actions? What changes, and what remains unresolved?"
     }
   };
 
