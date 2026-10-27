@@ -23,3 +23,8 @@ Complete instructional state remains in existing story JSON/draft persistence. T
 33 automated tests pass across eight test files, including 80 combinations of pathway × relationship × grammar level and invalid-state normalization. Local browser fixture uses production markup/scripts/styles but excludes account/cloud modules; it is outside the repository. Chrome checked both pathways, all eight relationship options, all five grammar levels, optional support order/both open, retry/reconnect, keyboard focus, reload restoration, and Tell Again hiding targeted controls. In-app browser checked 375/768/1280 widths: no horizontal overflow and selects fit cards. No application JavaScript errors observed in local fixture; Chrome extension errors were excluded.
 
 Authenticated educator route is available in Chrome. Learner-bound cloud saving, student-account rendering, and cross-account restoration still require separate live QA. Do not treat isolated UI tests as proof of these workflows.
+
+
+## Approved initial wording update
+
+The educator approved the 35 proposed target sequences for initial use on October 27, 2026, with detailed SLP review to follow. These replace the retained catalog discussed above. Prompts allow unresolved outcomes, unchanged beliefs, and uncertainty. Optional Explore Thinking beside Feeling distinguishes beliefs/knowledge from intentions, includes evidence and uncertainty cues, saves with planner notes, and inserts into story writing only on student choice. No additional required narrative step or scoring is introduced.

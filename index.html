@@ -860,6 +860,21 @@
             class="story-planner-notes"
             placeholder="How does the character feel about the problem?"
           ></textarea>
+          <details id="exploreThinking">
+            <summary>Explore Thinking (optional)</summary>
+            <p>Thinking is what a character believes, knows, remembers, or suspects. A plan is what they intend to do.</p>
+            <p>What might the character be thinking here?</p>
+            <details><summary>Thinking help</summary>
+              <p>What do they know, believe, remember, or suspect? Do the characters know different things?</p>
+              <p>What in the story gives you that idea? It is okay to say “We don’t know.” A belief may be mistaken.</p>
+              <p>Try: “[Name] thinks that…”; “[Name] knows…”; “[Name] wonders whether…”</p>
+            </details>
+            <label for="plannerThinkingNotes">Character thinking (optional)</label>
+            <textarea id="plannerThinkingNotes" class="story-planner-notes" placeholder="Write a thought in your own words."></textarea>
+            <button type="button" id="includeThinkingInStory">Add this thought to My Story</button>
+            <p>Choose whether and where this thought belongs in the whole story. You can edit it in My Story.</p>
+            <p id="thinkingStatus" role="status"></p>
+          </details>
         </article>
 
         <article

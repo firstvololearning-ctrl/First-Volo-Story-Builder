@@ -1633,7 +1633,7 @@ if (document.readyState === "loading") {
   function getPlannerNotes() {
     const notes = {};
 
-    [...plannerCategories, "attempt", "resolution"].forEach((categoryName) => {
+    [...plannerCategories, "attempt", "resolution", "thinking"].forEach((categoryName) => {
       notes[categoryName] =
         getElement(
           `planner${capitalize(categoryName)}Notes`
@@ -1991,7 +1991,7 @@ if (document.readyState === "loading") {
 
       const notes = data.plannerNotes || {};
 
-      [...plannerCategories, "attempt", "resolution"].forEach(
+      [...plannerCategories, "attempt", "resolution", "thinking"].forEach(
         (categoryName) => {
           const textarea = getElement(
             `planner${capitalize(categoryName)}Notes`
@@ -2257,7 +2257,7 @@ if (document.readyState === "loading") {
   }
 
   function clearPlannerNotes() {
-    [...plannerCategories, "attempt", "resolution"].forEach(
+    [...plannerCategories, "attempt", "resolution", "thinking"].forEach(
       (categoryName) => {
         const textarea = getElement(
           `planner${capitalize(categoryName)}Notes`
@@ -2383,6 +2383,26 @@ if (document.readyState === "loading") {
       }
     );
 
+    getElement("includeThinkingInStory")?.addEventListener("click", () => {
+      const thought = getElement("plannerThinkingNotes")?.value.trim() || "";
+      const writing = getElement("storyWriting");
+      const status = getElement("thinkingStatus");
+      if (!thought || !writing) {
+        if (status) status.textContent = "Write a thought first, or leave Thinking unused.";
+        return;
+      }
+      // Insert only by the student's choice, at their current writing position.
+      const start = writing.selectionStart ?? writing.value.length;
+      const end = writing.selectionEnd ?? start;
+      const before = writing.value.slice(0, start);
+      const after = writing.value.slice(end);
+      const insertion = (before && !/\s$/.test(before) ? "\n" : "") + thought + (after && !/^\s/.test(after) ? "\n" : "");
+      writing.value = before + insertion + after;
+      writing.setSelectionRange(start + insertion.length, start + insertion.length);
+      writing.dispatchEvent(new Event("input", { bubbles: true }));
+      writing.focus();
+      if (status) status.textContent = "Thought added to My Story. Read it with the whole story and edit as needed.";
+    });
     connectAutoSaveEvents();
     observeStoryCards();
     restoreBrowserSave();
