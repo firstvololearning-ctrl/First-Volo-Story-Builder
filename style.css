@@ -3194,6 +3194,49 @@ body.modal-open {
   background: #fffaf0;
 }
 
+.planner-support-control,
+.planner-extra-support label {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0;
+  font-weight: 650;
+  color: #173a64;
+}
+
+.planner-support-control select,
+.planner-extra-support select {
+  width: 100%;
+  max-width: 440px;
+  padding: 8px 10px;
+  border: 1px solid #9fb5cc;
+  border-radius: 8px;
+  background: #fff;
+  color: #173a64;
+  font: inherit;
+}
+
+.planner-support-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.planner-support-choices button[aria-pressed="true"] {
+  background: #173a64;
+  color: #fff;
+}
+
+.planner-extra-support {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid #cad9e7;
+  border-radius: 10px;
+  background: #f5f9fd;
+}
+
+.planner-extra-support p { margin: 8px 0 0; line-height: 1.5; }
+
 .planner-support-card {
   margin-top: 9px;
   padding: 12px;
@@ -4113,3 +4156,8 @@ body.modal-open {
 
 .cloud-learner-link { display:grid; gap:.65rem; margin:1rem 0; }
 .cloud-learner-link select { max-width:100%; padding:.65rem; font:inherit; }
+
+/* Allow long educator relationship labels to shrink within narrow planner cards. */
+.planner-support-control, .planner-extra-support { min-width: 0; }
+.planner-support-control select, .planner-extra-support select { min-width: 0; box-sizing: border-box; }
+.planner-educator-guidance { font-size: .9rem; line-height: 1.5; color: #173a64; }

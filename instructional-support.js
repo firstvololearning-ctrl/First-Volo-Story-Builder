@@ -6,7 +6,7 @@
    One primary instructional target.
    Student attempts first.
    Need Help? reveals the least support first.
-   More Help reveals one additional step.
+   Three prompts lead to two independently selectable optional supports.
    Retry returns the student to the same language demand.
 
    This module intentionally does not score student performance.
@@ -47,12 +47,56 @@
   };
 
   const supportStepLabels = [
-    "Look here",
-    "Think about it",
-    "A clue",
-    "Words to try",
-    "Sentence start"
+    "Look / Listen Here",
+    "Think About It",
+    "A Clue"
   ];
+
+  const sentencePathways = {
+    build: "Build a Sentence",
+    combine: "Expand or Combine Sentences"
+  };
+
+  const relationshipSupports = {
+    time: { label: "Time / Sequence", words: "when, before, after, while", frames: ["When ___, ___.", "After ___, ___.", "While ___, ___."] },
+    cause: { label: "Cause / Reason", words: "because, since", frames: ["___ because ___.", "Because ___, ___."] },
+    result: { label: "Result / Consequence", words: "so, as a result", frames: ["___, so ___.", "As a result of ___, ___."] },
+    contrast: { label: "Contrast / Unexpected Outcome", words: "but, although, even though", frames: ["___, but ___.", "Although ___, ___."] },
+    condition: { label: "Condition", words: "if, unless", frames: ["If ___, ___.", "___ unless ___."] },
+    purpose: { label: "Purpose / Intention", words: "to, in order to, so that", frames: ["___ to ___.", "___ so that ___."] },
+    mental: { label: "Thought / Belief", words: "thought that, knew that, wondered whether", frames: ["___ thought that ___.", "___ wondered whether ___."] },
+    description: { label: "Description / Additional Information", words: "who, which, that, with", frames: ["The character who ___ ___.", "The item that ___ ___."] }
+  };
+
+  const grammarLevels = [
+    ["Focused Cue", "Direct attention to the part needing revision without supplying the form."],
+    ["Specific Grammatical Cue", "Identify the grammatical feature, but let the student supply the form."],
+    ["Choice Between Forms", "Offer two contextually appropriate forms, including the correct form."],
+    ["Partial Model", "Provide part of an appropriate structure for the student to complete."],
+    ["Full Model", "Model the complete intended sentence and have the student reproduce it. Then reduce assistance when feasible."]
+  ];
+
+  const buildSentencePrompts = {
+    character: ["Look at what you wrote or listen to what you said about the character. Is it a complete sentence?", "Can you say your whole idea about the character in one sentence?", "Who is your sentence about? What are you saying about them?", "Try: ‘The character ___’ or ‘___ is ___.’"],
+    setting: ["Look at what you wrote or listen to what you said about the setting. Is it a complete sentence?", "Can you put your idea about where or when the story begins into a sentence?", "What is happening, or what is true, in that place or at that time?", "Try: ‘The story begins ___’ or ‘___ was at/in ___.’"],
+    problem: ["Look at what you wrote or listen to what you said about the problem. Is it a complete sentence?", "Can you tell what went wrong in one complete sentence?", "Who or what is involved? What happened or changed?", "Try: ‘___ happened when ___’ or ‘The problem began when ___.’"],
+    feeling: ["Look at what you wrote or listen to what you said about the feeling. Is it a complete sentence?", "Can you express that feeling in one complete sentence?", "Who is experiencing the feeling? What are you saying about how they feel?", "Try: ‘___ felt ___’ or ‘___ was ___.’"],
+    plan: ["Look at what you wrote or listen to what you said about the plan. Is it a complete sentence?", "Can you express the character's plan in one complete sentence?", "Who has the plan? What do they want or intend to do?", "Try: ‘___ wanted to ___’ or ‘___ planned to ___.’"],
+    attempt: ["Look at what you wrote or listen to what you said about the action. Is it a complete sentence?", "Can you tell what the character did in one complete sentence?", "Who did something? What did they do?", "Try: ‘___ tried to ___’ or ‘___ [action].’"],
+    item: ["Look at what you wrote or listen to what you said about the item. Is it a complete sentence?", "Can you put your idea about the item into one complete sentence?", "Who or what is your sentence about? What are you saying about the item?", "Try: ‘___ used ___ to ___’ or ‘___ [action involving the item].’"],
+    resolution: ["Look at what you wrote or listen to what you said about the ending. Is it a complete sentence?", "Can you express what happened at the end in one complete sentence?", "Who or what is involved in the outcome? What happened or changed?", "Try: ‘In the end, ___’ or ‘Finally, ___.’"]
+  };
+
+  const combineSentencePrompts = {
+    character: ["Look or listen for related ideas about the character.", "What related information fits your idea? Can you express the connection in one sentence?", "Does one idea describe, explain, or add to the other?"],
+    setting: ["Look or listen for an event and information about where or when it happened.", "Can you combine the event and the setting information?", "How could where or when fit into the sentence?"],
+    problem: ["Look or listen for an event and something that changed or went wrong.", "Can you connect the related ideas in one sentence?", "Does one happen before, cause, or interrupt the other?"],
+    feeling: ["Look or listen for a feeling and a related event or reason.", "Can you combine those ideas into one sentence?", "Does the event explain the feeling, or are the ideas related in another way?"],
+    plan: ["Look or listen for a plan and a related reason or purpose.", "Can you express those connected ideas in one sentence?", "What does the character want to accomplish, and how does that relate to the plan?"],
+    attempt: ["Look or listen for an action and another related idea.", "Can you connect those ideas in one sentence?", "Is the relationship about when, why, how, or for what purpose?"],
+    item: ["Look or listen for an item and a related description or action.", "Can you include the related ideas in one sentence?", "How is the item used, described, or connected to an action?"],
+    resolution: ["Look or listen for an attempt and a related outcome.", "Can you connect those ideas in one sentence?", "Did one lead to the other, or was the outcome unexpected?"]
+  };
 
   const targetDefinitions = {
     "story-organization": {
@@ -273,13 +317,13 @@
 
     "sentence-formulation": {
       label: "Sentence Formulation",
-      studentGoal: "Say my idea in a clear sentence.",
-      lookFor: "Did I say my whole idea in a clear, complete sentence?",
-      reflection: "Did I say my ideas in clear sentences?",
+      studentGoal: "Express my ideas in clear sentences.",
+      lookFor: "Did I build a complete sentence or clearly combine related ideas?",
+      reflection: "Did my sentences express my ideas clearly?",
       expected:
-        "Student is expected to turn an intended idea into a complete, organized spoken or written sentence.",
+        "Educator chooses Build a Sentence to organize an intended idea into a complete, grammatically accurate sentence, or Expand or Combine to express a meaningful relationship between ideas.",
       watches:
-        "Watch for repeated false starts, fragments, abandoned sentences, missing important sentence parts, or a learner who has the idea but cannot organize it into a complete sentence.",
+        "Watch for fragments, abandoned sentences, missing grammatical elements, word-order difficulties, or trouble expressing the intended relationship between clauses. Identify the actual breakdown before giving individualized grammatical support.",
       relevant: plannerCategories,
       build(category, c) {
         const frames = {
@@ -419,6 +463,10 @@
   let tellAgainPlannerAvailable = true;
   let supportLevels = emptySupportLevels();
   let retryRequested = emptyRetryState();
+  let optionalSupports = emptyOptionalSupports();
+  let sentencePathway = "build";
+  let selectedRelationship = "cause";
+  let selectedGrammarLevel = 1;
   let studentReflection = null;
   let studentReflectionOpen = false;
 
@@ -432,6 +480,10 @@
     return Object.fromEntries(
       plannerCategories.map((category) => [category, false])
     );
+  }
+
+  function emptyOptionalSupports() {
+    return Object.fromEntries(plannerCategories.map(category => [category, { sentence: false, more: false }]));
   }
 
   function capitalize(value) {
@@ -522,6 +574,10 @@
       sessionPhase,
       tellAgainPlannerAvailable,
       supportLevels: { ...supportLevels },
+      optionalSupports: Object.fromEntries(Object.entries(optionalSupports).map(([key, value]) => [key, { ...value }])),
+      sentencePathway,
+      selectedRelationship,
+      selectedGrammarLevel,
       retryRequested: { ...retryRequested },
       studentReflection
     };
@@ -562,12 +618,16 @@
 
     const levels = emptySupportLevels();
     const retries = emptyRetryState();
+    const optional = emptyOptionalSupports();
 
     plannerCategories.forEach((category) => {
       const rawLevel = Number(state?.supportLevels?.[category]);
       levels[category] = Number.isFinite(rawLevel)
-        ? Math.max(0, Math.min(5, Math.floor(rawLevel)))
+        ? Math.max(0, Math.min(3, Math.floor(rawLevel)))
         : 0;
+
+      optional[category].sentence = Boolean(state?.optionalSupports?.[category]?.sentence);
+      optional[category].more = Boolean(state?.optionalSupports?.[category]?.more);
 
       retries[category] = Boolean(
         state?.retryRequested?.[category]
@@ -579,6 +639,10 @@
       sessionPhase: phase,
       tellAgainPlannerAvailable: plannerAvailable,
       supportLevels: levels,
+      optionalSupports: optional,
+      sentencePathway: sentencePathways[state?.sentencePathway] ? state.sentencePathway : "build",
+      selectedRelationship: relationshipSupports[state?.selectedRelationship] ? state.selectedRelationship : "cause",
+      selectedGrammarLevel: Number.isInteger(state?.selectedGrammarLevel) && state.selectedGrammarLevel >= 1 && state.selectedGrammarLevel <= 5 ? state.selectedGrammarLevel : 1,
       retryRequested: retries,
       studentReflection: reflection
     };
@@ -592,6 +656,10 @@
     tellAgainPlannerAvailable =
       normalized.tellAgainPlannerAvailable;
     supportLevels = normalized.supportLevels;
+    optionalSupports = normalized.optionalSupports;
+    sentencePathway = normalized.sentencePathway;
+    selectedRelationship = normalized.selectedRelationship;
+    selectedGrammarLevel = normalized.selectedGrammarLevel;
     retryRequested = normalized.retryRequested;
     studentReflection = normalized.studentReflection;
     studentReflectionOpen = Boolean(studentReflection);
@@ -961,7 +1029,7 @@
           "Listen to the whole first attempt before opening targeted support. Access help is still okay when it does not supply the instructional target.";
       } else if (sessionPhase === "part") {
         focusNote.textContent =
-          "Let the student attempt the language first. If help is needed, open only the next support step, then have the student retry and reconnect the repaired idea to the story.";
+          "Let the student attempt the language first. If help is needed, use the three prompts and optional Sentence Help or More Help as appropriate. Have the student retry and reconnect the repaired idea to the story.";
       } else {
         focusNote.textContent =
           "Targeted help stays closed during Tell Again. The Story Planner may remain available as a scaffold with or without written notes; hide it when you want to observe an independent whole-story tell.";
@@ -995,6 +1063,7 @@
 
   function resetAllSectionSupport() {
     supportLevels = emptySupportLevels();
+    optionalSupports = emptyOptionalSupports();
     retryRequested = emptyRetryState();
     studentReflection = null;
     studentReflectionOpen = false;
@@ -1087,14 +1156,20 @@
       return null;
     }
 
-    const steps = definition.build(category, context());
+    const steps = selectedTarget === "sentence-formulation"
+      ? (sentencePathway === "combine" ? combineSentencePrompts[category] : buildSentencePrompts[category])
+      : definition.build(category, context());
 
     if (!Array.isArray(steps) || !steps.length) {
       return null;
     }
 
     return {
-      steps: steps.slice(0, 5),
+      steps: steps.slice(0, 3),
+      more: selectedTarget === "sentence-formulation" ? null : steps[3],
+      sentence: selectedTarget === "sentence-formulation"
+        ? (sentencePathway === "build" ? buildSentencePrompts[category][3] : null)
+        : steps[4],
       retry:
         typeof definition.retry === "function"
           ? definition.retry(category, context())
@@ -1109,6 +1184,18 @@
 
     if (!container) {
       return;
+    }
+
+    const focused = container.contains(document.activeElement) ? document.activeElement : null;
+    const focusLabel = focused?.getAttribute("aria-label");
+    const focusText = focused?.textContent;
+    function restoreControlFocus() {
+      if (!focused) return;
+      const controls = [...container.querySelectorAll("button, select")];
+      const replacement = controls.find(node => focusLabel
+        ? node.getAttribute("aria-label") === focusLabel
+        : node.textContent === focusText);
+      (replacement || container.querySelector(".planner-help-button"))?.focus();
     }
 
     const support =
@@ -1166,15 +1253,15 @@
 
     row.appendChild(helpButton);
 
-    if (level > 0 && level < support.steps.length) {
+    if (level > 0 && level < 3) {
       const moreButton = document.createElement("button");
       moreButton.type = "button";
       moreButton.className = "planner-more-help-button";
-      moreButton.textContent = "More support";
+      moreButton.textContent = "Next prompt";
 
       moreButton.addEventListener("click", () => {
         supportLevels[category] = Math.min(
-          support.steps.length,
+          3,
           supportLevels[category] + 1
         );
         retryRequested[category] = false;
@@ -1185,10 +1272,41 @@
       row.appendChild(moreButton);
     }
 
+    if (level > 1) {
+      const previous = document.createElement("button");
+      previous.type = "button";
+      previous.className = "planner-more-help-button";
+      previous.textContent = "Previous prompt";
+      previous.addEventListener("click", () => {
+        supportLevels[category] -= 1;
+        renderPlannerSupport(category);
+        announceChanged();
+      });
+      row.appendChild(previous);
+    }
     container.appendChild(row);
 
     if (level === 0) {
+      restoreControlFocus();
       return;
+    }
+
+    if (selectedTarget === "sentence-formulation") {
+      const pathwayLabel = document.createElement("label");
+      pathwayLabel.textContent = "Educator: Sentence Formulation pathway";
+      pathwayLabel.className = "planner-support-control";
+      const pathwaySelect = document.createElement("select");
+      pathwaySelect.setAttribute("aria-label", "Sentence Formulation pathway");
+      Object.entries(sentencePathways).forEach(([value, name]) => pathwaySelect.add(new Option(name, value)));
+      pathwaySelect.value = sentencePathway;
+      pathwaySelect.addEventListener("change", () => {
+        sentencePathway = pathwaySelect.value;
+        optionalSupports = emptyOptionalSupports();
+        renderAllPlannerSupports();
+        announceChanged();
+      });
+      pathwayLabel.appendChild(pathwaySelect);
+      container.appendChild(pathwayLabel);
     }
 
     const supportCard = document.createElement("div");
@@ -1212,11 +1330,101 @@
     stepText.className = "planner-support-step-text";
     stepText.textContent = support.steps[level - 1];
 
+    if (selectedTarget === "sentence-formulation" && sentencePathway === "combine") {
+      const note = document.createElement("p");
+      note.textContent = "Educator: begin with the student's current response — two sentences, one sentence, or an incomplete idea. Establish related information supported by the story before inviting a connection; greater length is not the goal.";
+      container.appendChild(note);
+    }
     supportCard.append(
       studentAudience,
       stepLabel,
       stepText
     );
+
+    if (level >= 3) {
+      const choices = document.createElement("div");
+      choices.className = "planner-support-choices";
+      [["sentence", "Sentence Help"], ["more", "More Help"]].forEach(([key, label]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "planner-more-help-button";
+        button.textContent = label;
+        button.setAttribute("aria-pressed", String(optionalSupports[category][key]));
+        button.addEventListener("click", () => {
+          optionalSupports[category][key] = !optionalSupports[category][key];
+          renderPlannerSupport(category);
+          announceChanged();
+        });
+        choices.appendChild(button);
+      });
+      const guidance = document.createElement("p");
+      guidance.className = "planner-educator-guidance";
+      guidance.textContent = "Educator: optional supports — choose either first, use both, or stop when the student succeeds. Return to an earlier prompt when useful. Structures are possibilities, not required responses; use only language that fits the student's intended meaning and the story. Do not add unsupported events or unnecessary complexity.";
+      supportCard.append(guidance, choices);
+
+      if (optionalSupports[category].sentence) {
+        const extra = document.createElement("div");
+        extra.className = "planner-extra-support";
+        const heading = document.createElement("strong");
+        heading.textContent = "Sentence Help";
+        extra.appendChild(heading);
+        if (selectedTarget === "sentence-formulation" && sentencePathway === "combine") {
+          const label = document.createElement("label");
+          label.textContent = "Educator: select intended relationship";
+          const select = document.createElement("select");
+          select.setAttribute("aria-label", "Intended sentence relationship");
+          Object.entries(relationshipSupports).forEach(([value, data]) => select.add(new Option(data.label, value)));
+          select.value = selectedRelationship;
+          select.addEventListener("change", () => {
+            selectedRelationship = select.value;
+            renderAllPlannerSupports();
+            announceChanged();
+          });
+          label.appendChild(select);
+          const detail = document.createElement("p");
+          const selected = relationshipSupports[selectedRelationship];
+          detail.textContent = `${selected.label}. Connecting language: ${selected.words}. Possible structures: ${selected.frames.join("  ")}`;
+          extra.append(label, detail);
+        } else {
+          const text = document.createElement("p");
+          text.textContent = support.sentence || "Choose a structure that accurately expresses the student's idea.";
+          extra.appendChild(text);
+        }
+        supportCard.appendChild(extra);
+      }
+
+      if (optionalSupports[category].more) {
+        const extra = document.createElement("div");
+        extra.className = "planner-extra-support";
+        const heading = document.createElement("strong");
+        heading.textContent = "More Help";
+        extra.appendChild(heading);
+        if (selectedTarget === "sentence-formulation") {
+          const instructions = document.createElement("p");
+          instructions.textContent = "Educator only: identify the actual grammatical difficulty. Use the least assistance appropriate; any level may be selected directly. The app does not interpret or correct the student's response. After assistance, have the student reformulate, reduce support when feasible, and reconnect to the surrounding narrative.";
+          const label = document.createElement("label");
+          label.textContent = "Grammatical support level";
+          const select = document.createElement("select");
+          select.setAttribute("aria-label", "Grammatical support level");
+          grammarLevels.forEach(([name], i) => select.add(new Option(`${i + 1} · ${name}`, String(i + 1))));
+          select.value = String(selectedGrammarLevel);
+          select.addEventListener("change", () => {
+            selectedGrammarLevel = Number(select.value);
+            renderAllPlannerSupports();
+            announceChanged();
+          });
+          label.appendChild(select);
+          const description = document.createElement("p");
+          description.textContent = grammarLevels[selectedGrammarLevel - 1][1];
+          extra.append(instructions, label, description);
+        } else {
+          const text = document.createElement("p");
+          text.textContent = support.more || "Break this task into smaller steps without supplying the student's story content.";
+          extra.appendChild(text);
+        }
+        supportCard.appendChild(extra);
+      }
+    }
 
     const retryBox = document.createElement("div");
     retryBox.className = "planner-retry-box";
@@ -1271,6 +1479,7 @@
     }
 
     container.appendChild(supportCard);
+    restoreControlFocus();
   }
 
   function renderAllPlannerSupports() {
@@ -1429,6 +1638,10 @@
       tellAgainPlannerAvailable =
         pending.tellAgainPlannerAvailable;
       supportLevels = pending.supportLevels;
+      optionalSupports = pending.optionalSupports;
+      sentencePathway = pending.sentencePathway;
+      selectedRelationship = pending.selectedRelationship;
+      selectedGrammarLevel = pending.selectedGrammarLevel;
       retryRequested = pending.retryRequested;
       studentReflection = pending.studentReflection;
       studentReflectionOpen = Boolean(studentReflection);
