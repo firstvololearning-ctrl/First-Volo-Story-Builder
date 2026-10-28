@@ -55,3 +55,9 @@ BLOCKERS / LIMITS
 • No active shared student was available for Story Builder student-account testing.
 • Full Morphology pilot QA is NOT complete. Live rewards, printing and cross-browser synchronization remain unverified.
 
+
+
+## Picture choices and guidance simplification
+Grouped picture controls within Story elements & picture ideas. Added own/pictures/both teaching choices saved with project settings; own mode hides supplied picture grid and planner picture/selection labels without deleting draft work. Student setup saves picture mode separately from labels via v2 RPCs; own mode removes picture cards from the student workspace. Existing records default to both. Added database-review/add_story_builder_picture_modes.sql; applied to Supabase with old RPCs kept compatible, the existing ownership/entitlement/class/permission checks copied into v2, no new table grants, RLS retained. Work on Target now shows student goal plus one closed Educator guidance dropdown. Guide updated. Full student login QA remains pending an active shared student account.
+
+Verification: 46 Node tests pass; actual student-support form exercised with fictional mocked student and RPC for all three mode/save payloads; browser reopened own-ideas mode with fictional writing intact. Supabase checks confirm mode default both, RLS on, empty function search paths, anon denied and authenticated execution gated by copied checks; unsigned setter rejected. Security advisor warnings for the three new authenticated SECURITY DEFINER RPCs are expected for this established gated API design; existing unrelated warnings were not changed. Automatic approval review rejected a proposed rollback test selecting an arbitrary existing learner; it was not run or retried. User clarified there are no live learners. Actual authenticated student setting roundtrip remains pending fictional-only testing.

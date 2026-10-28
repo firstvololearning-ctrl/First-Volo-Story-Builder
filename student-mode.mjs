@@ -1,4 +1,4 @@
-import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261027-activity-order";
+import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261027-picture-controls";
 import { supportOptionsForTarget, STUDENT_SUPPORTS, STUDENT_SUPPORT_RELEVANT_PARTS } from "./student-support-content.mjs";
 import { createStudentDraftCloud } from "./student-draft-cloud.mjs";
 
@@ -173,8 +173,8 @@ function buildCard(category, draft, updateDraft, showImageLabels) {
 
 async function loadStudentSupports() {
   if (getCurrentAccess().mode !== "student") return null;
-  const result = await supabase.rpc("get_story_builder_student_supports");
-  if (result.error) return null;
+  const result = await supabase.rpc("get_story_builder_student_supports_v2");
+  if (result.error) return { pictureIdeaMode: "own", supports: [], relevantParts: [], unavailable: true };
   const row = Array.isArray(result.data) ? result.data[0] : result.data;
   if (!row || (row.target_key && !STUDENT_SUPPORTS[row.target_key])) return null;
   const options = supportOptionsForTarget(row.target_key);
@@ -189,7 +189,8 @@ async function loadStudentSupports() {
     supportKeys: Array.isArray(row.support_keys) ? row.support_keys.slice() : [],
     supportParts: row.target_key && STUDENT_SUPPORTS[row.target_key]?.parts || {},
     relevantParts: row.target_key ? (STUDENT_SUPPORT_RELEVANT_PARTS[row.target_key] || []) : [],
-    showImageLabels: row.show_image_labels === true
+    pictureIdeaMode: row.picture_idea_mode || "both",
+    showImageLabels: row.picture_idea_mode !== "own" && row.show_image_labels === true
   };
 }
 
@@ -400,7 +401,8 @@ async function mountStudentMode(shell, access) {
   cleanup.push(() => signOut.removeEventListener("click", onSignOut));
 
   root.prepend(header, topActions);
-  root.append(ideasSection);
+  if (supportPackage?.unavailable) root.append(element("p", "student-mode-intro", "Your saved picture and help settings could not be loaded. You can use your own ideas now; reopen Story Builder to try loading them again."));
+  if (supportPackage?.pictureIdeaMode !== "own") root.append(ideasSection);
   root.append(plannerSection, writeSection, checkSection, footer);
   shell.append(root);
 }

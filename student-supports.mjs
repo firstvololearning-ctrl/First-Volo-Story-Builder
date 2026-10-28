@@ -1,4 +1,4 @@
-import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261027-activity-order";
+import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261027-picture-controls";
 import { STUDENT_SUPPORTS, STUDENT_SUPPORT_TARGET_KEYS, supportOptionsForTarget } from "./student-support-content.mjs";
 
 let panel = null;
@@ -6,6 +6,7 @@ let studentSelect = null;
 let targetSelect = null;
 let supportOptions = null;
 let imageLabelsCheckbox = null;
+let pictureModeSelect = null;
 let status = null;
 let currentStudents = [];
 let savedState = null;
@@ -43,6 +44,7 @@ function currentState() {
   return JSON.stringify({
     targetKey: targetSelect?.value || null,
     supportKeys: selectedSupportKeys().slice().sort(),
+    pictureIdeaMode: pictureModeSelect?.value || "both",
     showImageLabels: imageLabelsCheckbox?.checked === true
   });
 }
@@ -90,7 +92,7 @@ async function loadSavedSupports() {
     return;
   }
   setStatus("Loading current supports…");
-  const result = await supabase.rpc("get_story_builder_student_supports_for_educator", {
+  const result = await supabase.rpc("get_story_builder_student_supports_for_educator_v2", {
     p_student_id: selectedStudentId()
   });
   if (result.error) {
@@ -110,6 +112,8 @@ async function loadSavedSupports() {
     setStatus(row?.show_image_labels ? "Image labels are enabled." : "No supports configured yet.");
   }
   if (imageLabelsCheckbox) imageLabelsCheckbox.checked = row?.show_image_labels === true;
+  pictureModeSelect.value = row?.picture_idea_mode || "both";
+  updatePictureControls();
   savedState = currentState();
   isLoading = false;
   updateSaveState();
@@ -124,11 +128,12 @@ async function saveSupports() {
   const saveButton = panel.querySelector("[data-save-student-supports]");
   saveButton.disabled = true;
   setStatus("Saving supports…");
-  const result = await supabase.rpc("set_story_builder_student_supports", {
+  const result = await supabase.rpc("set_story_builder_student_supports_v2", {
     p_student_id: selectedStudentId(),
     p_target_key: targetSelect.value || null,
     p_support_keys: selectedSupportKeys(),
-    p_show_image_labels: imageLabelsCheckbox?.checked === true
+    p_picture_idea_mode: pictureModeSelect?.value || "both",
+    p_show_image_labels: pictureModeSelect?.value !== "own" && imageLabelsCheckbox?.checked === true
   });
   saveButton.disabled = false;
   if (result.error) {
@@ -145,10 +150,11 @@ async function clearSupports() {
   const clearButton = panel.querySelector("[data-clear-student-supports]");
   clearButton.disabled = true;
   setStatus("Clearing supports…");
-  const result = await supabase.rpc("set_story_builder_student_supports", {
+  const result = await supabase.rpc("set_story_builder_student_supports_v2", {
     p_student_id: selectedStudentId(),
     p_target_key: null,
     p_support_keys: [],
+    p_picture_idea_mode: "both",
     p_show_image_labels: false
   });
   clearButton.disabled = false;
@@ -157,6 +163,8 @@ async function clearSupports() {
     return;
   }
   renderSupportOptions();
+  pictureModeSelect.value = "both";
+  updatePictureControls();
   if (imageLabelsCheckbox) imageLabelsCheckbox.checked = false;
   savedState = currentState();
   setStatus(`Supports cleared for ${selectedStudentName()}`);
@@ -198,6 +206,11 @@ async function loadStudents() {
   await loadSavedSupports();
 }
 
+function updatePictureControls() {
+  if (pictureModeSelect?.value === "own") imageLabelsCheckbox.checked = false;
+  imageLabelsCheckbox.disabled = !selectedStudentId() || pictureModeSelect?.value === "own";
+}
+
 function createPanel() {
   panel = element("section", "student-supports-panel");
   panel.setAttribute("aria-labelledby", "studentSupportsHeading");
@@ -227,11 +240,20 @@ function createPanel() {
 
   const visualField = element("fieldset", "student-supports-options student-visual-support-options");
   visualField.append(element("legend", "student-supports-legend", "Visual support"));
+  const pictureLabel = element("label", "student-supports-field", "Story ideas available to this student");
+  pictureModeSelect = document.createElement("select");
+  pictureModeSelect.dataset.supportAction = "true";
+  for (const [value, text] of [["own","Learner’s own ideas — no supplied pictures"],["pictures","Picture ideas"],["both","Both — own ideas and optional pictures"]]) {
+    const option = element("option", "", text); option.value = value; pictureModeSelect.append(option);
+  }
+  pictureModeSelect.value = "both";
+  pictureLabel.append(pictureModeSelect);
+  visualField.append(pictureLabel, element("p", "", "Choose whether supplied picture cards are available. The learner creates their own story in every option."));
   const visualLabel = element("label", "student-support-option");
   imageLabelsCheckbox = document.createElement("input");
   imageLabelsCheckbox.type = "checkbox";
   imageLabelsCheckbox.setAttribute("data-support-action", "true");
-  visualLabel.append(imageLabelsCheckbox, element("span", "student-support-option-label", "Show image labels"));
+  visualLabel.append(imageLabelsCheckbox, element("span", "student-support-option-label", "Show picture labels (written words with pictures)"));
   visualField.append(visualLabel);
 
   const actions = element("div", "student-supports-actions");
@@ -248,6 +270,7 @@ function createPanel() {
 
   studentSelect.addEventListener("change", loadSavedSupports);
   targetSelect.addEventListener("change", () => { renderSupportOptions(); markDirty(); });
+  pictureModeSelect.addEventListener("change", () => { updatePictureControls(); markDirty(); });
   imageLabelsCheckbox.addEventListener("change", markDirty);
   supportOptions.addEventListener("change", markDirty);
   save.addEventListener("click", saveSupports);

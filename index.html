@@ -26,7 +26,7 @@
   <meta name="twitter:description" content="Build coherent stories and strengthen narrative language with visual story ideas, targeted support, and tools for oral storytelling and supported writing.">
 
   <link rel="icon" type="image/png" href="assets/logo/logo.png">
-  <link rel="stylesheet" href="style.css?v=20261027-activity-order">
+  <link rel="stylesheet" href="style.css?v=20261027-picture-controls">
 </head>
 
 <body>
@@ -151,28 +151,12 @@
             </div>
           </section>
 
-          <details class="picture-ideas-options">
-            <summary>Picture ideas (optional)</summary>
-            <p>Use the learner’s own ideas, or choose pictures for inspiration. Pictures provide ideas; the learner creates the story. Use or change them whenever helpful—before, during or after a tell. They are never a required first step.</p>
-  <button
-    class="create-story-button"
-    id="rollAll"
-    type="button"
-  >
-    <span class="main">🎲 Choose picture ideas</span>
-    <span class="sub">Change the picture cards</span>
-  </button>
-
-          </details>
           <div class="settings-grid">
             <details>
               <summary>Display Options</summary>
 
               <div class="settings-content">
-                <label class="setting-option">
-                  <input type="checkbox" id="toggleLabels">
-                  <span>Show image labels</span>
-                </label>
+
 
                 <label class="setting-option">
                   <input type="checkbox" id="toggleVocabulary">
@@ -187,7 +171,7 @@
 
 
             <details>
-              <summary>Story Elements</summary>
+              <summary>Story elements &amp; picture ideas</summary>
 
               <div class="settings-content">
                 <div class="story-element-group">
@@ -208,6 +192,26 @@
                     Add an object for an extra creative constraint. Item is not treated as a required narrative function.
                   </p>
                 </div>
+          <details class="picture-ideas-options">
+            <summary>Picture ideas (optional)</summary>
+            <label class="setting-option">Story ideas <select id="storyIdeaMode"><option value="own">Learner’s own ideas</option><option value="pictures">Picture ideas</option><option value="both" selected>Both</option></select></label>
+            <p>Use the learner’s own ideas, or choose pictures for inspiration. Pictures provide ideas; the learner creates the story. Use or change them whenever helpful—before, during or after a tell. They are never a required first step.</p>
+  <div id="teachingPictureControls">
+                <label class="setting-option">
+                  <input type="checkbox" id="toggleLabels">
+                  <span>Show picture labels (written words with pictures)</span>
+                </label>
+  <button
+    class="create-story-button"
+    id="rollAll"
+    type="button"
+  >
+    <span class="main">🎲 Choose picture ideas</span>
+    <span class="sub">Change the picture cards</span>
+  </button>
+
+  </div>
+          </details>
               </div>
             </details>
 
@@ -301,15 +305,11 @@
     aria-live="polite"
   >
     <h3 id="instructionalSessionPhaseTitle">First Tell</h3>
-    <p id="workflowHint" class="workflow-hint"></p>
-    <details class="workflow-step-details"><summary>How this step works</summary><p id="instructionalSessionPhaseText"></p></details>
-    <p
-      class="instructional-session-target-reminder"
-      id="instructionalSessionTargetReminder"
-    ></p>
-
-
-
+    <details class="workflow-step-details"><summary>Educator guidance</summary>
+      <p id="workflowHint" class="workflow-hint" hidden></p>
+      <p id="instructionalSessionPhaseText"></p>
+      <p class="instructional-session-target-reminder" id="instructionalSessionTargetReminder"></p>
+    </details>
     <section
       class="student-target-card"
       id="studentTargetCard"
@@ -317,7 +317,7 @@
       aria-labelledby="studentTargetGoal"
     >
       <p class="student-target-kicker">
-        🎯 FOR THE STUDENT · STORY GOAL
+        🎯 STUDENT STORY GOAL
       </p>
 
       <h3 id="studentTargetGoal"></h3>
@@ -1837,7 +1837,7 @@
     </section>
   </div>
 
-  <script type="module" src="access-gate.mjs?v=20261027-activity-order"></script>
+  <script type="module" src="access-gate.mjs?v=20261027-picture-controls"></script>
 <p style="text-align:center;padding:16px"><a href="https://firstvololearning-ctrl.github.io/First-Volo-Account/privacy-status.html">Privacy protections · September 6, 2026</a></p>
 <script src="index-events.js"></script></body>
 </html>

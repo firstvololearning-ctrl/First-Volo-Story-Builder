@@ -36,7 +36,7 @@
       badge: "Part · Work on Target",
       title: "Work on Target",
       text:
-        "Open the Story Planner and work only on the selected target where support is needed. After the student repairs the language, reconnect that repaired part to the surrounding story."
+        "Use the Story Planner to practice the selected target where help is needed. Let the learner try first. Open help as needed, ask for a retry, then connect the revised idea to the surrounding story."
     },
     "tell-again": {
       badge: "Whole 2 · Tell Again",
@@ -1672,7 +1672,8 @@
         return;
       }
       setSessionPhase(action.phase);
-      const destination = document.getElementById(action.phase === "part" ? "storyPlannerIntro" : "storyGrid");
+      const ownIdeas = document.getElementById("storyIdeaMode")?.value === "own";
+      const destination = document.getElementById(action.phase === "part" ? "storyPlannerIntro" : ownIdeas ? "writingPanel" : "storyGrid");
       if (destination) {
         destination.tabIndex = -1;
         destination.scrollIntoView({ block: "start" });

@@ -4189,3 +4189,11 @@ body.modal-open {
 .story-step-completion { margin: 24px 0; padding: 20px; border: 1px solid #d8cdea; border-radius: 16px; background: #faf8ff; }
 .story-step-completion p { margin: 0; }
 @media print { .story-step-completion { display: none !important; } }
+
+[data-story-idea-mode="own"] #storyGrid { display:none !important; }
+[data-story-idea-mode="own"] .planner-card-image,
+[data-story-idea-mode="own"] .story-planner-card img,
+[data-story-idea-mode="own"] .planner-image { display:none !important; }
+
+[data-story-idea-mode="own"] .story-planner-image-frame,
+[data-story-idea-mode="own"] .story-planner-selection { display:none !important; }

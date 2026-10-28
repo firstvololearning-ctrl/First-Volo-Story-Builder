@@ -509,6 +509,15 @@ function resetAllCategories() {
   updateAllSupports();
 }
 
+function updateStoryIdeaMode() {
+  const mode = document.getElementById("storyIdeaMode")?.value || "both";
+  document.getElementById("storyBuilderApp").dataset.storyIdeaMode = mode;
+  const controls = document.getElementById("teachingPictureControls");
+  if (controls) controls.hidden = mode === "own";
+  const labels = document.getElementById("toggleLabels");
+  if (labels) labels.disabled = mode === "own";
+}
+
 function updateLabelVisibility() {
   const showLabels =
     document.getElementById("toggleLabels").checked;
@@ -576,7 +585,7 @@ function updateVocabularyPanel() {
 
   list.innerHTML = "";
 
-  if (!showVocabulary) {
+  if (!showVocabulary || document.getElementById("storyIdeaMode")?.value === "own") {
     return;
   }
 
@@ -802,6 +811,7 @@ function updateThinkingPrompts() {
 }
 
 function updateAllSupports() {
+  updateStoryIdeaMode();
   updateLabelVisibility();
   updateVocabularyPanel();
   updateSentenceSupportPanel();
@@ -859,6 +869,7 @@ function buildPrintPlanner() {
         currentSelections[categoryName];
 
       if (
+        document.getElementById("storyIdeaMode")?.value === "own" ||
         !isCategoryVisible(categoryName) ||
         !selection
       ) {
@@ -1000,6 +1011,7 @@ function initializeStoryBuilderCore() {
     .getElementById("resetAll")
     .addEventListener("click", resetAllCategories);
 
+  document.getElementById("storyIdeaMode").addEventListener("change", () => { updateStoryIdeaMode(); updateAllSupports(); });
   document
     .getElementById("toggleLabels")
     .addEventListener("change", updateLabelVisibility);
@@ -1735,6 +1747,7 @@ if (document.readyState === "loading") {
       selections,
 
       settings: {
+        storyIdeaMode: getElement("storyIdeaMode")?.value || "both",
         showLabels: getElement("toggleLabels")?.checked ?? false,
         showVocabulary:
           getElement("toggleVocabulary")?.checked ?? false,
@@ -2004,6 +2017,8 @@ if (document.readyState === "loading") {
       );
 
       const settings = data.settings || {};
+      const ideaMode = getElement("storyIdeaMode");
+      if (ideaMode) ideaMode.value = ["own","pictures","both"].includes(settings.storyIdeaMode) ? settings.storyIdeaMode : "both";
 
       const labelsToggle = getElement("toggleLabels");
       const vocabularyToggle =
@@ -2284,7 +2299,7 @@ if (document.readyState === "loading") {
     document.addEventListener("change", (event) => {
       if (
         event.target.matches(
-          '#toggleLabels, #toggleVocabulary, #thinkingPromptsToggle, input[name="sentenceSupport"], input[name="challengeMode"], .challenge-checkbox, [id^="show"]'
+          '#storyIdeaMode, #toggleLabels, #toggleVocabulary, #thinkingPromptsToggle, input[name="sentenceSupport"], input[name="challengeMode"], .challenge-checkbox, [id^="show"]'
         )
       ) {
         updateStoryPlanner();
