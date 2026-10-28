@@ -1,63 +1,176 @@
-# October 27 First Volo handoff
+# First Volo — reconciled October 27 closeout and handoff
 
-## Saved in Git
+This supersedes the earlier incremental October 27 summaries.
 
-Story Builder: approved 35-sequence target wording, optional Explore Thinking with planner persistence and explicit insertion into writing, two educator tasks (Teach with a learner / Set up a student’s view), separate student sign-in labeling, optional picture ideas with no roll-first prerequisite, clearer teaching navigation, matching user guide/resource/About/target-builder text, and three aligned printables. Forty-one automated tests pass; local browser checks cover the two-task switch without losing the draft, Whole → Part → Whole navigation without rolling, planner visibility, and 375px layout.
+## Outcome
 
-Morphology: storage/assessment linking fixes (919d438), protected-word-safe content repair (686ac7d), and spreadsheet/context reconciliation (41e04a7). Added 33 contextual inference items across 27 targets and six runtime word entries. All 16 reward sets have reachable practice in All Flights and their own Flight, using the unchanged reward engine and protected-word filters. Sixty-six script regressions plus five Flight regressions pass. The master lexical workbook, dated Learn/Activity workbook, exact 33-row CSV and reconciliation notes are under audits/lexical in the Morphology repository. Historical snapshots and unfinished external source/clinical fields remain labeled.
+Content, interface and documentation updates are published. Full Morphology authenticated pilot QA is not signed off. The latest older checklist contains remaining assessment, navigation and responsive checks in addition to rewards, printing and synchronization.
 
-No database/schema/policy changes were made for these content and interface releases. Git stores code, content, documentation and inventory files. Supabase stores authorized app data under the existing application rules, not these source files. Working browser drafts are local; My Stories / Cloud Sync and learner-cycle evidence use separate explicit save workflows. Do not infer a learner/cloud save merely from a source-code release.
+## Completed today
 
-## Still unfinished
+### Story Builder instructional system
 
-- Morphology live earning, saving/reopening and reward duplicate-prevention through actual learner UI. Isolated production-engine tests pass; this does not replace live/cloud proof.
-- Morphology print QA for student forms and reports: clipping, page breaks, readability and answer-key separation. Story Builder printable wording/layout review is complete for the three revised static PDFs; that does not complete Morphology printing QA.
-- Chrome/Safari synchronization with the fictional learner. Safari previously showed an unrelated private document and automatic review rejected reading it. The user must open Morphology and sign in directly there before task-scoped Safari QA. Never request credentials in chat.
-- Authenticated Story Builder student end-to-end QA: no active shared student was available in the educator account. Educator-path checks do not establish that student cloud workflow is verified.
-- Detailed SLP review and remaining external linguistic/accessibility source checks. Educator approved initial Story Builder wording for later fine review; software tests do not close clinical/source queues.
+Reviewed/applied the prepared full-repository update; three prompts plus independently selectable Sentence Help and More Help; both Sentence Formulation pathways, eight relationship choices and five grammatical-support options. Preserved retry, reconnection, student meaning and Whole → Part → Whole.
 
-Generated curriculum CSVs can be rebuilt with curriculum-map.js. Local report screenshots/logs are supporting evidence; essential source and reconciled inventory files are in Git. Do not declare the full Morphology pilot QA complete.
+### Story Builder clinical wording and Thinking
 
+Applied 35 approved prompt sequences without requiring a successful ending, a lesson learned or unsupported character knowledge. Added optional Explore Thinking, saved with planner work and inserted into writing only by an explicit action. Educator approved initial use; detailed SLP review remains later.
 
-## Teaching activity order correction
-Moved the phase-advance action from the cycle overview to after the planner, target practice and writing area. The overview remains navigation; Tell Again follows the work. The completion section hides when the cycle is off or the educator is configuring student supports. Oral responses require no written completion gate. Updated the guide and release cache version together. All 43 Story Builder tests pass.
+### Story Builder interface and materials
 
+Separated Teach with a learner, Set up a student’s view and student sign-in. Picture controls sit under Story elements & picture ideas, with own/pictures/both separate from labels. Next-step action is after the work area. Student goal precedes one closed Educator guidance dropdown. Updated guide, resources, target builder and three static planner PDFs.
 
-First Volo — October 27, 2026 handoff
+### Story Builder saving and verification
 
-ACCOMPLISHED AND PUBLISHED
-• Story Builder: approved 35 narrative prompt sequences; removed forced success/lesson assumptions; preserved student meaning and educator judgment.
-• Sentence Formulation: three instructional prompts, selectable Sentence Help/More Help, both formulation pathways, relationship menu and grammatical support levels.
-• Optional Explore Thinking distinguishes belief/knowledge from intention; preserves optional entry and explicit insertion into writing.
-• Educator tasks clearly separated: Teach with a learner versus Set up a student’s view. Student sign-in opens a separate student workspace. Picture rolling is optional at any point.
-• First Tell → Work on Target → Tell Again retained. Corrected next-step placement: after planner/practice/writing, not above the actual work. The top overview remains navigation. Oral storytelling requires no written completion gate.
-• Updated User Guide, resources, target guidance and three planner PDFs. Story Builder: 43 tests pass. Live activity-order release e745bac deployed successfully and browser checked.
-• Morphology: repaired protected-assessment reward coverage distinction; added 33 ordinary practice items across 27 targets, including six new lexical entries. Corrected absentee usage and preserved conditional language supports.
-• Morphology authored-ID routing and reachability checks cover 95 active reward word parts, with no measured coverage gaps. 71 tests pass. These automated checks do not establish live reward earning/cloud persistence.
-• Updated master lexical workbook, Learn and Activity Inventory, exact 33-item CSV, and source-review notes. Morphology release 41e04a7 published successfully.
+47 tests pass. Fictional teaching draft reopened with writing and own-ideas setting intact. Synthetic student-support form tests cover all three modes and label behavior. Supabase picture_idea_mode and protected v2 RPCs applied; older settings default to both. Database RLS/grants/default/unsigned-rejection checks passed. Full authenticated fictional student save/reopen is still unverified.
 
-SAVE / PUBLICATION STATUS
-• Story Builder source and internal handoff are in firstvololearning-ctrl/First-Volo-Story-Builder, main. No uncommitted source changes before this handoff append.
-• Morphology source, updated workbooks, practice additions CSV and durable audit notes are in firstvololearning-ctrl/First-Volo-Morphology, main, 41e04a7. Four untracked root curriculum-map CSV files are regenerable audit outputs, not unsaved source or learner records.
-• Review HTML, test logs, screenshots and downloadable copies remain in this chat’s outputs folder. Canonical project changes and inventories are committed in their repositories.
-• No Supabase schema/policy changes were needed. Earlier fictional-learner backup succeeded. This is not confirmation that every current draft or evidence record is in Supabase.
-• Story Builder working drafts are browser-local; My Stories / Cloud Sync and explicit learner-cycle evidence are separate saves. Morphology assessment records observed in this QA remain browser-local. Do not clear browser storage assuming all records are cloud backed up.
+### Morphology storage and navigation correction
 
-NEXT STEPS — IN ORDER
-1. Morphology live reward QA: use fictional learner MORPHOLOGY QA; earn a token through available practice, save, reopen, repeat the activity, confirm one award, then verify saved cloud state. Do not count isolated engine tests as live proof.
-2. Morphology printing: inspect actual student forms/reports for clipping, page breaks, readability and answer-key separation. Story Builder’s revised PDF assets were rendered and inspected; that does not complete Morphology printing QA.
-3. Chrome ↔ Safari synchronization: open Morphology in Safari and let the user sign in directly. Compare the same fictional learner and distinguish cloud-backed records from browser-local assessment records. Never request credentials in chat.
-4. Story Builder authenticated student QA: use an active shared student account to test educator support settings and the actual student workspace. Current educator account had no active shared students.
-5. Clinical/source review: user’s detailed SLP review of approved Story Builder prompts remains for later. Complete the documented source/accessibility checks for new Morphology vocabulary; do not label all 33 entries fully source verified.
+Fixed educator progress-store alignment, empty assessment learner selectors and About → Research link. An explicit fictional-learner cloud backup succeeded. This did not add cross-device synchronization for browser-local assessment records.
 
-BLOCKERS / LIMITS
-• Safari inspection previously encountered an unrelated private document and automatic approval review rejected reading it. No bypass was attempted. User must open the relevant Morphology page for scoped testing.
-• No active shared student was available for Story Builder student-account testing.
-• Full Morphology pilot QA is NOT complete. Live rewards, printing and cross-browser synchronization remain unverified.
+### Morphology practice and rewards availability
 
+Added 33 contextual Figure It Out items across 27 targets, including six new lexical entries: enclose, bendable, celebration, inset, claimant and absentee. Repaired semantic-ID scoring routes; kept protected assessment words excluded. Automated checks cover 95 active word parts and 32 reward-set/Flight combinations. Actual live earning remains unverified.
 
+### Morphology inventories and language accessibility
 
-## Picture choices and guidance simplification
-Grouped picture controls within Story elements & picture ideas. Added own/pictures/both teaching choices saved with project settings; own mode hides supplied picture grid and planner picture/selection labels without deleting draft work. Student setup saves picture mode separately from labels via v2 RPCs; own mode removes picture cards from the student workspace. Existing records default to both. Added database-review/add_story_builder_picture_modes.sql; applied to Supabase with old RPCs kept compatible, the existing ownership/entitlement/class/permission checks copied into v2, no new table grants, RLS retained. Work on Target now shows student goal plus one closed Educator guidance dropdown. Guide updated. Full student login QA remains pending an active shared student account.
+Reconciled the master lexical and Learn/Activity workbooks plus exact 33-item CSV. Corrected absentee usage and preserved required base/word-family context. Reviewed 120 authored Learn examples/checks; simplified 32 entries across 20 words, including valid → a reason that makes sense. 67 script tests plus 5 Flight tests pass. Exact wording audit is in Git; no new words or assessment items were added by that wording pass.
 
-Verification: 46 Node tests pass; actual student-support form exercised with fictional mocked student and RPC for all three mode/save payloads; browser reopened own-ideas mode with fictional writing intact. Supabase checks confirm mode default both, RLS on, empty function search paths, anon denied and authenticated execution gated by copied checks; unsigned setter rejected. Security advisor warnings for the three new authenticated SECURITY DEFINER RPCs are expected for this established gated API design; existing unrelated warnings were not changed. Automatic approval review rejected a proposed rollback test selecting an arbitrary existing learner; it was not run or retried. User clarified there are no live learners. Actual authenticated student setting roundtrip remains pending fictional-only testing.
+## Original checklist reconciliation
+
+### Story Builder original implementation and publication — Pass
+
+Evidence: 47 automated tests; published code a14db27; prior sentence pathways, relationships/supports and state restoration covered by tests. Authenticated educator and local browser checks completed.
+
+Next: Retain later detailed clinical review; do not infer full student/cloud acceptance from educator tests.
+
+### Story Builder actual student path and new picture settings — Not Tested
+
+Evidence: Synthetic form/setting tests and database access checks passed; educator account has no active shared students.
+
+Next: Use an authorized fictional student sign-in; save options, reopen and verify own/pictures/both, labels, goal and available help. No real learner needed.
+
+### Morphology Priority A: Chrome → Safari restoration — Blocked
+
+Evidence: Chrome fictional learner/progress/explicit backup tested in part; Safari roundtrip not completed.
+
+Next: Open Morphology in Safari, user signs in directly, verify MORPHOLOGY QA and Meaning results restore without manual recreation.
+
+### Morphology Priority B: bidirectional saving — Not Tested
+
+Evidence: Storage-key correction and automated account-isolation tests passed. No two-browser acceptance evidence.
+
+Next: Add fictional activity results in Safari, return to Chrome and verify restoration, learner association and no startup overwrite.
+
+### Morphology Priority C: Goals and Volo Tokens — Not Tested
+
+Evidence: Coverage/production reward-engine/duplicate checks pass in isolated tests. No actual token earned and verified through live/cloud UI.
+
+Next: Record baseline; earn through eligible practice under actual rules, save, reload/reopen, repeat and verify exactly one award in both browsers.
+
+### Morphology Priority D: full Pre/Post workflow — Not Tested
+
+Evidence: Flight selectors fixed; fictional Flight C paper result saved/reopened (14/14 objective, 4/4 reasoning). This is only one synthetic paper-entry case.
+
+Next: Complete Flight A Pre/Form A and Post/Form B; verify scores, correct comparison, paper entry, reload/sign-in and print. Repeat representative Flight B/C checks. Keep results instructional, not standardized diagnostic scores.
+
+### Morphology printing within Priority D — Not Tested
+
+Evidence: No completed print-output QA for Morphology student forms/reports. Story Builder static PDFs were rendered and reviewed separately.
+
+Next: Check clipping, page breaks, readability, correct learner/form and answer-key separation. Preserve an inspected print/PDF artifact.
+
+### Morphology Priority E: navigation — Not Tested
+
+Evidence: About → Research repaired; some Program Progress/assessment navigation exercised. Full return-path checklist not completed.
+
+Next: Verify About, Research, Educator Resources, Program Progress and returning to main without losing fictional learner or saved work.
+
+### Morphology Priority F: responsive layout — Not Tested
+
+Evidence: Story Builder had 375px checks; that is not a Morphology responsive pass.
+
+Next: Check Morphology at 375, 768 and 1280px: cards, word parts, choices, dropdowns, modals, progress, print controls and header. Record defects with screenshots.
+
+### Morphology regression/protection/Check Transfer — Pass
+
+Evidence: 72 current automated checks; most recent recorded transfer audit covers 190 applicable pairs with no gaps; protection audit had zero hard failures. New wording pass changed no assessment bank or word IDs.
+
+Next: Rerun relevant checks after subsequent fixes; automated coverage is not proof of all live QA.
+
+### Clinical/source review queues — Not Tested
+
+Evidence: Story wording approved for initial use. Dictionary spot checks and inventory source conditions recorded; not every new item has a completed external source review.
+
+Next: Educator fine review of Story prompts; finish outstanding Morphology lexical/source and accessibility checks. The Learn wording pass does not cover every activity or protected assessment.
+
+## Next work, in order
+
+1. Finish actual Morphology reward earning, reopen and duplicate prevention with MORPHOLOGY QA.
+2. Complete Morphology assessment/printing workflow (Flight A Pre/Post, paper entry and representative B/C), preserving print evidence.
+3. Complete Safari restoration and bidirectional sync after the user opens the task page and signs in directly.
+4. Finish Morphology navigation and 375/768/1280px acceptance checks.
+5. Run the authenticated Story Builder fictional-student workflow for saved picture/label/help choices.
+6. Carry detailed clinical/source review and the older four-project maintenance queue forward; do not silently mark them complete.
+
+## Older four-project checklist
+
+### Primo layouts/assets
+
+Still open from October 26; not worked on today.
+
+Review chat-mat styling and Christmas download placement; select final food/conversation/meal images, clothing materials and worksheet/ZIP/script assets before archiving alternates.
+
+### Primo source/dependency
+
+Still open; not reverified today.
+
+Reconcile accepted local differences against current main; pin and test one exact Supabase SDK version in a separate maintenance change.
+
+### Morphology older local divergence
+
+Still open; today’s scoped storage fix does not reconcile the old folders.
+
+Compare older local account/cloud code with the shared account system; review changed artwork, Waypoint wording and unique local history individually.
+
+### Morphology Break It Apart segmentation
+
+Still open; distinct from reward availability repair.
+
+Review the 49 candidate segmentation findings instructionally and author defensible analyses or explicit not-applicable decisions. They are not 49 proven broken activities; do not weaken validation to clear the report.
+
+### Sentence Builder release acceptance
+
+Source backup completed October 26; launch checks still open.
+
+Private source backed up as f9beee3. Complete positive hosted fictional save/reload, cross-educator/group workflows, recovery/deletion replay, missing database fixtures and hosted frontend acceptance before public launch.
+
+### All projects: reproducible tests and hosting
+
+Still open from the older audit; not reverified today.
+
+Package test dependencies/fixtures and CI; inspect delivery-layer framing headers. Add direct Story learner-library conflict/deletion/permission/account-switch behavior coverage where absent. Today’s passing suites do not close that audit finding.
+
+### Folder/source ownership cleanup
+
+Backups done; reconciliation/retirement still open.
+
+Keep older folders and deletion-heavy Morpho worktrees intact until unique work is accounted for. October 26 backups and private Sentence source backup are completed historical items, not new work today.
+
+## Save and publication status
+
+Published code releases: Story Builder a14db27 and Morphology 6cb35f2; successful Pages runs 40609707937 and 40610273204. Revised public files matched the tested release. Source, content, inventories, SQL change record and audits are in Git. Supabase holds the new saved student picture setting through protected APIs; no claim is made that every browser draft or learner record is cloud backed up. Story drafts, My Stories/Cloud Sync and explicit learner evidence are distinct saves. Morphology assessment records observed in this QA remain browser-local. Four root curriculum-map CSVs are reproducible generated reports, not uncommitted source or learner records.
+
+## Constraints and blockers
+
+The user clarified there are no live learners. Use fictional records only. Safari previously displayed an unrelated private document and automatic approval review rejected reading it; the user must open the relevant Morphology page for scoped testing. A proposed database test using an arbitrary existing learner was also rejected and not run; do not retry it or use arbitrary records. Actual fictional authenticated student save/reopen remains pending. Never request credentials in chat. Full Morphology pilot QA is not complete.
+
+## Sources reconciled
+
+- October 27 uploaded Pasted markdown(20261027-193500).md — original Story implementation checklist and Morphology priorities A–F.
+- October 26 remaining-work.html and official-release-summary.html, latest saved revision 21:27, from Audit four project repositories — broader carry-forward queue. These older open items were reconciled, not newly re-audited today.
+- Current October 27 repository handoffs, test logs, publishing checks and exact Morphology accessibility audit.
+
+## Resume locations
+
+Workspace: /Users/asacco/Documents/Codex/2026-10-27/referenced-chatgpt-conversation-this-is-an. Repositories are work/story-builder and work/morphology. Original October 27 requirements are preserved beside both handoffs. Story tests: node --test tests/*.test.mjs (47). Morphology: node --test scripts/*-test.js (67) and node --test teacher-target-flight-audit-test.js (5). Morphology jsdom currently needs NODE_PATH=/Users/asacco/Documents/Codex/2026-09-26/referenced-chatgpt-conversation-this-is-an/work/learn-test-tools/node_modules; packaging remains open.
