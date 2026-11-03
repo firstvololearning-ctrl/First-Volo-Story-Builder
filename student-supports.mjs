@@ -1,4 +1,4 @@
-import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261027-picture-controls";
+import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261103-story-ui";
 import { STUDENT_SUPPORTS, STUDENT_SUPPORT_TARGET_KEYS, supportOptionsForTarget } from "./student-support-content.mjs";
 
 let panel = null;
@@ -212,20 +212,16 @@ function updatePictureControls() {
 }
 
 function createPanel() {
-  panel = element("section", "student-supports-panel");
-  panel.setAttribute("aria-labelledby", "studentSupportsHeading");
-  panel.append(element("p", "student-supports-eyebrow", "EDUCATOR TOOL"), element("h2", "student-supports-title", "Student Mode Supports"), element("p", "student-supports-intro", "Choose predefined student-facing help for one of your students. These supports are optional and do not change educator guidance."));
-
-  panel.querySelector("h2").id = "studentSupportsHeading";
-  const studentLabel = element("label", "student-supports-field", "Student");
+  panel = element("div", "student-supports-panel");
+  const studentLabel = element("label", "student-supports-field", "1. Choose a student");
   studentSelect = document.createElement("select");
   studentSelect.setAttribute("data-support-action", "true");
   studentLabel.append(studentSelect);
 
-  const targetLabel = element("label", "student-supports-field", "Narrative target");
+  const targetLabel = element("label", "student-supports-field", "2. Choose a Story Goal");
   targetSelect = document.createElement("select");
   targetSelect.setAttribute("data-support-action", "true");
-  targetSelect.append(element("option", "", "No narrative target"));
+  targetSelect.append(element("option", "", "No Story Goal"));
   STUDENT_SUPPORT_TARGET_KEYS.forEach((key) => {
     const option = element("option", "", STUDENT_SUPPORTS[key].label);
     option.value = key;
@@ -234,13 +230,13 @@ function createPanel() {
   targetLabel.append(targetSelect);
 
   const optionsField = element("fieldset", "student-supports-options");
-  optionsField.append(element("legend", "student-supports-legend", "Available student-facing supports"));
+  optionsField.append(element("legend", "student-supports-legend", "3. Choose optional help"));
   supportOptions = element("div", "student-support-options-list");
   optionsField.append(supportOptions);
 
   const visualField = element("fieldset", "student-supports-options student-visual-support-options");
-  visualField.append(element("legend", "student-supports-legend", "Visual support"));
-  const pictureLabel = element("label", "student-supports-field", "Story ideas available to this student");
+  visualField.append(element("legend", "student-supports-legend", "Picture options"));
+  const pictureLabel = element("label", "student-supports-field", "Story ideas");
   pictureModeSelect = document.createElement("select");
   pictureModeSelect.dataset.supportAction = "true";
   for (const [value, text] of [["own","Learner’s own ideas — no supplied pictures"],["pictures","Picture ideas"],["both","Both — own ideas and optional pictures"]]) {

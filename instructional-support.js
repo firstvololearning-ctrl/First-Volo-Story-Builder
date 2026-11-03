@@ -950,7 +950,7 @@
   function workflowActionFor(target, phase) {
     if (phase === "part") return { label: "Ready? Tell the whole story again →", phase: "tell-again", hint: "Practice one useful change. Open help only when needed, retry, then reconnect the idea." };
     if (phase === "tell-again") return { label: "Return to First Tell", phase: "first-tell", hint: "Tell the complete story with the goal in mind. Use the self-check after the tell." };
-    if (target === "observe-first") return { label: "Finished the first tell? Choose a goal →", chooseGoal: true, hint: "Listen to the whole story first. Then choose one goal if teaching is needed." };
+    if (target === "observe-first") return { label: "After the first tell, choose a Story Goal →", chooseGoal: true, hint: "Listen to the whole story first. Then choose one goal if teaching is needed." };
     return { label: "Finished the first tell? Work on this goal →", phase: "part", hint: "Let the learner tell the complete story first. Keep targeted help closed while you listen." };
   }
 
@@ -1079,7 +1079,7 @@
         if (observeFirst && requiresTarget) {
           button.setAttribute(
             "title",
-            "Choose the instructional target after the First Tell."
+            "Choose a Story Goal after the First Tell."
           );
         } else {
           button.removeAttribute("title");
