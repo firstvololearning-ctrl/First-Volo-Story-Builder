@@ -548,6 +548,119 @@
     }
   };
 
+  const goalChecklistItems = {
+    "story-organization": [
+      ["orient", "Give the listener enough information to get oriented?"],
+      ["order", "Put key events in an order the listener could follow?"],
+      ["ending", "Make clear what happened in the end?"]
+    ],
+    "connections-cohesion": [
+      ["reference", "Make clear who or what they were talking about?"],
+      ["link", "Connect two ideas so the listener could tell how they fit?"]
+    ],
+    "cause-effect": [
+      ["cause", "Explain what led to an event or outcome?"],
+      ["reason", "Give a reason that fits the story?"]
+    ],
+    "sentence-formulation": [
+      ["build", "Build a complete, clear sentence that expresses the intended idea?"],
+      ["combine", "Expand or combine related ideas while preserving their intended meaning?"]
+    ],
+    elaboration: [["detail", "Add a detail that helped the listener understand or picture a part of the story?"]],
+    "perspective-internal-state": [
+      ["state", "Express what a character felt, thought, knew, or wanted?"],
+      ["inference", "Give a story detail that supports an inference about the character, when relevant?"]
+    ]
+  };
+  const goalRatingOptions = ["Independent", "With support", "Not yet", "Not observed"];
+  let goalRatings = {};
+
+  function normalizeGoalRatings(saved) {
+    const result = {};
+    for (const [target, items] of Object.entries(goalChecklistItems)) {
+      const record = saved?.[target];
+      if (!items.some(([id]) => id === record?.item)) continue;
+      const entry = { item: record.item };
+      for (const phase of ["first-tell", "tell-again"]) {
+        const evidence = record[phase];
+        entry[phase] = {
+          rating: goalRatingOptions.includes(evidence?.rating) ? evidence.rating : "",
+          note: typeof evidence?.note === "string" ? evidence.note.slice(0, 500) : ""
+        };
+      }
+      result[target] = entry;
+    }
+    return result;
+  }
+
+  function renderGoalChecklist() {
+    const panel = document.getElementById("educatorGoalChecklist");
+    const fields = document.getElementById("educatorGoalRatingFields");
+    if (!panel || !fields) return;
+
+    const items = goalChecklistItems[selectedTarget];
+    panel.hidden = !items;
+    fields.replaceChildren();
+    if (!items) return;
+
+    const target = selectedTarget;
+    const record = goalRatings[target];
+    const prompt = document.createElement("label");
+    prompt.textContent = "Did the student…?";
+    const choice = document.createElement("select");
+    choice.add(new Option("Choose one skill to listen for", ""));
+    for (const [id, label] of items) choice.add(new Option(label, id));
+    choice.value = record?.item || "";
+    choice.addEventListener("change", () => {
+      if (record?.item && ["first-tell", "tell-again"].some(phase => record[phase]?.rating || record[phase]?.note)) {
+        if (!window.confirm("Change the skill? This clears both ratings and notes for this goal.")) {
+          choice.value = record.item;
+          return;
+        }
+      }
+      goalRatings = normalizeGoalRatings({ ...goalRatings, [target]: { item: choice.value } });
+      renderGoalChecklist();
+      fields.querySelector("select")?.focus();
+      announceChanged();
+    });
+    prompt.append(choice);
+    fields.append(prompt);
+    if (!record) return;
+
+    const comparison = document.createElement("div");
+    comparison.className = "educator-goal-comparison";
+    for (const [phase, name] of [["first-tell", "First Tell"], ["tell-again", "Tell Again"]]) {
+      const group = document.createElement("fieldset");
+      const legend = document.createElement("legend");
+      legend.textContent = name;
+      const ratingLabel = document.createElement("label");
+      ratingLabel.textContent = "Rating";
+      const rating = document.createElement("select");
+      rating.add(new Option("Unrated", ""));
+      for (const option of goalRatingOptions) rating.add(new Option(option, option));
+      rating.value = record[phase].rating;
+      rating.addEventListener("change", () => {
+        record[phase].rating = rating.value;
+        announceChanged();
+      });
+      ratingLabel.append(rating);
+      const noteLabel = document.createElement("label");
+      noteLabel.textContent = "Evidence or exact words";
+      const note = document.createElement("textarea");
+      note.maxLength = 500;
+      note.rows = 2;
+      note.value = record[phase].note;
+      note.addEventListener("input", () => {
+        record[phase].note = note.value;
+        announceChanged();
+      });
+      noteLabel.append(note);
+      group.append(legend, ratingLabel, noteLabel);
+      comparison.append(group);
+    }
+    fields.append(comparison);
+  }
+
   let initialized = false;
   let pendingRestoreState = null;
   let selectedTarget = "observe-first";
@@ -671,7 +784,8 @@
       selectedRelationship,
       selectedGrammarLevel,
       retryRequested: { ...retryRequested },
-      studentReflection
+      studentReflection,
+      goalRatings: normalizeGoalRatings(goalRatings)
     };
   }
 
@@ -736,7 +850,8 @@
       selectedRelationship: relationshipSupports[state?.selectedRelationship] ? state.selectedRelationship : "cause",
       selectedGrammarLevel: Number.isInteger(state?.selectedGrammarLevel) && state.selectedGrammarLevel >= 1 && state.selectedGrammarLevel <= 5 ? state.selectedGrammarLevel : 1,
       retryRequested: retries,
-      studentReflection: reflection
+      studentReflection: reflection,
+      goalRatings: normalizeGoalRatings(state?.goalRatings)
     };
   }
 
@@ -753,6 +868,7 @@
     selectedRelationship = normalized.selectedRelationship;
     selectedGrammarLevel = normalized.selectedGrammarLevel;
     retryRequested = normalized.retryRequested;
+    goalRatings = normalized.goalRatings;
     studentReflection = normalized.studentReflection;
     studentReflectionOpen = Boolean(studentReflection);
 
@@ -1586,6 +1702,7 @@
     updateTargetOverview();
     updateSessionFlow();
     renderAllPlannerSupports();
+    renderGoalChecklist();
   }
 
   function handleTargetChange(event) {
@@ -1612,6 +1729,7 @@
     updateTargetOverview();
     updateSessionFlow();
     renderAllPlannerSupports();
+    renderGoalChecklist();
     announceChanged();
   }
 
@@ -1723,6 +1841,8 @@
       "click",
       () => {
         sessionPhase = "first-tell";
+        goalRatings = {};
+        renderGoalChecklist();
         resetAllSectionSupport();
         window.setTimeout(() => {
           renderAllPlannerSupports();
@@ -1748,6 +1868,7 @@
       selectedRelationship = pending.selectedRelationship;
       selectedGrammarLevel = pending.selectedGrammarLevel;
       retryRequested = pending.retryRequested;
+      goalRatings = pending.goalRatings;
       studentReflection = pending.studentReflection;
       studentReflectionOpen = Boolean(studentReflection);
     }
@@ -1755,8 +1876,30 @@
     applyStateToUI();
   }
 
+  function getPrintGuidance(visibleParts) {
+    const target = targetDefinitions[selectedTarget];
+    if (!target) return null;
+
+    const part = visibleParts.includes("problem") && target.relevant.includes("problem")
+      ? "problem"
+      : visibleParts.find(category => target.relevant.includes(category));
+    const support = part ? supportFor(part) : null;
+    return {
+      goal: target.label,
+      studentGoal: target.studentGoal,
+      listen: target.watches,
+      part,
+      prompts: support ? [
+        ...supportStepLabels.slice(0, 3).map((label, index) => [label, support.steps[index]]),
+        ["Sentence Help", support.sentence || "Offer a sentence starter that fits the learner’s intended meaning."],
+        ["More Help", support.more || "Model one possible structure using the learner’s own idea, then invite a retry."]
+      ] : []
+    };
+  }
+
   window.FirstVoloInstructionalSupport = Object.freeze({
     getState,
+    getPrintGuidance,
     restoreState,
     targets: Object.freeze(
       Object.fromEntries(

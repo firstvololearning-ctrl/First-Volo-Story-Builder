@@ -26,7 +26,7 @@
   <meta name="twitter:description" content="Build coherent stories and strengthen narrative language with visual story ideas, targeted support, and tools for oral storytelling and supported writing.">
 
   <link rel="icon" type="image/png" href="assets/logo/logo.png">
-  <link rel="stylesheet" href="style.css?v=20261103-story-ui">
+  <link rel="stylesheet" href="style.css?v=20261103-goal-checklist">
 <link rel="stylesheet" href="account-navigation.css?v=20261027">
 </head>
 
@@ -99,6 +99,8 @@
       <button class="print-button" id="printPlanner" type="button">
         <span aria-hidden="true">🖨</span> Print Student Planner
       </button>
+      <button class="print-button" id="printEducator" type="button">Print Educator Prompts &amp; Scoring</button>
+      <button class="print-button" id="printBoth" type="button">Print Both</button>
       <a
         class="blank-organizer-link"
         href="assets/printables/first-volo-blank-story-planner-print-ready.pdf"
@@ -1073,6 +1075,11 @@
         <div class="vocabulary-grid" id="vocabularyList"></div>
       </section>
 
+      <details id="educatorGoalChecklist" class="educator-goal-checklist" hidden>
+        <summary>Educator checklist &amp; ratings</summary>
+        <div id="educatorGoalRatingFields"></div>
+      </details>
+
       <section id="storyStepCompletion" class="story-step-completion" aria-label="After the current story activity" hidden>
         <p>Finish the current activity above before moving to the next step. Oral storytelling does not require written answers.</p>
         <button id="storyNextStep" class="workflow-next-button" type="button"></button>
@@ -1095,6 +1102,7 @@
       <div class="print-title">
         <strong>Story Title:</strong>
         <span id="printStoryTitle"></span>
+        <p id="printStudentGoal" hidden></p>
       </div>
     </header>
 
@@ -1107,12 +1115,12 @@
       <section class="organizer-section">
         <h2 class="organizer-section-heading">Set the Story</h2>
         <div class="organizer-row organizer-row-2">
-          <div class="organizer-prompt">
+          <div class="organizer-prompt" data-print-story-part="character">
             <h3>1 Character</h3>
             <p>Who is the main character?</p>
             <div class="organizer-lines"></div>
           </div>
-          <div class="organizer-prompt">
+          <div class="organizer-prompt" data-print-story-part="setting">
             <h3>2 Setting</h3>
             <p>Where and when does the story take place?</p>
             <div class="organizer-lines"></div>
@@ -1122,7 +1130,7 @@
       <section class="organizer-section">
         <h2 class="organizer-section-heading">Something Happens</h2>
         <div class="organizer-row organizer-row-1">
-          <div class="organizer-prompt">
+          <div class="organizer-prompt" data-print-story-part="problem">
             <h3>3 Problem</h3>
             <p>What problem does the character face?</p>
             <div class="organizer-lines"></div>
@@ -1132,7 +1140,7 @@
       <section class="organizer-section">
         <h2 class="organizer-section-heading">The Character Responds</h2>
         <div class="organizer-row organizer-row-3">
-          <div class="organizer-prompt">
+          <div class="organizer-prompt" data-print-story-part="feeling">
             <h3>4 Feeling</h3>
             <p>How does the character feel about the problem?</p>
             <div class="organizer-lines"></div>
@@ -1193,6 +1201,32 @@
     <footer class="print-footer">
       First Volo Learning • firstvololearning.com
     </footer>
+  </section>
+
+  <section class="print-educator" id="printEducatorPage">
+    <header>
+      <h1>Story Builder · Educator Prompts &amp; Scoring</h1>
+      <p id="printEducatorStory"></p>
+      <p>Learner label ____________________  Date ____________</p>
+      <p id="printEducatorGoal"></p>
+    </header>
+    <h2>1. First Tell</h2>
+    <p id="printEducatorListen"></p>
+    <h2>2. Work on Target</h2>
+    <div id="printEducatorPrompts"></div>
+    <p>Ask for a retry in the learner’s own words, then reconnect the idea to the story.</p>
+    <h2>3. Tell Again</h2>
+    <p>Listen to the whole story again with the Story Goal in mind.</p>
+    <table>
+      <thead><tr><th scope="col">Record one rating per tell</th><th scope="col">First Tell</th><th scope="col">Tell Again</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Independent · used the skill without help</th><td>□</td><td>□</td></tr>
+        <tr><th scope="row">With support · used the skill after help</th><td>□</td><td>□</td></tr>
+        <tr><th scope="row">Not yet · had a chance and did not use the skill</th><td>□</td><td>□</td></tr>
+        <tr><th scope="row">Not observed · no usable opportunity or evidence</th><td>□</td><td>□</td></tr>
+        <tr class="print-evidence-row"><th scope="row">Exact words and help given</th><td></td><td></td></tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- MY STORIES MODAL -->
@@ -1465,7 +1499,7 @@
 
       <h2>👋 Welcome</h2>
       <h3>Choose your educator task</h3>
-      <ul><li><strong>Teach with a learner:</strong> use the story interface together. Choose picture ideas whenever helpful; rolling is optional and never a required first step.</li><li><strong>Set up a student’s view:</strong> choose a student’s goal and available help for their own sign-in. This task has no story-rolling controls. Save changed supports explicitly and check the confirmation.</li><li><strong>Student sign-in:</strong> opens the student’s separate workspace with educator-selected supports.</li></ul>
+      <ul><li><strong>Teach with a learner:</strong> use the story interface together. Choose picture ideas whenever helpful; rolling is optional and never a required first step.</li><li><strong>Set up a student’s view:</strong> follow <strong>Choose a student</strong>, <strong>Choose a Story Goal</strong>, and <strong>Choose optional help</strong>. Select <strong>Save supports</strong> and check the confirmation.</li><li><strong>Student sign-in:</strong> opens the student’s separate workspace with educator-selected supports.</li></ul>
       <p>Switching educator tasks preserves the current teaching draft. It does not switch accounts or automatically assign the shared story to a learner.</p>
 
       <p>
@@ -1488,7 +1522,7 @@
       <h2>🎲 Build a Story</h2>
 
       <p>
-        In <strong>Teach with a learner</strong>, open <strong>Picture ideas (optional)</strong> and choose <strong>Choose picture ideas</strong> when visual ideas would help. Use the learner’s own ideas instead whenever appropriate. Pictures can be used or changed before, during or after a tell; they do not determine how the story unfolds.
+        In <strong>Teach with a learner</strong>, open <strong>Story elements &amp; picture ideas</strong>, then open <strong>Picture ideas (optional)</strong> and choose <strong>Choose picture ideas</strong> when visual ideas would help. Use the learner’s own ideas instead whenever appropriate. Pictures can be used or changed before, during or after a tell; they do not determine how the story unfolds.
       </p>
 
       <p>
@@ -1844,7 +1878,7 @@
     </section>
   </div>
 
-  <script type="module" src="access-gate.mjs?v=20261103-story-ui"></script>
+  <script type="module" src="access-gate.mjs?v=20261103-goal-checklist"></script>
 <p style="text-align:center;padding:16px"><a href="https://firstvololearning-ctrl.github.io/First-Volo-Account/privacy-status.html">Privacy protections · September 6, 2026</a></p>
 <script src="index-events.js"></script></body>
 </html>

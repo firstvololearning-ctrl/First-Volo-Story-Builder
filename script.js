@@ -989,8 +989,49 @@ function buildPrintPlanner() {
   );
 }
 
-function printPlanner() {
-  buildPrintPlanner();
+function printPlanner(mode = "student") {
+  const visibleParts = ["character", "setting", "problem", "feeling", "plan", "attempt", "resolution", "item"]
+    .filter(part => document.querySelector(`#show${part[0].toUpperCase()}${part.slice(1)}`)?.checked);
+  const guidance = window.FirstVoloInstructionalSupport?.getPrintGuidance(visibleParts);
+
+  if (mode !== "educator") {
+    buildPrintPlanner();
+    const goal = document.getElementById("printStudentGoal");
+    goal.textContent = guidance ? `Story Goal: ${guidance.studentGoal}` : "";
+    goal.hidden = !guidance;
+    document.querySelectorAll("[data-print-story-part]").forEach(box => {
+      box.hidden = !visibleParts.includes(box.dataset.printStoryPart);
+    });
+    document.querySelectorAll("#printPlannerPage .organizer-section").forEach(section => {
+      const prompts = [...section.querySelectorAll(".organizer-prompt")];
+      section.hidden = prompts.length > 0 && prompts.every(prompt => prompt.hidden);
+    });
+  }
+
+  if (mode !== "student") {
+    document.getElementById("printEducatorStory").textContent =
+      `Story: ${document.getElementById("storyTitle").value.trim() || "____________________"}`;
+    document.getElementById("printEducatorGoal").textContent =
+      guidance ? `Story Goal: ${guidance.goal} · ${guidance.studentGoal}` : "Story Goal after listening: ____________________";
+    document.getElementById("printEducatorListen").textContent = guidance?.listen ||
+      "Listen for clear story parts, connections, sentences, useful detail, and what the character feels or thinks. Record the learner’s exact words below.";
+    const prompts = document.getElementById("printEducatorPrompts");
+    prompts.replaceChildren();
+    const intro = document.createElement("p");
+    intro.textContent = guidance?.part
+      ? `Suggested focus: ${categories[guidance.part]?.title || guidance.part}. Use only the prompts the learner needs. Mark which you gave.`
+      : "Choose one useful change after listening. Write a prompt here or open help for the goal in Story Builder: ____________________";
+    prompts.append(intro);
+    guidance?.prompts.forEach(([label, text]) => {
+      const row = document.createElement("p");
+      const heading = document.createElement("strong");
+      heading.textContent = `□ ${label} · `;
+      row.append(heading, text);
+      prompts.append(row);
+    });
+  }
+
+  document.body.dataset.storyPrint = mode;
   window.print();
 }
 
@@ -1044,11 +1085,15 @@ function initializeStoryBuilderCore() {
 
   document
     .getElementById("printPlanner")
-    .addEventListener("click", printPlanner);
+    .addEventListener("click", () => printPlanner());
 
   document
     .getElementById("savePdf")
-    .addEventListener("click", printPlanner);
+    .addEventListener("click", () => printPlanner());
+
+  document.getElementById("printEducator").addEventListener("click", () => printPlanner("educator"));
+  document.getElementById("printBoth").addEventListener("click", () => printPlanner("both"));
+  window.addEventListener("afterprint", () => delete document.body.dataset.storyPrint);
 
   preloadStarterAssets();
   updateAllSupports();

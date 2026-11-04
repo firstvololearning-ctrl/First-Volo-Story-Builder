@@ -7,3 +7,36 @@ test('observe-first directs the educator to a goal without choosing a target or 
 test('next-step policy preserves whole-part-whole without a picture-selection prerequisite',()=>{const w=runtime();for(const target of ['story-organization','connections-cohesion','cause-effect','sentence-formulation','elaboration','perspective-internal-state']){assert.equal(w.workflowActionFor(target,'first-tell').phase,'part');assert.equal(w.workflowActionFor(target,'part').phase,'tell-again');assert.equal(w.workflowActionFor(target,'tell-again').phase,'first-tell');}});
 
 test('completion action follows the story, target practice, and writing rather than the cycle overview',()=>{const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');const action=html.indexOf('id="storyNextStep"');for(const id of ['storyGrid','instructionalFocusPanel','storyPlannerPanel','storyWriting']) assert.ok(action>html.indexOf(`id="${id}"`),`${id} must precede completion`);assert.equal(html.match(/id="storyNextStep"/g).length,1);});
+
+test('print guidance follows the selected goal and excludes hidden story parts', () => {
+  const support = runtime().FirstVoloInstructionalSupport;
+  assert.equal(support.getPrintGuidance(["problem"]), null);
+  support.restoreState({ target: "cause-effect", sessionPhase: "first-tell" });
+  const guidance = support.getPrintGuidance(["attempt", "resolution"]);
+  assert.equal(guidance.goal, "Cause & Effect");
+  assert.equal(guidance.part, "attempt");
+  assert.equal(guidance.prompts.length, 5);
+  assert.equal(support.getPrintGuidance([]).prompts.length, 0);
+});
+
+test('goal ratings restore separately for each tell and reject a skill from another goal', () => {
+  const support = runtime().FirstVoloInstructionalSupport;
+  support.restoreState({
+    target: "cause-effect",
+    goalRatings: {
+      "cause-effect": {
+        item: "cause",
+        "first-tell": { rating: "Not observed", note: "No opportunity." },
+        "tell-again": { rating: "Independent", note: "Explained why the map fell." }
+      },
+      elaboration: { item: "cause" }
+    }
+  });
+  const ratings = support.getState().goalRatings;
+  assert.equal(ratings["cause-effect"]["first-tell"].rating, "Not observed");
+  assert.equal(ratings["cause-effect"]["tell-again"].rating, "Independent");
+  assert.equal(ratings["cause-effect"]["tell-again"].note, "Explained why the map fell.");
+  assert.equal(ratings.elaboration, undefined);
+  support.restoreState({ target: "elaboration" });
+  assert.equal(Object.keys(support.getState().goalRatings).length, 0);
+});
