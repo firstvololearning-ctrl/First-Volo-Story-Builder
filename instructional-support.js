@@ -575,6 +575,92 @@
   const goalRatingOptions = ["Independent", "With support", "Not yet", "Not observed"];
   let goalRatings = {};
 
+  let givenPrompts = {};
+
+  function normalizeGivenPrompts(saved) {
+    const result = {};
+    for (const target of Object.keys(goalChecklistItems)) {
+      const entries = saved?.[target];
+      if (!Array.isArray(entries)) continue;
+      result[target] = [...new Set(entries.filter(entry => typeof entry === "string" && entry.length <= 180))].slice(0, 200);
+    }
+    return result;
+  }
+
+  function givenPromptControl(category, label) {
+    const target = selectedTarget;
+    const part = {
+      character: "Character", setting: "Setting", problem: "Problem", feeling: "Feeling",
+      plan: "Plan", attempt: "Action / Attempt(s)", resolution: "Resolution", item: "Item"
+    }[category];
+    const entry = `${part} · ${label}`;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "planner-more-help-button";
+    button.setAttribute("aria-label", `Mark ${entry} as given`);
+    const refresh = () => {
+      const marked = Boolean(givenPrompts[target]?.includes(entry));
+      button.textContent = marked ? "✓ Given · undo" : "Mark as given";
+      button.setAttribute("aria-pressed", String(marked));
+    };
+    button.addEventListener("click", () => {
+      const entries = givenPrompts[target] || [];
+      givenPrompts[target] = entries.includes(entry)
+        ? entries.filter(value => value !== entry)
+        : [...entries, entry];
+      refresh();
+      announceChanged();
+    });
+    refresh();
+    return button;
+  }
+
+  function appendSessionSummary(fields, comparison, target, skill, record) {
+    const details = document.createElement("details");
+    details.className = "educator-session-summary";
+    const heading = document.createElement("summary");
+    heading.textContent = "Session summary";
+    const label = document.createElement("label");
+    label.textContent = "Copy this summary for your notes";
+    const summary = document.createElement("textarea");
+    summary.readOnly = true;
+    summary.rows = 6;
+    const refresh = () => {
+      const given = givenPrompts[target] || [];
+      summary.value = [
+        `Story Goal: ${targetDefinitions[target].label}`,
+        `Skill: ${skill}`,
+        ...[["first-tell", "First Tell"], ["tell-again", "Tell Again"]].map(([phase, name]) => {
+          const { rating, note } = record[phase];
+          return `${name}: ${rating || "Unrated"}${note.trim() ? " — " + note.trim() : ""}`;
+        }),
+        `Prompts marked as given during teaching: ${given.join("; ") || "None recorded"}`
+      ].join("\n");
+    };
+    label.append(summary);
+    const copy = document.createElement("button");
+    copy.type = "button";
+    copy.className = "planner-more-help-button";
+    copy.textContent = "Copy summary";
+    const status = document.createElement("p");
+    status.setAttribute("role", "status");
+    copy.addEventListener("click", async () => {
+      refresh();
+      try {
+        await navigator.clipboard.writeText(summary.value);
+        status.textContent = "Summary copied.";
+      } catch {
+        summary.select();
+        status.textContent = "Summary selected. Use your browser’s Copy command.";
+      }
+    });
+    comparison.addEventListener("input", refresh);
+    comparison.addEventListener("change", refresh);
+    refresh();
+    details.append(heading, label, copy, status);
+    fields.append(details);
+  }
+
   function normalizeGoalRatings(saved) {
     const result = {};
     for (const [target, items] of Object.entries(goalChecklistItems)) {
@@ -605,31 +691,40 @@
 
     const target = selectedTarget;
     const record = goalRatings[target];
-    const prompt = document.createElement("label");
-    prompt.textContent = "Did the student…?";
-    const choice = document.createElement("select");
-    choice.add(new Option("Choose one skill to listen for", ""));
-    for (const [id, label] of items) choice.add(new Option(label, id));
-    choice.value = record?.item || "";
-    choice.addEventListener("change", () => {
-      if (record?.item && ["first-tell", "tell-again"].some(phase => record[phase]?.rating || record[phase]?.note)) {
-        if (!window.confirm("Change the skill? This clears both ratings and notes for this goal.")) {
-          choice.value = record.item;
-          return;
+    if (record && sessionPhase !== "first-tell") {
+      const skill = document.createElement("p");
+      skill.textContent = `Did the student… ${items.find(([id]) => id === record.item)[1]}`;
+      fields.append(skill);
+      if (sessionPhase === "part") return;
+    } else {
+      const prompt = document.createElement("label");
+      prompt.textContent = "Did the student…?";
+      const choice = document.createElement("select");
+      choice.add(new Option("Choose one skill to listen for", ""));
+      for (const [id, label] of items) choice.add(new Option(label, id));
+      choice.value = record?.item || "";
+      choice.addEventListener("change", () => {
+        if (record?.item && ["first-tell", "tell-again"].some(phase => record[phase]?.rating || record[phase]?.note)) {
+          if (!window.confirm("Change the skill? This clears both ratings and notes for this goal.")) {
+            choice.value = record.item;
+            return;
+          }
         }
-      }
-      goalRatings = normalizeGoalRatings({ ...goalRatings, [target]: { item: choice.value } });
-      renderGoalChecklist();
-      fields.querySelector("select")?.focus();
-      announceChanged();
-    });
-    prompt.append(choice);
-    fields.append(prompt);
-    if (!record) return;
+        goalRatings = normalizeGoalRatings({ ...goalRatings, [target]: { item: choice.value } });
+        renderGoalChecklist();
+        (fields.querySelector("select") || panel).focus();
+        announceChanged();
+      });
+      prompt.append(choice);
+      fields.append(prompt);
+    }
+    if (!record || sessionPhase === "part") return;
 
     const comparison = document.createElement("div");
     comparison.className = "educator-goal-comparison";
-    for (const [phase, name] of [["first-tell", "First Tell"], ["tell-again", "Tell Again"]]) {
+    const tells = [["first-tell", "First Tell"]];
+    if (sessionPhase === "tell-again") tells.push(["tell-again", "Tell Again"]);
+    for (const [phase, name] of tells) {
       const group = document.createElement("fieldset");
       const legend = document.createElement("legend");
       legend.textContent = name;
@@ -639,6 +734,7 @@
       rating.add(new Option("Unrated", ""));
       for (const option of goalRatingOptions) rating.add(new Option(option, option));
       rating.value = record[phase].rating;
+      rating.disabled = sessionPhase === "tell-again" && phase === "first-tell";
       rating.addEventListener("change", () => {
         record[phase].rating = rating.value;
         announceChanged();
@@ -650,6 +746,7 @@
       note.maxLength = 500;
       note.rows = 2;
       note.value = record[phase].note;
+      note.readOnly = rating.disabled;
       note.addEventListener("input", () => {
         record[phase].note = note.value;
         announceChanged();
@@ -659,6 +756,9 @@
       comparison.append(group);
     }
     fields.append(comparison);
+    if (sessionPhase === "tell-again") {
+      appendSessionSummary(fields, comparison, target, items.find(([id]) => id === record.item)[1], record);
+    }
   }
 
   let initialized = false;
@@ -785,7 +885,8 @@
       selectedGrammarLevel,
       retryRequested: { ...retryRequested },
       studentReflection,
-      goalRatings: normalizeGoalRatings(goalRatings)
+      goalRatings: normalizeGoalRatings(goalRatings),
+      givenPrompts: normalizeGivenPrompts(givenPrompts)
     };
   }
 
@@ -851,7 +952,8 @@
       selectedGrammarLevel: Number.isInteger(state?.selectedGrammarLevel) && state.selectedGrammarLevel >= 1 && state.selectedGrammarLevel <= 5 ? state.selectedGrammarLevel : 1,
       retryRequested: retries,
       studentReflection: reflection,
-      goalRatings: normalizeGoalRatings(state?.goalRatings)
+      goalRatings: normalizeGoalRatings(state?.goalRatings),
+      givenPrompts: normalizeGivenPrompts(state?.givenPrompts)
     };
   }
 
@@ -869,6 +971,7 @@
     selectedGrammarLevel = normalized.selectedGrammarLevel;
     retryRequested = normalized.retryRequested;
     goalRatings = normalized.goalRatings;
+    givenPrompts = normalized.givenPrompts;
     studentReflection = normalized.studentReflection;
     studentReflectionOpen = Boolean(studentReflection);
 
@@ -913,6 +1016,7 @@
 
     updateSessionFlow();
     renderAllPlannerSupports();
+    renderGoalChecklist();
 
     if (options.announce !== false) {
       announceChanged();
@@ -1542,7 +1646,8 @@
     supportCard.append(
       studentAudience,
       stepLabel,
-      stepText
+      stepText,
+      givenPromptControl(category, stepLabel.textContent)
     );
 
     if (level >= 3) {
@@ -1594,6 +1699,9 @@
           text.textContent = support.sentence || "Choose a structure that accurately expresses the student's idea.";
           extra.appendChild(text);
         }
+        extra.appendChild(givenPromptControl(category, "Sentence Help" +
+          (selectedTarget === "sentence-formulation" ? ` · ${sentencePathways[sentencePathway]}` +
+            (sentencePathway === "combine" ? ` · ${relationshipSupports[selectedRelationship].label}` : "") : "")));
         supportCard.appendChild(extra);
       }
 
@@ -1626,6 +1734,8 @@
           text.textContent = support.more || "Break this task into smaller steps without supplying the student's story content.";
           extra.appendChild(text);
         }
+        extra.appendChild(givenPromptControl(category, "More Help" +
+          (selectedTarget === "sentence-formulation" ? ` · ${grammarLevels[selectedGrammarLevel - 1][0]}` : "")));
         supportCard.appendChild(extra);
       }
     }
@@ -1707,7 +1817,6 @@
 
   function handleTargetChange(event) {
     const value = event.target.value;
-    const previousTarget = selectedTarget;
 
     selectedTarget =
       value === "off" ||
@@ -1716,14 +1825,7 @@
         ? value
         : "off";
 
-    const targetChosenAfterObserveFirst =
-      previousTarget === "observe-first" &&
-      Boolean(targetDefinitions[selectedTarget]);
-
-    sessionPhase =
-      targetChosenAfterObserveFirst
-        ? "part"
-        : "first-tell";
+    sessionPhase = "first-tell";
 
     resetAllSectionSupport();
     updateTargetOverview();
@@ -1842,6 +1944,7 @@
       () => {
         sessionPhase = "first-tell";
         goalRatings = {};
+        givenPrompts = {};
         renderGoalChecklist();
         resetAllSectionSupport();
         window.setTimeout(() => {
@@ -1869,6 +1972,7 @@
       selectedGrammarLevel = pending.selectedGrammarLevel;
       retryRequested = pending.retryRequested;
       goalRatings = pending.goalRatings;
+      givenPrompts = pending.givenPrompts;
       studentReflection = pending.studentReflection;
       studentReflectionOpen = Boolean(studentReflection);
     }

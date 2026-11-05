@@ -1,4 +1,4 @@
-import {supabase,getCurrentAccess} from './access-gate.mjs?v=20261103-goal-checklist';
+import {supabase,getCurrentAccess} from './access-gate.mjs?v=20261104-clinician-flow';
 import {createLearnerLibrarySync} from './learner-library-sync.mjs';
 const by=id=>document.getElementById(id);
 let session=null,initialized=false,timer=null;

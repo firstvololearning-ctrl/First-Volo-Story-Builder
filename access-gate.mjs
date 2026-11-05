@@ -206,12 +206,12 @@ async function startEducatorRuntime(access) {
     educatorRuntimeStarted = true;
     educatorRuntimePromise = (async () => {
       // Register instructional state before the core restores the saved draft.
-      await loadClassicScript("./instructional-support.js?v=20261103-goal-checklist");
-      await loadClassicScript("./script.js?v=20261103-goal-checklist");
-      await loadClassicScript("./educator-workspace.js?v=20261103-goal-checklist");
-      educatorSupportsModule = await import("./student-supports.mjs?v=20261103-goal-checklist");
+      await loadClassicScript("./instructional-support.js?v=20261104-clinician-flow");
+      await loadClassicScript("./script.js?v=20261104-clinician-flow");
+      await loadClassicScript("./educator-workspace.js?v=20261104-clinician-flow");
+      educatorSupportsModule = await import("./student-supports.mjs?v=20261104-clinician-flow");
       await educatorSupportsModule.initializeStudentSupports(access);
-      educatorCloudModule = await import("./cloud-sync.mjs?v=20261103-goal-checklist");
+      educatorCloudModule = await import("./cloud-sync.mjs?v=20261104-clinician-flow");
       await educatorCloudModule.initializeEducatorCloudSync(access);
       if (ENABLE_STORY_BUILDER_CYCLE_CLOUD) {
         educatorCycleModule = await import("./story-builder-cycle-cloud.mjs?v=3");
@@ -302,7 +302,7 @@ async function publishAccess(access, session, generation, previousAccess) {
   if (access.mode === "student") {
     try {
       if (!studentRuntimeModule) {
-        studentRuntimeModule = await import("./student-mode.mjs?v=20261103-goal-checklist");
+        studentRuntimeModule = await import("./student-mode.mjs?v=20261104-clinician-flow");
         studentRuntimeStarted = true;
       }
     } catch (error) {

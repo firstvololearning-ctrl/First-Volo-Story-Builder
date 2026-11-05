@@ -4238,8 +4238,8 @@ body.modal-open {
   font: 400 1rem/1.5 Inter, "Avenir Next", Arial, sans-serif;
 }
 
-.educator-goal-checklist summary {
-  cursor: pointer;
+.educator-goal-checklist h3 {
+  margin: 0;
   color: #173862;
   font-size: 1.125rem;
   font-weight: 700;
@@ -4291,4 +4291,26 @@ body.modal-open {
   padding: 0 0.45rem;
   color: #173862;
   font-weight: 700;
+}
+
+.educator-session-summary {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccd9e8;
+  border-radius: 0.8rem;
+  background: #fff;
+}
+
+.educator-session-summary summary {
+  color: #173862;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.educator-session-summary button {
+  margin-top: 0.65rem;
+}
+
+.educator-session-summary [role="status"]:empty {
+  display: none;
 }
