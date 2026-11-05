@@ -1015,6 +1015,10 @@ function printPlanner(mode = "student") {
       guidance ? `Story Goal: ${guidance.goal} · ${guidance.studentGoal}` : "Story Goal after listening: ____________________";
     document.getElementById("printEducatorListen").textContent = guidance?.listen ||
       "Listen for clear story parts, connections, sentences, useful detail, and what the character feels or thinks. Record the learner’s exact words below.";
+    const skill = guidance?.skill;
+    document.getElementById("printEducatorSkill").textContent = skill
+      ? `Rate the same skill in both tells. Did the student ${skill[0].toLowerCase() + skill.slice(1)}`
+      : "Skill to rate in both tells: ____________________________________";
     const prompts = document.getElementById("printEducatorPrompts");
     prompts.replaceChildren();
     const intro = document.createElement("p");
@@ -1022,7 +1026,14 @@ function printPlanner(mode = "student") {
       ? `Suggested focus: ${categories[guidance.part]?.title || guidance.part}. Use only the prompts the learner needs. Mark which you gave.`
       : "Choose one useful change after listening. Write a prompt here or open help for the goal in Story Builder: ____________________";
     prompts.append(intro);
-    guidance?.prompts.forEach(([label, text]) => {
+    guidance?.prompts.forEach(([label, text], index) => {
+      if (index === 0 || label === "Coaching Ideas") {
+        const audience = document.createElement("p");
+        const audienceLabel = document.createElement("strong");
+        audienceLabel.textContent = index === 0 ? "Say to the learner" : "For the educator";
+        audience.append(audienceLabel);
+        prompts.append(audience);
+      }
       const row = document.createElement("p");
       const heading = document.createElement("strong");
       heading.textContent = `□ ${label} · `;

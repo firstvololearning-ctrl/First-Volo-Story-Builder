@@ -1992,6 +1992,7 @@
     const support = part ? supportFor(part) : null;
     return {
       goal: target.label,
+      skill: goalChecklistItems[selectedTarget]?.find(([id]) => id === goalRatings[selectedTarget]?.item)?.[1],
       studentGoal: target.studentGoal,
       listen: target.watches,
       part,
