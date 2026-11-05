@@ -1,4 +1,4 @@
-import {supabase,getCurrentAccess} from './access-gate.mjs?v=20261104-goal-clarity';
+import {supabase,getCurrentAccess} from './access-gate.mjs?v=20261104-teaching-labels';
 import {createLearnerLibrarySync} from './learner-library-sync.mjs';
 const by=id=>document.getElementById(id);
 let session=null,initialized=false,timer=null;

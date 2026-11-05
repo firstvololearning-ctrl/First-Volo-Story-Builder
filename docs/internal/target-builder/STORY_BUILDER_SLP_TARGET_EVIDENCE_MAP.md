@@ -48,6 +48,19 @@ The grouped goal picker and a separate in-app new-story record remain design dec
 
 Research informs Story Builder’s teaching approach. The prompts and rating choices are Story Builder design decisions. Use the ratings to describe what you observed for the selected skill during the session. The app’s prompts and ratings require separate evaluation from the named interventions and measures discussed in the sources.
 
+## Cross-target rating wording
+
+The educator’s notes from ASHA session 1902, *Implementing a Metalinguistic Approach to Secondary School Writing* (10:30–11:30, in-person seminar), offer examples of keeping the reader in mind, making references clear, showing relationships between ideas, and choosing a level of support. The seminar handout identifies Lynne Telesca, PhD, CCC-SLP, as presenter. [SUNY New Paltz confirms that Telesca presented this work at the 2023 ASHA National Convention](https://sites.newpaltz.edu/collegelasnewsletter/2023/12/faculty-publications-presentations-and-honors-17/). The session number and time come from the educator’s pasted listing. The related [published tutorial (Telesca, 2024)](https://doi.org/10.1044/2023_LSHSS-22-00182) appeared online in 2023 and in *Language, Speech, and Hearing Services in Schools*, 55(1), 34–55, in 2024. It concerns secondary academic writing. The full tutorial confirms the examples shown in the screenshots: Table 1 (p. 45) gives prompts for observing planning, putting ideas into words, and reviewing. Table 2 (pp. 47–48) illustrates how language choices help the intended reader, including clear references and transitions. Table 3 (p. 48) illustrates how to adjust question support for academic writing. In Story Builder, Table 2 informs audience-focused wording for Connections & Cohesion and Sentence Formulation. Table 3 informs flexible support. Spencer & Petersen remains the direct source for the narrative-specific question and optional model.
+
+- **Story Organization:** Which story part does the listener need and where does it belong?
+- **Connections & Cohesion:** Can the listener identify who or what a word refers to, or tell how events fit in time?
+- **Cause & Effect:** Can the learner explain a reason or a consequence that fits the story?
+- **Sentence Formulation:** Can the learner express an idea in a complete sentence or combine related ideas while preserving their meaning?
+- **Elaboration:** Does one added detail help the listener picture a person, place, or action?
+- **Perspective & Internal State:** Can the learner tell what a character thinks or feels, or point to a story detail that supports a possible interpretation? Identifying who is narrating is a separate skill.
+
+The six teaching goals each offer specific rating choices. The educator selects one criterion and uses it for both tells. The choices and ratings describe session observations. The academic writing examples in the ASHA notes help frame questions about clarity for an audience. They do not validate the narrative rating choices. Choose a question or a model that fits the learner and note help given separately from performance.
+
 ## Current product scope
 
 The educator teaching cycle offers six Story Goals. Vocabulary Precision is also represented in the broader target and student support tools.

@@ -1,4 +1,4 @@
-import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261104-goal-clarity";
+import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261104-teaching-labels";
 import { supportOptionsForTarget, STUDENT_SUPPORTS, STUDENT_SUPPORT_RELEVANT_PARTS } from "./student-support-content.mjs";
 import { createStudentDraftCloud } from "./student-draft-cloud.mjs";
 
@@ -256,8 +256,9 @@ async function mountStudentMode(shell, access) {
 
   const header = element("header", "student-mode-header");
   header.append(
-    element("p", "student-mode-eyebrow", "FIRST VOLO STORY BUILDER · STUDENT WORKSPACE"),
+    element("p", "student-mode-eyebrow", "FIRST VOLO STORY BUILDER · INDEPENDENT PRACTICE"),
     element("h1", "student-mode-title", "Build your story."),
+    element("p", "student-mode-intro", "This is your practice space. Your writing does not appear on your teacher’s screen as you type. To work together, use Story Builder on one shared screen."),
     element("p", "student-mode-identity", `Hi, ${context.display_name || "student"}!`),
     element("p", "student-mode-class", context.class_name || "")
   );

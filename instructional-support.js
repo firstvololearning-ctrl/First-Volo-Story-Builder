@@ -550,26 +550,27 @@
 
   const goalChecklistItems = {
     "story-organization": [
-      ["orient", "Give the listener enough information to get oriented?"],
-      ["order", "Put key events in an order the listener could follow?"],
-      ["ending", "Make clear what happened in the end?"]
+      ["orient", "Introduce the main character and tell where the story happens if the place matters?"],
+      ["problem", "Tell what the character was trying to do or what got in the way?"],
+      ["order", "Arrange the important story events so the listener could follow what happened?"],
+      ["ending", "Tell how the story ended, including what changed or what was still a problem?"]
     ],
     "connections-cohesion": [
-      ["reference", "Make clear who or what they were talking about?"],
-      ["link", "Connect two ideas so the listener could tell how they fit?"]
+      ["reference", "Name the person or object when a word like “she,” “they,” or “it” could be unclear?"],
+      ["link", "Show how two events fit in time, such as which came first or whether they happened together?"]
     ],
     "cause-effect": [
-      ["cause", "Explain what led to an event or outcome?"],
-      ["reason", "Give a reason that fits the story?"]
+      ["cause", "Explain why an event happened using a reason that fits the story?"],
+      ["reason", "Explain what changed because of an action or event?"]
     ],
     "sentence-formulation": [
-      ["build", "Build a complete, clear sentence that expresses the intended idea?"],
-      ["combine", "Expand or combine related ideas while preserving their intended meaning?"]
+      ["build", "Say or write a complete sentence that tells who or what the idea is about and what happened or was true?"],
+      ["combine", "Put two related ideas into one clear sentence that keeps the meaning they intended?"]
     ],
-    elaboration: [["detail", "Add a detail that helped the listener understand or picture a part of the story?"]],
+    elaboration: [["detail", "Add one specific detail that helps the listener picture a person, place, or action?"]],
     "perspective-internal-state": [
-      ["state", "Express what a character felt, thought, knew, or wanted?"],
-      ["inference", "Give a story detail that supports an inference about the character, when relevant?"]
+      ["state", "Tell what a character felt, thought, knew, or wanted at a particular moment in the story?"],
+      ["inference", "Point to something the character saw, heard, said, or did that supports what they might think or feel?"]
     ]
   };
   const goalRatingOptions = ["Independent", "With support", "Not yet", "Not observed"];
@@ -1357,7 +1358,7 @@
           "Listen to the whole first attempt before opening targeted support. Access help is still okay when it does not supply the instructional target.";
       } else if (sessionPhase === "part") {
         focusNote.textContent =
-          "Let the student attempt the language first. If help is needed, use the three prompts and optional Sentence Help or More Help as appropriate. Have the student retry and reconnect the repaired idea to the story.";
+          "Let the student attempt the language first. If help is needed, use the three prompts and optional Sentence Help or Coaching Ideas as appropriate. Have the student retry and reconnect the repaired idea to the story.";
       } else {
         focusNote.textContent =
           "Targeted help stays closed during Tell Again. The Story Planner may remain available as a scaffold with or without written notes; hide it when you want to observe an independent whole-story tell.";
@@ -1566,7 +1567,7 @@
       const moreButton = document.createElement("button");
       moreButton.type = "button";
       moreButton.className = "planner-more-help-button";
-      moreButton.textContent = "Next prompt";
+      moreButton.textContent = "Next question or clue";
 
       moreButton.addEventListener("click", () => {
         supportLevels[category] = Math.min(
@@ -1585,7 +1586,7 @@
       const previous = document.createElement("button");
       previous.type = "button";
       previous.className = "planner-more-help-button";
-      previous.textContent = "Previous prompt";
+      previous.textContent = "Previous question or clue";
       previous.addEventListener("click", () => {
         supportLevels[category] -= 1;
         renderPlannerSupport(category);
@@ -1627,7 +1628,7 @@
     studentAudience.className =
       "planner-support-audience planner-support-audience-student";
     studentAudience.textContent =
-      "🎯 FOR THE STUDENT";
+      "SAY TO THE LEARNER";
 
     const stepLabel = document.createElement("p");
     stepLabel.className = "planner-support-step-label";
@@ -1654,7 +1655,7 @@
     {
       const choices = document.createElement("div");
       choices.className = "planner-support-choices";
-      [["sentence", "Sentence Help"], ["more", "More Help"]].forEach(([key, label]) => {
+      [["sentence", "Sentence Help"], ["more", "Coaching Ideas"]].forEach(([key, label]) => {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "planner-more-help-button";
@@ -1710,7 +1711,7 @@
         const extra = document.createElement("div");
         extra.className = "planner-extra-support";
         const heading = document.createElement("strong");
-        heading.textContent = "More Help";
+        heading.textContent = "Coaching Ideas · For the educator";
         extra.appendChild(heading);
         if (selectedTarget === "sentence-formulation") {
           const instructions = document.createElement("p");
@@ -1735,7 +1736,7 @@
           text.textContent = support.more || "Break this task into smaller steps without supplying the student's story content.";
           extra.appendChild(text);
         }
-        extra.appendChild(givenPromptControl(category, "More Help" +
+        extra.appendChild(givenPromptControl(category, "Coaching Ideas" +
           (selectedTarget === "sentence-formulation" ? ` · ${grammarLevels[selectedGrammarLevel - 1][0]}` : "")));
         supportCard.appendChild(extra);
       }
@@ -1997,7 +1998,7 @@
       prompts: support ? [
         ...supportStepLabels.slice(0, 3).map((label, index) => [label, support.steps[index]]),
         ["Sentence Help", support.sentence || "Offer a sentence starter that fits the learner’s intended meaning."],
-        ["More Help", support.more || "Model one possible structure using the learner’s own idea, then invite a retry."]
+        ["Coaching Ideas", support.more || "Model one possible structure using the learner’s own idea, then invite a retry."]
       ] : []
     };
   }
