@@ -4,7 +4,7 @@
 
 **Product grounding status:** checked against the current Story Builder `main` implementation.
 
-**Evidence status:** product-grounded and claim-bounded; final source-by-source full-text evidence verification pending.
+**Evidence status:** The sources below inform specific design decisions. The grade-band objectives are educator guidance and still need source-by-source review.
 
 ## Critical product-grounding rule
 
@@ -16,13 +16,45 @@ Current in-app phases:
 
 Story Goal selection is a separate educator control. **Observe First · Choose After First Tell** is the default.
 
-Current progressive educator support hierarchy:
+The educator can open **Look / Listen**, **Think**, and **A Clue**. **Sentence Help** and **More Help** offer optional support. The educator can mark prompts actually given and compare ratings for the same skill across First Tell and Tell Again. During Tell Again, targeted help stays closed and the planner may be available for reference.
 
-**Look here → Think about it → A clue → Words to try → Sentence start → Retry the same language demand**
+## Evidence for specific design decisions
 
-During Tell Again, targeted help stays closed. The educator may allow Story Planner reference or hide the Planner for an independent whole-story tell.
+| Source | What it supports and how Story Builder uses it |
+|---|---|
+| [Spencer & Petersen (2020), pp. 1088–1089](https://doi.org/10.1044/2020_LSHSS-20-00015) | Ask about the specific story information the learner missed, then model a possible response and invite a retry if needed. Adapt wait time, questions, and modeling to the learner. This informs prompt wording and access to optional help. |
+| [Pico et al. (2021)](https://doi.org/10.1044/2021_LSHSS-20-00160) | The review found positive effects of narrative intervention. Common features included direct story structure instruction, opportunities to tell stories, and visual and verbal supports. The review evaluated interventions as packages. |
+| [Hessling & Schuele (2020)](https://doi.org/10.1044/2019_LSHSS-19-00082) | Individualized story elements and separate personal narrative probes inform a distinct follow-up with a different story. Two of four participants showed a functional relation in the Story Champs study. |
+| [Gillam et al. (2018)](https://doi.org/10.1044/2017_LSHSS-17-0047) | Early evidence for a specific program addressing story structure and language within stories supports keeping both kinds of goals available. The study does not establish oral-to-written transfer. |
+| [Meyer et al. (2025)](https://doi.org/10.1044/2025_LSHSS-24-00065) | Observer feedback improved procedure use in three clinicians. This informs the separation of clinician actions, such as prompts given, from learner performance ratings. |
+| [Florit-Pons et al. (2025)](https://doi.org/10.1044/2025_AJSLP-25-00099) | Practitioner piloting identified repetition and pacing problems. This informs flexible session pacing and keeping a new story as an optional follow-up. The paper describes co-creation and piloting rather than an efficacy test. |
 
-## Current product scope — seven canonical targets
+## Earlier sources in the Target + Goal + Evidence Builder
+
+Pico, Spencer & Petersen, and Hessling & Schuele were already listed in the Builder’s source catalog. The four additional catalog entries below were checked against their publication records. Grade-band claims still need separate full-text verification.
+
+| Source | Implication and boundary |
+|---|---|
+| [Gillam et al. (2025)](https://doi.org/10.1111/mbe.70024) | The SKILL work concerns a structured intervention with children in Grades 1–4. Keep explicit story instruction and practice in the whole narrative. Avoid extending these findings to every grade or this app. |
+| [Gillam et al. (2015)](https://doi.org/10.1044/2015_JSLHR-L-14-0295) | The intervention addressed causal and mental-state language in five children with autism. This supports the relevance of both targets within stories, with limits on population and procedure. |
+| [Peterson, Fox & Israelsen (2020)](https://doi.org/10.1044/2020_LSHSS-19-00039) | This review covered academic discourse intervention at ages 9–14. Its findings reinforce measuring transfer separately. A new story in the same setting offers a different sample and does not establish use across settings. |
+| [Joffe, Rixon & Hulme (2019)](https://doi.org/10.1111/1460-6984.12471) | The secondary school trial supports explicit narrative work for adolescents with language disorder. Narrative findings do not establish broad vocabulary gains or a validated Story Builder prompt sequence. |
+
+## Prompt and workflow review
+
+The wording review keeps the six teaching goals and Whole → Part → Whole. It uses concrete questions and optional help available from the first prompt. Clinicians can use a model before moving through more questions. The learner retries using their own story meaning. Prompts given remain separate from the two learner ratings. No story must end successfully, include a learned lesson, or express a cause the learner did not mean.
+
+The grouped goal picker and a separate in-app new-story record remain design decisions. The guide describes how to gather separate evidence using a new story now.
+
+Research informs Story Builder’s teaching approach. The prompts and rating choices are Story Builder design decisions. Use the ratings to describe what you observed for the selected skill during the session. The app’s prompts and ratings require separate evaluation from the named interventions and measures discussed in the sources.
+
+## Current product scope
+
+The educator teaching cycle offers six Story Goals. Vocabulary Precision is also represented in the broader target and student support tools.
+
+- **Story Organization:** Include and place the important story parts so the listener can follow the whole story. Sequencing belongs here when the clinician is helping arrange the story.
+- **Connections & Cohesion:** Express how ideas relate and make references clear. Time words belong here when they communicate intended timing, such as two events happening at once.
+- **Cause & Effect:** Explain a supported reason or consequence. A time relationship alone does not establish a cause.
 
 ### Story Organization
 

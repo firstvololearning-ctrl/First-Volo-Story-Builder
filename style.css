@@ -451,13 +451,13 @@ textarea {
 
 .page-header {
   width: min(1200px, 100%);
-  margin: 0 auto 22px;
+  margin: 0 auto 14px;
   text-align: center;
 }
 
 .site-logo {
   display: block;
-  width: 108px;
+  width: 72px;
   max-width: 65%;
   margin: 0 auto 6px;
 }
@@ -481,9 +481,9 @@ h1 {
 
 .tagline {
   max-width: 680px;
-  margin: 10px auto 0;
+  margin: 4px auto 0;
   color: #44546b;
-  font-size: clamp(16px, 2vw, 19px);
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -498,6 +498,11 @@ h1 {
 
 .website-link:hover {
   text-decoration: underline;
+}
+
+.page-header h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: 1.08;
 }
 
 .controls-panel {

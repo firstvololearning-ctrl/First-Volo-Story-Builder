@@ -467,7 +467,7 @@
       "limitation": "Population-specific ASD evidence; not general evidence for all students or all narrative targets."
     },
     "peterson2020": {
-      "citation": "Peterson, D. B., Fox, C., & Israelsen, M. (2020). Discourse intervention evidence for ages 9–14.",
+      "citation": "Peterson, A. K., Fox, C. B., & Israelsen, M. (2020). A Systematic Review of Academic Discourse Interventions for School-Aged Children With Language-Related Learning Disabilities.",
       "type": "Review",
       "relevance": "Relevant to later-elementary/middle-grade discourse intervention and the need to measure generalization/transfer rather than assume it.",
       "limitation": "Review-level and age-bounded evidence; target-specific effects vary."

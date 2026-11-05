@@ -80,7 +80,7 @@
     character: ["Look at what you wrote or listen to what you said about the character. Is it a complete sentence?", "Can you say your whole idea about the character in one sentence?", "Who is your sentence about? What are you saying about them?", "Try: ‘The character ___’ or ‘___ is ___.’"],
     setting: ["Look at what you wrote or listen to what you said about the setting. Is it a complete sentence?", "Can you put your idea about where or when the story begins into a sentence?", "What is happening, or what is true, in that place or at that time?", "Try: ‘The story begins ___’ or ‘___ was at/in ___.’"],
     problem: ["Look at what you wrote or listen to what you said about the problem. Is it a complete sentence?", "Can you tell what went wrong in one complete sentence?", "Who or what is involved? What happened or changed?", "Try: ‘___ happened when ___’ or ‘The problem began when ___.’"],
-    feeling: ["Look at what you wrote or listen to what you said about the feeling. Is it a complete sentence?", "Can you express that feeling in one complete sentence?", "Who is experiencing the feeling? What are you saying about how they feel?", "Try: ‘___ felt ___’ or ‘___ was ___.’"],
+    feeling: ["Look at what you wrote or listen to what you said about the feeling. Is it a complete sentence?", "Can you express that feeling in one complete sentence?", "Who felt that way? Put who and how they felt in one sentence.", "Try: ‘___ felt ___’ or ‘___ was ___.’"],
     plan: ["Look at what you wrote or listen to what you said about the plan. Is it a complete sentence?", "Can you express the character's plan in one complete sentence?", "Who has the plan? What do they want or intend to do?", "Try: ‘___ wanted to ___’ or ‘___ planned to ___.’"],
     attempt: ["Look at what you wrote or listen to what you said about the action. Is it a complete sentence?", "Can you tell what the character did in one complete sentence?", "Who did something? What did they do?", "Try: ‘___ tried to ___’ or ‘___ [action].’"],
     item: ["Look at what you wrote or listen to what you said about the item. Is it a complete sentence?", "Can you put your idea about the item into one complete sentence?", "Who or what is your sentence about? What are you saying about the item?", "Try: ‘___ used ___ to ___’ or ‘___ [action involving the item].’"],
@@ -88,12 +88,12 @@
   };
 
   const combineSentencePrompts = {
-    character: ["Look or listen for related ideas about the character.", "What related information fits your idea? Can you express the connection in one sentence?", "Does one idea describe, explain, or add to the other?"],
+    character: ["Look or listen for related ideas about the character.", "Can you put those two ideas about the character into one sentence?", "Does one idea describe, explain, or add to the other?"],
     setting: ["Look or listen for an event and information about where or when it happened.", "Can you combine the event and the setting information?", "How could where or when fit into the sentence?"],
     problem: ["Look or listen for an event and something that changed or went wrong.", "Can you connect the related ideas in one sentence?", "Does one happen before, cause, or interrupt the other?"],
     feeling: ["Look or listen for a feeling and a related event or reason.", "Can you combine those ideas into one sentence?", "Does the event explain the feeling, or are the ideas related in another way?"],
     plan: ["Look or listen for a plan and a related reason or purpose.", "Can you express those connected ideas in one sentence?", "What does the character want to accomplish, and how does that relate to the plan?"],
-    attempt: ["Look or listen for an action and another related idea.", "Can you connect those ideas in one sentence?", "Is the relationship about when, why, how, or for what purpose?"],
+    attempt: ["Look or listen for an action and another related idea.", "Can you connect those ideas in one sentence?", "Tell how the ideas fit. Are you saying when it happened, why it happened, or what the character wanted to do?"],
     item: ["Look or listen for an item and a related description or action.", "Can you include the related ideas in one sentence?", "How is the item used, described, or connected to an action?"],
     resolution: ["Look or listen for an attempt and a related outcome.", "Can you connect those ideas in one sentence?", "Did one lead to the other, or was the outcome unexpected?"]
   };
@@ -102,9 +102,9 @@
   const reviewedTargetPrompts = {
     "story-organization": {
       "character": {
-        "lookListen": "Look or listen for how your story introduces the main character.",
-        "think": "What does your listener need to know about who the story is about?",
-        "clue": "Make clear which character we should follow. Include only information needed for this story.",
+        "lookListen": "Listen to the beginning of your story. Who do you hear about?",
+        "think": "Who is your story mostly about?",
+        "clue": "If it’s hard to tell who the story is about, name the main character near the beginning.",
         "sentenceHelp": "The story is about ___.",
         "moreHelp": "Ask the student to identify the main character in their own story. Contrast an introduction with an action from later in the story, then have the student place their introduction where the listener needs it.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -112,17 +112,17 @@
       },
       "setting": {
         "lookListen": "Look or listen for information about where or when the story begins.",
-        "think": "What setting information would help your listener understand the beginning?",
-        "clue": "Include the place or time that matters; both are not always necessary.",
+        "think": "Where does this part happen?",
+        "clue": "If the place matters, add it where this part begins. If the time matters more, tell when it happens.",
         "sentenceHelp": "At/In ___, ___. / The story begins ___.",
         "moreHelp": "Identify a relevant place or time already established in the student’s story. Help the student decide whether the listener needs it before the next event; do not add a new setting.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
         "reconnect": "Tell this part with the relevant part before or after it, then return to the whole story."
       },
       "problem": {
-        "lookListen": "Look or listen for the event or situation that creates the story’s difficulty.",
-        "think": "Can you make the main difficulty clear to your listener?",
-        "clue": "What changes, goes wrong, or stands in the way of what the character wants?",
+        "lookListen": "Listen to the beginning. Can your listener tell what the character is trying to do?",
+        "think": "What was the character trying to do, and what got in the way?",
+        "clue": "Put the problem where the listener needs it. If Maya is already searching, tell us what she lost.",
         "sentenceHelp": "The problem is ___. / ___ wanted ___, but ___.",
         "moreHelp": "Separate the problem from a later response or attempt using the student’s own content. Ask which part creates the difficulty and where the listener needs to hear it.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -130,8 +130,8 @@
       },
       "feeling": {
         "lookListen": "Look or listen for a feeling that matters to this part of your story.",
-        "think": "Where would explaining that feeling help your listener understand the character?",
-        "clue": "Consider what is happening around the feeling. A story does not need a separate feeling statement after every event.",
+        "think": "Where would it help to tell how the character feels?",
+        "clue": "If the feeling helps explain this part, put it near the moment it belongs to.",
         "sentenceHelp": "At that point, ___ felt ___.",
         "moreHelp": "Check whether the student intends a feeling here. If so, help locate it near the event it relates to; accept a feeling conveyed through action or dialogue when that serves the target.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -139,8 +139,8 @@
       },
       "plan": {
         "lookListen": "Look or listen for what the character intends or decides to do.",
-        "think": "Can you make the character’s plan clear before telling what they actually do?",
-        "clue": "A plan tells what the character means to do; an attempt tells what they actually do.",
+        "think": "What did the character plan to do?",
+        "clue": "If your story has a plan, tell it where the listener needs it. Then tell what the character actually did.",
         "sentenceHelp": "___ planned to ___. / ___ wanted to ___.",
         "moreHelp": "Use the student’s own plan and action to distinguish intention from performance. If the story has no stated plan, decide whether adding one serves the narrative target; do not invent it.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -148,8 +148,8 @@
       },
       "attempt": {
         "lookListen": "Look or listen for what the character actually does.",
-        "think": "Can you tell the action your listener needs to follow next?",
-        "clue": "Distinguish an action from a plan. An attempt may follow, change, or depart from the plan.",
+        "think": "What did the character actually do?",
+        "clue": "Tell the action where it belongs in the story. If there were two tries, put them where the listener can follow them.",
         "sentenceHelp": "___ did ___. / ___ tried to ___.",
         "moreHelp": "Identify the student’s intended action, then place it relative to the problem and any plan. If more than one attempt matters, organize those attempts without requiring a successful outcome.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -157,8 +157,8 @@
       },
       "resolution": {
         "lookListen": "Look or listen for the outcome at the end of your story.",
-        "think": "Can you make clear where the story’s problem stands at the end?",
-        "clue": "The ending may show a solution, a partial solution, or a problem that remains.",
+        "think": "How did things turn out?",
+        "clue": "Tell what changed or what was still a problem at the end.",
         "sentenceHelp": "In the end, ___. / The problem was still ___.",
         "moreHelp": "Compare the ending with the original problem using the student’s content. Help the student explain the actual outcome; do not require success or attribute the outcome to an attempt without support.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -168,26 +168,26 @@
     "connections-cohesion": {
       "character": {
         "lookListen": "Look or listen for the names and pronouns used for the characters.",
-        "think": "Can your listener tell who each name, he, she, they, or it refers to?",
-        "clue": "When two characters could fit the same pronoun, name the intended character.",
+        "think": "Who do you mean by “she,” “he,” or “they”?",
+        "clue": "If the word could mean two people, use the name of the person you mean.",
         "sentenceHelp": "___ [name] ___. Then ___ [name or clear pronoun] ___.",
         "moreHelp": "Ask who a potentially unclear reference means. Contrast the possible referents already in the story and let the student choose; revise the reference without changing the event.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
         "reconnect": "Tell this part with the relevant part before or after it, then return to the whole story."
       },
       "setting": {
-        "lookListen": "Look or listen for how the place or time connects to an event.",
-        "think": "How can you make clear where or when this event happens?",
-        "clue": "Decide whether the link tells place, time, or a change of setting; it does not have to explain a cause.",
-        "sentenceHelp": "At/In ___, ___. / When ___, ___.",
-        "moreHelp": "Identify the event and relevant setting information. Help select a place phrase, time link, or explicit shift of setting that fits; do not substitute because for a time relationship.",
+        "lookListen": "Listen to the two events. Can your listener tell when they happened?",
+        "think": "Did one happen first, or were they happening at the same time?",
+        "clue": "Try “after” if one came first, or “while” if they happened together.",
+        "sentenceHelp": "Before ___, ___. / After ___, ___. / While ___, ___.",
+        "moreHelp": "Use the learner’s two events. If they happened at the same time, model the link, as in “While Maya looked under the bench, Leo checked the swings.” Invite a retry using the learner’s own events.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
         "reconnect": "Tell this part with the relevant part before or after it, then return to the whole story."
       },
       "problem": {
         "lookListen": "Look or listen to the transition from what was happening to the problem.",
-        "think": "How can you show the relationship between those ideas?",
-        "clue": "Did the problem happen next, interrupt something, or contrast with an expectation? Choose only what your story supports.",
+        "think": "What was happening when the problem began?",
+        "clue": "If the problem interrupted something, try “Maya was ___ when ___.”",
         "sentenceHelp": "Then ___. / ___ was ___ when ___. / ___, but ___.",
         "moreHelp": "Use the student’s two intended ideas to establish sequence, interruption, or contrast first. Offer connecting language for that relationship rather than a mixed list of unrelated connectors.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -195,8 +195,8 @@
       },
       "feeling": {
         "lookListen": "Look or listen to how the feeling connects with nearby story information.",
-        "think": "What relationship do you want your listener to understand?",
-        "clue": "Did the event happen before the feeling, explain it, or relate in another way?",
+        "think": "When did the character start feeling that way?",
+        "clue": "If it happened after an event, try “After ___, Maya felt ___.”",
         "sentenceHelp": "After ___, ___ felt ___. / ___ felt ___ because ___.",
         "moreHelp": "Distinguish time from a reason for the feeling. Use a causal frame only if the student means that the event explains the feeling.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -204,8 +204,8 @@
       },
       "plan": {
         "lookListen": "Look or listen to the plan and the idea you want to connect it with.",
-        "think": "How can you show that connection clearly?",
-        "clue": "Are you explaining a reason for the plan, a goal, or what happens next?",
+        "think": "Did the character make the plan before or after that event?",
+        "clue": "Use “before” or “after” if the listener needs help placing the plan in time.",
         "sentenceHelp": "___ planned to ___. / ___ planned to ___ because ___.",
         "moreHelp": "Clarify whether the student intends reason, purpose, or sequence. Choose a connector or clear reference for that relationship; do not require a feeling to cause every plan.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -213,8 +213,8 @@
       },
       "attempt": {
         "lookListen": "Look or listen to how the action connects with the surrounding events.",
-        "think": "How can your listener follow what happens from one event to the next?",
-        "clue": "Check sequence and clear references before adding a reason or purpose.",
+        "think": "Which action happened first?",
+        "clue": "Try “first” and “then” if the listener can’t tell the order from what you said.",
         "sentenceHelp": "After ___, ___. / Then ___ [clear character reference] ___.",
         "moreHelp": "Have the student identify the actor and the event before or after the action. Repair unclear order or references; add a causal or purpose link only when intended.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -222,8 +222,8 @@
       },
       "item": {
         "lookListen": "Look or listen for how the object is introduced and referred to later.",
-        "think": "Will your listener know which object you mean and how it relates to this part?",
-        "clue": "Name an unfamiliar or ambiguous object before using it, this, or that to refer to it.",
+        "think": "Which thing do you mean by “it” or “that”?",
+        "clue": "Name the object where the listener might be unsure.",
         "sentenceHelp": "___ found a ___. / The ___ / It ___ [when the reference is clear].",
         "moreHelp": "Identify the intended object and each reference to it. Clarify the name or reference first; do not assume the character uses the object to solve the problem.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -231,8 +231,8 @@
       },
       "resolution": {
         "lookListen": "Look or listen to the link between the earlier events and the ending.",
-        "think": "How can you make that relationship clear?",
-        "clue": "Does the ending follow in time, result from an action, or differ from what was expected?",
+        "think": "Did the ending turn out the way the character expected?",
+        "clue": "If it turned out differently, try “Maya expected ___, but ___.”",
         "sentenceHelp": "After ___, ___. / ___, so ___. / ___, but ___.",
         "moreHelp": "Establish the student’s intended relationship, then choose a time, result, or contrast structure. Do not treat finally as evidence of cause.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -242,8 +242,8 @@
     "cause-effect": {
       "problem": {
         "lookListen": "Look or listen for what may have caused the problem or what followed from it.",
-        "think": "Which cause or consequence do you want to explain?",
-        "clue": "An event happening first does not by itself show that it caused the problem.",
+        "think": "What made the problem happen?",
+        "clue": "If one event caused the problem, try “The problem started because ___.”",
         "sentenceHelp": "___ happened because ___. / ___ happened, so ___.",
         "moreHelp": "Choose one direction: reason for the problem or consequence of the problem. Identify the two supported ideas, then help express that causal link without reversing it.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -251,8 +251,8 @@
       },
       "feeling": {
         "lookListen": "Look or listen for the feeling and the information that may explain it.",
-        "think": "What in your story supports why the character feels that way?",
-        "clue": "Use what happened, what the character perceived, or what they wanted, when the story supports it.",
+        "think": "Why did the character feel that way?",
+        "clue": "Use a detail from your story that helps explain the feeling.",
         "sentenceHelp": "___ felt ___ because ___.",
         "moreHelp": "Check the intended feeling and possible reason with the student. If the reason is unknown, permit uncertainty or decide to work on another supported causal relationship.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -260,8 +260,8 @@
       },
       "plan": {
         "lookListen": "Look or listen for why the character chooses the plan.",
-        "think": "What reason for that plan does your story support?",
-        "clue": "A reason explains the choice; the plan states the intended action.",
+        "think": "Why did the character choose that plan?",
+        "clue": "Tell what made that plan seem like a good choice to the character.",
         "sentenceHelp": "___ planned to ___ because ___.",
         "moreHelp": "Separate the problem, any relevant feeling or belief, and the intended plan. Have the student select the reason they mean; a feeling is not a required cause.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -269,8 +269,8 @@
       },
       "attempt": {
         "lookListen": "Look or listen for what the character does and what they intend to achieve.",
-        "think": "Are you explaining why the action was chosen or what it actually caused?",
-        "clue": "A purpose tells an intended outcome. A consequence tells what actually happened; they may differ.",
+        "think": "What happened because the character did that?",
+        "clue": "If the action made something change, tell what changed. If you’re explaining what the character hoped to do, say that instead.",
         "sentenceHelp": "___ did ___ to ___. / ___ did ___, so ___.",
         "moreHelp": "Contrast purpose and actual result using the student’s own story. Select one relationship for the current attempt; do not turn an intention into a successful consequence.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -278,8 +278,8 @@
       },
       "item": {
         "lookListen": "Look or listen for the object and any effect it has on what happens.",
-        "think": "What effect of the object or its use does your story support?",
-        "clue": "The effect could help, hinder, or make no difference. Owning an object is not the same as using it.",
+        "think": "Did using the object change what happened? How?",
+        "clue": "Tell what changed if it did. The object might help, make things harder, or make no difference.",
         "sentenceHelp": "Because ___, ___. / ___ used ___, so ___.",
         "moreHelp": "Establish whether the object is actually used or has another relevant effect. If no causal connection is supported, do not require one; select another meaningful causal target.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -287,8 +287,8 @@
       },
       "resolution": {
         "lookListen": "Look or listen for the outcome and what may have led to it.",
-        "think": "Can you explain what caused that outcome?",
-        "clue": "Choose a supported cause, which may be an attempt, another event, or a combination of events.",
+        "think": "What made the ending turn out that way?",
+        "clue": "Use an event from your story that helps explain the ending. You can leave the reason open if the story doesn’t show it.",
         "sentenceHelp": "___ happened because ___. / ___, so ___.",
         "moreHelp": "Identify outcome and cause separately. Check direction with the student, then combine them; keep intended goals separate from actual results and allow an unresolved outcome.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -298,8 +298,8 @@
     "elaboration": {
       "character": {
         "lookListen": "Look or listen to what you have said about the character.",
-        "think": "What detail would help your listener understand this character in this story?",
-        "clue": "Choose a relevant trait, action, description, or role—not a detail just to make the story longer.",
+        "think": "What could you tell us about this character that would help us understand this part?",
+        "clue": "Try adding one detail about what the character did or what they were like.",
         "sentenceHelp": "___ is ___. / ___ [relevant action or description].",
         "moreHelp": "Ask what the listener still needs to understand about the character. Offer meaningful categories of detail, then have the student choose content that belongs in their story.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -307,8 +307,8 @@
       },
       "setting": {
         "lookListen": "Look or listen to the place or time information already in your story.",
-        "think": "What detail would make this setting clearer where it matters?",
-        "clue": "Choose a detail that helps the listener picture or understand this event.",
+        "think": "What could we see or hear in this place?",
+        "clue": "Add one detail that helps the listener picture where this happened.",
         "sentenceHelp": "At/In ___, ___. / The place was ___.",
         "moreHelp": "Identify what the listener cannot yet picture or understand. Invite one relevant place or time detail without requiring a causal explanation.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -316,8 +316,8 @@
       },
       "problem": {
         "lookListen": "Look or listen to how you describe the problem.",
-        "think": "What detail would help the listener understand the difficulty?",
-        "clue": "Clarify what happened, what is at stake, or what blocks the character. The problem need not become harder.",
+        "think": "What would help us picture what went wrong?",
+        "clue": "Try telling exactly what got in the character’s way.",
         "sentenceHelp": "The problem was ___. / ___ could not ___ because ___.",
         "moreHelp": "Identify an information gap in the student’s account. Help choose a relevant detail; do not add escalation, obstacles, or stakes not intended by the student.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -325,8 +325,8 @@
       },
       "feeling": {
         "lookListen": "Look or listen to how the feeling is expressed.",
-        "think": "What detail would help the listener understand or picture that feeling?",
-        "clue": "You might clarify the feeling, a supported reason, or how it is expressed.",
+        "think": "How could we tell how the character was feeling?",
+        "clue": "If your story gives a clue, add what the character said, did, or looked like.",
         "sentenceHelp": "___ felt ___. / ___ [an action or words expressing the feeling].",
         "moreHelp": "Ask whether the student wants to name, explain, or show the feeling. Offer categories rather than inventing behavior; do not require both a feeling label and an explanation.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -334,8 +334,8 @@
       },
       "plan": {
         "lookListen": "Look or listen to the plan you have expressed.",
-        "think": "What detail would make the intention clearer?",
-        "clue": "Clarify the intended action, goal, or relevant reason. Do not add steps that the story does not need.",
+        "think": "What exactly was the character going to do?",
+        "clue": "Add one detail that makes the plan easier to picture, like where they meant to look.",
         "sentenceHelp": "___ planned to ___. / The goal was ___.",
         "moreHelp": "Identify what remains unclear about the intention. Have the student supply one needed detail and distinguish it from an action already completed.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -343,8 +343,8 @@
       },
       "attempt": {
         "lookListen": "Look or listen to the action you have described.",
-        "think": "What detail would help your listener understand how it happens?",
-        "clue": "Consider the actor, manner, object, or an important step—only if it adds useful information.",
+        "think": "How did the character do that?",
+        "clue": "Add one detail about how it happened, like what they used or where they looked.",
         "sentenceHelp": "___ [action] ___. / ___ did ___ by ___.",
         "moreHelp": "Choose one unclear part of the action with the student. Break it into meaningful components, then add the component the listener needs.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -352,8 +352,8 @@
       },
       "item": {
         "lookListen": "Look or listen to the information about the object.",
-        "think": "What relevant detail would help your listener understand the object here?",
-        "clue": "Its identity, appearance, condition, or actual use may matter. It does not have to solve the problem.",
+        "think": "What about the object would help us picture it or understand how it was used?",
+        "clue": "Add one detail that matters here, like whether the bag was open or shut.",
         "sentenceHelp": "The ___ was ___. / ___ used the ___ to ___.",
         "moreHelp": "Identify why the object is included in this story. Invite a description or actual use that supports that purpose; do not speculate about imaginary uses.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -361,8 +361,8 @@
       },
       "resolution": {
         "lookListen": "Look or listen to the outcome you have told.",
-        "think": "What detail would make the ending clearer?",
-        "clue": "Clarify what changed or remained unresolved, without requiring a lesson or a happy ending.",
+        "think": "What was different at the end?",
+        "clue": "Add one detail about what changed or what stayed the same.",
         "sentenceHelp": "In the end, ___. / ___ was still ___.",
         "moreHelp": "Compare the ending with what the listener still needs to know. Help the student add one relevant outcome detail; do not require a new causal clause or moral.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -372,8 +372,8 @@
     "perspective-internal-state": {
       "character": {
         "lookListen": "Look or listen for information about what the character wants, thinks, feels, or knows.",
-        "think": "Which internal state matters to this part of your story?",
-        "clue": "Use what the story states or supports. A possible interpretation is different from a known fact.",
+        "think": "What does the character think, feel, or want here?",
+        "clue": "Use something the character said or did as a clue. You can say “might” if you aren’t sure.",
         "sentenceHelp": "___ wanted ___. / ___ may have thought ___.",
         "moreHelp": "Identify a relevant internal state with the student and ask what supports it. Distinguish an explicit statement from an inference; allow uncertainty or more than one supported interpretation.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -381,8 +381,8 @@
       },
       "problem": {
         "lookListen": "Look or listen for what the character notices or knows about the problem.",
-        "think": "What does the character’s perspective help us understand here?",
-        "clue": "A character may not know everything the listener knows. Do not assume a false belief or surprise.",
+        "think": "What does the character know about the problem right now?",
+        "clue": "Tell what the character saw or heard. They might know less than the listener does.",
         "sentenceHelp": "___ knew ___. / ___ did not know ___. / ___ may have thought ___.",
         "moreHelp": "Compare what is available to the character with what is available to the listener. Use a knowledge or belief statement only if the story supports that distinction.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -390,8 +390,8 @@
       },
       "feeling": {
         "lookListen": "Look or listen for the feeling and the surrounding story information.",
-        "think": "How can you make the character’s experience clearer?",
-        "clue": "A supported event, goal, perception, or belief may help explain the feeling.",
+        "think": "How might the character feel right here?",
+        "clue": "Look at what happened to this character. What in the story makes that feeling possible?",
         "sentenceHelp": "___ felt ___. / ___ may have felt ___ because ___.",
         "moreHelp": "Check whether the feeling is stated or inferred. Identify support with the student; do not replace their intended feeling or demand a single emotion when alternatives fit.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -399,8 +399,8 @@
       },
       "plan": {
         "lookListen": "Look or listen for what the character wants or expects when making the plan.",
-        "think": "What intended goal or expectation matters here?",
-        "clue": "What the character hopes will happen may differ from what later happens.",
+        "think": "What does the character hope will happen?",
+        "clue": "Tell what they hoped for at that point, even if it turned out differently.",
         "sentenceHelp": "___ wanted to ___. / ___ hoped that ___.",
         "moreHelp": "Separate the intended goal or expectation from the actual outcome. Ask the student which internal state is supported and relevant; do not require the plan to come from a feeling.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -408,8 +408,8 @@
       },
       "attempt": {
         "lookListen": "Look or listen for the character’s action and any supported reason for choosing it.",
-        "think": "What does this action help us understand about the character’s goal or perspective?",
-        "clue": "An action may suggest a motive, but it does not prove exactly what the character thought.",
+        "think": "What might the character be trying to do here?",
+        "clue": "Use the action as a clue. If there are several possibilities, say “might.”",
         "sentenceHelp": "___ did ___ because they wanted ___. / ___ may have hoped ___.",
         "moreHelp": "Check whether the motive is explicit or inferred. Identify supporting story information; if it is unknown, permit uncertainty rather than supplying a motive.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -417,8 +417,8 @@
       },
       "resolution": {
         "lookListen": "Look or listen for what the story shows about the character at the end.",
-        "think": "What feeling, thought, knowledge, or goal is relevant now?",
-        "clue": "An internal state may change, stay the same, or remain unknown. The character does not have to learn a lesson.",
+        "think": "At the end, what does the character think, know, or feel?",
+        "clue": "Say what the story shows. Their thoughts or feelings can stay the same, change, or be unclear.",
         "sentenceHelp": "At the end, ___ felt ___. / ___ still wanted ___. / ___ may have thought ___.",
         "moreHelp": "Compare beginning and ending evidence only if a comparison serves the target. State a change in understanding only when supported; accept continuity or uncertainty and preserve the student’s interpretation.",
         "retry": "Try this part again in your own words. Keep the meaning you intend; use less help if you can.",
@@ -693,14 +693,15 @@
     const record = goalRatings[target];
     if (record && sessionPhase !== "first-tell") {
       const skill = document.createElement("p");
-      skill.textContent = `Did the student… ${items.find(([id]) => id === record.item)[1]}`;
+      const question = items.find(([id]) => id === record.item)[1];
+      skill.textContent = `Did the student ${question[0].toLowerCase() + question.slice(1)}`;
       fields.append(skill);
       if (sessionPhase === "part") return;
     } else {
       const prompt = document.createElement("label");
-      prompt.textContent = "Did the student…?";
+      prompt.textContent = "Choose one skill to rate in both tells";
       const choice = document.createElement("select");
-      choice.add(new Option("Choose one skill to listen for", ""));
+      choice.add(new Option("Select a skill", ""));
       for (const [id, label] of items) choice.add(new Option(label, id));
       choice.value = record?.item || "";
       choice.addEventListener("change", () => {
@@ -1650,7 +1651,7 @@
       givenPromptControl(category, stepLabel.textContent)
     );
 
-    if (level >= 3) {
+    {
       const choices = document.createElement("div");
       choices.className = "planner-support-choices";
       [["sentence", "Sentence Help"], ["more", "More Help"]].forEach(([key, label]) => {

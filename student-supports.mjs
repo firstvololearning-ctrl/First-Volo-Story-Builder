@@ -1,4 +1,4 @@
-import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261104-clinician-flow";
+import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261104-goal-clarity";
 import { STUDENT_SUPPORTS, STUDENT_SUPPORT_TARGET_KEYS, supportOptionsForTarget } from "./student-support-content.mjs";
 
 let panel = null;
