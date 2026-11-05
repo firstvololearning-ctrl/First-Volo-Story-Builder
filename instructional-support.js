@@ -1670,7 +1670,7 @@
       });
       const guidance = document.createElement("p");
       guidance.className = "planner-educator-guidance";
-      guidance.textContent = "Educator: optional supports — choose either first, use both, or stop when the student succeeds. Return to an earlier prompt when useful. Structures are possibilities, not required responses; use only language that fits the student's intended meaning and the story. Do not add unsupported events or unnecessary complexity.";
+      guidance.textContent = "Ask about one unclear part, such as “Who do you mean by ‘she’?” Offer a choice or model a sentence if that helps. Use the learner’s story details, then invite another try.";
       supportCard.append(guidance, choices);
 
       if (optionalSupports[category].sentence) {

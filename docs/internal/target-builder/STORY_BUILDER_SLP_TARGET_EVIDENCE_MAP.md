@@ -61,6 +61,8 @@ The educator’s notes from ASHA session 1902, *Implementing a Metalinguistic Ap
 
 The six teaching goals each offer specific rating choices. The educator selects one criterion and uses it for both tells. The choices and ratings describe session observations. The academic writing examples in the ASHA notes help frame questions about clarity for an audience. They do not validate the narrative rating choices. Choose a question or a model that fits the learner and note help given separately from performance.
 
+The guide and teaching prompts apply this with a reference example. Ask who “she” means, offer a choice among characters already in the story, or model a sentence with the intended name. The learner then tries the part again. Grade bands guide the complexity and amount of support, while the teaching screen uses the same six goals and rating choices.
+
 ## Current product scope
 
 The educator teaching cycle offers six Story Goals. Vocabulary Precision is also represented in the broader target and student support tools.
