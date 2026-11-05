@@ -206,12 +206,12 @@ async function startEducatorRuntime(access) {
     educatorRuntimeStarted = true;
     educatorRuntimePromise = (async () => {
       // Register instructional state before the core restores the saved draft.
-      await loadClassicScript("./instructional-support.js?v=20261105-support-options");
-      await loadClassicScript("./script.js?v=20261105-support-options");
-      await loadClassicScript("./educator-workspace.js?v=20261105-support-options");
-      educatorSupportsModule = await import("./student-supports.mjs?v=20261105-support-options");
+      await loadClassicScript("./instructional-support.js?v=20261105-support-navigation");
+      await loadClassicScript("./script.js?v=20261105-support-navigation");
+      await loadClassicScript("./educator-workspace.js?v=20261105-support-navigation");
+      educatorSupportsModule = await import("./student-supports.mjs?v=20261105-support-navigation");
       await educatorSupportsModule.initializeStudentSupports(access);
-      educatorCloudModule = await import("./cloud-sync.mjs?v=20261105-support-options");
+      educatorCloudModule = await import("./cloud-sync.mjs?v=20261105-support-navigation");
       await educatorCloudModule.initializeEducatorCloudSync(access);
       if (ENABLE_STORY_BUILDER_CYCLE_CLOUD) {
         educatorCycleModule = await import("./story-builder-cycle-cloud.mjs?v=3");
@@ -302,7 +302,7 @@ async function publishAccess(access, session, generation, previousAccess) {
   if (access.mode === "student") {
     try {
       if (!studentRuntimeModule) {
-        studentRuntimeModule = await import("./student-mode.mjs?v=20261105-support-options");
+        studentRuntimeModule = await import("./student-mode.mjs?v=20261105-support-navigation");
         studentRuntimeStarted = true;
       }
     } catch (error) {

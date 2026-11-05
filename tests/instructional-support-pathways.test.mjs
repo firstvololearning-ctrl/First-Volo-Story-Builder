@@ -18,7 +18,7 @@ test('two sentence pathways cover every story element with three sequential prom
 });
 
 test('support after the clue branches into independently selectable options', () => {
-  assert.match(source, /\[\["sentence", "Sentence Help"\], \["more", "Coaching Ideas"\]\]/);
+  assert.match(source, /\[\["sentence", "Sentence Help — words to try"\], \["more", "Coaching Ideas — ways to help"\]\]/);
   assert.match(source, /optionalSupports\[category\]\[key\] = !optionalSupports\[category\]\[key\]/);
   assert.match(source, /"Look \/ Listen Here"/);
   assert.match(source, /"Grammatical support level"/);

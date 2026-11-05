@@ -1505,6 +1505,7 @@
       const replacement = controls.find(node => focusLabel
         ? node.getAttribute("aria-label") === focusLabel
         : node.textContent === focusText);
+      if (replacement?.closest("details")) replacement.closest("details").open = true;
       (replacement || container.querySelector(".planner-help-button"))?.focus();
     }
 
@@ -1563,6 +1564,7 @@
 
     row.appendChild(helpButton);
 
+    const promptNavigation = document.createDocumentFragment();
     if (level > 0 && level < 3) {
       const moreButton = document.createElement("button");
       moreButton.type = "button";
@@ -1579,7 +1581,7 @@
         announceChanged();
       });
 
-      row.appendChild(moreButton);
+      promptNavigation.appendChild(moreButton);
     }
 
     if (level > 1) {
@@ -1592,7 +1594,7 @@
         renderPlannerSupport(category);
         announceChanged();
       });
-      row.appendChild(previous);
+      promptNavigation.appendChild(previous);
     }
     container.appendChild(row);
 
@@ -1656,10 +1658,11 @@
       const options = document.createElement("details");
       options.open = Boolean(optionalSupports[category].sentence || optionalSupports[category].more);
       const summary = document.createElement("summary");
-      summary.textContent = "Need a different kind of help?";
+      summary.textContent = "Need more help?";
       const choices = document.createElement("div");
       choices.className = "planner-support-choices";
-      [["sentence", "Sentence Help"], ["more", "Coaching Ideas"]].forEach(([key, label]) => {
+      choices.append(promptNavigation);
+      [["sentence", "Sentence Help — words to try"], ["more", "Coaching Ideas — ways to help"]].forEach(([key, label]) => {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "planner-more-help-button";

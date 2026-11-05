@@ -1,4 +1,4 @@
-import {supabase,getCurrentAccess} from './access-gate.mjs?v=20261105-support-options';
+import {supabase,getCurrentAccess} from './access-gate.mjs?v=20261105-support-navigation';
 import {createLearnerLibrarySync} from './learner-library-sync.mjs';
 const by=id=>document.getElementById(id);
 let session=null,initialized=false,timer=null;
