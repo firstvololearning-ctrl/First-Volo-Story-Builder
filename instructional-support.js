@@ -1653,6 +1653,10 @@
     );
 
     {
+      const options = document.createElement("details");
+      options.open = Boolean(optionalSupports[category].sentence || optionalSupports[category].more);
+      const summary = document.createElement("summary");
+      summary.textContent = "Need a different kind of help?";
       const choices = document.createElement("div");
       choices.className = "planner-support-choices";
       [["sentence", "Sentence Help"], ["more", "Coaching Ideas"]].forEach(([key, label]) => {
@@ -1668,10 +1672,8 @@
         });
         choices.appendChild(button);
       });
-      const guidance = document.createElement("p");
-      guidance.className = "planner-educator-guidance";
-      guidance.textContent = "Ask about one unclear part, such as “Who do you mean by ‘she’?” Offer a choice or model a sentence if that helps. Use the learner’s story details, then invite another try.";
-      supportCard.append(guidance, choices);
+      options.append(summary, choices);
+      supportCard.append(options);
 
       if (optionalSupports[category].sentence) {
         const extra = document.createElement("div");
@@ -1704,7 +1706,7 @@
         extra.appendChild(givenPromptControl(category, "Sentence Help" +
           (selectedTarget === "sentence-formulation" ? ` · ${sentencePathways[sentencePathway]}` +
             (sentencePathway === "combine" ? ` · ${relationshipSupports[selectedRelationship].label}` : "") : "")));
-        supportCard.appendChild(extra);
+        options.appendChild(extra);
       }
 
       if (optionalSupports[category].more) {
@@ -1712,7 +1714,9 @@
         extra.className = "planner-extra-support";
         const heading = document.createElement("strong");
         heading.textContent = "Coaching Ideas · For the educator";
-        extra.appendChild(heading);
+        const guidance = document.createElement("p");
+        guidance.textContent = "Ask about one unclear part. Offer a choice or model a sentence using the learner’s story details, then invite another try.";
+        extra.append(heading, guidance);
         if (selectedTarget === "sentence-formulation") {
           const instructions = document.createElement("p");
           instructions.textContent = "Educator only: identify the actual grammatical difficulty. Use the least assistance appropriate; any level may be selected directly. The app does not interpret or correct the student's response. After assistance, have the student reformulate, reduce support when feasible, and reconnect to the surrounding narrative.";
@@ -1738,7 +1742,7 @@
         }
         extra.appendChild(givenPromptControl(category, "Coaching Ideas" +
           (selectedTarget === "sentence-formulation" ? ` · ${grammarLevels[selectedGrammarLevel - 1][0]}` : "")));
-        supportCard.appendChild(extra);
+        options.appendChild(extra);
       }
     }
 
