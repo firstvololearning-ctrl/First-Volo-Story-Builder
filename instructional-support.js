@@ -1662,7 +1662,7 @@
       const choices = document.createElement("div");
       choices.className = "planner-support-choices";
       choices.append(promptNavigation);
-      [["sentence", "Sentence Help — words to try"], ["more", "Coaching Ideas — ways to help"]].forEach(([key, label]) => {
+      [["sentence", "Sentence starters & examples"], ["more", "Coaching ideas for educators"]].forEach(([key, label]) => {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "planner-more-help-button";
