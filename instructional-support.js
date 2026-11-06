@@ -1358,7 +1358,7 @@
           "Listen to the whole first attempt before opening targeted support. Access help is still okay when it does not supply the instructional target.";
       } else if (sessionPhase === "part") {
         focusNote.textContent =
-          "Let the student attempt the language first. If help is needed, use the three prompts and optional Sentence Help or Coaching Ideas as appropriate. Have the student retry and reconnect the repaired idea to the story.";
+          "Let the student attempt the language first. If help is needed, use the three prompts and optional sentence starters or educator coaching as appropriate. Have the student retry and reconnect the repaired idea to the story.";
       } else {
         focusNote.textContent =
           "Targeted help stays closed during Tell Again. The Story Planner may remain available as a scaffold with or without written notes; hide it when you want to observe an independent whole-story tell.";
@@ -1682,7 +1682,7 @@
         const extra = document.createElement("div");
         extra.className = "planner-extra-support";
         const heading = document.createElement("strong");
-        heading.textContent = "Sentence Help";
+        heading.textContent = "Sentence starters & examples";
         extra.appendChild(heading);
         if (selectedTarget === "sentence-formulation" && sentencePathway === "combine") {
           const label = document.createElement("label");
@@ -1716,7 +1716,7 @@
         const extra = document.createElement("div");
         extra.className = "planner-extra-support";
         const heading = document.createElement("strong");
-        heading.textContent = "Coaching Ideas · For the educator";
+        heading.textContent = "Coaching ideas for educators";
         const guidance = document.createElement("p");
         guidance.textContent = "Ask about one unclear part. Offer a choice or model a sentence using the learner’s story details, then invite another try.";
         extra.append(heading, guidance);
@@ -2005,8 +2005,8 @@
       part,
       prompts: support ? [
         ...supportStepLabels.slice(0, 3).map((label, index) => [label, support.steps[index]]),
-        ["Sentence Help", support.sentence || "Offer a sentence starter that fits the learner’s intended meaning."],
-        ["Coaching Ideas", support.more || "Model one possible structure using the learner’s own idea, then invite a retry."]
+        ["Sentence starters & examples", support.sentence || "Offer a sentence starter that fits the learner’s intended meaning."],
+        ["Coaching ideas for educators", support.more || "Model one possible structure using the learner’s own idea, then invite a retry."]
       ] : []
     };
   }

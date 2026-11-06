@@ -1027,7 +1027,7 @@ function printPlanner(mode = "student") {
       : "Choose one useful change after listening. Write a prompt here or open help for the goal in Story Builder: ____________________";
     prompts.append(intro);
     guidance?.prompts.forEach(([label, text], index) => {
-      if (index === 0 || label === "Coaching Ideas") {
+      if (index === 0 || label === "Coaching ideas for educators") {
         const audience = document.createElement("p");
         const audienceLabel = document.createElement("strong");
         audienceLabel.textContent = index === 0 ? "Say to the learner" : "For the educator";
