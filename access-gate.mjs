@@ -206,15 +206,15 @@ async function startEducatorRuntime(access) {
     educatorRuntimeStarted = true;
     educatorRuntimePromise = (async () => {
       // Register instructional state before the core restores the saved draft.
-      await loadClassicScript("./instructional-support.js?v=20261107-followup");
-      await loadClassicScript("./script.js?v=20261107-followup");
-      await loadClassicScript("./educator-workspace.js?v=20261107-followup");
-      educatorSupportsModule = await import("./student-supports.mjs?v=20261107-followup");
+      await loadClassicScript("./instructional-support.js?v=20261107-simpler-workspace");
+      await loadClassicScript("./script.js?v=20261107-simpler-workspace");
+      await loadClassicScript("./educator-workspace.js?v=20261107-simpler-workspace");
+      educatorSupportsModule = await import("./student-supports.mjs?v=20261107-simpler-workspace");
       await educatorSupportsModule.initializeStudentSupports(access);
-      educatorCloudModule = await import("./cloud-sync.mjs?v=20261107-followup");
+      educatorCloudModule = await import("./cloud-sync.mjs?v=20261107-simpler-workspace");
       await educatorCloudModule.initializeEducatorCloudSync(access);
       if (ENABLE_STORY_BUILDER_CYCLE_CLOUD) {
-        educatorCycleModule = await import("./story-builder-cycle-cloud.mjs?v=20261107-followup");
+        educatorCycleModule = await import("./story-builder-cycle-cloud.mjs?v=20261107-simpler-workspace");
         await educatorCycleModule.initializeStoryBuilderCycleCloud({
           access,
           supabase
@@ -302,7 +302,7 @@ async function publishAccess(access, session, generation, previousAccess) {
   if (access.mode === "student") {
     try {
       if (!studentRuntimeModule) {
-        studentRuntimeModule = await import("./student-mode.mjs?v=20261107-followup");
+        studentRuntimeModule = await import("./student-mode.mjs?v=20261107-simpler-workspace");
         studentRuntimeStarted = true;
       }
     } catch (error) {

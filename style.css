@@ -4350,3 +4350,51 @@ body.modal-open {
   .more-actions-menu { width: min(280px, calc(100vw - 48px)); box-sizing: border-box; }
   .instructional-target-select { width: 100%; max-width: 100%; min-width: 0; }
 }
+
+/* A compact clinician workspace, with one current teaching task. */
+#storyBuilderApp .page-header {text-align:left;margin-bottom:12px}
+#storyBuilderApp .site-logo {width:44px;float:left;margin:0 12px 0 0}
+#storyBuilderApp .page-header h1 {font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.025em}
+#storyBuilderApp .workspace-mode {margin:4px 0;font-size:.85rem;color:#52647a}
+#storyBuilderApp .tagline {max-width:none;margin:8px 0 14px;font-size:1rem}
+#storyBuilderApp .educator-task-switch {justify-content:flex-start;clear:both;margin:12px 0}
+#storyBuilderApp .educator-task-switch button {font-weight:650;border-radius:8px;box-shadow:none;font-size:.95rem;padding:11px 16px}
+#storyBuilderApp .my-stories-button {background:white;color:#203f72;border:1px solid #b4c5d9}
+#storyBuilderApp .controls-panel {padding:14px 18px;border-radius:12px;box-shadow:none}
+.shared-screen-note {font-size:.9rem;color:#52647a;margin:0 0 12px}
+#storyBuilderApp .primary-actions {justify-content:flex-start;gap:10px}
+#storyBuilderApp .primary-actions>a,#storyBuilderApp .primary-actions>button,#storyBuilderApp .more-actions>summary {font:600 .9rem/1.4 Inter,"Avenir Next",Arial,sans-serif;padding:10px 14px;min-height:42px;border:1px solid #bdcad9;border-radius:8px;box-shadow:none;background:white;color:#203f72}
+.save-status,.writing-save-status {font-size:.88rem;font-weight:600;color:#34634d;margin:12px 0 4px;min-height:1.4em}
+.save-status.is-error,.writing-save-status.is-error {color:#922d25}
+.save-boundary-note {font-size:.8rem;color:#52647a;margin:4px 0 12px;line-height:1.45}
+.story-setup {margin-top:12px;border-top:1px solid #dde5ee;padding-top:12px}
+.story-setup>summary {cursor:pointer;font-weight:650;font-size:.95rem}
+.story-setup>summary span {font-weight:400;color:#52647a}
+#storyBuilderApp .story-goal-control {padding:12px 14px;border-radius:10px;margin-top:14px}
+#storyBuilderApp .instructional-session-panel {padding:14px 18px;border-radius:12px;box-shadow:none;background:#faf9fd}
+#storyBuilderApp .instructional-session-heading h2 {font-size:1rem}
+#storyBuilderApp .instructional-session-kicker {font-size:.65rem}
+#storyBuilderApp .instructional-session-panel>.educator-controls-label {display:none}
+#storyBuilderApp .instructional-session-step {min-height:58px;padding:10px 12px;box-shadow:none;border-radius:9px}
+#storyBuilderApp .instructional-session-step strong {font-size:.95rem}
+#storyBuilderApp .instructional-session-phase-card {padding:12px 14px;border-radius:9px}
+#storyBuilderApp .educator-goal-comparison {grid-template-columns:1fr}
+.earlier-tell-observation {padding:10px;border:1px solid #d5dfea;border-radius:8px;background:#f7f9fc}
+.earlier-tell-observation>summary {cursor:pointer;font-size:.9rem;color:#52647a}
+#storyBuilderApp[data-focus-view="true"] .workspace-mode,
+#storyBuilderApp[data-focus-view="true"] .tagline,
+#storyBuilderApp[data-focus-view="true"] .shared-screen-note,
+#storyBuilderApp[data-focus-view="true"] .story-goal-control,
+#storyBuilderApp[data-focus-view="true"] .story-setup,
+#storyBuilderApp[data-focus-view="true"] .save-boundary-note,
+#storyBuilderApp[data-focus-view="true"] #educatorGoalChecklist,
+#storyBuilderApp[data-focus-view="true"] #instructionalFocusPanel,
+#storyBuilderApp[data-focus-view="true"] .workflow-step-details {display:none!important}
+@media(max-width:600px){
+ #storyBuilderApp .educator-task-switch {display:grid;grid-template-columns:1fr}
+ #storyBuilderApp .primary-actions {display:flex;flex-direction:row;flex-wrap:wrap}
+ #storyBuilderApp .primary-actions>* {width:auto;flex:1 1 auto}
+ #storyBuilderApp .page-header h1 {font-size:1.5rem}
+ .story-setup>summary span {display:block;padding-left:16px}
+}
+@media print {#writingSaveStatus {display:none!important}}

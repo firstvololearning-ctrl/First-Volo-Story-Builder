@@ -1683,11 +1683,11 @@ if (document.readyState === "loading") {
     window.clearTimeout(statusTimer);
     status.textContent = message;
 
-    if (duration > 0) {
-      statusTimer = window.setTimeout(() => {
-        status.textContent = "";
-      }, duration);
-    }
+    const nearby = getElement("writingSaveStatus");
+    if (nearby) nearby.textContent = message;
+    const failed = /could not|not saved|failed/i.test(message);
+    status.classList.toggle("is-error", failed);
+    nearby?.classList.toggle("is-error", failed);
   }
 
   function getCheckedValue(name, fallback = "") {
@@ -1823,7 +1823,7 @@ if (document.readyState === "loading") {
 
   function saveToBrowser(showMessage = false) {
     if (isRestoringStory) {
-      return false;
+      return null;
     }
 
     try {
@@ -1858,7 +1858,7 @@ if (document.readyState === "loading") {
         showSaveStatus("Could not save on this device.");
       }
 
-      return false;
+      return null;
     }
   }
 
@@ -1871,7 +1871,10 @@ if (document.readyState === "loading") {
 
     autoSaveTimer = window.setTimeout(() => {
       const isInMyStories = saveToBrowser(false);
-
+      if (isInMyStories === null) {
+        showSaveStatus("Not saved on this device. Keep this page open and download a backup if possible.");
+        return;
+      }
       showSaveStatus(
         isInMyStories
           ? "✓ My Stories updated"
@@ -2206,7 +2209,7 @@ if (document.readyState === "loading") {
     saveToBrowser(false);
 
     if (options.showMessage) {
-      showSaveStatus("✓ Story opened successfully.");
+      showSaveStatus("✓ Story opened · working draft on this device.");
     }
   }
 
@@ -2221,7 +2224,7 @@ if (document.readyState === "loading") {
     try {
       const data = JSON.parse(savedText);
       restoreStory(data, { showMessage: false });
-      showSaveStatus("✓ Previous work restored.", 1800);
+      showSaveStatus("✓ Previous draft restored on this device.", 1800);
     } catch (error) {
       console.error("Could not restore saved work:", error);
       localStoryStorage.clear();

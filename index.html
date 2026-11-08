@@ -26,7 +26,7 @@
   <meta name="twitter:description" content="Build narrative language through learners’ own stories with optional picture ideas, focused questions, model sentences, and a retell.">
 
   <link rel="icon" type="image/png" href="assets/logo/logo.png">
-  <link rel="stylesheet" href="style.css?v=20261107-followup">
+  <link rel="stylesheet" href="style.css?v=20261107-simpler-workspace">
 <link rel="stylesheet" href="account-navigation.css?v=20261027">
 </head>
 
@@ -59,10 +59,18 @@
         <h1>First Volo Story Builder</h1>
 
         <p class="workspace-mode"><strong>Educator workspace</strong> · <a href="https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html?returnTo=storyBuilder">Student sign-in</a></p>
-        <p class="tagline">Help learners build narrative language through their own stories. Use picture ideas to get a story started, then use focused questions and model sentences to teach one skill. Listen to the retell to hear how the learner puts your feedback into practice.</p>
+        <p class="tagline">Tell a story. Teach one skill. Hear it again.</p>
         <div class="educator-task-switch" role="group" aria-label="What are you doing?">
           <button type="button" data-educator-task="teach" aria-pressed="true">Work together</button>
           <button type="button" data-educator-task="setup" aria-pressed="false">Set up independent practice</button>
+  <button
+    class="my-stories-button"
+    id="myStoriesButton"
+    type="button"
+  >
+    <span aria-hidden="true">🗂</span>
+    Open saved work
+  </button>
         </div>
         <section id="studentSetupWorkspace" hidden aria-labelledby="studentSetupTitle">
           <h2 id="studentSetupTitle">Set up independent practice</h2>
@@ -71,17 +79,11 @@
           <div id="studentSupportsMount"><p role="status">Loading student-view options…</p></div>
         </section>
         <section class="controls-panel" aria-label="Story builder controls">
-          <p>Share this screen to tell or type a story together and use teaching prompts as you go.</p>
+          <p class="shared-screen-note">Work on this shared screen. Independent student writing is a separate workspace.</p>
 
     <div class="primary-actions">
-  <button
-    class="my-stories-button"
-    id="myStoriesButton"
-    type="button"
-  >
-    <span aria-hidden="true">🗂</span>
-    My Stories
-  </button>
+  <button id="focusViewButton" type="button" aria-pressed="false">Focus view</button>
+
 
   <a class="primary-resources-link" href="educator-resources.html">Educator Resources</a>
 
@@ -125,8 +127,8 @@
   id="saveStatus"
   role="status"
   aria-live="polite"
-></p>
-
+>Working draft · saves on this device as you work.</p>
+<p class="save-boundary-note">My Stories keeps reusable projects. Learner evidence saves separately. <a href="user-guide.html#saving">How saving works</a></p>
 
           <section class="story-goal-control" aria-labelledby="storyGoalHeading">
             <h2 id="storyGoalHeading">🎯 Story Goal</h2>
@@ -156,9 +158,9 @@
             </div>
           </section>
 
-          <div class="settings-grid">
+          <details class="story-setup"><summary>Story setup <span> · optional pictures, elements and labels</span></summary><div class="settings-grid">
             <details>
-              <summary>Display Options</summary>
+              <summary>Words &amp; display</summary>
 
               <div class="settings-content">
 
@@ -223,6 +225,7 @@
 
           </div>
 
+          </details>
           <p
             class="roll-status"
             id="rollStatus"
@@ -243,7 +246,7 @@
   <div class="instructional-session-heading">
     <div>
       <p class="instructional-session-kicker">Whole → Part → Whole</p>
-      <h2 id="instructionalSessionTitle">Narrative Teaching Cycle</h2>
+      <h2 id="instructionalSessionTitle">Teaching cycle</h2>
     </div>
 
     <span
@@ -284,8 +287,8 @@
     >
       <span class="instructional-session-step-number">2</span>
       <span>
-        <strong>Work on Target</strong>
-        <small>Unpack and repair</small>
+        <strong>Teach one skill</strong>
+        <small>Practice, then retry</small>
       </span>
     </button>
 
@@ -1072,6 +1075,7 @@
         <div class="vocabulary-grid" id="vocabularyList"></div>
       </section>
 
+      <p id="writingSaveStatus" class="writing-save-status" aria-live="off">Working draft · saves on this device as you work.</p>
       <section id="storyStepCompletion" class="story-step-completion" aria-label="After the current story activity" hidden>
         <p>Finish the current activity above before moving to the next step. Oral storytelling does not require written answers.</p>
         <section id="educatorGoalChecklist" class="educator-goal-checklist" tabindex="-1" aria-labelledby="educatorGoalChecklistTitle" hidden>
@@ -1473,6 +1477,7 @@
 
     <h1 id="aboutTitle">📖 About First Volo Story Builder</h1>
 
+    <p>Help learners build narrative language through their own stories. Use picture ideas to get a story started, then use focused questions and model sentences to teach one skill. Listen to the retell to hear how the learner puts your feedback into practice.</p>
     <p class="about-intro">
       <strong>First Volo Story Builder</strong> is a
       <strong>research-informed narrative-language and story-building tool</strong>
@@ -1885,7 +1890,7 @@
     </section>
   </div>
 
-  <script type="module" src="access-gate.mjs?v=20261107-followup"></script>
+  <script type="module" src="access-gate.mjs?v=20261107-simpler-workspace"></script>
 <p style="text-align:center;padding:16px"><a href="https://firstvololearning-ctrl.github.io/First-Volo-Account/privacy-status.html">Privacy protections · September 6, 2026</a></p>
 <script src="index-events.js"></script></body>
 </html>

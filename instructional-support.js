@@ -33,8 +33,8 @@
         "Have the student tell or generate the complete story from beginning to end before opening the Story Planner or targeted support. If the target is already known, listen for it. If not, listen for the most meaningful narrative or language breakdown to address next."
     },
     part: {
-      badge: "Part · Work on Target",
-      title: "Work on Target",
+      badge: "Part · Teach one skill",
+      title: "Teach one skill",
       text:
         "Use the Story Planner to practice the selected target where help is needed. Let the learner try first. Open help as needed, ask for a retry, then connect the revised idea to the surrounding story."
     },
@@ -756,7 +756,14 @@
       });
       noteLabel.append(note);
       group.append(legend, ratingLabel, noteLabel);
-      comparison.append(group);
+      if (sessionPhase === "tell-again" && phase === "first-tell") {
+        const earlier = document.createElement("details");
+        earlier.className = "earlier-tell-observation";
+        const summary = document.createElement("summary");
+        summary.textContent = `First Tell · ${record[phase].rating || "Unrated"} · view earlier observation`;
+        earlier.append(summary, group);
+        comparison.append(earlier);
+      } else comparison.append(group);
     }
     fields.append(comparison);
     if (sessionPhase === "tell-again") {
