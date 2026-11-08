@@ -668,13 +668,14 @@
       const record = saved?.[target];
       if (!items.some(([id]) => id === record?.item)) continue;
       const entry = { item: record.item };
-      for (const phase of ["first-tell", "tell-again"]) {
+      for (const phase of ["first-tell", "tell-again", "followup"]) {
         const evidence = record[phase];
         entry[phase] = {
           rating: goalRatingOptions.includes(evidence?.rating) ? evidence.rating : "",
           note: typeof evidence?.note === "string" ? evidence.note.slice(0, 500) : ""
         };
       }
+      entry.followup.story = typeof record.followup?.story === "string" ? record.followup.story.slice(0, 1500) : "";
       result[target] = entry;
     }
     return result;
@@ -760,6 +761,48 @@
     fields.append(comparison);
     if (sessionPhase === "tell-again") {
       appendSessionSummary(fields, comparison, target, items.find(([id]) => id === record.item)[1], record);
+      const followup = document.createElement("details");
+      followup.className = "educator-new-story";
+      const title = document.createElement("summary");
+      title.textContent = "Try the same skill in a new story · optional follow-up";
+      const explanation = document.createElement("p");
+      explanation.textContent = "Use a different story to observe the same skill separately. This saves with the working story. For a learner-linked record, enter it while the cycle is active and check the save confirmation. If the earlier cycle is completed, start a new cycle for the later story. Keep the original tells above.";
+      const storyLabel = document.createElement("label");
+      storyLabel.textContent = "New story sample or description · fictional details only";
+      const story = document.createElement("textarea");
+      story.rows = 3;
+      story.maxLength = 1500;
+      story.value = record.followup.story;
+      story.addEventListener("input", () => {
+        record.followup.story = story.value;
+        announceChanged();
+      });
+      storyLabel.append(story);
+      const ratingLabel = document.createElement("label");
+      ratingLabel.textContent = "Same skill in the new story";
+      const rating = document.createElement("select");
+      rating.add(new Option("Unrated", ""));
+      for (const option of goalRatingOptions) rating.add(new Option(option, option));
+      rating.value = record.followup.rating;
+      rating.addEventListener("change", () => {
+        record.followup.rating = rating.value;
+        announceChanged();
+      });
+      ratingLabel.append(rating);
+      const noteLabel = document.createElement("label");
+      noteLabel.textContent = "Evidence and any help given";
+      const note = document.createElement("textarea");
+      note.rows = 2;
+      note.maxLength = 500;
+      note.value = record.followup.note;
+      note.addEventListener("input", () => {
+        record.followup.note = note.value;
+        announceChanged();
+      });
+      noteLabel.append(note);
+      followup.append(title, explanation, storyLabel, ratingLabel, noteLabel);
+      fields.append(followup);
+
     }
   }
 
@@ -887,6 +930,7 @@
       selectedGrammarLevel,
       retryRequested: { ...retryRequested },
       studentReflection,
+      selectedSkill: goalChecklistItems[selectedTarget]?.find(([id]) => id === goalRatings[selectedTarget]?.item)?.[1] || "",
       goalRatings: normalizeGoalRatings(goalRatings),
       givenPrompts: normalizeGivenPrompts(givenPrompts)
     };
@@ -2014,6 +2058,18 @@
   window.FirstVoloInstructionalSupport = Object.freeze({
     getState,
     getPrintGuidance,
+    restoreCycleEvidence(target, evidence) {
+      const snapshot = evidence?.version === 2 ? evidence.skill_snapshot : null;
+      const item = goalChecklistItems[target]?.find(([, label]) => label === snapshot?.skill);
+      const state = getState();
+      const ratings = { ...state.goalRatings };
+      const given = { ...state.givenPrompts };
+      delete ratings[target];
+      given[target] = [];
+      if (item) ratings[target] = { item: item[0], "first-tell": snapshot["first-tell"], "tell-again": snapshot["tell-again"], followup: snapshot.followup };
+      if (snapshot) given[target] = snapshot.given;
+      restoreState({ ...state, target, goalRatings: ratings, givenPrompts: given });
+    },
     restoreState,
     targets: Object.freeze(
       Object.fromEntries(

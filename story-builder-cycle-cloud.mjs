@@ -103,6 +103,35 @@ export function buildPromptProvenance(story = {}) {
 }
 
 export function buildSupportEvidence(instruction = {}) {
+  if (instruction.givenPrompts && typeof instruction.givenPrompts === "object") {
+    const record = instruction.goalRatings?.[instruction.target];
+    const ratings = ["", "Independent", "With support", "Not yet", "Not observed"];
+    const cleanTell = value => ({
+      rating: ratings.includes(value?.rating) ? value.rating : "",
+      note: typeof value?.note === "string" ? value.note.slice(0, 500) : ""
+    });
+    const given = Array.isArray(instruction.givenPrompts[instruction.target])
+      ? [...new Set(instruction.givenPrompts[instruction.target].filter(value => typeof value === "string" && value.length <= 180))].slice(0, 64)
+      : [];
+    return {
+      version: 2,
+      recording_method: "educator_documented",
+      tell_again_planner: instruction.sessionPhase === "tell-again"
+        ? instruction.tellAgainPlannerAvailable === false ? "not_available" : "available"
+        : "not_documented",
+      observations: [],
+      skill_snapshot: {
+        skill: typeof instruction.selectedSkill === "string" ? instruction.selectedSkill.slice(0, 240) : "",
+        "first-tell": cleanTell(record?.["first-tell"]),
+        "tell-again": cleanTell(record?.["tell-again"]),
+        given,
+        followup: {
+          ...cleanTell(record?.followup),
+          story: typeof record?.followup?.story === "string" ? record.followup.story.slice(0, 1500) : ""
+        }
+      }
+    };
+  }
   const levels = instruction?.supportLevels || {};
   const observations = Object.entries(levels)
     .filter(([storyPart, level]) =>
@@ -448,6 +477,11 @@ function createCyclePanel({ coordinator, hintStatus }) {
   status.setAttribute("role", "status");
   status.setAttribute("aria-live", "polite");
   panel.append(intro, status);
+  if (isUuid(coordinator.state.studentId)) {
+    const report = element("a", "cycle-secondary-action", "View this learner’s saved sessions");
+    report.href = `story-builder-progress.html?studentId=${encodeURIComponent(coordinator.state.studentId)}`;
+    panel.append(report);
+  }
 
   if (hintStatus === "invalid") {
     status.textContent = "The student link is invalid. Shared cycle tools are unavailable.";
@@ -581,6 +615,11 @@ function createCyclePanel({ coordinator, hintStatus }) {
       () => coordinator.start(),
       "Student cycle ready. No evidence has been saved yet."
     );
+    if (started?.result_code === "active_cycle_exists") {
+      const savedTarget = runtimeTargetKey(started.cycle?.selected_target_key);
+      if (savedTarget) globalThis.FirstVoloInstructionalSupport?.restoreCycleEvidence?.(savedTarget, started.cycle.support_evidence);
+      return;
+    }
     const target = serverTargetKey(currentInstruction().target);
     if (
       target &&
@@ -593,6 +632,10 @@ function createCyclePanel({ coordinator, hintStatus }) {
         "Student cycle and narrative target ready."
       );
     }
+    if (started?.result_code === "created") {
+      const instruction = currentInstruction();
+      await run(() => coordinator.setContext(buildSupportEvidence(instruction), serverReflectionKey(instruction.studentReflection)), "Ratings and support record saved.");
+    }
   });
   metadata.addEventListener("click", () => {
     const story = currentStory();
@@ -603,6 +646,10 @@ function createCyclePanel({ coordinator, hintStatus }) {
   });
   complete.addEventListener("click", async () => {
     const instruction = currentInstruction();
+    if (serverTargetKey(instruction.target) !== coordinator.state.cycle?.selected_target_key) {
+      status.textContent = "The selected goal does not match this learner cycle. Resolve the goal change before completing it.";
+      return;
+    }
     const contextResult = await run(
       () => coordinator.setContext(
         buildSupportEvidence(instruction),
@@ -610,7 +657,7 @@ function createCyclePanel({ coordinator, hintStatus }) {
       ),
       "Instructional context saved."
     );
-    if (!contextResult || contextResult.result_code === "revision_conflict") return null;
+    if (contextResult?.result_code !== "updated") return null;
     return run(() => coordinator.complete(), "Cycle completed.");
   });
   abandon.addEventListener("click", () => {
@@ -674,10 +721,9 @@ export async function initializeStoryBuilderCycleCloud({
     const result = await coordinator.recover();
     const recoveredTarget = runtimeTargetKey(result.cycle?.selected_target_key);
     if (recoveredTarget) {
-      globalThis.FirstVoloInstructionalSupport?.restoreState?.({
-        ...currentInstruction(),
-        target: recoveredTarget
-      });
+      globalThis.FirstVoloInstructionalSupport?.restoreCycleEvidence?.(
+        recoveredTarget, result.cycle.support_evidence
+      );
     }
     view.render();
     if (result.cycle) {
@@ -727,18 +773,20 @@ export async function initializeStoryBuilderCycleCloud({
       }
     }
 
+    // A declined target change must not attach the new goal's ratings to the old goal.
+    if (target !== coordinator.state.cycle?.selected_target_key) return;
     const reflection = serverReflectionKey(instruction.studentReflection);
     const supportEvidence = buildSupportEvidence(instruction);
     const serializedSupportEvidence = JSON.stringify(supportEvidence);
     if (
       serializedSupportEvidence !== observedSupportEvidence ||
-      (reflection && reflection !== observedReflection)
+      reflection !== observedReflection
     ) {
       const contextResult = await view.run(
         () => coordinator.setContext(supportEvidence, reflection),
         reflection && reflection !== observedReflection
           ? "Student self-reflection saved."
-          : "Instructional support use saved."
+          : "Ratings and support record saved."
       );
       if (contextResult?.result_code === "updated") {
         observedSupportEvidence = serializedSupportEvidence;
@@ -747,7 +795,7 @@ export async function initializeStoryBuilderCycleCloud({
     }
   };
   const handleInstructionalChange = () => {
-    instructionalSaveQueue = instructionalSaveQueue.then(synchronizeInstructionalState);
+    instructionalSaveQueue = instructionalSaveQueue.then(synchronizeInstructionalState).catch(() => {});
   };
   window.addEventListener("firstvolo:instructional-support-changed", handleInstructionalChange);
   activeCycleCleanup = () => {

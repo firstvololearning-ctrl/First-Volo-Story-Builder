@@ -14,3 +14,6 @@
 @media(max-width:900px){.overview-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.evidence-grid{grid-template-columns:1fr}}
 @media(max-width:650px){.site-header,.student-hero{align-items:flex-start;flex-direction:column}.report-shell{width:min(100% - 20px,1180px);margin-top:18px}.student-hero,.report-section{padding:19px}.overview-grid,.support-summary ul{grid-template-columns:repeat(2,minmax(0,1fr))}.cycle-summary{align-items:flex-start;flex-direction:column}}
 @media(max-width:420px){.overview-grid,.support-summary ul{grid-template-columns:1fr}.brand img{width:40px;height:40px}}
+
+.skill-rating-tells{grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:16px}.narrow-table-help{display:none}
+@media(max-width:650px){.skill-rating-tells{grid-template-columns:1fr}.narrow-table-help{display:block;color:var(--muted);font-size:.88rem}}

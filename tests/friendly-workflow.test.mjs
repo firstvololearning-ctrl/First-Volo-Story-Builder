@@ -40,3 +40,17 @@ test('goal ratings restore separately for each tell and reject a skill from anot
   support.restoreState({ target: "elaboration" });
   assert.equal(Object.keys(support.getState().goalRatings).length, 0);
 });
+
+test('recovered learner ratings replace unrelated local ratings and keep the new-story observation separate', () => {
+  const support = runtime().FirstVoloInstructionalSupport;
+  support.restoreState({ target:'cause-effect', goalRatings:{'cause-effect':{item:'cause','first-tell':{rating:'Independent',note:'Unrelated local story'}}} });
+  const skill = support.getState().selectedSkill;
+  support.restoreCycleEvidence('cause-effect', {version:2,skill_snapshot:{skill,'first-tell':{rating:'With support',note:'Saved first tell'},'tell-again':{rating:'Independent',note:'Saved retell'},given:['problem: Look / Listen'],followup:{rating:'Not observed',note:'No opportunity',story:'Different fictional story'}}});
+  const saved = support.getState();
+  assert.equal(saved.goalRatings['cause-effect']['first-tell'].note,'Saved first tell');
+  assert.equal(saved.goalRatings['cause-effect'].followup.story,'Different fictional story');
+  assert.equal(saved.goalRatings['cause-effect']['tell-again'].rating,'Independent');
+  assert.deepEqual(Array.from(saved.givenPrompts['cause-effect']),['problem: Look / Listen']);
+  support.restoreCycleEvidence('cause-effect', {});
+  assert.equal(support.getState().goalRatings['cause-effect'],undefined);
+});

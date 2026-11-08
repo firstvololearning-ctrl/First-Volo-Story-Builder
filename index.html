@@ -26,7 +26,7 @@
   <meta name="twitter:description" content="Build narrative language through learners’ own stories with optional picture ideas, focused questions, model sentences, and a retell.">
 
   <link rel="icon" type="image/png" href="assets/logo/logo.png">
-  <link rel="stylesheet" href="style.css?v=20261105-resource-links">
+  <link rel="stylesheet" href="style.css?v=20261107-followup">
 <link rel="stylesheet" href="account-navigation.css?v=20261027">
 </head>
 
@@ -137,12 +137,18 @@
               <select id="instructionalTarget" class="instructional-target-select">
                 <option value="off">Off</option>
                 <option value="observe-first" selected>Observe First · Choose After First Tell</option>
-                <option value="story-organization">Story Organization</option>
-                <option value="connections-cohesion">Connections &amp; Cohesion</option>
-                <option value="cause-effect">Cause &amp; Effect</option>
-                <option value="sentence-formulation">Sentence Formulation</option>
-                <option value="elaboration">Elaboration</option>
-                <option value="perspective-internal-state">Perspective &amp; Internal State</option>
+                <optgroup label="The story was hard to follow">
+                  <option value="story-organization">Story Organization · story parts and order</option>
+                  <option value="connections-cohesion">Connections &amp; Cohesion · references and time links</option>
+                  <option value="cause-effect">Cause &amp; Effect · reasons and consequences</option>
+                </optgroup>
+                <optgroup label="The idea was hard to put into words">
+                  <option value="sentence-formulation">Sentence Formulation · build or combine</option>
+                </optgroup>
+                <optgroup label="The listener needed more information">
+                  <option value="elaboration">Elaboration · useful details</option>
+                  <option value="perspective-internal-state">Perspective &amp; Internal State · thoughts and feelings</option>
+                </optgroup>
               </select>
               <p class="instructional-target-setting-summary" id="instructionalTargetSettingSummary">
                 Observe the first tell before choosing a target, or select one now if the goal is already known.
@@ -1879,7 +1885,7 @@
     </section>
   </div>
 
-  <script type="module" src="access-gate.mjs?v=20261105-resource-links"></script>
+  <script type="module" src="access-gate.mjs?v=20261107-followup"></script>
 <p style="text-align:center;padding:16px"><a href="https://firstvololearning-ctrl.github.io/First-Volo-Account/privacy-status.html">Privacy protections · September 6, 2026</a></p>
 <script src="index-events.js"></script></body>
 </html>

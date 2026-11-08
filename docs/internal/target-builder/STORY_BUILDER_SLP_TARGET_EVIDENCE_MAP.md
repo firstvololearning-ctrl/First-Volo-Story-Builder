@@ -16,7 +16,7 @@ Current in-app phases:
 
 Story Goal selection is a separate educator control. **Observe First · Choose After First Tell** is the default.
 
-The educator can open **Look / Listen**, **Think**, and **A Clue**. **Sentence Help** and **More Help** offer optional support. The educator can mark prompts actually given and compare ratings for the same skill across First Tell and Tell Again. During Tell Again, targeted help stays closed and the planner may be available for reference.
+The educator can open **Look / Listen**, **Think**, and **A Clue**. **Sentence starters & examples** and **Coaching ideas for educators** offer optional support. The educator can mark prompts actually given and compare ratings for the same skill across First Tell and Tell Again. During Tell Again, targeted help stays closed and the planner may be available for reference.
 
 ## Evidence for specific design decisions
 
@@ -44,7 +44,7 @@ Pico, Spencer & Petersen, and Hessling & Schuele were already listed in the Buil
 
 The wording review keeps the six teaching goals and Whole → Part → Whole. It uses concrete questions and optional help available from the first prompt. Clinicians can use a model before moving through more questions. The learner retries using their own story meaning. Prompts given remain separate from the two learner ratings. No story must end successfully, include a learned lesson, or express a cause the learner did not mean.
 
-The grouped goal picker and a separate in-app new-story record remain design decisions. The guide describes how to gather separate evidence using a new story now.
+The grouped goal picker retains all six goals. A separate optional new-story observation is available after Tell Again; learner reports compare the same skill across up to 50 recent saved cycles. These features are design decisions, not validated measures.
 
 Research informs Story Builder’s teaching approach. The prompts and rating choices are Story Builder design decisions. Use the ratings to describe what you observed for the selected skill during the session. The app’s prompts and ratings require separate evaluation from the named interventions and measures discussed in the sources.
 
@@ -95,7 +95,7 @@ The educator teaching cycle offers six Story Goals. Vocabulary Precision is also
 
 ### Cause & Effect
 
-**Current product construct:** Explain why important events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the character’s attempt.
+**Current product construct:** Explain why important events or feelings occur, how events and intended goals relate to a plan, and what happens because of the character’s attempt.
 
 **Current Student Mode support types:** Question prompt, Connecting words, Sentence starter.
 
@@ -113,7 +113,7 @@ The educator teaching cycle offers six Story Goals. Vocabulary Precision is also
 **Current Story Builder implementation:**
 - Sentence Formulation begins with the student’s intended idea rather than a new clinician-generated sentence.
 - The current built-in reminder is Who? → did what? → what or whom? → where or why?, with story-part sentence starters.
-- The current product does not contain a systematic sentence-combining or advanced syntax hierarchy.
+- Both building a sentence and combining related ideas are available, with relationship and grammatical-support choices. These are flexible supports, not a validated syntax hierarchy.
 
 ### Elaboration
 
@@ -168,9 +168,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Story Organization
 
-**Suggested objective:** The student will organize the important parts of a story into a coherent narrative, including the character/setting, problem and feeling, plan, action/attempt, and resolution as relevant.
+**Suggested objective:** The student will include the story parts the listener needs and arrange them so the story is easy to follow, with support adjusted to the learner.
 
-**At this level:** Use the current Story Builder core episode structure with concrete, visible relationships among character/setting, problem/feeling, plan, attempt, and resolution. Support may be explicit while the student learns to reconnect repaired parts to the whole story.
+**At this level:** Choose the story part or event-order problem that affects understanding. Include character, setting, problem, plan, attempt and outcome as relevant; do not require every part in every story. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Younger elementary narrative-intervention evidence supports explicit attention to story structure within complete narratives, with visual/verbal scaffolds and repeated opportunities to produce or reconstruct stories. This supports Story Builder's current core organization target; it does not establish one required story template for every child.
 
@@ -184,9 +184,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Connections & Cohesion
 
-**Suggested objective:** The student will connect story ideas and events using clear relationships, sequencing, connectors, and referents so the listener can follow the narrative.
+**Suggested objective:** The student will make references clear and express how events fit in time, with support adjusted to the learner.
 
-**At this level:** Emphasize clear nearby relationships among story ideas using the current connector and sentence-support options. The current product can flag unclear referents, but it does not provide a dedicated pronoun-repair module.
+**At this level:** Work on a clear reference or time link when the learner knows the events but the listener cannot identify who, what or when. Keep event-order repair under Story Organization. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Narrative-intervention research and clinical guidance support helping younger students make relationships among story events and ideas clearer. The evidence is broader than Story Builder's exact connector/referent prompts, so the rationale supports the target without claiming that the current cohesion support sequence itself has been validated.
 
@@ -200,9 +200,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Cause & Effect
 
-**Suggested objective:** The student will explain why important events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the character’s attempt.
+**Suggested objective:** The student will explain a reason or consequence supported by the story, with support adjusted to the learner.
 
-**At this level:** Emphasize the current supported relationships: problem/event → feeling, problem/feeling → plan, plan → attempt, and attempt → outcome/resolution. Keep the focus on one relationship at a time when needed.
+**At this level:** Explore a reason, purpose, or consequence supported by this story. Distinguish cause from sequence; a feeling need not cause a plan, and an attempt need not succeed. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** School-age narrative intervention includes work on causal relationships among events, feelings, plans, actions, and outcomes. This supports Story Builder's current cause-and-effect target; it does not justify adding unsupported multi-step or counterfactual causal demands.
 
@@ -216,11 +216,11 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Sentence Formulation
 
-**Suggested objective:** The student will turn an intended story idea into a complete, organized spoken or written sentence.
+**Suggested objective:** The student will express a complete sentence or combine related ideas while preserving the intended meaning, with support adjusted to the learner.
 
-**At this level:** Emphasize expressing one intended story idea in a complete, organized sentence using oral rehearsal, the current sentence reminder, and story-part sentence starters when needed.
+**At this level:** Use either a complete sentence for one intended idea or combine related ideas with an appropriate relationship. Preserve meaning and adjust grammatical support to the learner. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
-**Research synthesis:** Narrative intervention can address the language used to express story ideas within connected discourse. Direct evidence for Story Builder's exact one-main-idea/sentence-starter sequence is limited, so the research supports sentence formulation as a narrative-language target rather than proving the current support sequence.
+**Research synthesis:** Narrative intervention can address the language used to express story ideas within connected discourse. Direct evidence for Story Builder's exact build-or-combine sentence-support choices is limited, so the research supports sentence formulation as a narrative-language target rather than proving the current support sequence.
 
 **Product/evidence status:** Product-grounded and claim-bounded; final source-by-source full-text evidence verification pending.
 
@@ -232,9 +232,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Elaboration
 
-**Suggested objective:** The student will add useful information that clarifies or develops an important story idea or event.
+**Suggested objective:** The student will add a specific detail that helps the listener picture or understand a story event, with support adjusted to the learner.
 
-**At this level:** Emphasize adding one useful detail that clarifies or develops the selected story part. Relevance matters more than quantity.
+**At this level:** Choose a detail that helps the listener picture or understand this story. Relevance matters more than quantity. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Narrative intervention supports developing important story information with relevant detail. This is consistent with Story Builder's current emphasis on adding one useful detail to a selected story part rather than simply making the narrative longer.
 
@@ -248,9 +248,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Perspective & Internal State
 
-**Suggested objective:** The student will explain what a character feels, thinks, knows, wants, expects, wonders, or intends and connect that information to story events when appropriate.
+**Suggested objective:** The student will express a relevant character thought, feeling, knowledge, or goal using story details when an inference is made, with support adjusted to the learner.
 
-**At this level:** Emphasize basic character feelings, thoughts, knowledge, wants, expectations, or intentions and their relationship to the current story event.
+**At this level:** Choose a relevant feeling, thought, belief, knowledge or intention. Allow possible interpretations supported by story details and distinguish thinking from planning. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** School-age narrative intervention supports attention to mental/internal-state language as part of explaining characters and story events. This supports Story Builder's current internal-state target without implying advanced perspective modules that are not in the product.
 
@@ -282,9 +282,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Story Organization
 
-**Suggested objective:** The student will organize the important story functions into a coherent narrative and make the relationships among the problem/feeling, plan, action/attempt, and resolution increasingly clear.
+**Suggested objective:** The student will include the story parts the listener needs and arrange them so the story is easy to follow, with increasing precision and support adjusted to the learner.
 
-**At this level:** Use the same current Story Builder episode structure while expecting clearer integration among problem/feeling, plan, attempt, and resolution and less support for maintaining the whole sequence.
+**At this level:** Choose the story part or event-order problem that affects understanding. Include character, setting, problem, plan, attempt and outcome as relevant; do not require every part in every story. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** School-age narrative-intervention evidence supports explicit story-structure work, repeated narrative production, and reconstruction with support fading. This supports continued work on Story Builder's existing core episode structure with increasing independence.
 
@@ -298,9 +298,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Connections & Cohesion
 
-**Suggested objective:** The student will connect story ideas and events consistently using clear relationships, sequencing, connectors, and referents.
+**Suggested objective:** The student will make references clear and express how events fit in time, with increasing precision and support adjusted to the learner.
 
-**At this level:** Use the current prompts/connectors with increasing consistency across the story. Do not imply a separate long-discourse cohesion curriculum beyond the supports actually present.
+**At this level:** Work on a clear reference or time link when the learner knows the events but the listener cannot identify who, what or when. Keep event-order repair under Story Organization. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Later-elementary discourse and narrative-intervention evidence supports improving how story ideas and events are connected for a listener. This is consistent with Story Builder's current relationship, sequencing, connector, and referent target, while direct evidence for each specific built-in prompt remains limited.
 
@@ -314,9 +314,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Cause & Effect
 
-**Suggested objective:** The student will make important causal relationships explicit by explaining why events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the attempt.
+**Suggested objective:** The student will explain a reason or consequence supported by the story, with increasing precision and support adjusted to the learner.
 
-**At this level:** Expect clearer and more independent explanation of the current supported causal relationships across problem, feeling, plan, attempt, and resolution. Do not imply a separate multi-step causal-chain module.
+**At this level:** Explore a reason, purpose, or consequence supported by this story. Distinguish cause from sequence; a feeling need not cause a plan, and an attempt need not succeed. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** School-age narrative intervention supports making causal relationships among events, motivations, actions, and consequences explicit. This supports Story Builder's current cause-and-effect relationships without requiring a separate advanced causal-chain curriculum.
 
@@ -330,11 +330,11 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Sentence Formulation
 
-**Suggested objective:** The student will formulate complete, organized spoken or written sentences that preserve and clearly express the intended narrative idea.
+**Suggested objective:** The student will express a complete sentence or combine related ideas while preserving the intended meaning, with increasing precision and support adjusted to the learner.
 
-**At this level:** Expect clearer, more independent formulation of the student's intended sentence using the current one-main-idea reminder and sentence starters as needed. Story Builder does not currently provide a systematic sentence-combining progression.
+**At this level:** Use either a complete sentence for one intended idea or combine related ideas with an appropriate relationship. Preserve meaning and adjust grammatical support to the learner. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
-**Research synthesis:** Narrative-intervention guidance supports working on clear language formulation within complete narratives. Story Builder's current Sentence Formulation support focuses on one intended idea and a complete organized sentence; it should not be represented as a validated sentence-combining curriculum.
+**Research synthesis:** Narrative-intervention guidance supports working on clear language formulation within complete narratives. Story Builder offers building a sentence or combining related ideas while preserving meaning. These flexible supports should not be represented as a validated sentence-combining curriculum.
 
 **Product/evidence status:** Product-grounded and claim-bounded; final source-by-source full-text evidence verification pending.
 
@@ -346,9 +346,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Elaboration
 
-**Suggested objective:** The student will select and add useful information that clarifies or develops important story ideas or events without adding unrelated detail.
+**Suggested objective:** The student will add a specific detail that helps the listener picture or understand a story event, with increasing precision and support adjusted to the learner.
 
-**At this level:** Expect students to choose details that are useful for understanding the selected story part and to avoid unrelated additions, with reduced prompting.
+**At this level:** Choose a detail that helps the listener picture or understand this story. Relevance matters more than quantity. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Narrative intervention supports developing important story content with relevant information. This aligns with Story Builder's current useful-detail prompts and the distinction between relevant elaboration and unrelated extra information.
 
@@ -362,9 +362,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Perspective & Internal State
 
-**Suggested objective:** The student will explain relevant character thoughts, feelings, knowledge, wants, expectations, wonders, or intentions and connect them to story events and actions.
+**Suggested objective:** The student will express a relevant character thought, feeling, knowledge, or goal using story details when an inference is made, with increasing precision and support adjusted to the learner.
 
-**At this level:** Expect more explicit links between relevant internal states and what the character does or experiences, using the current mental-state prompts/word supports.
+**At this level:** Choose a relevant feeling, thought, belief, knowledge or intention. Allow possible interpretations supported by story details and distinguish thinking from planning. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** School-age narrative intervention supports causal and mental-state language that helps explain character actions and events. This supports Story Builder's current internal-state prompts while exact grade-specific cutoffs and advanced perspective demands remain uncertain.
 
@@ -396,9 +396,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Story Organization
 
-**Suggested objective:** The student will independently organize and connect the important story functions into a coherent narrative using the Story Builder episode structure as appropriate.
+**Suggested objective:** The student will include the story parts the listener needs and arrange them so the story is easy to follow, with increasing precision and independence as appropriate.
 
-**At this level:** Increase independence and coherence within Story Builder's current core episode architecture. The current product does not teach advanced multi-episode plot structure as a separate module.
+**At this level:** Choose the story part or event-order problem that affects understanding. Include character, setting, problem, plan, attempt and outcome as relevant; do not require every part in every story. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Secondary and later-school-age discourse-intervention evidence supports continued narrative intervention beyond the early elementary grades. This supports using Story Builder's existing organization target with greater independence, not adding advanced plot architecture that the product does not currently teach.
 
@@ -412,9 +412,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Connections & Cohesion
 
-**Suggested objective:** The student will maintain clear relationships among story ideas and events using sequencing, connectors, and clear referents with decreasing support.
+**Suggested objective:** The student will make references clear and express how events fit in time, with increasing precision and independence as appropriate.
 
-**At this level:** Increase independence in making story relationships, sequencing, connectors, and referents clear across the complete Story Builder narrative. The product does not currently provide systematic advanced cohesion instruction.
+**At this level:** Work on a clear reference or time link when the learner knows the events but the listener cannot identify who, what or when. Keep event-order repair under Story Organization. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Later-school-age discourse intervention supports continued work on connected narrative language and coherence. This supports Story Builder's current cohesion target, while the product does not claim a comprehensive advanced cohesion curriculum.
 
@@ -428,9 +428,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Cause & Effect
 
-**Suggested objective:** The student will explain the important causal relationships supported by the story, including why events or feelings occur and how plans, attempts, and outcomes relate, with decreasing support.
+**Suggested objective:** The student will explain a reason or consequence supported by the story, with increasing precision and independence as appropriate.
 
-**At this level:** Increase independence and precision in explaining the causal relationships that Story Builder already targets. Do not extend the objective to competing causes, counterfactuals, or a dedicated multi-step causal-chain curriculum.
+**At this level:** Explore a reason, purpose, or consequence supported by this story. Distinguish cause from sequence; a feeling need not cause a plan, and an attempt need not succeed. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Later-school-age narrative/discourse evidence supports work on causal coherence and relationships among motivations, actions, and outcomes. This supports Story Builder's current cause-and-effect target; more advanced causal reasoning should not be implied unless the product adds such supports.
 
@@ -444,9 +444,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Sentence Formulation
 
-**Suggested objective:** The student will formulate clear, complete, organized spoken or written narrative sentences that preserve the intended idea with decreasing support.
+**Suggested objective:** The student will express a complete sentence or combine related ideas while preserving the intended meaning, with increasing precision and independence as appropriate.
 
-**At this level:** Increase independence in formulating clear, complete narrative sentences that preserve the intended idea. The current product does not contain a comprehensive older-student syntax or sentence-combining hierarchy.
+**At this level:** Use either a complete sentence for one intended idea or combine related ideas with an appropriate relationship. Preserve meaning and adjust grammatical support to the learner. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Older students can continue to receive narrative/discourse intervention addressing language formulation. Story Builder currently targets clear complete narrative sentences, not a comprehensive older-student syntax or sentence-combining program.
 
@@ -460,9 +460,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Elaboration
 
-**Suggested objective:** The student will independently select useful, listener-relevant information that clarifies or develops important story ideas or events.
+**Suggested objective:** The student will add a specific detail that helps the listener picture or understand a story event, with increasing precision and independence as appropriate.
 
-**At this level:** Increase independence in selecting useful details that clarify/develop the story. Story Builder does not currently teach dialogue, pacing, reflection, or literary craft as dedicated targets.
+**At this level:** Choose a detail that helps the listener picture or understand this story. Relevance matters more than quantity. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** Older students may continue to benefit from narrative intervention, but the evidence does not require literary-craft instruction as a clinical target. Story Builder's current elaboration target remains useful, listener-relevant information tied to the story.
 
@@ -476,9 +476,9 @@ Direct standards may be empty. The current builder treats verified CCSS narrativ
 
 #### Perspective & Internal State
 
-**Suggested objective:** The student will explain relevant character internal states and connect them to story events/actions with increasing specificity and independence.
+**Suggested objective:** The student will express a relevant character thought, feeling, knowledge, or goal using story details when an inference is made, with increasing precision and independence as appropriate.
 
-**At this level:** Increase independence and specificity in explaining internal states across the current story parts. Do not imply a dedicated two-character comparison, false-belief, or perspective-change curriculum.
+**At this level:** Choose a relevant feeling, thought, belief, knowledge or intention. Allow possible interpretations supported by story details and distinguish thinking from planning. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.
 
 **Research synthesis:** School-age narrative/discourse evidence supports work with internal-state and mental-state language. This supports Story Builder's current character-focused prompts without implying a dedicated multi-character perspective or false-belief curriculum.
 

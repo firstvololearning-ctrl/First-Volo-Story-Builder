@@ -36,7 +36,7 @@
         "Uses same-demand Retry after support.",
         "Reconnects the repaired story part to the whole story during Tell Again."
       ],
-      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence starters & examples (optional)", "Coaching ideas for educators (optional)", "Same-demand Retry and reconnection"]
     },
     "cohesion": {
       "label": "Connections & Cohesion",
@@ -66,7 +66,7 @@
         "Uses same-demand Retry after support.",
         "Reconnects clearer relationships to the whole story during Tell Again."
       ],
-      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence starters & examples (optional)", "Coaching ideas for educators (optional)", "Same-demand Retry and reconnection"]
     },
     "cause": {
       "label": "Cause & Effect",
@@ -96,7 +96,7 @@
         "Uses same-demand Retry after support.",
         "Reconnects the clarified cause-and-effect relationship to the whole story during Tell Again."
       ],
-      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence starters & examples (optional)", "Coaching ideas for educators (optional)", "Same-demand Retry and reconnection"]
     },
     "sentence": {
       "label": "Sentence Formulation",
@@ -122,11 +122,11 @@
       ],
       "in_story_builder": [
         "Uses the student’s own intended story idea.",
-        "Provides two formulation pathways, an intended-relationship menu, a grammatical-support dropdown and optional Sentence Help / More Help.",
+        "Provides two formulation pathways, an intended-relationship menu, a grammatical-support dropdown and optional sentence starters, examples and educator coaching.",
         "Uses same-demand Retry after support.",
         "Reconnects the clearer sentence to the whole story during Tell Again."
       ],
-      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence starters & examples (optional)", "Coaching ideas for educators (optional)", "Same-demand Retry and reconnection"]
     },
     "elaboration": {
       "label": "Elaboration",
@@ -156,7 +156,7 @@
         "Uses same-demand Retry after support.",
         "Reconnects the elaborated idea to the whole story during Tell Again."
       ],
-      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence starters & examples (optional)", "Coaching ideas for educators (optional)", "Same-demand Retry and reconnection"]
     },
     "perspective": {
       "label": "Perspective & Internal State",
@@ -186,59 +186,59 @@
         "Uses same-demand Retry after support.",
         "Reconnects the character’s internal state to the whole story during Tell Again."
       ],
-      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence Help (optional)", "More Help (optional)", "Same-demand Retry and reconnection"]
+      "built_in_supports": ["Three prompts: Look / Listen, Think, A Clue", "Sentence starters & examples (optional)", "Coaching ideas for educators (optional)", "Same-demand Retry and reconnection"]
     }
   },
   "objectives": {
     "2-3": {
-      "organization": "The student will organize the important parts of a story into a coherent narrative, including the character/setting, problem and feeling, plan, action/attempt, and resolution as relevant.",
-      "cohesion": "The student will connect story ideas and events using clear relationships, sequencing, connectors, and referents so the listener can follow the narrative.",
-      "cause": "The student will explain relevant cause, reason or result relationships supported by the story.",
-      "sentence": "The student will turn an intended story idea into a complete, organized spoken or written sentence.",
-      "elaboration": "The student will add useful information that clarifies or develops an important story idea or event.",
-      "perspective": "The student will explain what a character feels, thinks, knows, wants, expects, wonders, or intends and connect that information to story events when appropriate."
+      "organization": "The student will include the story parts the listener needs and arrange them so the story is easy to follow, with support adjusted to the learner.",
+      "cohesion": "The student will make references clear and express how events fit in time, with support adjusted to the learner.",
+      "cause": "The student will explain a reason or consequence supported by the story, with support adjusted to the learner.",
+      "sentence": "The student will express a complete sentence or combine related ideas while preserving the intended meaning, with support adjusted to the learner.",
+      "elaboration": "The student will add a specific detail that helps the listener picture or understand a story event, with support adjusted to the learner.",
+      "perspective": "The student will express a relevant character thought, feeling, knowledge, or goal using story details when an inference is made, with support adjusted to the learner."
     },
     "4-5": {
-      "organization": "The student will organize the important story functions into a coherent narrative and make the relationships among the problem/feeling, plan, action/attempt, and resolution increasingly clear.",
-      "cohesion": "The student will connect story ideas and events consistently using clear relationships, sequencing, connectors, and referents.",
-      "cause": "The student will make important causal relationships explicit by explaining why events or feelings occur, how the problem and feeling lead to a plan, and what happens because of the attempt.",
-      "sentence": "The student will formulate complete, organized spoken or written sentences that preserve and clearly express the intended narrative idea.",
-      "elaboration": "The student will select and add useful information that clarifies or develops important story ideas or events without adding unrelated detail.",
-      "perspective": "The student will explain relevant character thoughts, feelings, knowledge, wants, expectations, wonders, or intentions and connect them to story events and actions."
+      "organization": "The student will include the story parts the listener needs and arrange them so the story is easy to follow, with increasing precision and support adjusted to the learner.",
+      "cohesion": "The student will make references clear and express how events fit in time, with increasing precision and support adjusted to the learner.",
+      "cause": "The student will explain a reason or consequence supported by the story, with increasing precision and support adjusted to the learner.",
+      "sentence": "The student will express a complete sentence or combine related ideas while preserving the intended meaning, with increasing precision and support adjusted to the learner.",
+      "elaboration": "The student will add a specific detail that helps the listener picture or understand a story event, with increasing precision and support adjusted to the learner.",
+      "perspective": "The student will express a relevant character thought, feeling, knowledge, or goal using story details when an inference is made, with increasing precision and support adjusted to the learner."
     },
     "6-8": {
-      "organization": "The student will independently organize and connect important story functions into a coherent narrative with decreasing support.",
-      "cohesion": "The student will maintain clear relationships among story ideas and events using sequencing, connectors, and clear referents with decreasing support.",
-      "cause": "The student will explain the important causal relationships supported by the story, including why events or feelings occur and how plans, attempts, and outcomes relate, with decreasing support.",
-      "sentence": "The student will formulate clear, complete, organized spoken or written narrative sentences that preserve the intended idea with decreasing support.",
-      "elaboration": "The student will independently select useful, listener-relevant information that clarifies or develops important story ideas or events.",
-      "perspective": "The student will explain relevant character internal states and connect them to story events/actions with increasing specificity and independence."
+      "organization": "The student will include the story parts the listener needs and arrange them so the story is easy to follow, with increasing precision and independence as appropriate.",
+      "cohesion": "The student will make references clear and express how events fit in time, with increasing precision and independence as appropriate.",
+      "cause": "The student will explain a reason or consequence supported by the story, with increasing precision and independence as appropriate.",
+      "sentence": "The student will express a complete sentence or combine related ideas while preserving the intended meaning, with increasing precision and independence as appropriate.",
+      "elaboration": "The student will add a specific detail that helps the listener picture or understand a story event, with increasing precision and independence as appropriate.",
+      "perspective": "The student will express a relevant character thought, feeling, knowledge, or goal using story details when an inference is made, with increasing precision and independence as appropriate."
     }
   },
   "developmental": {
     "2-3": {
-      "organization": "Emphasize concrete, visible relationships among character/setting, problem/feeling, plan, attempt, and resolution. Support may be explicit while the student learns to reconnect repaired parts to the whole story.",
-      "cohesion": "Emphasize clear nearby relationships among story ideas using connector and sentence-support options as needed.",
-      "cause": "Explore one relationship supported by the story at a time. Do not assume a feeling causes a plan or an attempt succeeds; distinguish cause, purpose and sequence.",
-      "sentence": "Emphasize expressing one intended story idea in a complete, organized sentence using oral rehearsal, the current sentence reminder, and story-part sentence starters when needed.",
-      "elaboration": "Emphasize adding one useful detail that clarifies or develops the selected story part. Relevance matters more than quantity.",
-      "perspective": "Emphasize basic character feelings, thoughts, knowledge, wants, expectations, or intentions and their relationship to the current story event."
+      "organization": "Choose the story part or event-order problem that affects understanding. Include character, setting, problem, plan, attempt and outcome as relevant; do not require every part in every story. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "cohesion": "Work on a clear reference or time link when the learner knows the events but the listener cannot identify who, what or when. Keep event-order repair under Story Organization. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "cause": "Explore a reason, purpose, or consequence supported by this story. Distinguish cause from sequence; a feeling need not cause a plan, and an attempt need not succeed. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "sentence": "Use either a complete sentence for one intended idea or combine related ideas with an appropriate relationship. Preserve meaning and adjust grammatical support to the learner. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "elaboration": "Choose a detail that helps the listener picture or understand this story. Relevance matters more than quantity. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "perspective": "Choose a relevant feeling, thought, belief, knowledge or intention. Allow possible interpretations supported by story details and distinguish thinking from planning. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone."
     },
     "4-5": {
-      "organization": "Expect clearer integration among problem/feeling, plan, attempt, and resolution, with less support for maintaining the whole sequence.",
-      "cohesion": "Expect increasingly consistent use of sequencing, connectors, and clear referents across the story.",
-      "cause": "Expect clearer and more independent explanation of causal relationships across problem, feeling, plan, attempt, and resolution.",
-      "sentence": "Expect clearer, more independent formulation of the student’s intended sentence using the one-main-idea reminder and sentence starters as needed.",
-      "elaboration": "Expect students to choose details that are useful for understanding the selected story part and to avoid unrelated additions, with reduced prompting.",
-      "perspective": "Expect more explicit links between relevant internal states and what the character does or experiences, using the current mental-state prompts/word supports."
+      "organization": "Choose the story part or event-order problem that affects understanding. Include character, setting, problem, plan, attempt and outcome as relevant; do not require every part in every story. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "cohesion": "Work on a clear reference or time link when the learner knows the events but the listener cannot identify who, what or when. Keep event-order repair under Story Organization. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "cause": "Explore a reason, purpose, or consequence supported by this story. Distinguish cause from sequence; a feeling need not cause a plan, and an attempt need not succeed. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "sentence": "Use either a complete sentence for one intended idea or combine related ideas with an appropriate relationship. Preserve meaning and adjust grammatical support to the learner. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "elaboration": "Choose a detail that helps the listener picture or understand this story. Relevance matters more than quantity. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "perspective": "Choose a relevant feeling, thought, belief, knowledge or intention. Allow possible interpretations supported by story details and distinguish thinking from planning. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone."
     },
     "6-8": {
-      "organization": "Increase independence and coherence while working with the core story relationships supported in Story Builder.",
-      "cohesion": "Increase independence in making story relationships, sequencing, connectors, and referents clear across the complete narrative.",
-      "cause": "Increase independence and precision in explaining causal relationships among problems, feelings, plans, attempts, and outcomes.",
-      "sentence": "Increase independence in formulating clear, complete narrative sentences that preserve the intended idea.",
-      "elaboration": "Increase independence in selecting useful details that clarify or develop important story ideas.",
-      "perspective": "Increase independence and specificity in explaining internal states across the core story parts."
+      "organization": "Choose the story part or event-order problem that affects understanding. Include character, setting, problem, plan, attempt and outcome as relevant; do not require every part in every story. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "cohesion": "Work on a clear reference or time link when the learner knows the events but the listener cannot identify who, what or when. Keep event-order repair under Story Organization. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "cause": "Explore a reason, purpose, or consequence supported by this story. Distinguish cause from sequence; a feeling need not cause a plan, and an attempt need not succeed. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "sentence": "Use either a complete sentence for one intended idea or combine related ideas with an appropriate relationship. Preserve meaning and adjust grammatical support to the learner. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "elaboration": "Choose a detail that helps the listener picture or understand this story. Relevance matters more than quantity. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone.",
+      "perspective": "Choose a relevant feeling, thought, belief, knowledge or intention. Allow possible interpretations supported by story details and distinguish thinking from planning. This grade band is a planning guide; select complexity and support from the learner’s story, not grade alone."
     }
   },
   "standards": {
@@ -516,7 +516,7 @@
         "requiredLimitation": "Do not present this mapping as direct efficacy evidence for First Volo Story Builder, a hard developmental grade cutoff, or evidence for product features that are not currently implemented."
       },
       "sentence": {
-        "research": "Narrative intervention can address the language used to express story ideas within connected discourse. Direct evidence for Story Builder's exact one-main-idea/sentence-starter sequence is limited, so the research supports sentence formulation as a narrative-language target rather than proving the current support sequence.",
+        "research": "Narrative intervention can address the language used to express story ideas within connected discourse. Direct evidence for Story Builder's exact build-or-combine sentence-support choices is limited, so the research supports sentence formulation as a narrative-language target rather than proving the current support sequence.",
         "sourceIds": [
           "spencer2020",
           "pico2021",
@@ -586,7 +586,7 @@
         "requiredLimitation": "Do not present this mapping as direct efficacy evidence for First Volo Story Builder, a hard developmental grade cutoff, or evidence for product features that are not currently implemented."
       },
       "sentence": {
-        "research": "Narrative-intervention guidance supports working on clear language formulation within complete narratives. Story Builder's current Sentence Formulation support focuses on one intended idea and a complete organized sentence; it should not be represented as a validated sentence-combining curriculum.",
+        "research": "Narrative-intervention guidance supports working on clear language formulation within complete narratives. Story Builder offers building a sentence or combining related ideas while preserving meaning. These flexible supports should not be represented as a validated sentence-combining curriculum.",
         "sourceIds": [
           "spencer2020",
           "peterson2020",

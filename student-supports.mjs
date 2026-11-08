@@ -1,4 +1,4 @@
-import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261105-resource-links";
+import { supabase, getCurrentAccess } from "./access-gate.mjs?v=20261107-followup";
 import { STUDENT_SUPPORTS, STUDENT_SUPPORT_TARGET_KEYS, supportOptionsForTarget } from "./student-support-content.mjs";
 
 let panel = null;
